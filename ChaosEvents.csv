@@ -1,0 +1,48 @@
+Name                           |Allowed Entity Type |Required Traits |Required Aspects |Influential Traits |Influential Aspects |Openness |Conscientiousness |Extroversion |Agreeableness |Neuroticism
+Creature Groups                
+                               
+*thieves emerge                |CreatureGroup       |1000_corporeal  |                 |-100_thief         |value               |         |                  |             |              |           
+*_ignore the problem           |                    |                |                 |                   |                    |      70 |               60 |          40 |           80 |         20
+*_send in solders              |                    |                |                 |                   |                    |      40 |               40 |          70 |           20 |         60
+*_pay off the thieves          |                    |                |                 |                   |                    |      70 |               70 |          40 |           80 |         40
+*_form a thieves guild         |                    |                |                 |                   |                    |      90 |               20 |          70 |           50 |         10
+                               
+                               
+*visitors from afar            |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+*_send them away               |                    |                |                 |                   |                    |      70 |               60 |          40 |           80 |         20
+*_take their goods             |                    |                |                 |                   |                    |      40 |               40 |          70 |           20 |         60
+*_welcome them with open arms  |                    |                |                 |                   |                    |      70 |               70 |          40 |           80 |         40
+*_attack them                  |                    |                |                 |                   |                    |      90 |               20 |          70 |           50 |         10
+                               
+                               
+*rampant fires                 |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+*found strange stones          |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+*formation of the gangs        |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+*living under a volcano        |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+                               
+                               
+                               
+food shortage                  |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+_exile the weak                |                    |                |                 |                   |                    |      70 |               20 |          50 |           20 |         70
+_trade with the local tribes   |                    |                |                 |                   |                    |      70 |               50 |          80 |           70 |         30
+_scavenge for resources        |                    |                |                 |                   |                    |      70 |               60 |          60 |           50 |         40
+_ration the remaining supplies |                    |                |                 |                   |                    |      40 |               60 |          40 |           60 |         60
+                               
+good harvest                   |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+_hold a feast                  |                    |                |                 |                   |                    |      50 |               40 |          60 |           60 |         45
+_stockpile for later           |                    |                |                 |                   |                    |      40 |               60 |          50 |           40 |         55
+_sell the extra                |                    |                |                 |                   |                    |      50 |               40 |          60 |           60 |         40
+_sacrifice to the gods         |                    |                |                 |                   |                    |      60 |               50 |          60 |           55 |         50
+                               
+heavy storms                   |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+_build shelter                 |                    |                |                 |                   |                    |      50 |               70 |          50 |           60 |         60
+_capture the water             |                    |                |                 |                   |                    |      50 |               70 |          50 |           65 |         45
+_take refuge in the mountains  |                    |                |                 |                   |                    |      60 |               60 |          40 |           50 |         65
+_take refuge in the forest     |                    |                |                 |                   |                    |      60 |               50 |          60 |           50 |         65
+                               
+outbreak of disease            |CreatureGroup       |                |                 |                   |                    |         |                  |             |              |           
+_send away the sick            |                    |                |                 |                   |                    |      60 |               30 |          50 |           30 |         70
+_care for the sick             |                    |                |                 |                   |                    |      50 |               65 |          60 |           65 |         50
+_seek new cures                |                    |                |                 |                   |                    |      70 |               50 |          65 |           40 |         40
+_sacrificial rituals           |                    |                |                 |                   |                    |      70 |               20 |          70 |           20 |         60
+

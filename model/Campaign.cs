@@ -1,0 +1,7 @@
+namespace WarClub
+{
+  class Campaign
+  {
+    
+  }
+}

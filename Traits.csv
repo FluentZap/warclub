@@ -1,0 +1,477 @@
+Name                      |Types         |Aspects
+                          
+                          
+The Inquisition           |minor faction |
+Officio Assassinorum      |minor faction |
+Adeptus Custodes          |minor faction |
+Adepta Sororitas          |minor faction |
+Adeptus Astra Telepathica |minor faction |
+                          
+Adepta Sororitas          |faction       |
+Blood Angels              |faction       |
+Dark Angels               |faction       |
+Deathwatch                |faction       |
+Grey Knights              |faction       |
+Space Marines             |faction       |
+Space Wolves              |faction       |
+Adeptus Custodes          |faction       |
+Adeptus Mechanicus        |faction       |
+Aeldari                   |faction       |
+Astra Militarum           |faction       |
+Chaos Daemons             |faction       |
+Chaos Knights             |faction       |
+Drukhari                  |faction       |
+Chaos Space Marines       |faction       |
+Death Guard               |faction       |
+Thousand Sons             |faction       |
+Genestealer Cults         |faction       |
+Harlequins                |faction       |
+Imperial Knights          |faction       |
+Necrons                   |faction       |
+Orks                      |faction       |
+T’au                      |faction       |
+Tyranids                  |faction       |
+                          
+creature                  |physical      |soul
+corporeal                 |physical      |body, storage, laborer
+nomadic                   |ability       |mobile
+settlement                |ability       |
+                          
+                          
+bogs                      |location      |
+fire storms               |location      |
+ice formations            |location      |
+strong winds              |location      |
+sand dunes                |location      |
+enchanted trees           |location      |
+giant mushrooms           |location      |
+lightning storms          |location      |
+strange flowers           |location      |
+life springs              |location      |
+magma flows               |location      |
+crystal formations        |location      |
+mineral rich              |location      |
+                          
+                          
+fertile soil              |location      |
+rare stones               |location      |
+ironwood                  |location      |
+natural pigments          |location      |
+                          
+mutation pools            |location      |
+harmonic vibrations       |location      |
+magical nexus             |location      |
+                          
+                          
+reptilian                 |species       |
+amphibian                 |species       |
+avian                     |species       |
+humanoid                  |species       |
+elvin                     |species       |
+dwarven                   |species       |
+entish                    |species       |
+goblinoid                 |species       |
+orcish                    |species       |
+gnomish                   |species       |
+dragon kin                |species       |
+troll kin                 |species       |
+fae                       |species       |
+                          
+air                       |domain        |good, openness
+altruism                  |domain        |good, agreeableness
+angels                    |domain        |good, agreeableness, -neuroticism
+benevolence               |domain        |good, agreeableness
+blessings                 |domain        |good, agreeableness
+charity                   |domain        |good, agreeableness
+comfort                   |domain        |good, conscientiousness
+community                 |domain        |good, extroversion, agreeableness
+companionship             |domain        |good, extroversion, agreeableness
+compassion                |domain        |good, agreeableness
+conscience                |domain        |good, conscientiousness
+consecration              |domain        |good, conscientiousness
+contentment               |domain        |good, -neuroticism, conscientiousness
+contrition                |domain        |good, neuroticism, agreeableness
+cooperation               |domain        |good, extroversion, agreeableness
+courtship                 |domain        |good, extroversion
+creation                  |domain        |good, openness
+dawn                      |domain        |good, openness, agreeableness
+day                       |domain        |good, -neuroticism
+decency                   |domain        |good, agreeableness
+determination             |domain        |good, conscientiousness
+devotion                  |domain        |good, conscientiousness, neuroticism
+empathy                   |domain        |good, neuroticism, agreeableness
+equality                  |domain        |good, conscientiousness
+excellence                |domain        |good, conscientiousness, neuroticism
+faithfulness              |domain        |good, conscientiousness, neuroticism
+fertility                 |domain        |good, openness, extroversion
+fidelity                  |domain        |good, conscientiousness
+forgiveness               |domain        |good, agreeableness, -neuroticism
+friendship                |domain        |good, extroversion
+generosity                |domain        |good, openness, extroversion
+glory                     |domain        |good, -agreeableness, extroversion
+good                      |domain        |good, agreeableness
+good fortune              |domain        |good, agreeableness
+grace                     |domain        |good, agreeableness
+healing                   |domain        |good, agreeableness
+heroism                   |domain        |good, openness, extroversion, -neuroticism
+home                      |domain        |good, conscientiousness, agreeableness
+hope                      |domain        |good, extroversion, -neuroticism
+hospitality               |domain        |good, openness, extroversion
+humility                  |domain        |good, -extroversion, conscientiousness
+joy                       |domain        |good, extroversion
+kindness                  |domain        |good, extroversion, conscientiousness
+legends                   |domain        |good, extroversion
+liberation                |domain        |good, extroversion, openness
+life                      |domain        |good, openness, extroversion
+light                     |domain        |good, conscientiousness, agreeableness
+love                      |domain        |good, neuroticism, extroversion, openness
+loyalty                   |domain        |good, conscientiousness, agreeableness
+mercy                     |domain        |good, agreeableness
+miracles                  |domain        |good, extroversion, openness, agreeableness
+morale                    |domain        |good, conscientiousness
+morality                  |domain        |good, conscientiousness
+pacifism                  |domain        |good, agreeableness, -openness
+patience                  |domain        |good, conscientiousness, -extroversion
+peace                     |domain        |good, conscientiousness, -openness, -neuroticism
+penance                   |domain        |good, neuroticism, agreeableness
+penitence                 |domain        |good, neuroticism, agreeableness
+perseverance              |domain        |good, openness, extroversion
+piety                     |domain        |good, conscientiousness, neuroticism
+protection                |domain        |good, conscientiousness, neuroticism
+providence                |domain        |good, conscientiousness
+purity                    |domain        |good, conscientiousness, agreeableness
+radiance                  |domain        |good, extroversion
+recovery                  |domain        |good, conscientiousness, agreeableness
+redemption                |domain        |good, extroversion, openness
+remorse                   |domain        |good, neuroticism, conscientiousness
+restoration               |domain        |good, extroversion
+retribution               |domain        |good, extroversion, -agreeableness
+righteousness             |domain        |good, conscientiousness
+sanctity                  |domain        |good, conscientiousness
+shame                     |domain        |good, neuroticism, agreeableness
+sincerity                 |domain        |good, extroversion
+summer                    |domain        |good, openness, extroversion
+sun                       |domain        |good, agreeableness
+truth                     |domain        |good, -neuroticism
+victory                   |domain        |good, extroversion, -agreeableness
+virility                  |domain        |good, extroversion, openness
+virtue                    |domain        |good, -extroversion
+zeal                      |domain        |good, openness, -agreeableness
+abominations              |domain        |evil, openness, neuroticism
+absolution                |domain        |evil, agreeableness
+agony                     |domain        |evil, neuroticism
+annihilation              |domain        |evil, extroversion
+apocalypse                |domain        |evil, extroversion, openness
+arson                     |domain        |evil, neuroticism, openness, -conscientiousness
+betrayal                  |domain        |evil, neuroticism, extroversion, -agreeableness
+blood                     |domain        |evil
+calamity                  |domain        |evil, neuroticism, -conscientiousness
+cannibalism               |domain        |evil, openness, -agreeableness
+catastrophe               |domain        |evil, -agreeableness, neuroticism
+corruption                |domain        |evil, neuroticism, -conscientiousness
+crime                     |domain        |evil, -conscientiousness, -agreeableness, extroversion, openness
+curses                    |domain        |evil, extroversion, -conscientiousness, -agreeableness, neuroticism
+damnation                 |domain        |evil, extroversion, -agreeableness
+darkness                  |domain        |evil, -openness, neuroticism
+decay                     |domain        |evil, neuroticism, openness, -conscientiousness
+defilement                |domain        |evil, neuroticism, -agreeableness
+demons                    |domain        |evil, neuroticism, extroversion, -conscientiousness
+desecration               |domain        |evil, extroversion, openness, -agreeableness
+desolation                |domain        |evil, neuroticism, -conscientiousness
+disfigurement             |domain        |evil, neuroticism, -agreeableness
+domination                |domain        |evil, extroversion, -agreeableness, -conscientiousness
+dread                     |domain        |evil, neuroticism
+envy                      |domain        |evil, neuroticism, -agreeableness
+espionage                 |domain        |evil, neuroticism, conscientiousness, -agreeableness
+evil                      |domain        |evil, -agreeableness
+failure                   |domain        |evil, neuroticism, -openness
+fear                      |domain        |evil, neuroticism, -openness, -extroversion
+fraud                     |domain        |evil, openness, extroversion
+genocide                  |domain        |evil, -conscientiousness, -agreeableness, openness
+gluttony                  |domain        |evil, -conscientiousness, -agreeableness, neuroticism, extroversion
+gossip                    |domain        |evil, extroversion, -agreeableness
+greed                     |domain        |evil, extroversion, -agreeableness
+hatred                    |domain        |evil, neuroticism, -agreeableness, -openness
+havoc                     |domain        |evil, openness, extroversion, -agreeableness
+heresy                    |domain        |evil, openness, -conscientiousness
+horror                    |domain        |evil, neuroticism, -agreeableness
+hubris                    |domain        |evil, extroversion, -openness, -agreeableness
+loss                      |domain        |evil, neuroticism
+malevolence               |domain        |evil, -neuroticism, extroversion, -agreeablenessm conscientiousness
+malformed                 |domain        |evil, neuroticism
+malice                    |domain        |evil, extroversion, conscientiousness, -agreeableness
+misery                    |domain        |evil, neuroticism
+misfortune                |domain        |evil, openness, -agreeableness
+murder                    |domain        |evil, -agreeableness, -conscientiousness, extroversion, neuroticism
+necrosis                  |domain        |evil, neuroticism, -agreeableness
+night                     |domain        |evil, -openness, neuroticism
+oblivion                  |domain        |evil, neuroticism
+oppression                |domain        |evil, extroversion, conscientiousness, -agreeableness
+pain                      |domain        |evil, -agreeableness, neuroticism
+pestilence                |domain        |evil, neuroticism, -agreeableness, -conscientiousness
+plagues                   |domain        |evil, neuroticism, -agreeableness
+poison                    |domain        |evil
+racism                    |domain        |evil
+rage                      |domain        |evil
+revenge                   |domain        |evil
+rot                       |domain        |evil
+ruin                      |domain        |evil
+sadism                    |domain        |evil
+shadow                    |domain        |evil
+sin                       |domain        |evil
+slaughter                 |domain        |evil
+slavery                   |domain        |evil
+sloth                     |domain        |evil
+sorrow                    |domain        |evil
+suffering                 |domain        |evil
+swamps and bogs           |domain,biome  |evil
+terror                    |domain        |evil
+torment                   |domain        |evil
+torture                   |domain        |evil
+treachery                 |domain        |evil
+tyranny                   |domain        |evil
+undeath                   |domain        |evil
+vanity                    |domain        |evil
+villainy                  |domain        |evil
+violation                 |domain        |evil
+war                       |domain        |evil
+winter                    |domain        |evil
+wrath                     |domain        |evil
+ancestors                 |domain        |neutral, conscientiousness
+animal husbandry          |domain        |neutral, extroversion, agreeableness, openness
+animalsbeasts             |domain        |neutral, extroversion
+art                       |domain        |neutral, openness, extroversion, neuroticism
+ashanddust                |domain        |neutral
+autumn                    |domain        |neutral
+balance                   |domain        |neutral
+beauty                    |domain        |neutral
+beginnings                |domain        |neutral
+children                  |domain        |neutral
+crossroads                |domain        |neutral
+crusade                   |domain        |neutral
+death                     |domain        |neutral
+depths                    |domain        |neutral
+deserts                   |domain,biome  |neutral
+destiny                   |domain        |neutral
+disease                   |domain        |neutral
+dragons                   |domain        |neutral
+endings                   |domain        |neutral
+enlightenment             |domain        |neutral
+entropy                   |domain        |neutral
+eternity                  |domain        |neutral
+exploration               |domain        |neutral
+extinction                |domain        |neutral
+fate                      |domain        |neutral
+fields                    |domain,biome  |neutral
+fire                      |domain        |neutral
+flowers                   |domain        |neutral
+forests                   |domain,biome  |neutral
+forgotten                 |domain        |neutral
+future                    |domain        |neutral
+gardens                   |domain        |neutral
+hunt                      |domain        |neutral
+ice                       |domain,biome  |neutral
+inevitability             |domain        |neutral
+infinity                  |domain        |neutral
+insects                   |domain        |neutral
+insight                   |domain        |neutral
+intelligence              |domain        |neutral
+journeys                  |domain        |neutral
+lava                      |domain        |neutral
+limbo                     |domain        |neutral
+magic                     |domain        |neutral
+memory                    |domain        |neutral
+music                     |domain        |neutral
+mysteries                 |domain        |neutral
+naturaldisasters          |domain        |neutral
+nature                    |domain        |neutral
+neutrality                |domain        |neutral
+oceans                    |domain,biome  |neutral
+oration                   |domain        |neutral
+past                      |domain        |neutral
+plants                    |domain        |neutral
+pleasure                  |domain        |neutral
+portals                   |domain        |neutral
+portents                  |domain        |neutral
+power                     |domain        |neutral, neuroticism, extroversion, conscientiousness
+quests                    |domain        |neutral
+regret                    |domain        |neutral
+renewal                   |domain        |neutral
+resolve                   |domain        |neutral
+resurrection              |domain        |neutral
+sacrifice                 |domain        |neutral
+sea                       |domain,biome  |neutral
+sky                       |domain        |neutral
+solitude                  |domain        |neutral
+sorcery                   |domain        |neutral
+spirits                   |domain        |neutral
+stars                     |domain        |neutral
+stories                   |domain        |neutral
+strength                  |domain        |neutral
+survival                  |domain        |neutral, conscientiousness, -neuroticism
+thedead                   |domain        |neutral
+thegrave                  |domain        |neutral
+thought                   |domain        |neutral
+time                      |domain        |neutral
+toil                      |domain        |neutral
+travel                    |domain        |neutral, openness, extroversion, -neuroticism
+void                      |domain        |neutral
+weather                   |domain        |neutral
+abstinence                |domain        |lawful
+absolutes                 |domain        |lawful
+agriculture               |domain        |lawful
+alchemy                   |domain        |lawful
+allegiance                |domain        |lawful
+artifice                  |domain        |lawful, conscientiousness, agreeableness
+banishment                |domain        |lawful
+bureaucracy               |domain        |lawful
+burial                    |domain        |lawful
+chastity                  |domain        |lawful, conscientiousness, -openness
+civilization              |domain        |lawful
+collection                |domain        |lawful
+commerce                  |domain        |lawful, openness, extroversion
+competition               |domain        |lawful
+completion                |domain        |lawful
+construction and building |domain        |lawful
+contracts                 |domain        |lawful
+crafting                  |domain        |lawful
+deals                     |domain        |lawful
+dedication                |domain        |lawful
+defense                   |domain        |lawful
+diligence                 |domain        |lawful
+diplomacy                 |domain        |lawful
+discipline                |domain        |lawful
+duels                     |domain        |lawful
+duty                      |domain        |lawful
+earth                     |domain        |lawful
+education                 |domain        |lawful
+engineering               |domain        |lawful
+ethics                    |domain        |lawful
+exile                     |domain        |lawful
+fortitude                 |domain        |lawful
+harvest                   |domain        |lawful
+history                   |domain        |lawful
+honor                     |domain        |lawful
+immortality               |domain        |lawful
+industry                  |domain        |lawful
+judgment                  |domain        |lawful
+justice                   |domain        |lawful
+knowledge                 |domain        |lawful
+language                  |domain        |lawful
+law                       |domain        |lawful
+marriage                  |domain        |lawful
+mathematics               |domain        |lawful
+medicine                  |domain        |lawful
+merit                     |domain        |lawful
+metal                     |domain        |lawful
+motherhood                |domain        |lawful
+mourning                  |domain        |lawful
+nobility                  |domain        |lawful
+order                     |domain        |lawful
+pacts                     |domain        |lawful
+perfection                |domain        |lawful
+philosophy                |domain        |lawful
+plans                     |domain        |lawful
+probability               |domain        |lawful
+prophecy                  |domain        |lawful
+prudence                  |domain        |lawful
+psychopomp                |domain        |lawful
+punishment                |domain        |lawful
+reason                    |domain        |lawful
+redundancy                |domain        |lawful
+rituals                   |domain        |lawful
+rulership                 |domain        |lawful
+secrets                   |domain        |lawful
+servitude                 |domain        |lawful
+strategy                  |domain        |lawful
+tactics                   |domain        |lawful
+temperance                |domain        |lawful
+the forge                 |domain        |lawful
+trade                     |domain        |lawful
+tradition                 |domain        |lawful
+traps                     |domain        |lawful
+valor                     |domain        |lawful
+vigilance                 |domain        |lawful
+wealth                    |domain        |lawful
+wisdom                    |domain        |lawful
+wizardry                  |domain        |lawful
+adventure                 |domain        |chaotic
+accidents                 |domain        |chaotic
+alcohol                   |domain        |chaotic
+ambition                  |domain        |chaotic
+anarchy                   |domain        |chaotic
+birth                     |domain        |chaotic
+captivation               |domain        |chaotic
+change                    |domain        |chaotic
+chaos                     |domain        |chaotic
+charm                     |domain        |chaotic
+conspiracies              |domain        |chaotic
+controversy               |domain        |chaotic
+cowards                   |domain        |chaotic
+curiosity                 |domain        |chaotic
+decadence                 |domain        |chaotic
+deception                 |domain        |chaotic
+desire                    |domain        |chaotic
+destruction               |domain        |chaotic
+discord                   |domain        |chaotic
+disorder                  |domain        |chaotic
+drama                     |domain        |chaotic
+dreams                    |domain        |chaotic
+feasting                  |domain        |chaotic
+ferocity                  |domain        |chaotic
+fey                       |domain        |chaotic
+freedom                   |domain        |chaotic
+fury                      |domain        |chaotic
+gambling                  |domain        |chaotic
+guilt                     |domain        |chaotic
+hedonism                  |domain        |chaotic
+humor                     |domain        |chaotic
+illusion                  |domain        |chaotic
+imagination               |domain        |chaotic
+independence              |domain        |chaotic
+insanity                  |domain        |chaotic
+inspiration               |domain        |chaotic
+insurrection              |domain        |chaotic
+intoxication              |domain        |chaotic
+invention                 |domain        |chaotic
+laughter                  |domain        |chaotic
+lies                      |domain        |chaotic
+luck                      |domain        |chaotic
+lust                      |domain        |chaotic
+madness                   |domain        |chaotic
+mischief                  |domain        |chaotic
+monsters                  |domain        |chaotic
+moon                      |domain        |chaotic
+nightmares                |domain        |chaotic
+pandemonium               |domain        |chaotic
+passion                   |domain        |chaotic
+pride                     |domain        |chaotic
+profanity                 |domain        |chaotic
+rebellion                 |domain        |chaotic
+rebirth                   |domain        |chaotic
+reincarnation             |domain        |chaotic
+revelation                |domain        |chaotic
+revelry                   |domain        |chaotic
+riots                     |domain        |chaotic
+rumors                    |domain        |chaotic
+sexuality                 |domain        |chaotic
+shapeshifters             |domain        |chaotic
+space                     |domain        |chaotic
+spring                    |domain        |chaotic
+storm                     |domain        |chaotic
+swarms                    |domain        |chaotic
+tempest                   |domain        |chaotic
+temptation                |domain        |chaotic
+the far realms            |domain        |chaotic
+the great beyond          |domain        |chaotic
+the unknown               |domain        |chaotic
+the wilds                 |domain        |chaotic
+thievery                  |domain        |chaotic, -conscientiousness, -extroversion, openness
+transformation            |domain        |chaotic
+trickery                  |domain        |chaotic, openness, extroversion, -conscientiousness
+turmoil                   |domain        |chaotic
+untamed                   |domain        |chaotic
+vengeance                 |domain        |chaotic
+vice                      |domain        |chaotic
+whimsy                    |domain        |chaotic
+wit                       |domain        |chaotic

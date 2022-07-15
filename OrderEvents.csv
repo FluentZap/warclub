@@ -1,0 +1,39 @@
+Name                   |Allowed Entity Type |Required Traits                                |Required Aspects |Openness |Conscientiousness |Extroversion |Agreeableness |Neuroticism
+God Actions            
+create creature        |God                 |cosmic creation                                |200_power        |     100 |               50 |          80 |           80 |         30
+*create beast          |God                 |cosmic creation                                |100_power        |      95 |               40 |          70 |           55 |         30
+*create servant        |God                 |cosmic creation                                |300_power        |      90 |               80 |          85 |           75 |         50
+*create holy place     |God                 |cosmic creation                                |300_power        |      80 |               70 |          40 |           35 |         50
+*create artifact       |God                 |cosmic creation                                |50_power         |      70 |               70 |          50 |           40 |         50
+*gain power            |God                 |cosmic creation                                |                 |      50 |               70 |          70 |           50 |         60
+                       
+Creature Groups        
+                       
+                       
+*form settlement       |CreatureGroup       |500_corporeal, 100_wood, 50_stone              |mobile           |      80 |               70 |          80 |           50 |         20
+                       
+                       
+                       
+                       
+                       
+*form settlement       |CreatureGroup       |500_corporeal, 100_wood, 50_stone              |mobile           |      80 |               70 |          80 |           50 |         20
+                       
+*forage for stone      |CreatureGroup       |corporeal                                      |10_storage       |      60 |               90 |          50 |           50 |         80
+*forage for wood       |CreatureGroup       |corporeal                                      |10_storage       |      60 |               90 |          50 |           50 |         80
+*forage for food       |CreatureGroup       |corporeal                                      |10_storage       |      60 |               90 |          50 |           50 |         80
+                       
+*build woodcutters hut |CreatureGroup       |corporeal, settlement, 5_wood, 3_stone         |                 |      50 |               80 |          50 |           70 |         60
+                       
+*migrate               |CreatureGroup       |corporeal                                      |mobile           |      90 |               60 |          80 |           30 |         15
+*build dwellings       |CreatureGroup       |corporeal, settlement, 5_wood, 3_stone         |                 |      50 |               80 |          50 |           70 |         60
+                       
+*build shrine          |CreatureGroup       |corporeal, settlement, 10_wood, 20_stone       |                 |      50 |               80 |          50 |           70 |         60
+*build temple          |CreatureGroup       |corporeal, settlement, 500_wood, 250_stone     |                 |      50 |               80 |          50 |           70 |         60
+*build church          |CreatureGroup       |corporeal, settlement, 1000_wood, 750_stone    |                 |      50 |               80 |          50 |           70 |         60
+*build monastery       |CreatureGroup       |corporeal, settlement, 50000_wood, 25000_stone |                 |      50 |               80 |          50 |           70 |         60
+                       
+*build school          |CreatureGroup       |settlement, 500_corporeal, 10_wood, 20_stone   |-20_laborer      |      50 |               80 |          50 |           70 |         60
+                       
+*build academe         |CreatureGroup       |corporeal, settlement, 500_wood, 250_stone     |-500_laborer     |      50 |               80 |          50 |           70 |         60
+*build college         |CreatureGroup       |corporeal, settlement, 1000_wood, 750_stone    |-1000_laborer    |      50 |               80 |          50 |           70 |         60
+*build university      |CreatureGroup       |corporeal, settlement, 50000_wood, 25000_stone |-5000_laborer    |      50 |               80 |          50 |           70 |         60
