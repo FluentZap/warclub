@@ -1,6 +1,6 @@
 Name                   |Allowed Entity Type |Required Traits                                |Required Aspects |Openness |Conscientiousness |Extroversion |Agreeableness |Neuroticism
 God Actions            
-create creature        |God                 |cosmic creation                                |200_power        |     100 |               50 |          80 |           80 |         30
+*create creature        |God                 |cosmic creation                                |200_power        |     100 |               50 |          80 |           80 |         30
 *create beast          |God                 |cosmic creation                                |100_power        |      95 |               40 |          70 |           55 |         30
 *create servant        |God                 |cosmic creation                                |300_power        |      90 |               80 |          85 |           75 |         50
 *create holy place     |God                 |cosmic creation                                |300_power        |      80 |               70 |          40 |           35 |         50

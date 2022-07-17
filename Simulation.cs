@@ -26,6 +26,10 @@ namespace WarClub
 
   partial class Simulation
   {
+    public List<Unit> UnitList = new List<Unit>();
+
+    public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
+
     public TraitList Traits = new TraitList();
     public Dictionary<string, TraitList> TraitLists = new Dictionary<string, TraitList>();
     public Dictionary<string, OrderEvent> OrderEvents = new Dictionary<string, OrderEvent>();
@@ -37,6 +41,8 @@ namespace WarClub
     public void Generate()
     {
       LoadLists();
+      LoadUnits();
+      LoadDataSheets();
       // GeneratePlanes();
     }
 

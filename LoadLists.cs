@@ -161,5 +161,65 @@ namespace WarClub
         }
       }
     }
+
+    void LoadUnits()
+    {
+      var rows = Loader.CSVLoadFile(Path.Combine("./", "Units.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        if (r.Length < 5 || r[0][0] == '*')
+          continue;
+        UnitList.Add(new Unit()
+        {
+          Name = r[0].Trim(),
+          Image = r[1].Trim(),
+          Count = Int32.Parse(r[2]),
+          Size = Int32.Parse(r[3]),
+          Types = r[4].Split(',').Select(x => x.Trim()).ToHashSet(),
+        });
+      }
+    }
+
+    void LoadDataSheets()
+    {
+      var rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        // if (r.Length < 5 || r[0][0] == '*')
+        //   continue;
+        DataSheets.Add(Int32.Parse(r[0]), new DataSheet()
+        {
+          Id = Int32.Parse(r[0]),
+          Name = r[1].Trim(),
+          Faction = r[3].Trim(),
+          Role = r[5].Trim(),
+        });
+      }
+
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_models.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        var id = Int32.Parse(r[0]);
+        if (DataSheets.ContainsKey(id))
+        {
+          var d = DataSheets[Int32.Parse(r[0])];
+          d.Movement = r[3].Trim();
+          d.WS = r[4].Trim();
+          d.BS = r[5].Trim();
+          d.S = r[6].Trim();
+          d.T = r[7].Trim();
+          d.W = r[8].Trim();
+          d.A = r[9].Trim();
+          d.Ld = r[10].Trim();
+          d.Sv = r[11].Trim();
+          d.Cost = r[12].Trim();
+          d.ModelsPerUnit = r[14].Trim();
+          d.Size = r[16].Trim();
+        }
+      }
+    }
   }
 }
