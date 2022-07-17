@@ -9,7 +9,7 @@ namespace WarClub
     public string Name;
     public string Image;
     public int Count;
-    public int Size;
+    public Point Size = new Point();
     public HashSet<string> Types = new HashSet<string>();
   }
 
@@ -26,14 +26,13 @@ namespace WarClub
     public string S;
     public string T;
     public string W;
-
     public string A;
     public string Ld;
     public string Sv;
     public string Cost;
-    public string ModelsPerUnit;
-    public string Size;
-
+    public int MinModelsPerUnit;
+    public int MaxModelsPerUnit;
+    public Point Size = new Point();
   }
 
 }

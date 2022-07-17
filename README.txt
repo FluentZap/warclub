@@ -35,9 +35,11 @@ Factions are created at game start and can emerge if certain events happen.
 
 Milestone Apprentice
     Army customizer
-        User can input minis for both sized and it will select units to use for the mission.
+        User can input minis for both sides and it will select units to use for the mission.
     Datacard loader
         Load 40k datacards and build armies to fight.
+    Unit Roster
+        Keeps track of the units in the players army
     Random map generator
         Base terrain
         Deployment Zones
@@ -64,6 +66,7 @@ Milestone Wizard
     Intel system and narrative quest chains
     AI Agents
     New factions that can emerge
+    Generates starting units for the mercenary company
 
 
 
