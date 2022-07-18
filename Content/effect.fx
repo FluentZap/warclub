@@ -14,14 +14,29 @@ float4x4 Projection;
 float4 AmbientColor = float4(1, 1, 1, 1);
 float AmbientIntensity = 0.1;
 
+Texture2D NoiseTexture;
+
+SamplerState NoiseSampler
+{
+    Texture = <NoiseTexture>;
+	MinFilter = Linear;
+	MagFilter = Linear;
+	MipFilter = Linear;
+	AddressU = Wrap;
+	AddressV = Wrap;
+};
+
 struct VertexShaderInput
 {
     float4 Position : POSITION0;
+    float2 TextureUV : TEXCOORD0;   // vertex texture coords
 };
 
 struct VertexShaderOutput
 {
     float4 Position : POSITION0;
+    // float4 Diffuse : COLOR0;      // vertex diffuse color (note that COLOR0 is clamped from 0..1)
+    float2 TextureUV : TEXCOORD0;   // vertex texture coords
 };
 
 VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
@@ -30,14 +45,20 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
     float4 worldPosition = mul(input.Position, World);
     float4 viewPosition = mul(worldPosition, View);
+    // output.Position = mul(viewPosition, Projection);
     output.Position = mul(viewPosition, Projection);
-
+    output.TextureUV = input.TextureUV;
     return output;
 }
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
-    return AmbientColor * AmbientIntensity;
+    // float4 RGBColor : COLOR0
+    // return tex2D(TextureA, input.TextureUV) * AmbientColor * AmbientIntensity;
+    // return tex2D(NoiseSampler, input.TextureUV);
+    return tex2D(NoiseSampler, input.TextureUV) * AmbientColor * AmbientIntensity;
+    // return AmbientColor * AmbientIntensity;
+    // return RGBColor;
 }
 
 technique Ambient

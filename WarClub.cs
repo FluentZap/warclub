@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -22,6 +23,8 @@ namespace WarClub
     BasicEffect basicEffect;
     Effect planetEffect;
 
+    Texture2D planetNoise;
+
     Model model;
     // VertexPositionColor[] triangleVertices;
     // VertexBuffer vertexBuffer;
@@ -33,6 +36,39 @@ namespace WarClub
       graphics = new GraphicsDeviceManager(this);
       Content.RootDirectory = "Content";
       IsMouseVisible = true;
+    }
+
+
+    void GeneratePlanet()
+    {
+      FastNoiseLite elvNoise = new FastNoiseLite();
+
+      elvNoise.SetSeed(RNG.Integer());
+      elvNoise.SetNoiseType(FastNoiseLite.NoiseType.OpenSimplex2);
+      elvNoise.SetFrequency(0.010f);
+      elvNoise.SetFractalType(FastNoiseLite.FractalType.FBm);
+      elvNoise.SetFractalOctaves(8);
+      elvNoise.SetFractalLacunarity(2.00f);
+      elvNoise.SetFractalGain(0.60f);
+
+      Point size = new Point(512, 512);
+      planetNoise = new Texture2D(GraphicsDevice, size.X, size.Y, false, SurfaceFormat.Color);
+      GraphicsDevice.Textures[0] = null;
+
+      float scale = 512f / (size.X + size.Y);
+
+      uint[] arr = new uint[size.X * size.Y];
+
+      foreach (int x in Enumerable.Range(0, size.X))
+        foreach (int y in Enumerable.Range(0, size.Y))
+        {
+          float height = elvNoise.GetNoise(x * scale, y * scale);
+          Color c = new Color(255 * height, 255 * height, 255 * height, 255);
+          arr[(y * size.Y) + x] = c.PackedValue;
+        }
+
+      planetNoise.SetData<UInt32>(arr, 0, size.X * size.Y);
+
     }
 
     protected override void Initialize()
@@ -81,7 +117,7 @@ namespace WarClub
       simulation.Generate();
       model = Content.Load<Model>("IcoSphere");
       planetEffect = Content.Load<Effect>("effect");
-
+      GeneratePlanet();
     }
 
     protected override void Update(GameTime gameTime)
@@ -116,6 +152,10 @@ namespace WarClub
       GraphicsDevice.RasterizerState = rasterizerState;
       // planetEffect.CurrentTechnique.Passes[0].Apply();
 
+      spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
+      spriteBatch.Draw(planetNoise, new Rectangle(0, 0, 512, 512), Color.White);
+      spriteBatch.End();
+
       DrawPlanet(new Vector3(0, 0, 0));
       // foreach (int x in Enumerable.Range(0, 4))
       // foreach (int y in Enumerable.Range(0, 4))
@@ -144,21 +184,8 @@ namespace WarClub
         planetEffect.Parameters["Projection"].SetValue(projectionMatrix);
         planetEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
         planetEffect.Parameters["AmbientIntensity"].SetValue(0.5f);
+        planetEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
       }
-      // foreach (BasicEffect effect in mesh.Effects)
-      // {
-      //   effect.View = viewMatrix;
-      //   effect.World = worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3);
-      //   effect.Projection = projectionMatrix;
-
-      //   effect.EnableDefaultLighting();
-      //   effect.PreferPerPixelLighting = true;
-
-      //   // effect.EmissiveColor = new Vector3(1, 0, 0);
-      //   effect.DiffuseColor = new Vector3(0, 1, 0);
-      //   // effect.VertexColorEnabled = false;
-      //   effect.CurrentTechnique = planetEffect.CurrentTechnique;
-      // }
       mesh.Draw();
     }
   }
