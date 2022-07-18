@@ -20,10 +20,11 @@ namespace WarClub
     Matrix worldMatrix;
 
     BasicEffect basicEffect;
+    Effect planetEffect;
 
     Model model;
-    VertexPositionColor[] triangleVertices;
-    VertexBuffer vertexBuffer;
+    // VertexPositionColor[] triangleVertices;
+    // VertexBuffer vertexBuffer;
 
     // TerrainFace terrainFace = new TerrainFace(100, Vector3.Up);
 
@@ -45,7 +46,7 @@ namespace WarClub
       graphics.ApplyChanges();
 
       camTarget = new Vector3(0f, 0f, 0f);
-      camPosition = new Vector3(0f, 0f, -10f);
+      camPosition = new Vector3(0f, 0f, -50f);
 
       // projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), GraphicsDevice.DisplayMode.AspectRatio, 1f, 1000f);
       projectionMatrix = Matrix.CreateOrthographic(16, 9, 1f, 1000f);
@@ -79,6 +80,7 @@ namespace WarClub
       simulation = new Simulation();
       simulation.Generate();
       model = Content.Load<Model>("IcoSphere");
+      planetEffect = Content.Load<Effect>("effect");
 
     }
 
@@ -101,9 +103,9 @@ namespace WarClub
 
     protected override void Draw(GameTime gameTime)
     {
-      basicEffect.Projection = projectionMatrix;
-      basicEffect.View = viewMatrix;
-      basicEffect.World = worldMatrix;
+      // basicEffect.Projection = projectionMatrix;
+      // basicEffect.View = viewMatrix;
+      // basicEffect.World = worldMatrix;
 
       GraphicsDevice.Clear(new Color(10, 10, 10, 255));
       // GraphicsDevice.SetVertexBuffer(vertexBuffer);
@@ -112,10 +114,12 @@ namespace WarClub
       // rasterizerState.CullMode = CullMode.None;
       rasterizerState.FillMode = FillMode.WireFrame;
       GraphicsDevice.RasterizerState = rasterizerState;
+      // planetEffect.CurrentTechnique.Passes[0].Apply();
 
-      foreach (int x in Enumerable.Range(0, 4))
-        foreach (int y in Enumerable.Range(0, 4))
-          DrawPlanet(new Vector3(x * 2, y * 2, 0));
+      DrawPlanet(new Vector3(0, 0, 0));
+      // foreach (int x in Enumerable.Range(0, 4))
+      // foreach (int y in Enumerable.Range(0, 4))
+      // DrawPlanet(new Vector3(x * 2, y * 2, 0));
 
       // foreach (EffectPass pass in basicEffect.CurrentTechnique.Passes)
       // {
@@ -130,13 +134,31 @@ namespace WarClub
     void DrawPlanet(Vector3 position)
     {
       ModelMesh mesh = model.Meshes[0];
-      foreach (BasicEffect effect in mesh.Effects)
+
+
+      foreach (ModelMeshPart part in mesh.MeshParts)
       {
-        effect.View = viewMatrix;
-        // effect.World = worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateFromQuaternion(rotation);
-        effect.World = worldMatrix * Matrix.CreateTranslation(position);
-        effect.Projection = projectionMatrix;
+        part.Effect = planetEffect;
+        planetEffect.Parameters["World"].SetValue(worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3));
+        planetEffect.Parameters["View"].SetValue(viewMatrix);
+        planetEffect.Parameters["Projection"].SetValue(projectionMatrix);
+        planetEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
+        planetEffect.Parameters["AmbientIntensity"].SetValue(0.5f);
       }
+      // foreach (BasicEffect effect in mesh.Effects)
+      // {
+      //   effect.View = viewMatrix;
+      //   effect.World = worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3);
+      //   effect.Projection = projectionMatrix;
+
+      //   effect.EnableDefaultLighting();
+      //   effect.PreferPerPixelLighting = true;
+
+      //   // effect.EmissiveColor = new Vector3(1, 0, 0);
+      //   effect.DiffuseColor = new Vector3(0, 1, 0);
+      //   // effect.VertexColorEnabled = false;
+      //   effect.CurrentTechnique = planetEffect.CurrentTechnique;
+      // }
       mesh.Draw();
     }
   }

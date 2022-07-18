@@ -41,9 +41,9 @@ namespace WarClub
 
     public void Generate()
     {
-      LoadLists();
-      LoadUnits();
-      LoadDataSheets();
+      // LoadLists();
+      // LoadUnits();
+      // LoadDataSheets();
       // GeneratePlanes();
     }
 
