@@ -1,5 +1,5 @@
 Name                      |Types        |Aspects
-
+                          
 Adeptus Custodes          |faction      |
 Adeptus Mechanicus        |faction      |
 Aeldari                   |faction      |
@@ -33,6 +33,36 @@ corporeal                 |physical     |body, storage, laborer
 nomadic                   |ability      |mobile
 settlement                |ability      |
                           
+Hive World                |world type   |
+Agri World                |world type   |
+Forge World               |world type   |
+Mining World              |world type   |
+Developing World          |world type   |
+Feudal World              |world type   |
+Feral World               |world type   |
+Shrine World              |world type   |
+Cemetery World            |world type   |
+Pleasure World            |world type   |
+Quarantined World         |world type   |
+War World                 |world type   |
+Dead World                |world type   |
+Death World               |world type   |
+Frontier World            |world type   |
+Forbidden World           |world type   |
+Xenos World               |world type   |                          
+                          
+Stone Age                 |tech level   |
+Iron Age                  |tech level   |
+Steel Age                 |tech level   |
+Pre Industrial            |tech level   |
+Industrial                |tech level   |
+Early Space               |tech level   |
+Advanced Space            |tech level   |
+Warp Space                |tech level   |
+Low Imperial              |tech level   |
+Mid Imperial              |tech level   |
+High Imperial             |tech level   |
+Advanced                  |tech level   |
                           
 bogs                      |location     |
 fire storms               |location     |

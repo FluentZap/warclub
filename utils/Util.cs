@@ -83,6 +83,14 @@ static class RNG
     return Integer((int)min, (int)max);
   }
 
+  public static int DiceRoll(int count, int die)
+  {
+    int total = 0;
+    foreach (var i in Enumerable.Range(1, count))
+      total += Integer(die);
+    return total;
+  }
+
   /// <summary>
   ///   Generates normally distributed numbers. Each operation makes two Gaussians for the price of one, and apparently they can be cached or something for better performance, but who cares.
   /// </summary>

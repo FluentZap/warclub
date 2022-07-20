@@ -4,6 +4,7 @@ namespace WarClub
 {
   class Campaign
   {
+    List<Unit> Planets = new List<Unit>();
     List<Unit> Units = new List<Unit>();
 
 

@@ -40,11 +40,6 @@ namespace WarClub
       return o + c + e + a + n;
     }
 
-    // public static int GetPsycheDivergence(Psyche psyche, Psyche psyche2)
-    // {
-    //   return psyche.GetPsycheDivergence(psyche2);
-    // }
-
     public void ShiftByPsyche(Psyche psyche, double ratio = 0.085)
     {
       Openness += (byte)Math.Clamp(ShiftVector(Openness, psyche.Openness, ratio), 0, 100);

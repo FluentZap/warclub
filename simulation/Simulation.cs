@@ -5,13 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 namespace WarClub
 {
 
-  class Trait
-  {
-    public string Name;
-    public List<string> Type { get; set; }
-    public Dictionary<string, int> Aspects { get; set; }
-  }
-
   class TraitList : Dictionary<string, Trait>
   {
     public List<Trait> getFromArray(string[] keys)
@@ -32,6 +25,7 @@ namespace WarClub
 
     public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
 
+    public Cosmos cosmos = new Cosmos();
     public TraitList Traits = new TraitList();
     public Dictionary<string, TraitList> TraitLists = new Dictionary<string, TraitList>();
     public Dictionary<string, OrderEvent> OrderEvents = new Dictionary<string, OrderEvent>();
@@ -42,10 +36,10 @@ namespace WarClub
 
     public void Generate()
     {
-      // LoadLists();
-      // LoadUnits();
-      // LoadDataSheets();
-      // GeneratePlanes();
+      LoadLists();
+      LoadUnits();
+      LoadDataSheets();
+      GeneratePlanes();
     }
 
   }

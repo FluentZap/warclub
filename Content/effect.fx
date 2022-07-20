@@ -45,7 +45,6 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
     float4 worldPosition = mul(input.Position, World);
     float4 viewPosition = mul(worldPosition, View);
-    // output.Position = mul(viewPosition, Projection);
     output.Position = mul(viewPosition, Projection);
     output.TextureUV = input.TextureUV;
     return output;
@@ -53,12 +52,11 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
 
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
-    // float4 RGBColor : COLOR0
-    // return tex2D(TextureA, input.TextureUV) * AmbientColor * AmbientIntensity;
-    // return tex2D(NoiseSampler, input.TextureUV);
-    return tex2D(NoiseSampler, input.TextureUV) * AmbientColor * AmbientIntensity;
-    // return AmbientColor * AmbientIntensity;
-    // return RGBColor;
+    // return tex2D(NoiseSampler, input.TextureUV) * AmbientColor * AmbientIntensity;
+    // return 255 - tex2D(NoiseSampler, input.TextureUV);
+    // return tex2D(NoiseSampler, input.TextureUV) * AmbientColor;
+    // return tex2D(NoiseSampler, input.TextureUV) + AmbientColor;
+    return AmbientColor * AmbientIntensity;
 }
 
 technique Ambient
