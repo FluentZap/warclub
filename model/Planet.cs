@@ -9,10 +9,11 @@ namespace WarClub
   class Planet : Entity
   {
     public Star star;
-    public Quaternion orbit;
+    public float distance;
+    public Quaternion orbit = Quaternion.Identity;
     public Quaternion orbitSpeed;
     public Quaternion rotationSpeed;
-    public Quaternion rotation;
+    public Quaternion rotation = Quaternion.Identity;
     public int DayLength;
     public int YearLength;
     public Color color;

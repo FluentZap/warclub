@@ -74,23 +74,23 @@ namespace WarClub
         },
         [RollTable.StarSize] = new Dictionary<int, Trait>
         {
-          [5] = ss["Tiny"],
-          [15] = ss["Small"],
-          [75] = ss["Medium"],
-          [85] = ss["Large"],
-          [95] = ss["Huge"],
-          [100] = ss["Giant"],
+          [5] = ss["Tiny Size"],
+          [15] = ss["Small Size"],
+          [75] = ss["Medium Size"],
+          [85] = ss["Large Size"],
+          [95] = ss["Huge Size"],
+          [100] = ss["Giant Size"],
         },
         [RollTable.PlanetSize] = new Dictionary<int, Trait>
         {
-          [10] = ps["Miniscule"],
-          [20] = ps["Tiny"],
-          [35] = ps["Small"],
-          [75] = ps["Average"],
-          [85] = ps["Large"],
-          [90] = ps["Huge"],
-          [95] = ps["Enormous"],
-          [100] = ps["Massive"],
+          [10] = ps["Miniscule Size"],
+          [20] = ps["Tiny Size"],
+          [35] = ps["Small Size"],
+          [75] = ps["Average Size"],
+          [85] = ps["Large Size"],
+          [90] = ps["Huge Size"],
+          [95] = ps["Enormous Size"],
+          [100] = ps["Massive Size"],
         },
         [RollTable.PlanetTilt] = new Dictionary<int, Trait>
         {
@@ -113,29 +113,41 @@ namespace WarClub
       var rollTables = GetRollTables(TraitLists);
       var wt = TraitLists["world type"];
       var ps = TraitLists["planet size"];
+      var planetTilt = TraitLists["planet tilt"];
       var ss = TraitLists["star size"];
       var presenceTraits = TraitLists["presence"];
 
       var starSizeMap = new Dictionary<Trait, float>
       {
-        [ss["Tiny"]] = 0.5f,
-        [ss["Small"]] = 0.75f,
-        [ss["Medium"]] = 1.0f,
-        [ss["Large"]] = 1.25f,
-        [ss["Huge"]] = 1.5f,
-        [ss["Giant"]] = 1.75f,
+        [ss["Tiny Size"]] = 0.5f,
+        [ss["Small Size"]] = 0.75f,
+        [ss["Medium Size"]] = 1.0f,
+        [ss["Large Size"]] = 1.25f,
+        [ss["Huge Size"]] = 1.5f,
+        [ss["Giant Size"]] = 1.75f,
+      };
+
+      var planetTiltMap = new Dictionary<Trait, (int, int)>
+      {
+        [planetTilt["No Tilt"]] = (0, 0),
+        [planetTilt["Slight Tilt"]] = (1, 5),
+        [planetTilt["Notable Tilt"]] = (6, 15),
+        [planetTilt["Moderate Tilt"]] = (16, 25),
+        [planetTilt["Large Tilt"]] = (26, 35),
+        [planetTilt["Severe Tilt"]] = (36, 45),
+        [planetTilt["Extreme Tilt"]] = (46, 70),
       };
 
       var planetSizeMap = new Dictionary<Trait, float>
       {
-        [ps["Miniscule"]] = 0.2f,
-        [ps["Tiny"]] = 0.4f,
-        [ps["Small"]] = 0.6f,
-        [ps["Average"]] = 0.8f,
-        [ps["Large"]] = 1.0f,
-        [ps["Huge"]] = 1.2f,
-        [ps["Enormous"]] = 1.4f,
-        [ps["Massive"]] = 1.6f,
+        [ps["Miniscule Size"]] = 0.2f,
+        [ps["Tiny Size"]] = 0.4f,
+        [ps["Small Size"]] = 0.6f,
+        [ps["Average Size"]] = 0.8f,
+        [ps["Large Size"]] = 1.0f,
+        [ps["Huge Size"]] = 1.2f,
+        [ps["Enormous Size"]] = 1.4f,
+        [ps["Massive Size"]] = 1.6f,
       };
 
       var planetDayLength = new Dictionary<int, (int, int, int)>
@@ -158,14 +170,14 @@ namespace WarClub
 
       var planetDayLengthMap = new Dictionary<Trait, int>
       {
-        [ps["Miniscule"]] = -30,
-        [ps["Tiny"]] = -20,
-        [ps["Small"]] = -10,
-        [ps["Average"]] = 0,
-        [ps["Large"]] = 10,
-        [ps["Huge"]] = 20,
-        [ps["Enormous"]] = 30,
-        [ps["Massive"]] = 50,
+        [ps["Miniscule Size"]] = -30,
+        [ps["Tiny Size"]] = -20,
+        [ps["Small Size"]] = -10,
+        [ps["Average Size"]] = 0,
+        [ps["Large Size"]] = 10,
+        [ps["Huge Size"]] = 20,
+        [ps["Enormous Size"]] = 30,
+        [ps["Massive Size"]] = 50,
       };
 
       var adeptusList = new Dictionary<Trait, (int, int)[]>
@@ -250,33 +262,55 @@ namespace WarClub
         // 25+ Dominating: One of, if not the, most powerful and influential forces on the planet.
       }
 
+      void addTilt(Planet p)
+      {
+        var tilt = getFromRange(rollTables[RollTable.PlanetTilt]);
+        p.AddTrait(tilt);
+
+        Trait t = TraitUtil.getTraitsByType(p.Traits, "planet tilt").Keys.First();
+        var (min, max) = planetTiltMap[t];
+        p.rotation = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(min, max)));
+      }
+
+      void addPlanetSize(Planet p)
+      {
+        var size = getFromRange(rollTables[RollTable.PlanetSize]);
+        p.AddTrait(size);
+      }
+
       void addDayLength(Planet p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "planet size").Keys.First();
         var (count, dice, multiplier) = getFromRange(planetDayLength);
         p.DayLength = planetDayLengthMap[t] + RNG.DiceRoll(count, dice) * multiplier;
+        p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
       }
 
       void addYearLength(Planet p)
       {
         p.YearLength += RNG.DiceRoll(10, 10) * (RNG.Integer(11, 109) / 10);
+        p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0);
       }
 
 
       // Create Stars
-      foreach (int i in Enumerable.Range(1, 6))
-      {
-        var size = getFromRange(rollTables[RollTable.StarSize]);
-        var s = new Star()
+      for (float x = -280; x < 280; x += 70)
+        for (float y = -140; y < 140; y += 70)
+        // foreach (int x in Enumerable.Range(-10, 20))
+        // foreach (int y in Enumerable.Range(-5, 10))
         {
-          location = new Vector2((float)(RNG.Integer(-80, 80) / 10), (float)(RNG.Integer(-90, 90) / 10)),
-          rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0),
-          rotation = Quaternion.Identity,
-          size = starSizeMap[size],
-          color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
-        };
-        cosmos.Stars.AutoAdd(s);
-      }
+          var size = getFromRange(rollTables[RollTable.StarSize]);
+          var s = new Star()
+          {
+            // location = new Vector2((float)(RNG.Integer(-40, 40) / 10f), (float)(RNG.Integer(-40, 40) / 10f)),
+            location = new Vector2(x + RNG.Integer(-20, 20), y + RNG.Integer(-20, 20)),
+            rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0),
+            rotation = Quaternion.Identity,
+            size = starSizeMap[size],
+            color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          };
+          s.Id = cosmos.Stars.AutoAdd(s);
+        }
 
       // Create Planets
       foreach (int i in Enumerable.Range(1, 32))
@@ -284,20 +318,42 @@ namespace WarClub
         var p = new Planet()
         {
           star = RNG.PickFrom(cosmos.Stars.Values),
-          rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0),
-          rotation = Quaternion.Identity,
           size = RNG.Integer(10, 25) / 10f,
           color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          orbit = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(0, 180))),
+          orbitSpeed = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(10, 100) / 100f)),
+          distance = RNG.Integer(20, 35),
         };
 
         addPlanetType(p);
         addTechLevel(p);
         addAdeptus(p);
+        addTilt(p);
+        addPlanetSize(p);
         addDayLength(p);
         addYearLength(p);
 
-        cosmos.Planets.AutoAdd(p);
+
+        p.Id = cosmos.Planets.AutoAdd(p);
       }
+
+      List<Star> removeList = new List<Star>();
+      foreach (var star in cosmos.Stars)
+      {
+        var containsPlanet = false;
+        foreach (var planet in cosmos.Planets)
+        {
+          if (planet.Value.star == star.Value)
+            containsPlanet = true;
+        }
+        if (!containsPlanet)
+        {
+          removeList.Add(star.Value);
+        }
+      }
+
+      foreach (var star in removeList)
+        cosmos.Stars.Remove(star.Id);
     }
   }
 }

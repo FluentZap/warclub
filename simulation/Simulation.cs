@@ -42,5 +42,17 @@ namespace WarClub
       GeneratePlanes();
     }
 
+    public void AdvanceTime(float hour)
+    {
+      // Do all events for the star Sign
+      cosmos.AdvanceHour(hour);
+
+      foreach (Planet p in cosmos.Planets.Values)
+      {
+        p.rotation *= p.rotationSpeed;
+        p.orbit *= p.orbitSpeed;
+      }
+    }
+
   }
 }

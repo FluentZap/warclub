@@ -26,6 +26,8 @@ namespace WarClub
     Texture2D planetNoise;
 
     Model model;
+
+    float timeAdvance;
     // VertexPositionColor[] triangleVertices;
     // VertexBuffer vertexBuffer;
 
@@ -89,7 +91,7 @@ namespace WarClub
       camPosition = new Vector3(0f, 0f, -50f);
 
       // projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), GraphicsDevice.DisplayMode.AspectRatio, 1f, 1000f);
-      projectionMatrix = Matrix.CreateOrthographic(-32, -18, 1f, 1000f);
+      projectionMatrix = Matrix.CreateOrthographic(-640, -360, 1f, 1000f);
       // projectionMatrix = Matrix.CreateOrthographicOffCenter(0, 1600, 900, 0, 1f, 1000f);
       viewMatrix = Matrix.CreateLookAt(camPosition, camTarget, Vector3.Up);
       // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up) * Matrix.CreateRotationY(MathHelper.ToRadians(-12.0f));
@@ -124,7 +126,6 @@ namespace WarClub
       simulation.Generate();
       model = Content.Load<Model>("IcoSphere");
       planetEffect = Content.Load<Effect>("effect");
-
       // GeneratePlanet();
     }
 
@@ -142,6 +143,13 @@ namespace WarClub
       // }
 
       // TODO: Add your update logic here
+
+      if (timeAdvance >= 10)
+      {
+        timeAdvance = 0;
+        simulation.AdvanceTime(1);
+      }
+      timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
 
       base.Update(gameTime);
     }
@@ -164,6 +172,9 @@ namespace WarClub
       foreach (var planet in simulation.cosmos.Planets)
         DrawPlanet(planet.Value);
 
+      foreach (var star in simulation.cosmos.Stars)
+        DrawStar(star.Value);
+
 
       // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
       // spriteBatch.Draw(planetNoise, new Rectangle(0, 0, 512, 512), Color.White);
@@ -180,6 +191,26 @@ namespace WarClub
       // }
 
       base.Draw(gameTime);
+    }
+
+    void DrawStar(Star star)
+    {
+      ModelMesh mesh = model.Meshes[0];
+      mesh.MeshParts[0].Effect = basicEffect;
+      foreach (BasicEffect effect in mesh.Effects)
+      {
+        Matrix matrix = Matrix.CreateScale(star.size * 10) * Matrix.CreateFromQuaternion(star.rotation) * Matrix.CreateTranslation(star.location.X, star.location.Y, 0);
+        // Matrix matrix = Matrix.CreateTranslation(8, 0, 0);
+        effect.View = viewMatrix;
+        effect.World = worldMatrix * matrix;
+        effect.Projection = projectionMatrix;
+
+        // effect.EnableDefaultLighting();
+        // effect.PreferPerPixelLighting = true;
+        // effect.DiffuseColor = new Vector3(1, 1, 1);
+        // effect.EmissiveColor = new Vector3(1, 1, 1);
+      }
+      mesh.Draw();
     }
 
 
@@ -201,15 +232,13 @@ namespace WarClub
       foreach (ModelMeshPart part in mesh.MeshParts)
       {
         part.Effect = planetEffect;
-        planet.rotation *= planet.rotationSpeed;
-        // Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 1) * Matrix.CreateScale(3);
-        // Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateScale(planet.size) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 0);
-        Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateScale(planet.size);
-        // planetEffect.Parameters["World"].SetValue(worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3));
+        Matrix matrix = Matrix.CreateScale(planet.size * 5) * Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.distance, 0, 0) * Matrix.CreateFromQuaternion(planet.orbit) * Matrix.CreateTranslation(planet.star.location.X, planet.star.location.Y, 0);
+
         planetEffect.Parameters["World"].SetValue(worldMatrix * matrix);
         planetEffect.Parameters["View"].SetValue(viewMatrix);
         planetEffect.Parameters["Projection"].SetValue(projectionMatrix);
-        planetEffect.Parameters["AmbientColor"].SetValue(planet.color.ToVector4());
+        // planetEffect.Parameters["AmbientColor"].SetValue(planet.color.ToVector4());
+        planetEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
         planetEffect.Parameters["AmbientIntensity"].SetValue(1f);
         // planetEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
       }

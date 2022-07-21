@@ -20,21 +20,23 @@ namespace WarClub
 
   class Cosmos
   {
-    public ulong Year;
-    public uint Month;
+    public float Hour;
+    public uint Day;
+    // public uint Month;
+    // public ulong Year;
 
     public KeyCollection<Star> Stars = new KeyCollection<Star>();
     public KeyCollection<Planet> Planets = new KeyCollection<Planet>();
 
     public EventLog EventLog = new EventLog();
 
-    public void AdvanceMonth()
+    public void AdvanceHour(float hour)
     {
-      Month++;
-      if (Month >= 12)
+      Hour++;
+      if (Hour >= 24)
       {
-        Month = 0;
-        Year++;
+        Hour = 0;
+        Day++;
       }
     }
   }
