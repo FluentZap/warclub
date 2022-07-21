@@ -203,7 +203,8 @@ namespace WarClub
         part.Effect = planetEffect;
         planet.rotation *= planet.rotationSpeed;
         // Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 1) * Matrix.CreateScale(3);
-        Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateScale(planet.size) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 0);
+        // Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateScale(planet.size) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 0);
+        Matrix matrix = Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateScale(planet.size);
         // planetEffect.Parameters["World"].SetValue(worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3));
         planetEffect.Parameters["World"].SetValue(worldMatrix * matrix);
         planetEffect.Parameters["View"].SetValue(viewMatrix);

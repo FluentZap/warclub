@@ -6,18 +6,14 @@ using System.Collections.Generic;
 
 namespace WarClub
 {
-  class Planet : Entity
+  class Star : Entity
   {
-    public Star star;
-    public Quaternion orbit;
-    public Quaternion orbitSpeed;
+    public Vector2 location;
     public Quaternion rotationSpeed;
     public Quaternion rotation;
-    public int DayLength;
-    public int YearLength;
     public Color color;
     public float size;
 
-    public Planet() : base(EntityType.Planet) { }
+    public Star() : base(EntityType.Star) { }
   }
 }

@@ -23,6 +23,7 @@ namespace WarClub
     public ulong Year;
     public uint Month;
 
+    public KeyCollection<Star> Stars = new KeyCollection<Star>();
     public KeyCollection<Planet> Planets = new KeyCollection<Planet>();
 
     public EventLog EventLog = new EventLog();
