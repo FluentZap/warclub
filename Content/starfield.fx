@@ -7,9 +7,7 @@
 	#define PS_SHADERMODEL ps_4_0_level_9_1
 #endif
 
-matrix WorldViewProjection;
 float time;
-#define NUM_LAYERS 6
 
 struct VertexShaderInput
 {
@@ -25,100 +23,52 @@ struct VertexShaderOutput
     float4 Color : COLOR0;
 };
 
-VertexShaderOutput MainVS(in VertexShaderInput input)
+float3 hash( float3 p ) // replace this by something better
 {
-	VertexShaderOutput output = (VertexShaderOutput)0;
+	p = float3( dot(p,float3(127.1,311.7, 74.7)),
+			    dot(p,float3(269.5,183.3,246.1)),
+			    dot(p,float3(113.5,271.9,124.6)));
 
-	output.Position = mul(input.Position, WorldViewProjection);
-	output.TextureUV = input.TextureUV;
-    output.Color = input.Color;
-
-	return output;
+	return -1.0 + 2.0*frac(sin(p)*43758.5453123);
 }
 
-float2x2 Rot(float a)
+float noise( in float3 p )
 {
-    float s=sin(a), c=cos(a);
-    return float2x2(c, -s, s, c);
-}
-
-float Hash21(float2 p)
-{
-    p = frac(p * float2(123.34, 456.21));
-    p += dot(p, p + 45.32);
-    return frac(p.x*p.y);
-}
-
-float Star(float2 uv, float flare)
-{
-    float d = length(uv);
-    float m = .05 / d;
-    
-    float rays = max(0, 1.-abs(uv.x*uv.y*1000));
-    m += rays*flare;
-    
-    uv = mul(uv,Rot(3.1415 / 4));
-    rays = max(0, 1.-abs(uv.x*uv.y*1000));
-    m += rays*.3*flare;
-    
-    m *= smoothstep(1., .2, d);
-    return m;
-}
-
-float3 StarLayer(float2 uv) {
-	float3 col = 0;
+    float3 i = floor( p );
+    float3 f = frac( p );
 	
-    float2 gv = frac(uv)-.5;
-    float2 id = floor(uv);
-    
-    for(int y=-1;y<=1;y++) {
-    	for(int x=-1;x<=1;x++) {
-            float2 offs = x, y;
-            
-    		float n = Hash21(id+offs); // random between 0 and 1
-            float size = frac(n*345.32);
-            
-    		float star = Star(gv-offs-float2(n, frac(n*34.))+.5, smoothstep(.9, 1., size)*.6);
-            
-            float3 color = sin(float3(.2, .3, .9)*frac(n*2345.2)*123.2)*.5+.5;
-            color = color*float3(1,.25,1.+size)+float3(.2, .2, .1)*2.;
-            
-            star *= sin(time*3.+n*6.2831)*.5+1.;
-            col += star*size*color;
-        }
-    }
-    return col;
+	float3 u = f*f*(3.0-2.0*f);
+
+    return lerp( lerp( lerp( dot( hash( i + float3(0.0,0.0,0.0) ), f - float3(0.0,0.0,0.0) ), 
+                          dot( hash( i + float3(1.0,0.0,0.0) ), f - float3(1.0,0.0,0.0) ), u.x),
+                     lerp( dot( hash( i + float3(0.0,1.0,0.0) ), f - float3(0.0,1.0,0.0) ), 
+                          dot( hash( i + float3(1.0,1.0,0.0) ), f - float3(1.0,1.0,0.0) ), u.x), u.y),
+                lerp( lerp( dot( hash( i + float3(0.0,0.0,1.0) ), f - float3(0.0,0.0,1.0) ), 
+                          dot( hash( i + float3(1.0,0.0,1.0) ), f - float3(1.0,0.0,1.0) ), u.x),
+                     lerp( dot( hash( i + float3(0.0,1.0,1.0) ), f - float3(0.0,1.0,1.0) ), 
+                          dot( hash( i + float3(1.0,1.0,1.0) ), f - float3(1.0,1.0,1.0) ), u.x), u.y), u.z );
 }
 
 float4 MainPS(VertexShaderOutput input) : COLOR
 {
-	float2 uv = input.TextureUV-.5;
-
-    float t = time*.02;
-    float M = 1;
-    uv += M*4.;
+	// Normalized pixel coordinates (from 0 to 1)
+    float2 uv = input.TextureUV;
     
-    uv = mul(uv, Rot(t));
-    float3 col = 0;
-    
-    for(float i=0.; i<1.; i+=1./NUM_LAYERS) {
-    	float depth = frac(i+t);
-        
-        float scale = lerp(20., .5, depth);
-        float fade = depth*smoothstep(1., .9, depth);
-        col += StarLayer(uv*scale+i*453.2-M)*fade;
-    }
-    
-    col = pow(col, float(.4545));	// gamma correction
-
-    return float4(col, 1.0);
+    // Stars computation:
+    float3 stars_direction = normalize(float3(uv * 2.0f - 1.0f, 1.0f)); // could be view vector for example
+	float stars_threshold = 8.0f; // modifies the number of stars that are visible
+	float stars_exposure = 200.0f; // modifies the overall strength of the stars
+	float stars = pow(clamp(noise(stars_direction * 200.0f), 0.0f, 1.0f), stars_threshold) * stars_exposure;
+	stars *= lerp(0.4, 1.4, noise(stars_direction * 100.0f + float(time))); // time based flickering
+	
+    // Output to screen
+    return float4(stars, stars, stars, 1.0);
 }
 
 technique BasicColorDrawing
 {
 	pass P0
 	{
-		VertexShader = compile VS_SHADERMODEL MainVS();
 		PixelShader = compile PS_SHADERMODEL MainPS();
 	}
 };

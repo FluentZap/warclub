@@ -20,6 +20,8 @@ namespace WarClub
     Matrix viewMatrix;
     Matrix worldMatrix;
 
+    Matrix pvm;
+
     BasicEffect basicEffect;
     Effect planetEffect;
     Effect starfieldEffect;
@@ -28,6 +30,7 @@ namespace WarClub
 
     Model model;
     Model plane;
+    Texture2D screenTexture;
 
     float timeAdvance;
     VertexPositionColor[] triangleVertices;
@@ -89,23 +92,27 @@ namespace WarClub
       graphics.PreferredBackBufferWidth = (int)screenSize.X;
       graphics.ApplyChanges();
 
-      // camTarget = new Vector3(0f, 0f, 0f);
-      // camPosition = new Vector3(0f, 0f, 100f);
+      camTarget = new Vector3(0f, 0f, 0f);
+      camPosition = new Vector3(0f, 0f, -50f);
 
       // projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), GraphicsDevice.DisplayMode.AspectRatio, 1f, 1000f);
-      // projectionMatrix = Matrix.CreateOrthographic(100 * 16, 100 * 9, 1f, 1000f);
+      // projectionMatrix = Matrix.CreateOrthographic(160, 90, 1f, 1000f);
+      // projectionMatrix = Matrix.CreateOrthographic(16, 9, 1f, 1000f);
       // projectionMatrix = Matrix.CreateOrthographic(100 * 16, 100 * 9, 1f, 1000f);
       // projectionMatrix = Matrix.CreateOrthographic(-1200, -1200, 1f, 1000f);
-      projectionMatrix = Matrix.CreateOrthographicOffCenter(0, 1600 * 0.2f, 900 * 0.2f, 0, -10f, 1000f);
+      projectionMatrix = Matrix.CreateOrthographicOffCenter(0, 1600, 900, 0, -10f, 1000f);
 
       // projectionMatrix = Matrix.create
-      // viewMatrix = Matrix.CreateLookAt(camPosition, camTarget, Vector3.Up);
+      viewMatrix = Matrix.CreateLookAt(camPosition, camTarget, Vector3.Up);
       // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up) * Matrix.CreateRotationY(MathHelper.ToRadians(-12.0f));
       // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up);
-      // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up);
-      worldMatrix = Matrix.CreateTranslation(0.5f, 0.5f, 0);
+      worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up);
+      // worldMatrix = Matrix.CreateTranslation(0.5f, 0.5f, 0);
       // worldMatrix = Matrix.CreateTranslation(1.5f, 0.5f, 0);
       // worldMatrix = Matrix.Identity;
+
+      // pvm = projectionMatrix * viewMatrix * worldMatrix;
+      pvm = projectionMatrix;
 
       basicEffect = new BasicEffect(GraphicsDevice);
       basicEffect.Alpha = 1f;
@@ -123,6 +130,8 @@ namespace WarClub
       // vertexBuffer.SetData<VertexPositionColor>(terrainFace.vertices);
       vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), triangleVertices.Length, BufferUsage.WriteOnly);
       vertexBuffer.SetData<VertexPositionColor>(triangleVertices);
+
+      screenTexture = new Texture2D(GraphicsDevice, (int)screenSize.X, (int)screenSize.Y);
 
     }
 
@@ -173,17 +182,21 @@ namespace WarClub
 
       GraphicsDevice.Clear(new Color(10, 10, 10, 255));
 
+      DrawStarfield();
+
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
       // rasterizerState.FillMode = FillMode.WireFrame;
       // GraphicsDevice.RasterizerState = rasterizerState;
-      // planetEffect.CurrentTechnique.Passes[0].Apply();
 
-      foreach (var planet in simulation.cosmos.Planets)
-        DrawPlanet(planet.Value);
+      // foreach (var planet in simulation.cosmos.Planets)
+      //   DrawPlanet(planet.Value);
 
       // foreach (var star in simulation.cosmos.Stars)
       //   DrawStar(star.Value);
+
+      // DrawStarfield();
+      // DrawPlanet(simulation.cosmos.Planets[0]);
 
 
       // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
@@ -193,11 +206,6 @@ namespace WarClub
       // foreach (int x in Enumerable.Range(0, 4))
       // foreach (int y in Enumerable.Range(0, 4))
       // DrawPlanet(new Vector3(x * 2, y * 2, 0));
-
-      RasterizerState rasterizerState = new RasterizerState();
-      // rasterizerState.CullMode = CullMode.None;
-      // rasterizerState.FillMode = FillMode.Solid;
-      GraphicsDevice.RasterizerState = rasterizerState;
 
       // GraphicsDevice.SetVertexBuffer(vertexBuffer);
 
@@ -269,13 +277,31 @@ namespace WarClub
         // starfieldEffect.Parameters["View"].SetValue(viewMatrix);
         // starfieldEffect.Parameters["Projection"].SetValue(projectionMatrix);
         // starfieldEffect.Parameters["AmbientColor"].SetValue(planet.color.ToVector4());
-        starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(70f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
+        // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
+        starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(1f) * Matrix.CreateTranslation(0, 0, 0) * projectionMatrix);
         // starfieldEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
         // starfieldEffect.Parameters["AmbientIntensity"].SetValue(1f);
         // starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
-        starfieldEffect.Parameters["time"].SetValue(timeAdvance / 10000f);
+        starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
       }
       mesh.Draw();
+    }
+
+    void DrawStarfield()
+    {
+      starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
+      spriteBatch.Begin(effect: starfieldEffect);
+      spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
+      spriteBatch.End();
+
+      // ModelMesh mesh = plane.Meshes[0];
+      // ModelMeshPart part = mesh.MeshParts[0];
+      // part.Effect = starfieldEffect;
+      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.Identity * projectionMatrix);
+      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
+      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * pvm);
+      // starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
+      // mesh.Draw();
     }
   }
 }
