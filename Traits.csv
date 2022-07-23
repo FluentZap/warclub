@@ -72,12 +72,12 @@ Enormous Size                      |planet size            |
 Massive Size                       |planet size            |
                                    
 No Tilt                            |planet tilt            |
-Slight Tilt                        |planet tilt            |5_weather_variance
-Notable Tilt                       |planet tilt            |10_weather_variance
-Moderate Tilt                      |planet tilt            |20_weather_variance
-Large Tilt                         |planet tilt            |40_weather_variance
-Severe Tilt                        |planet tilt            |60_weather_variance
-Extreme Tilt                       |planet tilt            |80_weather_variance
+Slight Tilt                        |planet tilt            |5_weather variance
+Notable Tilt                       |planet tilt            |10_weather variance
+Moderate Tilt                      |planet tilt            |20_weather variance
+Large Tilt                         |planet tilt            |40_weather variance
+Severe Tilt                        |planet tilt            |60_weather variance
+Extreme Tilt                       |planet tilt            |80_weather variance
                                    
                                    
 Adeptus Arbites Presence           |presence               |

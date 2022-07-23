@@ -292,37 +292,48 @@ namespace WarClub
         p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0);
       }
 
+      Dictionary<(int, int), bool> grid = new Dictionary<(int, int), bool>();
 
       // Create Stars
-      for (float x = -280; x < 280; x += 70)
-        for (float y = -140; y < 140; y += 70)
-        // foreach (int x in Enumerable.Range(-10, 20))
-        // foreach (int y in Enumerable.Range(-5, 10))
+      // for (float x = 0; x < 1000; x += 70)
+      // for (float y = -140; y < 140; y += 70)
+      // foreach (int x in Enumerable.Range(-10, 20))
+      foreach (int i in Enumerable.Range(1, 100))
+      {
+        var location = new Point();
+        while (grid.ContainsKey((location.X, location.Y)))
         {
-          var size = getFromRange(rollTables[RollTable.StarSize]);
-          var s = new Star()
-          {
-            // location = new Vector2((float)(RNG.Integer(-40, 40) / 10f), (float)(RNG.Integer(-40, 40) / 10f)),
-            location = new Vector2(x + RNG.Integer(-20, 20), y + RNG.Integer(-20, 20)),
-            rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0),
-            rotation = Quaternion.Identity,
-            size = starSizeMap[size],
-            color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
-          };
-          s.Id = cosmos.Stars.AutoAdd(s);
-        }
+
+          location.X = RNG.Integer(100);
+          location.Y = RNG.Integer(100);
+        };
+        grid.Add((location.X, location.Y), true);
+
+        var size = getFromRange(rollTables[RollTable.StarSize]);
+        var s = new Star()
+        {
+          // location = new Vector2((float)(RNG.Integer(-40, 40) / 10f), (float)(RNG.Integer(-40, 40) / 10f)),
+          location = location.ToVector2(),
+          rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0),
+          rotation = Quaternion.Identity,
+          size = starSizeMap[size],
+          color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+        };
+        s.Id = cosmos.Stars.AutoAdd(s);
+      }
 
       // Create Planets
-      foreach (int i in Enumerable.Range(1, 32))
+      foreach (uint i in Enumerable.Range(1, 32))
       {
         var p = new Planet()
         {
-          star = RNG.PickFrom(cosmos.Stars.Values),
+          // star = RNG.PickFrom(cosmos.Stars.Values),
+          star = cosmos.Stars[i],
           size = RNG.Integer(10, 25) / 10f,
           color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
           orbit = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(0, 180))),
           orbitSpeed = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(10, 100) / 100f)),
-          distance = RNG.Integer(20, 35),
+          distance = RNG.Integer(1, 5) / 10f,
         };
 
         addPlanetType(p);
@@ -336,24 +347,28 @@ namespace WarClub
 
         p.Id = cosmos.Planets.AutoAdd(p);
       }
+      cosmos.Stars[0].location.X = 0;
+      cosmos.Stars[0].location.Y = 0;
+      cosmos.Stars[1].location.X = 100;
+      cosmos.Stars[1].location.Y = 100;
 
-      List<Star> removeList = new List<Star>();
-      foreach (var star in cosmos.Stars)
-      {
-        var containsPlanet = false;
-        foreach (var planet in cosmos.Planets)
-        {
-          if (planet.Value.star == star.Value)
-            containsPlanet = true;
-        }
-        if (!containsPlanet)
-        {
-          removeList.Add(star.Value);
-        }
-      }
+      // List<Star> removeList = new List<Star>();
+      // foreach (var star in cosmos.Stars)
+      // {
+      //   var containsPlanet = false;
+      //   foreach (var planet in cosmos.Planets)
+      //   {
+      //     if (planet.Value.star == star.Value)
+      //       containsPlanet = true;
+      //   }
+      //   if (!containsPlanet)
+      //   {
+      //     removeList.Add(star.Value);
+      //   }
+      // }
 
-      foreach (var star in removeList)
-        cosmos.Stars.Remove(star.Id);
+      // foreach (var star in removeList)
+      //   cosmos.Stars.Remove(star.Id);
     }
   }
 }
