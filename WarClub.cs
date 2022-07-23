@@ -195,7 +195,7 @@ namespace WarClub
       // DrawPlanet(new Vector3(x * 2, y * 2, 0));
 
       RasterizerState rasterizerState = new RasterizerState();
-      rasterizerState.CullMode = CullMode.None;
+      // rasterizerState.CullMode = CullMode.None;
       // rasterizerState.FillMode = FillMode.Solid;
       GraphicsDevice.RasterizerState = rasterizerState;
 
@@ -273,7 +273,7 @@ namespace WarClub
         // starfieldEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
         // starfieldEffect.Parameters["AmbientIntensity"].SetValue(1f);
         // starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
-        // starfieldEffect.Parameters["time"].SetValue(timeAdvance / 10000f);
+        starfieldEffect.Parameters["time"].SetValue(timeAdvance / 10000f);
       }
       mesh.Draw();
     }
