@@ -13,12 +13,14 @@ struct VertexShaderInput
 {
 	float4 Position : POSITION0;
 	float2 TextureUV : TEXCOORD0;
+    float4 Color : COLOR0;
 };
 
 struct VertexShaderOutput
 {
 	float4 Position : SV_POSITION;
 	float2 TextureUV : TEXCOORD0;
+    float4 Color : COLOR0;
 };
 
 VertexShaderOutput MainVS(in VertexShaderInput input)
@@ -26,110 +28,48 @@ VertexShaderOutput MainVS(in VertexShaderInput input)
 	VertexShaderOutput output = (VertexShaderOutput)0;
 
 	output.Position = mul(input.Position, WorldViewProjection);
-    output.TextureUV = input.TextureUV;
-	// output.Color = input.Color;
+	output.TextureUV = input.TextureUV;
+    output.Color = input.Color;
 
 	return output;
 }
 
-struct v2f
+float2x2 Rot(float a)
 {
-    float2 uv : TEXCOORD0;
-    float4 vertex : SV_POSITION;
-};
-
-
-struct appdata
-{
-    float4 vertex : POSITION;
-    float2 uv : TEXCOORD0;
-};
-
-float time;
-
-Texture2D NoiseTexture;
-
-SamplerState _MainTex
-{
-    Texture = <NoiseTexture>;
-	MinFilter = Linear;
-	MagFilter = Linear;
-	MipFilter = Linear;
-	AddressU = Wrap;
-	AddressV = Wrap;
-};
-
-// Texture2D _MainTex;
-// sampler2D _MainTex;
-float4 _MainTex_ST;
-
-float2 r2D(float2 p)
-{
-    return float2(frac(sin(dot(p, float2(92.51, 65.19)))*4981.32),
-                frac(sin(dot(p, float2(23.34, 15.28)))*6981.32));
+    float s=sin(a), c=cos(a);
+    return float2x2(c, -s, s, c);
 }
 
-#define PI 3.141592
-
-// #define _Time float2(1, 2)
-
-float polygon(float2 p, float s)
+float Star(float2 uv, float flare)
 {
-    float a = ceil(s*(atan2(-p.y, -p.x)/PI+1.)*.5);
-    float n = 2.*PI/s;
-    float t = n*a-n*.5;
-    return lerp(dot(p, float2(cos(t), sin(t))), length(p), .3);
+    float d = length(uv);
+    float m = .05 / d;
+    
+    float rays = max(0, 1.-abs(uv.x*uv.y*1000));
+    m += rays*flare;
+    
+    uv = mul(uv,Rot(3.1415 / 4));
+    rays = max(0, 1.-abs(uv.x*uv.y*1000));
+    m += rays*.3*flare;
+    
+    return m;
 }
 
-float voronoi(float2 p, float s)
+float4 MainPS(VertexShaderOutput input) : COLOR
 {
-    float2 i = floor(p*s);
-    float2 current = i + frac(p*s);
-    float min_dist = 1.;
-    for (int y = -1; y <= 1; y++)
-    {
-        for (int x = -1; x <= 1; x++)
-        {
-            float2 neighbor = i + float2(x, y);
-            float2 vPoint = r2D(neighbor);
-            vPoint = 0.5 + 0.5*sin(time*.5 + 6.*vPoint);
-            float dist = polygon(neighbor+vPoint - current, 3.);
-            min_dist = min(min_dist, dist);
-        }
-    }
-    return min_dist;
-}
+	float2 uv = input.TextureUV-.5;
+	// float2 uv = input.Position.xy-.5;
+    uv *= 3;
+    float3 col = 0;
 
-float4 MainPS(v2f i) : SV_Target
-{
-    float2 uv = i.uv*2.-1.;
-    float2 e = float2(.01, .0);
-    
-    float s = 2.;
-    float vor = 1.-voronoi(uv, s);
-    float dx = 1.-voronoi(uv-e.xy, s);
-    float dy = 1.-voronoi(uv-e.yx, s);
-    dx = (dx-vor)/e.x;
-    dy = (dy-vor)/e.x;
-    
-    float t = time;
-    float3 n = normalize(float3(dx, dy, 1.));
-    float3 lp = float3(cos(t), sin(t), .5)*2.;
-    float3 ld = normalize(lp-float3(uv, 0.));
-    float3 ed = normalize(float3(0., .0, 1.)-float3(uv, 0.));
-    float3 hd = normalize(ld + ed);
-    float sl = pow(max(dot(hd,n), 0.),4.);
-    float oc = clamp(pow((vor), 2.), 0., 1.);
-    float amb = (1.-vor)*.5;
-    float diff = max(dot(n, ld), 0.)*.75;
-    float l = oc*diff+amb+sl;
-    
-    float3 col = float3(0,0,0);
-    
-    
-    col += l*tex2D(_MainTex, normalize(reflect(float3(0., .0, 1.), n))).rgb;
+    float2 gv = frac(uv)-.5;
 
-    return float4(col,1.0);
+    // col.rg = gv;
+
+
+    col += Star(gv, 0.2);
+    if(gv.x>.48 || gv.y>.48) col.r=1;
+    return float4(col, 1.0);
 }
 
 technique BasicColorDrawing

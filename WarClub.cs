@@ -272,8 +272,8 @@ namespace WarClub
         starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(70f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
         // starfieldEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
         // starfieldEffect.Parameters["AmbientIntensity"].SetValue(1f);
-        starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
-        starfieldEffect.Parameters["time"].SetValue(timeAdvance / 10000f);
+        // starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
+        // starfieldEffect.Parameters["time"].SetValue(timeAdvance / 10000f);
       }
       mesh.Draw();
     }
