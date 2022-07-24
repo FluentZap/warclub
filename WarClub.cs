@@ -12,8 +12,8 @@ namespace WarClub
     private SpriteBatch spriteBatch;
     Simulation simulation;
 
-    // Vector2 screenSize = new Vector2(1920, 1024);
-    Vector2 screenSize = new Vector2(4096, 2160);
+    Vector2 screenSize = new Vector2(1920, 1024);
+    // Vector2 screenSize = new Vector2(4096, 2160);
 
     Vector3 camTarget;
     Vector3 camPosition;
@@ -290,7 +290,9 @@ namespace WarClub
 
     void DrawStarfield()
     {
+      // starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
       starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
+      // starfieldEffect.Parameters["g_texture"].SetValue(planetNoise);
       // starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 3000f);
       // starfieldEffect.Parameters["iTime"].SetValue(0.0f);
       spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
