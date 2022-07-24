@@ -12,7 +12,8 @@ namespace WarClub
     private SpriteBatch spriteBatch;
     Simulation simulation;
 
-    Vector2 screenSize = new Vector2(1920, 1024);
+    // Vector2 screenSize = new Vector2(1920, 1024);
+    Vector2 screenSize = new Vector2(4096, 2160);
 
     Vector3 camTarget;
     Vector3 camPosition;
@@ -289,19 +290,12 @@ namespace WarClub
 
     void DrawStarfield()
     {
-      starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
-      spriteBatch.Begin(effect: starfieldEffect);
+      starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
+      // starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 3000f);
+      // starfieldEffect.Parameters["iTime"].SetValue(0.0f);
+      spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
       spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
       spriteBatch.End();
-
-      // ModelMesh mesh = plane.Meshes[0];
-      // ModelMeshPart part = mesh.MeshParts[0];
-      // part.Effect = starfieldEffect;
-      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.Identity * projectionMatrix);
-      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
-      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * pvm);
-      // starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
-      // mesh.Draw();
     }
   }
 }
