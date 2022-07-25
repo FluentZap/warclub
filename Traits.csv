@@ -1,89 +1,149 @@
-Name                               |Types                  |Aspects
+name                               |types          |aspects
                                    
-Adeptus Custodes                   |faction                |
-Adeptus Mechanicus                 |faction                |
-Aeldari                            |faction                |
-Astra Militarum                    |faction                |
-Adepta Sororitas                   |faction                |
-Astra Cartographica                |faction                |
-Chaos Daemons                      |faction                |
-Chaos Space Marines                |faction                |
-Death Guard                        |faction                |
-Drukhari                           |faction                |
-Genestealer Cults                  |faction                |
-Grey Knights                       |faction                |
-Heretic Titan Legions              |faction                |
-Inquisition                        |faction                |
-Necrons                            |faction                |
-Officio Assassinorum               |faction                |
-Orks                               |faction                |
-Imperial Knights                   |faction                |
-Chaos Knights                      |faction                |
-Renegades and Heretics             |faction                |
-Rogue Traders                      |faction                |
-Space Marines                      |faction                |
-T’au Empire                        |faction                |
-Titan Legions                      |faction                |
-Thousand Sons                      |faction                |
-Tyranids                           |faction                |
-Unaligned                          |faction                |
+adeptus custodes                   |faction        |
+adeptus mechanicus                 |faction        |
+aeldari                            |faction        |
+astra militarum                    |faction        |
+adepta sororitas                   |faction        |
+astra cartographica                |faction        |
+chaos daemons                      |faction        |
+chaos space marines                |faction        |
+death guard                        |faction        |
+drukhari                           |faction        |
+genestealer cults                  |faction        |
+grey knights                       |faction        |
+heretic titan legions              |faction        |
+inquisition                        |faction        |
+necrons                            |faction        |
+officio assassinorum               |faction        |
+orks                               |faction        |
+imperial knights                   |faction        |
+chaos knights                      |faction        |
+renegades and heretics             |faction        |
+rogue traders                      |faction        |
+space marines                      |faction        |
+t’au empire                        |faction        |
+titan legions                      |faction        |
+thousand sons                      |faction        |
+tyranids                           |faction        |
+unaligned                          |faction        |
                                    
-Hive World                         |world type             |
-Agri World                         |world type             |
-Forge World                        |world type             |
-Mining World                       |world type             |
-Developing World                   |world type             |
-Feudal World                       |world type             |
-Feral World                        |world type             |
-Shrine World                       |world type             |
-Cemetery World                     |world type             |
-Pleasure World                     |world type             |
-Quarantined World                  |world type             |
-War World                          |world type             |
-Dead World                         |world type             |
-Death World                        |world type             |
-Frontier World                     |world type             |
-Forbidden World                    |world type             |
-Xenos World                        |world type             |
+hive world                         |world type     |
+agri world                         |world type     |
+forge world                        |world type     |
+mining world                       |world type     |
+developing world                   |world type     |
+feudal world                       |world type     |
+feral world                        |world type     |
+shrine world                       |world type     |
+cemetery world                     |world type     |
+pleasure world                     |world type     |
+quarantined world                  |world type     |
+war world                          |world type     |
+dead world                         |world type     |
+death world                        |world type     |
+frontier world                     |world type     |
+forbidden world                    |world type     |
+xenos world                        |world type     |
                                    
-Stone Age                          |tech level             |
-Iron Age                           |tech level             |
-Steel Age                          |tech level             |
-Pre Industrial                     |tech level             |
-Industrial                         |tech level             |
-Early Space                        |tech level             |
-Advanced Space                     |tech level             |
-Warp Space                         |tech level             |
-Low Imperial                       |tech level             |
-Mid Imperial                       |tech level             |
-High Imperial                      |tech level             |
-Advanced                           |tech level             |
-                                   
-Tiny Size                          |star size, planet size |
-Small Size                         |star size, planet size |
-Medium Size                        |star size, planet size |
-Large Size                         |star size, planet size |
-Huge Size                          |star size, planet size |
-Giant Size                         |star size              |
-                                   
-Average Size                       |planet size            |
-Miniscule Size                     |planet size            |
-Enormous Size                      |planet size            |
-Massive Size                       |planet size            |
-                                   
-No Tilt                            |planet tilt            |
-Slight Tilt                        |planet tilt            |5_weather variance
-Notable Tilt                       |planet tilt            |10_weather variance
-Moderate Tilt                      |planet tilt            |20_weather variance
-Large Tilt                         |planet tilt            |40_weather variance
-Severe Tilt                        |planet tilt            |60_weather variance
-Extreme Tilt                       |planet tilt            |80_weather variance
+stone age                          |tech level     |
+iron age                           |tech level     |
+steel age                          |tech level     |
+pre industrial                     |tech level     |
+industrial                         |tech level     |
+early space                        |tech level     |
+advanced space                     |tech level     |
+warp space                         |tech level     |
+low imperial                       |tech level     |
+mid imperial                       |tech level     |
+high imperial                      |tech level     |
+advanced                           |tech level     |
                                    
                                    
-Adeptus Arbites Presence           |presence               |
-Adeptus Astra Telepathica Presence |presence               |
-Adeptus Astronimica Presence       |presence               |
-Adeptus Mechanicus Presence        |presence               |
-Administratum Presence             |presence               |
-Adeptus Ministorum Presence        |presence               |
-Inquisition Presence               |presence               |
+tiny star                          |star size      |
+small star                         |star size      |
+medium star                        |star size      |
+large star                         |star size      |
+huge star                          |star size      |
+giant star                         |star size      |
+                                   
+                                   
+miniscule size                     |planet size    |
+tiny size                          |planet size    |
+small size                         |planet size    |
+average size                       |planet size    |
+large size                         |planet size    |
+huge size                          |planet size    |
+enormous size                      |planet size    |
+massive size                       |planet size    |
+                                   
+no tilt                            |planet tilt    |
+slight tilt                        |planet tilt    |5_weather variance
+notable tilt                       |planet tilt    |10_weather variance
+moderate tilt                      |planet tilt    |20_weather variance
+large tilt                         |planet tilt    |40_weather variance
+severe tilt                        |planet tilt    |60_weather variance
+extreme tilt                       |planet tilt    |80_weather variance
+                                   
+very light gravity                 |planet gravity |
+light gravity                      |planet gravity |
+standard gravity                   |planet gravity |
+heavy gravity                      |planet gravity |
+very heavy gravity                 |planet gravity |
+                                   
+normal atmosphere                  |atmosphere     |
+bearable atmosphere                |atmosphere     |
+tainted atmosphere                 |atmosphere     |
+poisonous atmosphere               |atmosphere     |
+deadly atmosphere                  |atmosphere     |
+                                   
+waterless hydrosphere              |hydrosphere    |
+parched hydrosphere                |hydrosphere    |
+arid hydrosphere                   |hydrosphere    |
+average hydrosphere                |hydrosphere    |
+damp hydrosphere                   |hydrosphere    |
+moist hydrosphere                  |hydrosphere    |
+watery hydrosphere                 |hydrosphere    |
+aquatic hydrosphere                |hydrosphere    |
+                                   
+                                   
+bitter temperature                 |temperature    |
+cold temperature                   |temperature    |
+chilly temperature                 |temperature    |
+frosty temperature                 |temperature    |
+average temperature                |temperature    |
+warm temperature                   |temperature    |
+tepid temperature                  |temperature    |
+hot temperature                    |temperature    |
+roasting temperature               |temperature    |
+searing temperature                |temperature    |
+                                   
+grassland terrain                  |planet terrain |
+savannah terrain                   |planet terrain |
+continual forest terrain           |planet terrain |
+broken forest terrain              |planet terrain |
+hills terrain                      |planet terrain |
+mountains terrain                  |planet terrain |
+plateaus terrain                   |planet terrain |
+dormant volcanoes terrain          |planet terrain |
+active volcanoes terrain           |planet terrain |
+broken rock terrain                |planet terrain |
+flat rock terrain                  |planet terrain |
+columns terrain                    |planet terrain |
+moor terrain                       |planet terrain |
+barren terrain                     |planet terrain |
+swamp terrain                      |planet terrain |
+caves terrain                      |planet terrain |
+ravines terrain                    |planet terrain |
+sandy terrain                      |planet terrain |
+islands terrain                    |planet terrain |
+cliffs terrain                     |planet terrain |
+
+                                   
+adeptus arbites presence           |presence       |
+adeptus astra telepathica presence |presence       |
+adeptus astronimica presence       |presence       |
+adeptus mechanicus presence        |presence       |
+administratum presence             |presence       |
+adeptus ministorum presence        |presence       |
+inquisition presence               |presence       |

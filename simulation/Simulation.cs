@@ -50,7 +50,6 @@ namespace WarClub
       foreach (Planet p in cosmos.Planets.Values)
       {
         p.rotation *= p.rotationSpeed;
-        p.orbit *= p.orbitSpeed;
       }
     }
 

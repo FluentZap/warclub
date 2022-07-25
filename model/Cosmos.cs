@@ -3,7 +3,7 @@ using System.Collections.Generic;
 namespace WarClub
 {
 
-  class KeyCollection<T> : Dictionary<uint, T>
+  class KeyCollection<T> : Dictionary<uint, T> where T : ID
   {
     uint id = 0;
 
@@ -12,6 +12,7 @@ namespace WarClub
       if (!this.ContainsKey(id))
       {
         this.Add(id, item);
+        item.Id = id;
         return id++;
       }
       return id;
@@ -25,7 +26,7 @@ namespace WarClub
     // public uint Month;
     // public ulong Year;
 
-    public KeyCollection<Star> Stars = new KeyCollection<Star>();
+    public KeyCollection<Sector> Sectors = new KeyCollection<Sector>();
     public KeyCollection<Planet> Planets = new KeyCollection<Planet>();
 
     public EventLog EventLog = new EventLog();

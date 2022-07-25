@@ -183,42 +183,15 @@ namespace WarClub
 
       GraphicsDevice.Clear(new Color(10, 10, 10, 255));
 
-      DrawStarfield();
-
-      // RasterizerState rasterizerState = new RasterizerState();
-      // rasterizerState.CullMode = CullMode.None;
-      // rasterizerState.FillMode = FillMode.WireFrame;
-      // GraphicsDevice.RasterizerState = rasterizerState;
-
-      // foreach (var planet in simulation.cosmos.Planets)
-      //   DrawPlanet(planet.Value);
-
-      // foreach (var star in simulation.cosmos.Stars)
-      //   DrawStar(star.Value);
-
       // DrawStarfield();
-      // DrawPlanet(simulation.cosmos.Planets[0]);
 
+      RasterizerState rasterizerState = new RasterizerState();
+      rasterizerState.CullMode = CullMode.None;
+      rasterizerState.FillMode = FillMode.WireFrame;
+      GraphicsDevice.RasterizerState = rasterizerState;
 
-      // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
-      // spriteBatch.Draw(planetNoise, new Rectangle(0, 0, 512, 512), Color.White);
-      // spriteBatch.End();
-
-      // foreach (int x in Enumerable.Range(0, 4))
-      // foreach (int y in Enumerable.Range(0, 4))
-      // DrawPlanet(new Vector3(x * 2, y * 2, 0));
-
-      // GraphicsDevice.SetVertexBuffer(vertexBuffer);
-
-      // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateTranslation(100, 100, 0) * projectionMatrix);
-      // starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
-      // starfieldEffect.Parameters["_MainTex"].SetValue(planetNoise);
-
-      // starfieldEffect.CurrentTechnique.Passes.First().Apply();
-
-      // GraphicsDevice.DrawUserPrimitives<VertexPositionColor>(PrimitiveType.TriangleStrip, triangleVertices, 0, 1);
-
-
+      foreach (var planet in simulation.cosmos.Planets)
+        DrawPlanet(planet.Value);
 
       // foreach (EffectPass pass in starfieldEffect.CurrentTechnique.Passes)
       // {
@@ -229,72 +202,29 @@ namespace WarClub
       base.Draw(gameTime);
     }
 
-    void DrawStar(Star star)
+    void DrawPlanet(Planet planet)
     {
       ModelMesh mesh = model.Meshes[0];
       mesh.MeshParts[0].Effect = basicEffect;
+      // Matrix matrix = Matrix.CreateScale(10.0f) * Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.location.X, planet.location.Y, 0);
+
       foreach (BasicEffect effect in mesh.Effects)
       {
-        // Matrix matrix = Matrix.CreateScale(star.size * 0.3f) * Matrix.CreateFromQuaternion(star.rotation) * Matrix.CreateTranslation(star.location.X, star.location.Y, 0);
-        Matrix matrix = Matrix.CreateScale(1f) * Matrix.CreateFromQuaternion(star.rotation) * Matrix.CreateTranslation(star.location.X, star.location.Y, 0);
-        // Matrix matrix = Matrix.CreateTranslation(8, 0, 0);
-        // effect.View = viewMatrix;
         effect.View = Matrix.Identity;
-        effect.World = worldMatrix * matrix;
+        // effect.World = worldMatrix * matrix;
         effect.Projection = projectionMatrix;
-
-        // effect.EnableDefaultLighting();
+        effect.EnableDefaultLighting();
         // effect.PreferPerPixelLighting = true;
-        // effect.DiffuseColor = new Vector3(1, 1, 1);
+        effect.DiffuseColor = new Vector3(1, 1, 1);
         // effect.EmissiveColor = new Vector3(1, 1, 1);
       }
-      mesh.Draw();
-    }
 
-
-    void DrawPlanet(Planet planet)
-    {
-      // ModelMesh mesh = model.Meshes[0];
-      ModelMesh mesh = plane.Meshes[0];
-
-      // foreach (BasicEffect effect in mesh.Effects)
-      // {
-      //   effect.View = viewMatrix;
-      //   effect.World = worldMatrix * Matrix.CreateTranslation(position) * Matrix.CreateScale(3);
-      //   effect.Projection = projectionMatrix;
-
-      // effect.EnableDefaultLighting();
-      // effect.PreferPerPixelLighting = true;
-      // effect.DiffuseColor = new Vector3(0, 1, 0);
-      // effect.CurrentTechnique = planetEffect.CurrentTechnique;
-      // }
-      foreach (ModelMeshPart part in mesh.MeshParts)
-      {
-        part.Effect = starfieldEffect;
-        // Matrix matrix = Matrix.CreateScale(planet.size * 0.1f) * Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.distance, 0, 0) * Matrix.CreateFromQuaternion(planet.orbit) * Matrix.CreateTranslation(planet.star.location.X, planet.star.location.Y, 0);
-        Matrix matrix = Matrix.CreateScale(0.5f) * Matrix.CreateFromQuaternion(planet.rotation) * Matrix.CreateTranslation(planet.distance, 0, 0) * Matrix.CreateFromQuaternion(planet.orbit) * Matrix.CreateTranslation(planet.star.location.X, planet.star.location.Y, 0);
-
-        // starfieldEffect.Parameters["World"].SetValue(worldMatrix * matrix);
-        // starfieldEffect.Parameters["View"].SetValue(viewMatrix);
-        // starfieldEffect.Parameters["Projection"].SetValue(projectionMatrix);
-        // starfieldEffect.Parameters["AmbientColor"].SetValue(planet.color.ToVector4());
-        // starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(100f) * Matrix.CreateTranslation(80, 80, 0) * projectionMatrix);
-        starfieldEffect.Parameters["WorldViewProjection"].SetValue(Matrix.CreateScale(1f) * Matrix.CreateTranslation(0, 0, 0) * projectionMatrix);
-        // starfieldEffect.Parameters["AmbientColor"].SetValue(Color.Green.ToVector4());
-        // starfieldEffect.Parameters["AmbientIntensity"].SetValue(1f);
-        // starfieldEffect.Parameters["NoiseTexture"].SetValue(planetNoise);
-        starfieldEffect.Parameters["time"].SetValue(timeAdvance / 3000f);
-      }
       mesh.Draw();
     }
 
     void DrawStarfield()
     {
-      // starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
       starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
-      // starfieldEffect.Parameters["g_texture"].SetValue(planetNoise);
-      // starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 3000f);
-      // starfieldEffect.Parameters["iTime"].SetValue(0.0f);
       spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
       spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
       spriteBatch.End();

@@ -8,10 +8,8 @@ namespace WarClub
 {
   class Planet : Entity
   {
-    public Star star;
-    public float distance;
-    public Quaternion orbit = Quaternion.Identity;
-    public Quaternion orbitSpeed;
+    public Sector sector;
+    // public Vector2 location;
     public Quaternion rotationSpeed;
     public Quaternion rotation = Quaternion.Identity;
     public int DayLength;

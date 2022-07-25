@@ -6,14 +6,9 @@ using System.Collections.Generic;
 
 namespace WarClub
 {
-  class Star : Entity
+  class Sector : Entity
   {
     public Vector2 location;
-    public Quaternion rotationSpeed;
-    public Quaternion rotation;
-    public Color color;
-    public float size;
-
-    public Star() : base(EntityType.Star) { }
+    public Sector() : base(EntityType.Sector) { }
   }
 }

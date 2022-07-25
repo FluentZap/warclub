@@ -7,6 +7,7 @@ namespace WarClub
 
   enum RelationType
   {
+    Satellite,
     // Created by
     Created,
     // Exists in the region of the other

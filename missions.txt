@@ -1,0 +1,79 @@
+Resources
+
+A sector is created and populated
+Ships
+Ship Speed
+
+
+Resources
+Units
+Relics
+Special Items
+Holdings Like Heros of might and magic
+
+
+6" reserve border
+
+Game flow
+Select starting units
+    Create a roster to recruit from with the starting resources
+*Select starting ship
+
+Natural to all factions, based on our starting units we will have some shift
+
+Main missions that will eventually lead us out of the current sector of space.
+Hoard missions, and blockers to getting there that we need to take advantage of to get out.
+
+Affiliate Status
+    Can increase the rank of the ship with the faction
+
+Types of missions
+
+Mission meta
+    Some missions will have optional intel objectives that will give us intel on factions/special missions
+
+Objective missions for a faction/leader
+    These will complete objectives and earn rewards and resources
+
+Gather resource missions
+    Steal, intercept, raid missions
+    These target a faction/leader and are for gathering large amounts of resources/rare resources
+
+Intel mission
+    Gather Intel on an objective/faction
+
+
+
+Objective control missions
+Supply drop, get the supplies from the landing site, could drop anywhere
+Assassinate, kill the target
+Recover a relic
+    Another faction, guarded by defenders of the relic, must grab and get to the exit zone
+Sabotage, several objectives to destroy on a map
+Recon Patrol, half of the units start as reserves
+Ritual, There is an action that is being preformed on the battlefield and the attacker is trying to disrupt the action
+
+Battlefield Missions
+Behind Enemy Lines, break through enemy lines on a battlefield
+Search a zone for an objective
+Retrieval, distress call, or Courier rescue, kill/recruit unit for free
+
+Destroy faction resources/armies, all out war style
+Support a pinned down army
+
+
+INTEL
+    Intel can be acquired during missions, optional objectives ect
+    They will upgrade the intelligence
+    If the intel level reaches a high enough level secret missions can be seen
+
+Political missions
+    Plant evidence, build alliances
+    Can shift the relation between two factions trying to start a conflict or war
+    Can find evidence of wrongdoing
+    Some units might have the ability to convince and sway leaders/factions
+
+Orbital ships modifier can cause dangerous mission deployment and
+
+Warp paths will connect multiple planets to each other
+Unstable travel can still be used
