@@ -39,7 +39,7 @@ namespace WarClub
       LoadLists();
       LoadUnits();
       LoadDataSheets();
-      GeneratePlanes();
+      GenerateWorlds();
     }
 
     public void AdvanceTime(float hour)

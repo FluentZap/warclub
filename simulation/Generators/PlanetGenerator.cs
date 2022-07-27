@@ -19,223 +19,237 @@ namespace WarClub
 
     enum RollTable
     {
-      PlanetType,
-      PlanetTech,
-      PlanetTilt,
-      PlanetSize,
-      PlanetGravity,
-      PlanetAtmosphere,
-      PlanetHydrosphere,
-      PlanetTemperature,
-      PlanetTerrainType,
+      WorldType,
+      WorldTypeLimited,
+      WorldTech,
+      WorldTilt,
+      WorldSize,
+      WorldGravity,
+      WorldAtmosphere,
+      WorldHydrosphere,
+      WorldTemperature,
+      WorldTerrainType,
+      WorldSocietyType,
       StarSize,
     }
 
     Dictionary<RollTable, Dictionary<int, Trait>> GetRollTables(Dictionary<string, TraitList> traitLists)
     {
-      var wt = TraitLists["world type"];
-      var tl = TraitLists["tech level"];
-      var ss = TraitLists["star size"];
-      var ps = TraitLists["planet size"];
-      var pt = TraitLists["planet tilt"];
-      var pg = TraitLists["planet gravity"];
-      var pa = TraitLists["atmosphere"];
-      var ph = TraitLists["hydrosphere"];
-      var temp = TraitLists["temperature"];
-      var terrain = TraitLists["planet terrain"];
-      var presenceTraits = TraitLists["presence"];
-
       return new Dictionary<RollTable, Dictionary<int, Trait>>
       {
-        [RollTable.PlanetType] = new Dictionary<int, Trait>
+        [RollTable.WorldType] = new Dictionary<int, Trait>
         {
-          [20] = wt["hive world"],
-          [28] = wt["agri world"],
-          [33] = wt["forge world"],
-          [41] = wt["mining world"],
-          [49] = wt["developing world"],
-          [53] = wt["feudal world"],
-          [58] = wt["feral world"],
-          [64] = wt["shrine world"],
-          [68] = wt["cemetery world"],
-          [73] = wt["pleasure world"],
-          [76] = wt["quarantined world"],
-          [82] = wt["war world"],
-          [84] = wt["dead world"],
-          [87] = wt["death world"],
-          [92] = wt["frontier world"],
-          [95] = wt["forbidden world"],
-          [99] = wt["xenos world"],
+          [20] = Traits["hive world"],
+          [28] = Traits["agri world"],
+          [33] = Traits["forge world"],
+          [41] = Traits["mining world"],
+          [49] = Traits["developing world"],
+          [53] = Traits["feudal world"],
+          [58] = Traits["feral world"],
+          [64] = Traits["shrine world"],
+          [68] = Traits["cemetery world"],
+          [73] = Traits["pleasure world"],
+          [76] = Traits["quarantined world"],
+          [82] = Traits["war world"],
+          [84] = Traits["dead world"],
+          [87] = Traits["death world"],
+          [92] = Traits["frontier world"],
+          [95] = Traits["forbidden world"],
+          [100] = Traits["xenos world"],
         },
-        [RollTable.PlanetTech] = new Dictionary<int, Trait>
+        [RollTable.WorldTypeLimited] = new Dictionary<int, Trait>
         {
-          [05] = tl["stone age"],
-          [10] = tl["iron age"],
-          [15] = tl["steel age"],
-          [20] = tl["pre industrial"],
-          [25] = tl["industrial"],
-          [30] = tl["early space"],
-          [35] = tl["advanced space"],
-          [40] = tl["warp space"],
-          [45] = tl["low imperial"],
-          [50] = tl["mid imperial"],
-          [55] = tl["high imperial"],
-          [60] = tl["advanced"],
+          [20] = Traits["hive world"],
+          [28] = Traits["agri world"],
+          [33] = Traits["forge world"],
+          [39] = Traits["mining world"],
+          [48] = Traits["developing world"],
+          [57] = Traits["feudal world"],
+          [62] = Traits["feral world"],
+          [68] = Traits["shrine world"],
+          [75] = Traits["cemetery world"],
+          [80] = Traits["pleasure world"],
+          [86] = Traits["death world"],
+          [92] = Traits["frontier world"],
+          [95] = Traits["forbidden world"],
+          [100] = Traits["xenos world"],
+        },
+        [RollTable.WorldTech] = new Dictionary<int, Trait>
+        {
+          [05] = Traits["stone age"],
+          [10] = Traits["iron age"],
+          [15] = Traits["steel age"],
+          [20] = Traits["pre industrial"],
+          [25] = Traits["industrial"],
+          [30] = Traits["early space"],
+          [35] = Traits["advanced space"],
+          [40] = Traits["warp space"],
+          [45] = Traits["low imperial"],
+          [50] = Traits["mid imperial"],
+          [55] = Traits["high imperial"],
+          [100] = Traits["advanced"],
         },
         [RollTable.StarSize] = new Dictionary<int, Trait>
         {
-          [5] = ss["tiny star"],
-          [15] = ss["small star"],
-          [75] = ss["medium star"],
-          [85] = ss["large star"],
-          [95] = ss["huge star"],
-          [100] = ss["giant star"],
+          [5] = Traits["tiny star"],
+          [15] = Traits["small star"],
+          [75] = Traits["medium star"],
+          [85] = Traits["large star"],
+          [95] = Traits["huge star"],
+          [100] = Traits["giant star"],
         },
-        [RollTable.PlanetSize] = new Dictionary<int, Trait>
+        [RollTable.WorldSize] = new Dictionary<int, Trait>
         {
-          [10] = ps["miniscule size"],
-          [20] = ps["tiny size"],
-          [35] = ps["small size"],
-          [75] = ps["average size"],
-          [85] = ps["large size"],
-          [90] = ps["huge size"],
-          [95] = ps["enormous size"],
-          [100] = ps["massive size"],
+          [10] = Traits["miniscule size"],
+          [20] = Traits["tiny size"],
+          [35] = Traits["small size"],
+          [75] = Traits["average size"],
+          [85] = Traits["large size"],
+          [90] = Traits["huge size"],
+          [95] = Traits["enormous size"],
+          [100] = Traits["massive size"],
         },
-        [RollTable.PlanetTilt] = new Dictionary<int, Trait>
+        [RollTable.WorldTilt] = new Dictionary<int, Trait>
         {
-          [5] = pt["no tilt"],
-          [15] = pt["slight tilt"],
-          [30] = pt["notable tilt"],
-          [70] = pt["moderate tilt"],
-          [85] = pt["large tilt"],
-          [95] = pt["severe tilt"],
-          [100] = pt["extreme tilt"],
+          [5] = Traits["no tilt"],
+          [15] = Traits["slight tilt"],
+          [30] = Traits["notable tilt"],
+          [70] = Traits["moderate tilt"],
+          [85] = Traits["large tilt"],
+          [95] = Traits["severe tilt"],
+          [100] = Traits["extreme tilt"],
         },
-        [RollTable.PlanetGravity] = new Dictionary<int, Trait>
+        [RollTable.WorldGravity] = new Dictionary<int, Trait>
         {
-          [5] = pg["very light gravity"],
-          [15] = pg["light gravity"],
-          [90] = pg["standard gravity"],
-          [95] = pg["heavy gravity"],
-          [100] = pg["very heavy gravity"],
+          [5] = Traits["very light gravity"],
+          [15] = Traits["light gravity"],
+          [90] = Traits["standard gravity"],
+          [95] = Traits["heavy gravity"],
+          [100] = Traits["very heavy gravity"],
         },
-        [RollTable.PlanetAtmosphere] = new Dictionary<int, Trait>
+        [RollTable.WorldAtmosphere] = new Dictionary<int, Trait>
         {
-          [70] = pa["normal atmosphere"],
-          [85] = pa["bearable atmosphere"],
-          [92] = pa["tainted atmosphere"],
-          [97] = pa["poisonous atmosphere"],
-          [100] = pa["deadly atmosphere"],
+          [70] = Traits["normal atmosphere"],
+          [85] = Traits["bearable atmosphere"],
+          [92] = Traits["tainted atmosphere"],
+          [97] = Traits["poisonous atmosphere"],
+          [100] = Traits["deadly atmosphere"],
         },
-        [RollTable.PlanetHydrosphere] = new Dictionary<int, Trait>
+        [RollTable.WorldHydrosphere] = new Dictionary<int, Trait>
         {
-          [10] = ph["waterless hydrosphere"],
-          [20] = ph["parched hydrosphere"],
-          [35] = ph["arid hydrosphere"],
-          [55] = ph["average hydrosphere"],
-          [70] = ph["damp hydrosphere"],
-          [80] = ph["moist hydrosphere"],
-          [90] = ph["watery hydrosphere"],
-          [100] = ph["aquatic hydrosphere"],
+          [10] = Traits["waterless hydrosphere"],
+          [20] = Traits["parched hydrosphere"],
+          [35] = Traits["arid hydrosphere"],
+          [55] = Traits["average hydrosphere"],
+          [70] = Traits["damp hydrosphere"],
+          [80] = Traits["moist hydrosphere"],
+          [90] = Traits["watery hydrosphere"],
+          [100] = Traits["aquatic hydrosphere"],
         },
-        [RollTable.PlanetTemperature] = new Dictionary<int, Trait>
+        [RollTable.WorldTemperature] = new Dictionary<int, Trait>
         {
-          [5] = temp["bitter temperature"],
-          [10] = temp["cold temperature"],
-          [20] = temp["chilly temperature"],
-          [35] = temp["frosty temperature"],
-          [60] = temp["average temperature"],
-          [75] = temp["warm temperature"],
-          [85] = temp["tepid temperature"],
-          [90] = temp["hot temperature"],
-          [95] = temp["roasting temperature"],
-          [100] = temp["searing temperature"],
+          [5] = Traits["bitter temperature"],
+          [10] = Traits["cold temperature"],
+          [20] = Traits["chilly temperature"],
+          [35] = Traits["frosty temperature"],
+          [60] = Traits["average temperature"],
+          [75] = Traits["warm temperature"],
+          [85] = Traits["tepid temperature"],
+          [90] = Traits["hot temperature"],
+          [95] = Traits["roasting temperature"],
+          [100] = Traits["searing temperature"],
         },
-        [RollTable.PlanetTerrainType] = new Dictionary<int, Trait>
+        [RollTable.WorldTerrainType] = new Dictionary<int, Trait>
         {
-          [5] = terrain["grassland terrain"],
-          [10] = terrain["savannah terrain"],
-          [15] = terrain["continual forest terrain"],
-          [20] = terrain["broken forest terrain"],
-          [25] = terrain["hills terrain"],
-          [30] = terrain["mountains terrain"],
-          [35] = terrain["plateaus terrain"],
-          [40] = terrain["dormant volcanoes terrain"],
-          [45] = terrain["active volcanoes terrain"],
-          [50] = terrain["broken rock terrain"],
-          [55] = terrain["flat rock terrain"],
-          [60] = terrain["columns terrain"],
-          [65] = terrain["moor terrain"],
-          [70] = terrain["barren terrain"],
-          [75] = terrain["swamp terrain"],
-          [80] = terrain["caves terrain"],
-          [85] = terrain["ravines terrain"],
-          [90] = terrain["sandy terrain"],
-          [95] = terrain["islands terrain"],
-          [100] = terrain["cliffs terrain"],
+          [5] = Traits["grassland terrain"],
+          [10] = Traits["savannah terrain"],
+          [15] = Traits["continual forest terrain"],
+          [20] = Traits["broken forest terrain"],
+          [25] = Traits["hills terrain"],
+          [30] = Traits["mountains terrain"],
+          [35] = Traits["plateaus terrain"],
+          [40] = Traits["dormant volcanoes terrain"],
+          [45] = Traits["active volcanoes terrain"],
+          [50] = Traits["broken rock terrain"],
+          [55] = Traits["flat rock terrain"],
+          [60] = Traits["columns terrain"],
+          [65] = Traits["moor terrain"],
+          [70] = Traits["barren terrain"],
+          [75] = Traits["swamp terrain"],
+          [80] = Traits["caves terrain"],
+          [85] = Traits["ravines terrain"],
+          [90] = Traits["sandy terrain"],
+          [95] = Traits["islands terrain"],
+          [100] = Traits["cliffs terrain"],
+        },
+        [RollTable.WorldSocietyType] = new Dictionary<int, Trait>
+        {
+          [10] = Traits["democracy"],
+          [20] = Traits["elected dictator"],
+          [30] = Traits["hereditary dictator"],
+          [40] = Traits["tyrannical dictator"],
+          [50] = Traits["elected monarchy"],
+          [60] = Traits["hereditary monarchy"],
+          [70] = Traits["religious local"],
+          [80] = Traits["religious ministorum"],
+          [90] = Traits["religious machine god"],
+          [100] = Traits["oligarchy"],
         },
       };
     }
 
 
 
-    public void GeneratePlanes()
+    public void GenerateWorlds()
     {
 
       var rollTables = GetRollTables(TraitLists);
-      var wt = TraitLists["world type"];
-      var ps = TraitLists["planet size"];
-      var planetTilt = TraitLists["planet tilt"];
-      var ss = TraitLists["star size"];
-      var presenceTraits = TraitLists["presence"];
-
       var starSizeMap = new Dictionary<Trait, float>
       {
-        [ss["tiny star"]] = 0.5f,
-        [ss["small star"]] = 0.75f,
-        [ss["medium star"]] = 1.0f,
-        [ss["large star"]] = 1.25f,
-        [ss["huge star"]] = 1.5f,
-        [ss["giant star"]] = 1.75f,
+        [Traits["tiny star"]] = 0.5f,
+        [Traits["small star"]] = 0.75f,
+        [Traits["medium star"]] = 1.0f,
+        [Traits["large star"]] = 1.25f,
+        [Traits["huge star"]] = 1.5f,
+        [Traits["giant star"]] = 1.75f,
       };
 
-      var planetTiltMap = new Dictionary<Trait, (int, int)>
+      var worldTiltMap = new Dictionary<Trait, (int, int)>
       {
-        [planetTilt["no tilt"]] = (0, 0),
-        [planetTilt["slight tilt"]] = (1, 5),
-        [planetTilt["notable tilt"]] = (6, 15),
-        [planetTilt["moderate tilt"]] = (16, 25),
-        [planetTilt["large tilt"]] = (26, 35),
-        [planetTilt["severe tilt"]] = (36, 45),
-        [planetTilt["extreme tilt"]] = (46, 70),
+        [Traits["no tilt"]] = (0, 0),
+        [Traits["slight tilt"]] = (1, 5),
+        [Traits["notable tilt"]] = (6, 15),
+        [Traits["moderate tilt"]] = (16, 25),
+        [Traits["large tilt"]] = (26, 35),
+        [Traits["severe tilt"]] = (36, 45),
+        [Traits["extreme tilt"]] = (46, 70),
       };
 
-      var planetSizeMap = new Dictionary<Trait, float>
+      var worldSizeMap = new Dictionary<Trait, float>
       {
-        [ps["miniscule size"]] = 0.2f,
-        [ps["tiny size"]] = 0.4f,
-        [ps["small size"]] = 0.6f,
-        [ps["average size"]] = 0.8f,
-        [ps["large size"]] = 1.0f,
-        [ps["huge size"]] = 1.2f,
-        [ps["enormous size"]] = 1.4f,
-        [ps["massive size"]] = 1.6f,
+        [Traits["miniscule size"]] = 0.2f,
+        [Traits["tiny size"]] = 0.4f,
+        [Traits["small size"]] = 0.6f,
+        [Traits["average size"]] = 0.8f,
+        [Traits["large size"]] = 1.0f,
+        [Traits["huge size"]] = 1.2f,
+        [Traits["enormous size"]] = 1.4f,
+        [Traits["massive size"]] = 1.6f,
       };
 
       var satelliteSizeMap = new Dictionary<Trait, int>
       {
-        [ps["miniscule size"]] = -30,
-        [ps["tiny size"]] = -20,
-        [ps["small size"]] = -10,
-        [ps["average size"]] = 0,
-        [ps["large size"]] = 10,
-        [ps["huge size"]] = 20,
-        [ps["enormous size"]] = 30,
-        [ps["massive size"]] = 50,
+        [Traits["miniscule size"]] = -30,
+        [Traits["tiny size"]] = -20,
+        [Traits["small size"]] = -10,
+        [Traits["average size"]] = 0,
+        [Traits["large size"]] = 10,
+        [Traits["huge size"]] = 20,
+        [Traits["enormous size"]] = 30,
+        [Traits["massive size"]] = 50,
       };
 
-      var planetDayLength = new Dictionary<int, (int, int, int)>
+      var worldDayLength = new Dictionary<int, (int, int, int)>
       {
         // dice, count, multiplier
         [5] = (1, 5, 1),
@@ -253,34 +267,34 @@ namespace WarClub
         [150] = (10, 10, 3),
       };
 
-      var planetDayLengthMap = new Dictionary<Trait, int>
+      var worldDayLengthMap = new Dictionary<Trait, int>
       {
-        [ps["miniscule size"]] = -30,
-        [ps["tiny size"]] = -20,
-        [ps["small size"]] = -10,
-        [ps["average size"]] = 0,
-        [ps["large size"]] = 10,
-        [ps["huge size"]] = 20,
-        [ps["enormous size"]] = 30,
-        [ps["massive size"]] = 50,
+        [Traits["miniscule size"]] = -30,
+        [Traits["tiny size"]] = -20,
+        [Traits["small size"]] = -10,
+        [Traits["average size"]] = 0,
+        [Traits["large size"]] = 10,
+        [Traits["huge size"]] = 20,
+        [Traits["enormous size"]] = 30,
+        [Traits["massive size"]] = 50,
       };
 
       var adeptusList = new Dictionary<Trait, (int, int)[]>
       {
-        [wt["hive world"]] = new (int, int)[7] { (3, 10), (3, 10), (1, 10), (2, 10), (4, 10), (3, 10), (3, 10) },
-        [wt["agri world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (1, 10), (2, 10), (2, 10), (1, 5) },
-        [wt["forge world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (5, 10), (2, 10), (1, 5), (1, 5) },
-        [wt["mining world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (3, 10), (2, 10), (2, 10), (1, 5) },
-        [wt["developing world"]] = new (int, int)[7] { (0, 0), (1, 5), (0, 0), (1, 10), (1, 10), (1, 10), (1, 5) },
-        [wt["feudal world"]] = new (int, int)[7] { (0, 0), (1, 5), (0, 0), (0, 0), (1, 5), (1, 5), (1, 5) },
-        [wt["feral world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
-        [wt["shrine world"]] = new (int, int)[7] { (1, 10), (1, 5), (1, 5), (1, 5), (2, 10), (4, 10), (1, 5) },
-        [wt["cemetery world"]] = new (int, int)[7] { (1, 5), (1, 5), (1, 5), (1, 5), (1, 10), (3, 10), (1, 5) },
-        [wt["pleasure world"]] = new (int, int)[7] { (2, 10), (2, 10), (1, 5), (2, 10), (2, 10), (2, 10), (1, 5) },
-        [wt["death world"]] = new (int, int)[7] { (1, 5), (1, 5), (1, 5), (1, 5), (1, 10), (1, 10), (1, 5) },
-        [wt["frontier world"]] = new (int, int)[7] { (0, 0), (0, 5), (0, 0), (1, 5), (1, 5), (1, 5), (1, 5) },
-        [wt["forbidden world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
-        [wt["xenos world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
+        [Traits["hive world"]] = new (int, int)[7] { (3, 10), (3, 10), (1, 10), (2, 10), (4, 10), (3, 10), (3, 10) },
+        [Traits["agri world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (1, 10), (2, 10), (2, 10), (1, 5) },
+        [Traits["forge world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (5, 10), (2, 10), (1, 5), (1, 5) },
+        [Traits["mining world"]] = new (int, int)[7] { (1, 10), (1, 10), (1, 5), (3, 10), (2, 10), (2, 10), (1, 5) },
+        [Traits["developing world"]] = new (int, int)[7] { (0, 0), (1, 5), (0, 0), (1, 10), (1, 10), (1, 10), (1, 5) },
+        [Traits["feudal world"]] = new (int, int)[7] { (0, 0), (1, 5), (0, 0), (0, 0), (1, 5), (1, 5), (1, 5) },
+        [Traits["feral world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
+        [Traits["shrine world"]] = new (int, int)[7] { (1, 10), (1, 5), (1, 5), (1, 5), (2, 10), (4, 10), (1, 5) },
+        [Traits["cemetery world"]] = new (int, int)[7] { (1, 5), (1, 5), (1, 5), (1, 5), (1, 10), (3, 10), (1, 5) },
+        [Traits["pleasure world"]] = new (int, int)[7] { (2, 10), (2, 10), (1, 5), (2, 10), (2, 10), (2, 10), (1, 5) },
+        [Traits["death world"]] = new (int, int)[7] { (1, 5), (1, 5), (1, 5), (1, 5), (1, 10), (1, 10), (1, 5) },
+        [Traits["frontier world"]] = new (int, int)[7] { (0, 0), (0, 5), (0, 0), (1, 5), (1, 5), (1, 5), (1, 5) },
+        [Traits["forbidden world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
+        [Traits["xenos world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
       };
 
       var satelliteMap = new Dictionary<int, (int, int)>
@@ -298,57 +312,141 @@ namespace WarClub
 
       var techLevelMap = new Dictionary<Trait, (int, int, int)>
       {
-        [wt["hive world"]] = (36, 2, 10),
-        [wt["agri world"]] = (15, 3, 10),
-        [wt["forge world"]] = (50, 1, 10),
-        [wt["mining world"]] = (15, 4, 10),
-        [wt["developing world"]] = (20, 2, 10),
-        [wt["feudal world"]] = (5, 1, 10),
-        [wt["feral world"]] = (0, 1, 10),
-        [wt["shrine world"]] = (20, 4, 10),
-        [wt["cemetery world"]] = (20, 3, 10),
-        [wt["pleasure world"]] = (35, 2, 10),
-        [wt["death world"]] = (0, 4, 10),
-        [wt["frontier world"]] = (35, 2, 10),
-        [wt["forbidden world"]] = (0, 6, 10),
-        [wt["xenos world"]] = (0, 6, 10),
+        [Traits["hive world"]] = (36, 2, 10),
+        [Traits["agri world"]] = (15, 3, 10),
+        [Traits["forge world"]] = (50, 1, 10),
+        [Traits["mining world"]] = (15, 4, 10),
+        [Traits["developing world"]] = (20, 2, 10),
+        [Traits["feudal world"]] = (5, 1, 10),
+        [Traits["feral world"]] = (0, 1, 10),
+        [Traits["shrine world"]] = (20, 4, 10),
+        [Traits["cemetery world"]] = (20, 3, 10),
+        [Traits["pleasure world"]] = (35, 2, 10),
+        [Traits["death world"]] = (0, 4, 10),
+        [Traits["frontier world"]] = (35, 2, 10),
+        [Traits["forbidden world"]] = (0, 6, 10),
+        [Traits["xenos world"]] = (0, 6, 10),
       };
 
-      var destroyedWorlds = new HashSet<Trait> { wt["quarantined world"], wt["war world"], wt["dead world"] };
+      var populationTypeModMap = new Dictionary<Trait, int>
+      {
+        [Traits["hive world"]] = 40,
+        [Traits["agri world"]] = 0,
+        [Traits["forge world"]] = 20,
+        [Traits["mining world"]] = 10,
+        [Traits["developing world"]] = -20,
+        [Traits["feudal world"]] = -20,
+        [Traits["feral world"]] = 0,
+        [Traits["shrine world"]] = -10,
+        [Traits["cemetery world"]] = -20,
+        [Traits["pleasure world"]] = 0,
+        [Traits["quarantined world"]] = 0,
+        [Traits["war world"]] = 0,
+        [Traits["dead world"]] = -40,
+        [Traits["death world"]] = -30,
+        [Traits["frontier world"]] = -20,
+        [Traits["forbidden world"]] = 0,
+        [Traits["xenos world"]] = 0,
+      };
+
+      var populationSizeModMap = new Dictionary<Trait, int>
+      {
+        [Traits["miniscule size"]] = -30,
+        [Traits["tiny size"]] = -20,
+        [Traits["small size"]] = -10,
+        [Traits["average size"]] = 0,
+        [Traits["large size"]] = 10,
+        [Traits["huge size"]] = 20,
+        [Traits["enormous size"]] = 30,
+        [Traits["massive size"]] = 40,
+      };
+
+      var populationMap = new Dictionary<int, (Trait, int, int, int)>
+      {
+        [5] = (Traits["population"], 10, 10, 1),
+        [10] = (Traits["population"], 10, 10, 10),
+        [15] = (Traits["population"], 10, 10, 100),
+        [20] = (Traits["population"], 10, 10, 1000),
+        [25] = (Traits["population"], 10, 10, 10000),
+        [30] = (Traits["million population"], 1, 5, 1),
+        [35] = (Traits["million population"], 1, 10, 1),
+        [40] = (Traits["million population"], 5, 10, 1),
+        [50] = (Traits["million population"], 10, 10, 1),
+        [70] = (Traits["million population"], 1, 10, 100),
+        [90] = (Traits["million population"], 1, 5, 1000),
+        [100] = (Traits["million population"], 1, 10, 1000),
+        [110] = (Traits["million population"], 2, 10, 1000),
+        [1000] = (Traits["million population"], 3, 10, 1000),
+      };
+
+      var defensesMap = new Dictionary<Trait, (int, int, int)[]>
+      {
+        [Traits["hive world"]] = new (int, int, int)[12] { (99, 3, 2), (99, 3, 2), (99, 3, 3), (99, 3, 3), (30, 2, 2), (30, 2, 2), (99, 3, 3), (50, 2, 2), (85, 3, 2), (70, 2, 2), (30, 3, 2), (10, 3, 2) },
+        [Traits["agri world"]] = new (int, int, int)[12] { (90, 1, 1), (75, 1, 1), (50, 1, 2), (5, 1, 1), (1, 1, 2), (30, 1, 2), (25, 1, 2), (5, 1, 1), (5, 1, 1), (5, 1, 1), (15, 1, 1), (30, 2, 2) },
+        [Traits["forge world"]] = new (int, int, int)[12] { (50, 2, 2), (20, 1, 2), (60, 2, 2), (90, 3, 3), (70, 3, 3), (5, 1, 2), (90, 3, 3), (80, 2, 3), (90, 2, 3), (90, 3, 3), (90, 3, 3), (1, 1, 2) },
+        [Traits["mining world"]] = new (int, int, int)[12] { (95, 2, 2), (60, 3, 1), (5, 2, 2), (1, 1, 1), (1, 1, 1), (20, 2, 2), (5, 1, 2), (15, 1, 2), (1, 1, 1), (1, 1, 1), (30, 1, 1), (10, 1, 1) },
+        [Traits["developing world"]] = new (int, int, int)[12] { (90, 3, 2), (90, 2, 2), (90, 3, 2), (50, 2, 3), (1, 1, 1), (15, 2, 2), (15, 1, 2), (10, 1, 1), (75, 3, 2), (65, 2, 1), (40, 1, 1), (40, 3, 2) },
+        [Traits["feudal world"]] = new (int, int, int)[12] { (75, 2, 2), (99, 2, 2), (99, 3, 2), (0, 0, 0), (0, 0, 0), (90, 2, 2), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (85, 2, 2) },
+        [Traits["feral world"]] = new (int, int, int)[12] { (20, 1, 2), (99, 3, 2), (90, 3, 2), (0, 0, 0), (0, 0, 0), (99, 2, 2), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0) },
+        [Traits["shrine world"]] = new (int, int, int)[12] { (60, 2, 3), (20, 2, 2), (40, 1, 2), (1, 1, 2), (1, 1, 2), (1, 1, 2), (10, 1, 2), (1, 1, 2), (1, 1, 1), (1, 1, 1), (1, 1, 1), (0, 0, 0) },
+        [Traits["cemetery world"]] = new (int, int, int)[12] { (10, 2, 2), (00, 0, 0), (10, 1, 2), (0, 0, 0), (0, 0, 0), (10, 1, 2), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0) },
+        [Traits["pleasure world"]] = new (int, int, int)[12] { (90, 3, 2), (10, 2, 2), (40, 2, 2), (5, 1, 2), (0, 0, 0), (30, 3, 2), (5, 2, 2), (1, 1, 2), (1, 1, 2), (1, 1, 2), (15, 2, 2), (30, 2, 2) },
+        [Traits["frontier world"]] = new (int, int, int)[12] { (50, 2, 2), (30, 2, 2), (5, 1, 2), (1, 1, 1), (0, 0, 0), (20, 1, 1), (1, 1, 1), (0, 0, 0), (0, 0, 0), (0, 0, 0), (0, 0, 0), (20, 1, 2) },
+      };
+
+      var defensesQualityMap = new Dictionary<int, int>
+      {
+        [4] = 1,
+        [9] = 2,
+        [15] = 3,
+        [20] = 4,
+        [100] = 5,
+      };
+
+      var defensesTypeMap = new List<string>
+      {
+        {"enforcers lv"},
+        {"militia lv"},
+        {"standing army lv"},
+        {"armoured force lv"},
+        {"titan force lv"},
+        {"private army lv"},
+        {"naval force lv"},
+        {"orbital station lv"},
+        {"planetary missile silos lv"},
+        {"orbital missile silos lv"},
+        {"defense lasers lv"},
+        {"mercenary force lv"},
+      };
+
+      var destroyedWorlds = new HashSet<Trait> { Traits["quarantined world"], Traits["war world"], Traits["dead world"] };
 
       void addPlanetType(Planet p)
       {
-        var planetType = getFromRange(rollTables[RollTable.PlanetType]);
-
-        if (destroyedWorlds.Contains(planetType))
-        {
-          var planetTypeOriginal = getFromRange(rollTables[RollTable.PlanetType]);
-          while (destroyedWorlds.Contains(planetTypeOriginal))
-            planetTypeOriginal = getFromRange(rollTables[RollTable.PlanetType]);
-          p.AddTrait(planetTypeOriginal);
-        }
-        System.Console.WriteLine(planetType.Name);
-        p.AddTrait(planetType);
+        var t = getFromRange(rollTables[RollTable.WorldType]);
+        p.AddTrait(t);
+        if (destroyedWorlds.Contains(t))
+          p.AddTrait(getFromRange(rollTables[RollTable.WorldTypeLimited]));
       }
 
       void addTechLevel(Planet p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         var (mod, count, dice) = techLevelMap[t];
-        p.AddTrait(getFromRange(rollTables[RollTable.PlanetTech], mod + RNG.DiceRoll(count, dice)));
+        p.AddTrait(getFromRange(rollTables[RollTable.WorldTech], mod + RNG.DiceRoll(count, dice)));
       }
 
       void addAdeptus(Planet p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         var rolls = adeptusList[t];
-        p.AddTrait(presenceTraits["adeptus arbites presence"], RNG.DiceRoll(rolls[0].Item1, rolls[0].Item2));
-        p.AddTrait(presenceTraits["adeptus astra telepathica presence"], RNG.DiceRoll(rolls[1].Item1, rolls[1].Item2));
-        p.AddTrait(presenceTraits["adeptus astronimica presence"], RNG.DiceRoll(rolls[2].Item1, rolls[2].Item2));
-        p.AddTrait(presenceTraits["adeptus mechanicus presence"], RNG.DiceRoll(rolls[3].Item1, rolls[3].Item2));
-        p.AddTrait(presenceTraits["administratum presence"], RNG.DiceRoll(rolls[4].Item1, rolls[4].Item2));
-        p.AddTrait(presenceTraits["adeptus ministorum presence"], RNG.DiceRoll(rolls[5].Item1, rolls[5].Item2));
-        p.AddTrait(presenceTraits["inquisition presence"], RNG.DiceRoll(rolls[6].Item1, rolls[6].Item2));
+        p.AddTrait(Traits["adeptus arbites presence"], RNG.DiceRoll(rolls[0].Item1, rolls[0].Item2));
+        p.AddTrait(Traits["adeptus astra telepathica presence"], RNG.DiceRoll(rolls[1].Item1, rolls[1].Item2));
+        p.AddTrait(Traits["adeptus astronimica presence"], RNG.DiceRoll(rolls[2].Item1, rolls[2].Item2));
+        p.AddTrait(Traits["adeptus mechanicus presence"], RNG.DiceRoll(rolls[3].Item1, rolls[3].Item2));
+        p.AddTrait(Traits["administratum presence"], RNG.DiceRoll(rolls[4].Item1, rolls[4].Item2));
+        p.AddTrait(Traits["adeptus ministorum presence"], RNG.DiceRoll(rolls[5].Item1, rolls[5].Item2));
+        p.AddTrait(Traits["inquisition presence"], RNG.DiceRoll(rolls[6].Item1, rolls[6].Item2));
         // ADEPTA PRESENCE
         // 01-03 None.
         // 04-06 Token. For administrative purposes only.
@@ -363,19 +461,19 @@ namespace WarClub
 
       void addTilt(Planet p)
       {
-        var tilt = getFromRange(rollTables[RollTable.PlanetTilt]);
+        var tilt = getFromRange(rollTables[RollTable.WorldTilt]);
         p.AddTrait(tilt);
 
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "planet tilt").Keys.First();
-        var (min, max) = planetTiltMap[t];
+        Trait t = TraitUtil.getTraitsByType(p.Traits, "world tilt").Keys.First();
+        var (min, max) = worldTiltMap[t];
         p.rotation = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(min, max)));
       }
 
       void addDayLength(Planet p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "planet size").Keys.First();
-        var (count, dice, multiplier) = getFromRange(planetDayLength);
-        p.DayLength = planetDayLengthMap[t] + RNG.DiceRoll(count, dice) * multiplier;
+        Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
+        var (count, dice, multiplier) = getFromRange(worldDayLength);
+        p.DayLength = worldDayLengthMap[t] + RNG.DiceRoll(count, dice) * multiplier;
         p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
       }
 
@@ -387,7 +485,7 @@ namespace WarClub
 
       void addSatellites(Planet p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "planet size").Keys.First();
+        Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
         var mod = satelliteSizeMap[t];
         var (count, dice) = getFromRange(satelliteMap, mod + RNG.Integer(100));
         foreach (int i in Enumerable.Range(0, RNG.DiceRoll(count, dice)))
@@ -405,9 +503,37 @@ namespace WarClub
       void addTerrain(Planet p)
       {
         foreach (int i in Enumerable.Range(0, RNG.Integer(5)))
-          p.AddTrait(getFromRange(rollTables[RollTable.PlanetTerrainType]));
+          p.AddTrait(getFromRange(rollTables[RollTable.WorldTerrainType]));
       }
 
+      bool addPopulation(Planet p)
+      {
+        Trait type = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
+        Trait size = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
+        var roll = populationTypeModMap[type] + populationSizeModMap[size] + RNG.Integer(100);
+        if (roll <= 0) return false;
+        var (trait, count, dice, multiplier) = getFromRange(populationMap, roll);
+        p.AddTrait(trait, RNG.DiceRoll(count, dice) * multiplier);
+        return true;
+      }
+
+      void addDefenses(Planet p)
+      {
+        Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
+        // No standard forces on planet
+        if (!defensesMap.ContainsKey(t)) return;
+        var rolls = defensesMap[t];
+
+        foreach (int i in Enumerable.Range(0, defensesTypeMap.Count))
+        {
+          var (percentage, quality, size) = rolls[i];
+          if (RNG.Integer(100) <= percentage)
+          {
+            var level = getFromRange(defensesQualityMap, RNG.DiceRoll(quality, 10));
+            p.AddTrait(Traits[defensesTypeMap[i] + level], RNG.DiceRoll(size, 10));
+          }
+        }
+      }
 
       // Create Sectors
       foreach (int i in Enumerable.Range(0, 8))
@@ -434,7 +560,7 @@ namespace WarClub
         addAdeptus(p);
         addTilt(p);
 
-        addRollTableTrait(p, RollTable.PlanetSize);
+        addRollTableTrait(p, RollTable.WorldSize);
         addRollTableTrait(p, RollTable.StarSize);
 
         // need size for day length
@@ -442,13 +568,21 @@ namespace WarClub
         addYearLength(p);
 
 
-        addRollTableTrait(p, RollTable.PlanetGravity);
-        addRollTableTrait(p, RollTable.PlanetAtmosphere);
-        addRollTableTrait(p, RollTable.PlanetHydrosphere);
-        addRollTableTrait(p, RollTable.PlanetTemperature);
+        addRollTableTrait(p, RollTable.WorldGravity);
+        addRollTableTrait(p, RollTable.WorldAtmosphere);
+        addRollTableTrait(p, RollTable.WorldHydrosphere);
+        addRollTableTrait(p, RollTable.WorldTemperature);
 
         addSatellites(p);
         addTerrain(p);
+        var hasPopulation = addPopulation(p);
+
+        if (hasPopulation)
+        {
+          addRollTableTrait(p, RollTable.WorldSocietyType);
+          addDefenses(p);
+        }
+
 
         cosmos.Planets.AutoAdd(p);
       }

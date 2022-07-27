@@ -1,149 +1,229 @@
-name                               |types          |aspects
+name                               |types            |aspects
                                    
-adeptus custodes                   |faction        |
-adeptus mechanicus                 |faction        |
-aeldari                            |faction        |
-astra militarum                    |faction        |
-adepta sororitas                   |faction        |
-astra cartographica                |faction        |
-chaos daemons                      |faction        |
-chaos space marines                |faction        |
-death guard                        |faction        |
-drukhari                           |faction        |
-genestealer cults                  |faction        |
-grey knights                       |faction        |
-heretic titan legions              |faction        |
-inquisition                        |faction        |
-necrons                            |faction        |
-officio assassinorum               |faction        |
-orks                               |faction        |
-imperial knights                   |faction        |
-chaos knights                      |faction        |
-renegades and heretics             |faction        |
-rogue traders                      |faction        |
-space marines                      |faction        |
-t’au empire                        |faction        |
-titan legions                      |faction        |
-thousand sons                      |faction        |
-tyranids                           |faction        |
-unaligned                          |faction        |
+adeptus custodes                   |faction          |
+adeptus mechanicus                 |faction          |
+aeldari                            |faction          |
+astra militarum                    |faction          |
+adepta sororitas                   |faction          |
+astra cartographica                |faction          |
+chaos daemons                      |faction          |
+chaos space marines                |faction          |
+death guard                        |faction          |
+drukhari                           |faction          |
+genestealer cults                  |faction          |
+grey knights                       |faction          |
+heretic titan legions              |faction          |
+inquisition                        |faction          |
+necrons                            |faction          |
+officio assassinorum               |faction          |
+orks                               |faction          |
+imperial knights                   |faction          |
+chaos knights                      |faction          |
+renegades and heretics             |faction          |
+rogue traders                      |faction          |
+space marines                      |faction          |
+t’au empire                        |faction          |
+titan legions                      |faction          |
+thousand sons                      |faction          |
+tyranids                           |faction          |
+unaligned                          |faction          |
                                    
-hive world                         |world type     |
-agri world                         |world type     |
-forge world                        |world type     |
-mining world                       |world type     |
-developing world                   |world type     |
-feudal world                       |world type     |
-feral world                        |world type     |
-shrine world                       |world type     |
-cemetery world                     |world type     |
-pleasure world                     |world type     |
-quarantined world                  |world type     |
-war world                          |world type     |
-dead world                         |world type     |
-death world                        |world type     |
-frontier world                     |world type     |
-forbidden world                    |world type     |
-xenos world                        |world type     |
+hive world                         |world type       |
+agri world                         |world type       |
+forge world                        |world type       |
+mining world                       |world type       |
+developing world                   |world type       |
+feudal world                       |world type       |
+feral world                        |world type       |
+shrine world                       |world type       |
+cemetery world                     |world type       |
+pleasure world                     |world type       |
+quarantined world                  |world super type |
+war world                          |world super type |
+dead world                         |world super type |
+death world                        |world type       |
+frontier world                     |world type       |
+forbidden world                    |world type       |
+xenos world                        |world type       |
                                    
-stone age                          |tech level     |
-iron age                           |tech level     |
-steel age                          |tech level     |
-pre industrial                     |tech level     |
-industrial                         |tech level     |
-early space                        |tech level     |
-advanced space                     |tech level     |
-warp space                         |tech level     |
-low imperial                       |tech level     |
-mid imperial                       |tech level     |
-high imperial                      |tech level     |
-advanced                           |tech level     |
-                                   
-                                   
-tiny star                          |star size      |
-small star                         |star size      |
-medium star                        |star size      |
-large star                         |star size      |
-huge star                          |star size      |
-giant star                         |star size      |
+stone age                          |tech level       |
+iron age                           |tech level       |
+steel age                          |tech level       |
+pre industrial                     |tech level       |
+industrial                         |tech level       |
+early space                        |tech level       |
+advanced space                     |tech level       |
+warp space                         |tech level       |
+low imperial                       |tech level       |
+mid imperial                       |tech level       |
+high imperial                      |tech level       |
+advanced                           |tech level       |
                                    
                                    
-miniscule size                     |planet size    |
-tiny size                          |planet size    |
-small size                         |planet size    |
-average size                       |planet size    |
-large size                         |planet size    |
-huge size                          |planet size    |
-enormous size                      |planet size    |
-massive size                       |planet size    |
-                                   
-no tilt                            |planet tilt    |
-slight tilt                        |planet tilt    |5_weather variance
-notable tilt                       |planet tilt    |10_weather variance
-moderate tilt                      |planet tilt    |20_weather variance
-large tilt                         |planet tilt    |40_weather variance
-severe tilt                        |planet tilt    |60_weather variance
-extreme tilt                       |planet tilt    |80_weather variance
-                                   
-very light gravity                 |planet gravity |
-light gravity                      |planet gravity |
-standard gravity                   |planet gravity |
-heavy gravity                      |planet gravity |
-very heavy gravity                 |planet gravity |
-                                   
-normal atmosphere                  |atmosphere     |
-bearable atmosphere                |atmosphere     |
-tainted atmosphere                 |atmosphere     |
-poisonous atmosphere               |atmosphere     |
-deadly atmosphere                  |atmosphere     |
-                                   
-waterless hydrosphere              |hydrosphere    |
-parched hydrosphere                |hydrosphere    |
-arid hydrosphere                   |hydrosphere    |
-average hydrosphere                |hydrosphere    |
-damp hydrosphere                   |hydrosphere    |
-moist hydrosphere                  |hydrosphere    |
-watery hydrosphere                 |hydrosphere    |
-aquatic hydrosphere                |hydrosphere    |
+tiny star                          |star size        |
+small star                         |star size        |
+medium star                        |star size        |
+large star                         |star size        |
+huge star                          |star size        |
+giant star                         |star size        |
                                    
                                    
-bitter temperature                 |temperature    |
-cold temperature                   |temperature    |
-chilly temperature                 |temperature    |
-frosty temperature                 |temperature    |
-average temperature                |temperature    |
-warm temperature                   |temperature    |
-tepid temperature                  |temperature    |
-hot temperature                    |temperature    |
-roasting temperature               |temperature    |
-searing temperature                |temperature    |
+miniscule size                     |world size       |
+tiny size                          |world size       |
+small size                         |world size       |
+average size                       |world size       |
+large size                         |world size       |
+huge size                          |world size       |
+enormous size                      |world size       |
+massive size                       |world size       |
                                    
-grassland terrain                  |planet terrain |
-savannah terrain                   |planet terrain |
-continual forest terrain           |planet terrain |
-broken forest terrain              |planet terrain |
-hills terrain                      |planet terrain |
-mountains terrain                  |planet terrain |
-plateaus terrain                   |planet terrain |
-dormant volcanoes terrain          |planet terrain |
-active volcanoes terrain           |planet terrain |
-broken rock terrain                |planet terrain |
-flat rock terrain                  |planet terrain |
-columns terrain                    |planet terrain |
-moor terrain                       |planet terrain |
-barren terrain                     |planet terrain |
-swamp terrain                      |planet terrain |
-caves terrain                      |planet terrain |
-ravines terrain                    |planet terrain |
-sandy terrain                      |planet terrain |
-islands terrain                    |planet terrain |
-cliffs terrain                     |planet terrain |
-
+no tilt                            |world tilt       |
+slight tilt                        |world tilt       |5_weather variance
+notable tilt                       |world tilt       |10_weather variance
+moderate tilt                      |world tilt       |20_weather variance
+large tilt                         |world tilt       |40_weather variance
+severe tilt                        |world tilt       |60_weather variance
+extreme tilt                       |world tilt       |80_weather variance
                                    
-adeptus arbites presence           |presence       |
-adeptus astra telepathica presence |presence       |
-adeptus astronimica presence       |presence       |
-adeptus mechanicus presence        |presence       |
-administratum presence             |presence       |
-adeptus ministorum presence        |presence       |
-inquisition presence               |presence       |
+very light gravity                 |world gravity    |
+light gravity                      |world gravity    |
+standard gravity                   |world gravity    |
+heavy gravity                      |world gravity    |
+very heavy gravity                 |world gravity    |
+                                   
+normal atmosphere                  |atmosphere       |
+bearable atmosphere                |atmosphere       |
+tainted atmosphere                 |atmosphere       |
+poisonous atmosphere               |atmosphere       |
+deadly atmosphere                  |atmosphere       |
+                                   
+waterless hydrosphere              |hydrosphere      |
+parched hydrosphere                |hydrosphere      |
+arid hydrosphere                   |hydrosphere      |
+average hydrosphere                |hydrosphere      |
+damp hydrosphere                   |hydrosphere      |
+moist hydrosphere                  |hydrosphere      |
+watery hydrosphere                 |hydrosphere      |
+aquatic hydrosphere                |hydrosphere      |
+                                   
+                                   
+bitter temperature                 |temperature      |
+cold temperature                   |temperature      |
+chilly temperature                 |temperature      |
+frosty temperature                 |temperature      |
+average temperature                |temperature      |
+warm temperature                   |temperature      |
+tepid temperature                  |temperature      |
+hot temperature                    |temperature      |
+roasting temperature               |temperature      |
+searing temperature                |temperature      |
+                                   
+grassland terrain                  |world terrain    |
+savannah terrain                   |world terrain    |
+continual forest terrain           |world terrain    |
+broken forest terrain              |world terrain    |
+hills terrain                      |world terrain    |
+mountains terrain                  |world terrain    |
+plateaus terrain                   |world terrain    |
+dormant volcanoes terrain          |world terrain    |
+active volcanoes terrain           |world terrain    |
+broken rock terrain                |world terrain    |
+flat rock terrain                  |world terrain    |
+columns terrain                    |world terrain    |
+moor terrain                       |world terrain    |
+barren terrain                     |world terrain    |
+swamp terrain                      |world terrain    |
+caves terrain                      |world terrain    |
+ravines terrain                    |world terrain    |
+sandy terrain                      |world terrain    |
+islands terrain                    |world terrain    |
+cliffs terrain                     |world terrain    |
+                                   
+                                   
+adeptus arbites presence           |presence         |
+adeptus astra telepathica presence |presence         |
+adeptus astronimica presence       |presence         |
+adeptus mechanicus presence        |presence         |
+administratum presence             |presence         |
+adeptus ministorum presence        |presence         |
+inquisition presence               |presence         |
+                                   
+                                   
+population                         |population       |
+million population                 |population       |
+                                   
+democracy                          |society type     |
+elected dictator                   |society type     |
+hereditary dictator                |society type     |
+tyrannical dictator                |society type     |
+elected monarchy                   |society type     |
+hereditary monarchy                |society type     |
+religious local                    |society type     |
+religious ministorum               |society type     |
+religious machine god              |society type     |
+oligarchy                          |society type     |
+                                   
+enforcers lv1                      |defenses         |
+militia lv1                        |defenses         |
+standing army lv1                  |defenses         |
+armoured force lv1                 |defenses         |
+titan force lv1                    |defenses         |
+private army lv1                   |defenses         |
+naval force lv1                    |defenses         |
+orbital station lv1                |defenses         |
+planetary missile silos lv1        |defenses         |
+orbital missile silos lv1          |defenses         |
+defense lasers lv1                 |defenses         |
+mercenary force lv1                |defenses         |
+                                   
+enforcers lv2                      |defenses         |
+militia lv2                        |defenses         |
+standing army lv2                  |defenses         |
+armoured force lv2                 |defenses         |
+titan force lv2                    |defenses         |
+private army lv2                   |defenses         |
+naval force lv2                    |defenses         |
+orbital station lv2                |defenses         |
+planetary missile silos lv2        |defenses         |
+orbital missile silos lv2          |defenses         |
+defense lasers lv2                 |defenses         |
+mercenary force lv2                |defenses         |
+                                   
+enforcers lv3                      |defenses         |
+militia lv3                        |defenses         |
+standing army lv3                   |defenses         |
+armoured force lv3                 |defenses         |
+titan force lv3                    |defenses         |
+private army lv3                   |defenses         |
+naval force lv3                    |defenses         |
+orbital station lv3                |defenses         |
+planetary missile silos lv3        |defenses         |
+orbital missile silos lv3          |defenses         |
+defense lasers lv3                 |defenses         |
+mercenary force lv3                |defenses         |
+                                   
+enforcers lv4                      |defenses         |
+militia lv4                        |defenses         |
+standing army lv4                  |defenses         |
+armoured force lv4                 |defenses         |
+titan force lv4                    |defenses         |
+private army lv4                   |defenses         |
+naval force lv4                    |defenses         |
+orbital station lv4                |defenses         |
+planetary missile silos lv4        |defenses         |
+orbital missile silos lv4          |defenses         |
+defense lasers lv4                 |defenses         |
+mercenary force lv4                |defenses         |
+                                   
+enforcers lv5                      |defenses         |
+militia lv5                        |defenses         |
+standing army lv5                  |defenses         |
+armoured force lv5                 |defenses         |
+titan force lv5                    |defenses         |
+private army lv5                   |defenses         |
+naval force lv5                    |defenses         |
+orbital station lv5                |defenses         |
+planetary missile silos lv5        |defenses         |
+orbital missile silos lv5          |defenses         |
+defense lasers lv5                 |defenses         |
+mercenary force lv5                |defenses         |

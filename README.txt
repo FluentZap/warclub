@@ -79,3 +79,23 @@ Sword
 Unit Size
 
 
+*galactic police force
+adeptus arbites presence           |presence       |
+
+*templars for psykers
+adeptus astra telepathica presence |presence       |
+
+*They maintain the psychic beacon in the Warp directed by the mind of the Emperor
+adeptus astronimica presence       |presence       |
+
+*provides the Imperium with its scientists engineers and technicians
+adeptus mechanicus presence        |presence       |
+
+*the administrative and bureaucratic division of the Adeptus Terra the heart of the gigantic bureaucracy that controls the government of the Imperium of Man
+administratum presence             |presence       |
+
+*4x Imperial Cult
+adeptus ministorum presence        |presence       |
+
+*The Inquisition acts as the secret police force of the Imperium hunting down any and all of the myriad threats to the stability of the God-Emperor's realm
+inquisition presence               |presence       |

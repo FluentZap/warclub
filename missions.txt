@@ -77,3 +77,7 @@ Orbital ships modifier can cause dangerous mission deployment and
 
 Warp paths will connect multiple planets to each other
 Unstable travel can still be used
+
+
+War worlds
+Reavers and Pirates
