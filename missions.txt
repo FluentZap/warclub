@@ -81,3 +81,40 @@ Unstable travel can still be used
 
 War worlds
 Reavers and Pirates
+
+
+
+
+
+
+Create starting factions and world alliances
+Personality profiles
+Desires are build from the personality profile, traits ect
+
+Relations will effect if a target is selected or not
+Personality profile will allow actions that 
+
+Desires and personality will add traits that will allow missions and stuff
+Vitriol can be added and will increase the friction between factions
+
+Determine aspiration adds a aspiration trait to the unit and they will attempt to follow those actions until the aspiration changes
+
+Focuses for the factions
+
+
+rampage
+    attack weakest and nearest enemies
+
+conquer
+    attack strategic locations and try to establish presence
+
+disrupt
+    strike missions and hit and run, disrupt and destroy locations objectives
+    kill heros, blockade, interfere with others missions
+
+lore
+    perform tasks that unlock locations and secrets of the galaxy
+    relics, hidden locations, tech, 
+
+bolster
+    gather supplies, recruit allies, raid weapons caches, create splinter groups

@@ -27,7 +27,7 @@ namespace WarClub
     // public ulong Year;
 
     public KeyCollection<Sector> Sectors = new KeyCollection<Sector>();
-    public KeyCollection<Planet> Planets = new KeyCollection<Planet>();
+    public KeyCollection<World> Planets = new KeyCollection<World>();
 
     public EventLog EventLog = new EventLog();
 

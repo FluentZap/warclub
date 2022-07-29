@@ -1,17 +1,34 @@
 Name                   |Allowed Entity Type |Required Traits                                |Required Aspects |Openness |Conscientiousness |Extroversion |Agreeableness |Neuroticism
-God Actions            
-*create creature        |God                 |cosmic creation                                |200_power        |     100 |               50 |          80 |           80 |         30
-*create beast          |God                 |cosmic creation                                |100_power        |      95 |               40 |          70 |           55 |         30
-*create servant        |God                 |cosmic creation                                |300_power        |      90 |               80 |          85 |           75 |         50
-*create holy place     |God                 |cosmic creation                                |300_power        |      80 |               70 |          40 |           35 |         50
-*create artifact       |God                 |cosmic creation                                |50_power         |      70 |               70 |          50 |           40 |         50
-*gain power            |God                 |cosmic creation                                |                 |      50 |               70 |          70 |           50 |         60
                        
-Creature Groups        
+all out war            |Faction             |rampage                                        |                 |      50 |               50 |          50 |           50 |         50
+cull the weak          |Faction             |rampage                                        |                 |      50 |               50 |          50 |           50 |         50
+cleanse thy neighbors  |Faction             |rampage                                        |                 |      50 |               50 |          50 |           50 |         50
                        
                        
-*form settlement       |CreatureGroup       |500_corporeal, 100_wood, 50_stone              |mobile           |      80 |               70 |          80 |           50 |         20
+conquer strongholds    |Faction             |conquer                                        |                 |      50 |               50 |          50 |           50 |         50
+conquer factories      |Faction             |conquer                                        |                 |      50 |               50 |          50 |           50 |         50
+conquer location       |Faction             |conquer                                        |                 |      50 |               50 |          50 |           50 |         50
                        
+                       
+attack supply lines    |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+destroy factories      |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+destroy infrastructure |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+assassinate heros      |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+blockade               |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+disrupt missions       |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+cloak and dagger       |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+espionage              |Faction             |disrupt                                        |                 |      50 |               50 |          50 |           50 |         50
+
+
+complete ritual        |Faction             |lore                                           |                 |      50 |               50 |          50 |           50 |         50
+search for secret      |Faction             |lore                                           |                 |      50 |               50 |          50 |           50 |         50
+recover relics         |Faction             |lore                                           |                 |      50 |               50 |          50 |           50 |         50
+                       
+build factories        |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
+recruit initiates      |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
+train soldiers         |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
+raid weapon caches     |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
+create factions        |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
                        
                        
                        

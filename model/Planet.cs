@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace WarClub
 {
-  class Planet : Entity
+  class World : Entity
   {
     public Sector sector;
     // public Vector2 location;
@@ -17,6 +17,6 @@ namespace WarClub
     public Color color;
     public float size;
 
-    public Planet() : base(EntityType.Planet) { }
+    public World() : base(EntityType.World) { }
   }
 }

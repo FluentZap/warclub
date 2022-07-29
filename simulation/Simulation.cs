@@ -47,7 +47,7 @@ namespace WarClub
       // Do all events for the star Sign
       cosmos.AdvanceHour(hour);
 
-      foreach (Planet p in cosmos.Planets.Values)
+      foreach (World p in cosmos.Planets.Values)
       {
         p.rotation *= p.rotationSpeed;
       }

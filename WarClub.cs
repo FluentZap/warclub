@@ -202,7 +202,7 @@ namespace WarClub
       base.Draw(gameTime);
     }
 
-    void DrawPlanet(Planet planet)
+    void DrawPlanet(World planet)
     {
       ModelMesh mesh = model.Meshes[0];
       mesh.MeshParts[0].Effect = basicEffect;

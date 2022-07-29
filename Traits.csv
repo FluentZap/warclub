@@ -1,5 +1,12 @@
 name                               |types            |aspects
                                    
+rampage                            |aspiration       |
+conquer                            |aspiration       |
+disrupt                            |aspiration       |
+lore                               |aspiration       |
+bolster                            |aspiration       |
+
+                                   
 adeptus custodes                   |faction          |
 adeptus mechanicus                 |faction          |
 aeldari                            |faction          |
@@ -191,7 +198,7 @@ mercenary force lv2                |defenses         |
                                    
 enforcers lv3                      |defenses         |
 militia lv3                        |defenses         |
-standing army lv3                   |defenses         |
+standing army lv3                  |defenses         |
 armoured force lv3                 |defenses         |
 titan force lv3                    |defenses         |
 private army lv3                   |defenses         |

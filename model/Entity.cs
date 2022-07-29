@@ -6,7 +6,7 @@ namespace WarClub
 {
   public enum EntityType
   {
-    Planet,
+    World,
     Satellite,
     Sector,
     Faction,

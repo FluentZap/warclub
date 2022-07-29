@@ -421,7 +421,7 @@ namespace WarClub
 
       var destroyedWorlds = new HashSet<Trait> { Traits["quarantined world"], Traits["war world"], Traits["dead world"] };
 
-      void addPlanetType(Planet p)
+      void addPlanetType(World p)
       {
         var t = getFromRange(rollTables[RollTable.WorldType]);
         p.AddTrait(t);
@@ -429,14 +429,14 @@ namespace WarClub
           p.AddTrait(getFromRange(rollTables[RollTable.WorldTypeLimited]));
       }
 
-      void addTechLevel(Planet p)
+      void addTechLevel(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         var (mod, count, dice) = techLevelMap[t];
         p.AddTrait(getFromRange(rollTables[RollTable.WorldTech], mod + RNG.DiceRoll(count, dice)));
       }
 
-      void addAdeptus(Planet p)
+      void addAdeptus(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         var rolls = adeptusList[t];
@@ -459,7 +459,7 @@ namespace WarClub
         // 25+ Dominating: One of, if not the, most powerful and influential forces on the planet.
       }
 
-      void addTilt(Planet p)
+      void addTilt(World p)
       {
         var tilt = getFromRange(rollTables[RollTable.WorldTilt]);
         p.AddTrait(tilt);
@@ -469,7 +469,7 @@ namespace WarClub
         p.rotation = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(min, max)));
       }
 
-      void addDayLength(Planet p)
+      void addDayLength(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
         var (count, dice, multiplier) = getFromRange(worldDayLength);
@@ -477,13 +477,13 @@ namespace WarClub
         p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
       }
 
-      void addYearLength(Planet p)
+      void addYearLength(World p)
       {
         p.YearLength += RNG.DiceRoll(10, 10) * (RNG.Integer(11, 109) / 10);
         p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0);
       }
 
-      void addSatellites(Planet p)
+      void addSatellites(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
         var mod = satelliteSizeMap[t];
@@ -492,21 +492,25 @@ namespace WarClub
         {
           Satellite satellite = new Satellite();
           p.AddRelation(satellite, RelationType.Created, 255);
+          addRollTableTrait(satellite, RollTable.WorldTerrainType);
+          addRollTableTrait(satellite, RollTable.WorldAtmosphere);
+          addRollTableTrait(satellite, RollTable.WorldHydrosphere);
+          addRollTableTrait(satellite, RollTable.WorldTemperature);
         }
       }
 
-      void addRollTableTrait(Planet p, RollTable r)
+      void addRollTableTrait(Entity e, RollTable r)
       {
-        p.AddTrait(getFromRange(rollTables[r]));
+        e.AddTrait(getFromRange(rollTables[r]));
       }
 
-      void addTerrain(Planet p)
+      void addTerrain(Entity e)
       {
         foreach (int i in Enumerable.Range(0, RNG.Integer(5)))
-          p.AddTrait(getFromRange(rollTables[RollTable.WorldTerrainType]));
+          e.AddTrait(getFromRange(rollTables[RollTable.WorldTerrainType]));
       }
 
-      bool addPopulation(Planet p)
+      bool addPopulation(World p)
       {
         Trait type = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         Trait size = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
@@ -517,7 +521,7 @@ namespace WarClub
         return true;
       }
 
-      void addDefenses(Planet p)
+      void addDefenses(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
         // No standard forces on planet
@@ -548,7 +552,7 @@ namespace WarClub
       // Create Planets
       foreach (uint i in Enumerable.Range(0, 32))
       {
-        var p = new Planet()
+        var p = new World()
         {
           sector = cosmos.Sectors[i / 4],
           size = RNG.Integer(10, 25) / 10f,
