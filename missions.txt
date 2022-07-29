@@ -118,3 +118,8 @@ lore
 
 bolster
     gather supplies, recruit allies, raid weapons caches, create splinter groups
+
+
+What is the end goal?
+
+Escape the sector

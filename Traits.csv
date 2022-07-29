@@ -7,33 +7,34 @@ lore                               |aspiration       |
 bolster                            |aspiration       |
 
                                    
-adeptus custodes                   |faction          |
-adeptus mechanicus                 |faction          |
-aeldari                            |faction          |
-astra militarum                    |faction          |
-adepta sororitas                   |faction          |
-astra cartographica                |faction          |
-chaos daemons                      |faction          |
-chaos space marines                |faction          |
-death guard                        |faction          |
-drukhari                           |faction          |
+adeptus custodes                   |faction          |imperial
+adeptus mechanicus                 |faction          |imperial
+aeldari                            |faction          |imperial
+astra militarum                    |faction          |imperial
+adepta sororitas                   |faction          |imperial
+astra cartographica                |faction          |imperial
+chaos daemons                      |faction          |chaos
+chaos space marines                |faction          |chaos
+death guard                        |faction          |imperial
+drukhari                           |faction          |xeno
 genestealer cults                  |faction          |
-grey knights                       |faction          |
-heretic titan legions              |faction          |
-inquisition                        |faction          |
-necrons                            |faction          |
-officio assassinorum               |faction          |
-orks                               |faction          |
-imperial knights                   |faction          |
-chaos knights                      |faction          |
-renegades and heretics             |faction          |
+grey knights                       |faction          |imperial
+heretic titan legions              |faction          |chaos
+inquisition                        |faction          |imperial
+necrons                            |faction          |xeno
+officio assassinorum               |faction          |imperial
+orks                               |faction          |xeno
+imperial knights                   |faction          |imperial
+chaos knights                      |faction          |chaos
+renegades and heretics             |faction          |chaos
 rogue traders                      |faction          |
-space marines                      |faction          |
-t’au empire                        |faction          |
-titan legions                      |faction          |
-thousand sons                      |faction          |
-tyranids                           |faction          |
+space marines                      |faction          |imperial
+t’au empire                        |faction          |xeno
+titan legions                      |faction          |imperial
+thousand sons                      |faction          |chaos
+tyranids                           |faction          |xeno
 unaligned                          |faction          |
+
                                    
 hive world                         |world type       |
 agri world                         |world type       |

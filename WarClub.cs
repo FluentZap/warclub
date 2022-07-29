@@ -190,7 +190,7 @@ namespace WarClub
       rasterizerState.FillMode = FillMode.WireFrame;
       GraphicsDevice.RasterizerState = rasterizerState;
 
-      foreach (var planet in simulation.cosmos.Planets)
+      foreach (var planet in simulation.cosmos.Worlds)
         DrawPlanet(planet.Value);
 
       // foreach (EffectPass pass in starfieldEffect.CurrentTechnique.Passes)

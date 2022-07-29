@@ -421,9 +421,9 @@ namespace WarClub
 
       var destroyedWorlds = new HashSet<Trait> { Traits["quarantined world"], Traits["war world"], Traits["dead world"] };
 
-      void addPlanetType(World p)
+      void addPlanetType(World p, Trait typeOverride)
       {
-        var t = getFromRange(rollTables[RollTable.WorldType]);
+        var t = typeOverride == null ? getFromRange(rollTables[RollTable.WorldType]) : typeOverride;
         p.AddTrait(t);
         if (destroyedWorlds.Contains(t))
           p.AddTrait(getFromRange(rollTables[RollTable.WorldTypeLimited]));
@@ -554,12 +554,17 @@ namespace WarClub
       {
         var p = new World()
         {
-          sector = cosmos.Sectors[i / 4],
           size = RNG.Integer(10, 25) / 10f,
           color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
         };
 
-        addPlanetType(p);
+        // if (i < TraitLists["world type"].Count)
+        var worldTypes = rollTables[RollTable.WorldType].ToArray();
+        var typeOverride = i < worldTypes.Length ? worldTypes[i].Value : null;
+
+        addPlanetType(p, typeOverride);
+
+
         addTechLevel(p);
         addAdeptus(p);
         addTilt(p);
@@ -587,9 +592,15 @@ namespace WarClub
           addDefenses(p);
         }
 
-
-        cosmos.Planets.AutoAdd(p);
+        cosmos.Worlds.AutoAdd(p);
       }
+
+      // add worlds to sectors
+      World[] worlds = cosmos.Worlds.Select(x => x.Value).ToArray();
+      worlds = worlds.OrderBy(x => RNG.Integer(1000)).ToArray();
+      foreach (uint i in Enumerable.Range(0, 32))
+        worlds[i].sector = cosmos.Sectors[i / 4];
+
     }
   }
 }

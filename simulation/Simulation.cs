@@ -40,6 +40,7 @@ namespace WarClub
       LoadUnits();
       LoadDataSheets();
       GenerateWorlds();
+      GenerateFactions();
     }
 
     public void AdvanceTime(float hour)
@@ -47,7 +48,7 @@ namespace WarClub
       // Do all events for the star Sign
       cosmos.AdvanceHour(hour);
 
-      foreach (World p in cosmos.Planets.Values)
+      foreach (World p in cosmos.Worlds.Values)
       {
         p.rotation *= p.rotationSpeed;
       }
