@@ -188,16 +188,19 @@ namespace WarClub
 
       int x = 0;
       int y = 0;
-      foreach (var world in simulation.cosmos.Worlds)
-      {
-        DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
-        x += 256;
-        if (x > 2048)
-        {
-          x = 0;
-          y += 256;
-        }
-      }
+
+      DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
+      // foreach (var world in simulation.cosmos.Worlds)
+      // {
+      //   // DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
+      //   DrawPlanetShader(world.Value, new Point(x, y), new Point(128));
+      //   x += 128;
+      //   if (x >= 1920)
+      //   {
+      //     x = 0;
+      //     y += 128;
+      //   }
+      // }
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -238,7 +241,8 @@ namespace WarClub
 
     void DrawPlanetShader(World world, Point location, Point size)
     {
-      planetEffect.Parameters["iTime"].SetValue(world.Id * 100 + animationTime / 1000f * world.rotationSpeed);
+      // planetEffect.Parameters["iTime"].SetValue(-(world.Id * 100 + animationTime * world.rotationSpeed * 0.0005f));
+      planetEffect.Parameters["iTime"].SetValue(-(world.Id * 100 + animationTime * 0.0002f));
       planetEffect.Parameters["col_top"].SetValue(world.color_top.ToVector3());
       planetEffect.Parameters["col_bot"].SetValue(world.color_bot.ToVector3());
       planetEffect.Parameters["col_mid1"].SetValue(world.color_mid1.ToVector3());

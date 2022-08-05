@@ -135,7 +135,7 @@ float3 getColorForCoord(float2 fragCoord) {
     // position of viewpoint (P) and ray of vision (w)
     float3 P = float3(0.0, 0.0, 5.0);
     // float3 w = normalize(float3(fragCoord.xy - iResolution.xy * 0.5, (iResolution.y) / (-2.0 * tan(verticalFieldOfView / 2.0))));
-    float3 w = normalize(float3(fragCoord.xy - 0.5, 1.0 / (-2.0 * tan(verticalFieldOfView / 2.0))));
+    float3 w = normalize(float3(fragCoord.xy, 1.0 / (-2.0 * tan(verticalFieldOfView / 2.0))));
 
     // calculate intersect with sphere (along the "line" of w from P)
     float t = intersectSphere(float3(0, 0, 0), PLANET_SIZE, P, w);
@@ -189,8 +189,9 @@ float3 getColorForCoord(float2 fragCoord) {
     color = (clamp((0.4 * pow(v,3.) + pow(v,2.) + 0.5*v), 0.0, 1.0) * 0.9 + 0.1) * color;
     
     // apply diffuse lighting  
-    float diffuse = max(0.0, dot(P + w*t, float3(1.0, sqrt(0.5), 1.0)));
+    float diffuse = max(0.0, dot(P + w*t, float3(2.0, sqrt(0.5), 1.0)));
     float ambient = 0.1;
+
     color *= clamp((diffuse + ambient), 0.0, 1.0);
     
 #ifdef SMOOTH
@@ -204,8 +205,9 @@ float3 getColorForCoord(float2 fragCoord) {
 
 float4 MainPS(PixelShaderInput input) : COLOR
 {
-	float2 uv = input.TextureUV;
-    float3 fragColor = float3(0, 0, 0);
+	float2 uv = input.TextureUV - 0.5;
+    // float3 fragColor = float3(0, 0, 0);
+    float3 fragColor = 0;
 // #ifdef SHARPEN
 //     // use a simple sharpen filter (you could improve that immensely!
 //     fragColor.rgb =
@@ -220,9 +222,13 @@ float4 MainPS(PixelShaderInput input) : COLOR
     // fragColor.rgb = getColorForCoord(float2(256, 256));
 // #endif
     clip( fragColor.r+fragColor.g+fragColor.b < 0.0001f ? -1:1 );
-    if (fragColor.r+fragColor.g+fragColor.b < 0.01) {
-    return float4(fragColor,0.5);    
-    }
+    // if (fragColor.r+fragColor.g+fragColor.b < 0.01) {
+    //     return float4(fragColor,0.5);    
+    // }
+
+    // fragColor = lerp(fragColor, float4(0.2, 0.2, 0.6, 1) / dot(uv,uv), --fragColor*fragColor);
+    // fragColor = lerp(fragColor, float4(0.2, 0.2, 0.6, 0.2) / length(uv), --fragColor*fragColor);
+    // return fragColor;
     return float4(fragColor,1.0);
 }
 

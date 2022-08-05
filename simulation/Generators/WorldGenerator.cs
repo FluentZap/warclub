@@ -472,10 +472,10 @@ namespace WarClub
       void addDayLength(World p)
       {
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
-        var (count, dice, multiplier) = getFromRange(worldDayLength);
-        p.DayLength = worldDayLengthMap[t] + RNG.DiceRoll(count, dice) * multiplier;
+        var (count, dice, multiplier) = getFromRange(worldDayLength, worldDayLengthMap[t] + RNG.Integer(100));
+        p.DayLength = RNG.DiceRoll(count, dice) * multiplier;
         // p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
-        p.rotationSpeed = p.DayLength / 24f;
+        p.rotationSpeed = p.DayLength * 0.1f;
       }
 
       void addYearLength(World p)
