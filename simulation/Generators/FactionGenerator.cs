@@ -13,11 +13,13 @@ namespace WarClub
     {
       // add one of each faction
       var factions = TraitLists["faction"];
+
       foreach (var faction in factions)
       {
         var f = new Faction();
         f.AddTrait(faction.Value);
         f.AddTrait(RNG.PickFrom(TraitLists["aspiration"]).Value);
+        f.AddRelation(RNG.PickFrom(cosmos.Worlds).Value, RelationType.Headquarters, new Dictionary<Trait, int> { }, 100);
         cosmos.Factions.AutoAdd(f);
       }
 
@@ -27,6 +29,7 @@ namespace WarClub
         var f = new Faction();
         f.AddTrait(RNG.PickFrom(TraitLists["faction"]).Value);
         f.AddTrait(RNG.PickFrom(TraitLists["aspiration"]).Value);
+        f.AddRelation(RNG.PickFrom(cosmos.Worlds).Value, RelationType.Headquarters, new Dictionary<Trait, int> { }, 100);
         cosmos.Factions.AutoAdd(f);
       }
 

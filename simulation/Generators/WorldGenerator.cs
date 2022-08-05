@@ -491,7 +491,7 @@ namespace WarClub
         foreach (int i in Enumerable.Range(0, RNG.DiceRoll(count, dice)))
         {
           Satellite satellite = new Satellite();
-          p.AddRelation(satellite, RelationType.Created, 255);
+          // p.AddRelation(satellite, RelationType.Created, 255);
           addRollTableTrait(satellite, RollTable.WorldTerrainType);
           addRollTableTrait(satellite, RollTable.WorldAtmosphere);
           addRollTableTrait(satellite, RollTable.WorldHydrosphere);

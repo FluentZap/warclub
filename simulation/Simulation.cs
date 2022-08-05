@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -43,15 +44,24 @@ namespace WarClub
       GenerateFactions();
     }
 
-    public void AdvanceTime(float hour)
+    public void AdvanceTime()
     {
       // Do all events for the star Sign
-      cosmos.AdvanceHour(hour);
+      // cosmos.AdvanceHour();
 
-      foreach (World p in cosmos.Worlds.Values)
+      // foreach (World p in cosmos.Worlds.Values)
+      // {
+      //   p.rotation *= p.rotationSpeed;
+      // }
+
+      foreach (var (id, e) in cosmos.Factions)
       {
-        p.rotation *= p.rotationSpeed;
+        switch (e.EntityType)
+        {
+          case EntityType.Faction: FactionEvent(id); break;
+        }
       }
+
     }
 
   }

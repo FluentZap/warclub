@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -89,6 +90,33 @@ namespace WarClub
       return combinedTraits;
     }
 
+    public static void AddTrait(Dictionary<Trait, int> traits, Trait trait, int count = 1)
+    {
+      if (traits.ContainsKey(trait))
+      {
+        // Trait hard limit at 1 bill
+        var change = Math.Min(traits[trait] + count, 1000000000);
+        if (change > 0)
+          traits[trait] = change;
+        else
+          traits.Remove(trait);
+      }
+      else
+      {
+        traits.Add(trait, count);
+      }
+    }
+
+  }
+
+
+  static class RelationsUtil
+  {
+    // public static Dictionary<Trait, int> getTraits(KeyCollection<Relation> r, Entity e)
+    // {
+    //   var relations = r.Where(r => r.Value.Target == e).ToList();
+    //   return TraitUtil.combineTraits(r.Where(r => r.Value.Target == e).Select(x => x.Value.Traits).ToList());
+    // }
   }
 
 }

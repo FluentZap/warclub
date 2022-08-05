@@ -34,6 +34,7 @@ namespace WarClub
     Texture2D screenTexture;
 
     float timeAdvance;
+    float animationTime = 0;
     VertexPositionColor[] triangleVertices;
     VertexBuffer vertexBuffer;
 
@@ -145,7 +146,7 @@ namespace WarClub
       simulation.Generate();
       model = Content.Load<Model>("IcoSphere");
       plane = Content.Load<Model>("Plane");
-      planetEffect = Content.Load<Effect>("effect");
+      planetEffect = Content.Load<Effect>("planetEffect");
       starfieldEffect = Content.Load<Effect>("starfield");
       GeneratePlanet();
     }
@@ -165,13 +166,13 @@ namespace WarClub
 
       // TODO: Add your update logic here
 
-      if (timeAdvance >= 1000000)
+      if (timeAdvance >= 5000)
       {
         timeAdvance = 0;
-        simulation.AdvanceTime(1);
+        simulation.AdvanceTime();
       }
       timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
-
+      animationTime += gameTime.ElapsedGameTime.Milliseconds;
       base.Update(gameTime);
     }
 
@@ -181,17 +182,18 @@ namespace WarClub
       // basicEffect.View = Matrix.Identity;
       // basicEffect.World = worldMatrix;
 
-      GraphicsDevice.Clear(new Color(10, 10, 10, 255));
+      GraphicsDevice.Clear(new Color(50, 50, 50, 255));
 
+      DrawPlanetShader();
       // DrawStarfield();
 
-      RasterizerState rasterizerState = new RasterizerState();
-      rasterizerState.CullMode = CullMode.None;
-      rasterizerState.FillMode = FillMode.WireFrame;
-      GraphicsDevice.RasterizerState = rasterizerState;
+      // RasterizerState rasterizerState = new RasterizerState();
+      // rasterizerState.CullMode = CullMode.None;
+      // rasterizerState.FillMode = FillMode.WireFrame;
+      // GraphicsDevice.RasterizerState = rasterizerState;
 
-      foreach (var planet in simulation.cosmos.Worlds)
-        DrawPlanet(planet.Value);
+      // foreach (var planet in simulation.cosmos.Worlds)
+      //   DrawPlanet(planet.Value);
 
       // foreach (EffectPass pass in starfieldEffect.CurrentTechnique.Passes)
       // {
@@ -222,9 +224,18 @@ namespace WarClub
       mesh.Draw();
     }
 
+    void DrawPlanetShader()
+    {
+      planetEffect.Parameters["iTime"].SetValue(animationTime / 1000f);
+      spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred);
+      // spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
+      spriteBatch.Draw(screenTexture, new Rectangle(0, 0, 512, 512), Color.White);
+      spriteBatch.End();
+    }
+
     void DrawStarfield()
     {
-      starfieldEffect.Parameters["iTime"].SetValue(timeAdvance / 100000f);
+      starfieldEffect.Parameters["iTime"].SetValue(animationTime / 100000f);
       spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
       spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
       spriteBatch.End();

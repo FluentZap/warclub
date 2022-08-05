@@ -57,6 +57,12 @@
 /processorParam:TextureFormat=Compressed
 /build:Plane.dae
 
+#begin planetEffect.fx
+/importer:EffectImporter
+/processor:EffectProcessor
+/processorParam:DebugMode=Auto
+/build:planetEffect.fx
+
 #begin starfield.fx
 /importer:EffectImporter
 /processor:EffectProcessor

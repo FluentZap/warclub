@@ -11,6 +11,7 @@ namespace WarClub
     Sector,
     Faction,
     Agent,
+    Relation,
   }
 
   class ID
@@ -33,13 +34,15 @@ namespace WarClub
 
     // my relations mean i am the source of the relation
     // their relations mean i am the target of a relation
-    public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsIn = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
-    public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsOut = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
+    // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsIn = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
+    // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsOut = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
 
     // my traits are attached to anything with the corresponding relation
     // their traits are attached to me
-    public Dictionary<RelationType, Dictionary<Trait, int>> TraitsIn = new Dictionary<RelationType, Dictionary<Trait, int>>();
-    public Dictionary<RelationType, Dictionary<Trait, int>> TraitsOut = new Dictionary<RelationType, Dictionary<Trait, int>>();
+    // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsIn = new Dictionary<RelationType, Dictionary<Trait, int>>();
+    // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsOut = new Dictionary<RelationType, Dictionary<Trait, int>>();
+
+    public List<Relation> Relations = new List<Relation>();
 
     public Psyche Psyche = new Psyche();
     public Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
@@ -74,9 +77,8 @@ namespace WarClub
     {
       var traitsList = new List<Dictionary<Trait, int>>();
       traitsList.Add(Traits);
+      traitsList.Concat(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
 
-      foreach (var (e, traits) in TraitsIn)
-        traitsList.Add(traits);
       return TraitUtil.combineTraits(traitsList); ;
     }
 
@@ -84,19 +86,18 @@ namespace WarClub
     // ****RELATIONS***
     // ****************
 
-    // strength is calculated from 0 to 200, 255 is an unchangeable relation
-    public void AddRelation(Entity e, RelationType relationType, byte strength)
+    public void AddRelation(Entity e, RelationType relationType, Dictionary<Trait, int> traits, int strength)
     {
-      Relation relation = new Relation(strength);
-      if (!e.RelationsIn.ContainsKey(relationType))
-        e.RelationsIn.Add(relationType, new Dictionary<Entity, Relation>());
-      if (!RelationsOut.ContainsKey(relationType))
-        RelationsOut.Add(relationType, new Dictionary<Entity, Relation>());
-
-      if (!e.RelationsIn[relationType].TryAdd(this, relation))
-        e.RelationsIn[relationType][this].Strength += strength;
-      if (!RelationsOut[relationType].TryAdd(e, relation))
-        RelationsOut[relationType][e].Strength += strength;
+      Relation relation = new Relation()
+      {
+        relationType = relationType,
+        Source = this,
+        Target = e,
+        Strength = strength,
+        Traits = traits,
+      };
+      this.Relations.Add(relation);
+      e.Relations.Add(relation);
     }
 
     // public Dictionary<RelationType, Relation> GetRelations(Entity e)
@@ -104,15 +105,15 @@ namespace WarClub
     //   return Relations.GetValueOrDefault(e, new Dictionary<RelationType, Relation>());
     // }
 
-    public Dictionary<Entity, Relation> GetRelationsOut(EntityType entityType, RelationType relationType)
-    {
-      Dictionary<Entity, Relation> list = new Dictionary<Entity, Relation>();
-      if (RelationsOut.ContainsKey(relationType))
-        foreach (var item in RelationsOut[relationType])
-          if (item.Key.EntityType == entityType)
-            list.Add(item.Key, item.Value);
-      return list;
-    }
+    // public Dictionary<Entity, Relation> GetRelationsOut(EntityType entityType, RelationType relationType)
+    // {
+    //   Dictionary<Entity, Relation> list = new Dictionary<Entity, Relation>();
+    //   if (RelationsOut.ContainsKey(relationType))
+    //     foreach (var item in RelationsOut[relationType])
+    //       if (item.Key.EntityType == entityType)
+    //         list.Add(item.Key, item.Value);
+    //   return list;
+    // }
 
     // ****************
     // **ORDER_EVENTS**

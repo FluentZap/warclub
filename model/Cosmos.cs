@@ -30,9 +30,11 @@ namespace WarClub
     public KeyCollection<World> Worlds = new KeyCollection<World>();
     public KeyCollection<Faction> Factions = new KeyCollection<Faction>();
 
+    // public KeyCollection<Relation> Relations = new KeyCollection<Relation>();
+
     public EventLog EventLog = new EventLog();
 
-    public void AdvanceHour(float hour)
+    public void AdvanceHour()
     {
       Hour++;
       if (Hour >= 24)

@@ -5,7 +5,9 @@ conquer                            |aspiration       |
 disrupt                            |aspiration       |
 lore                               |aspiration       |
 bolster                            |aspiration       |
-
+                                   
+war zone                           |event            |
+                                   
                                    
 adeptus custodes                   |faction          |imperial
 adeptus mechanicus                 |faction          |imperial
@@ -34,7 +36,7 @@ titan legions                      |faction          |imperial
 thousand sons                      |faction          |chaos
 tyranids                           |faction          |xeno
 unaligned                          |faction          |
-
+                                   
                                    
 hive world                         |world type       |
 agri world                         |world type       |
@@ -47,7 +49,7 @@ shrine world                       |world type       |
 cemetery world                     |world type       |
 pleasure world                     |world type       |
 quarantined world                  |world super type |
-war world                          |world super type |
+war world                          |world super type |10_conflict
 dead world                         |world super type |
 death world                        |world type       |
 frontier world                     |world type       |
@@ -148,13 +150,13 @@ islands terrain                    |world terrain    |
 cliffs terrain                     |world terrain    |
                                    
                                    
-adeptus arbites presence           |presence         |
-adeptus astra telepathica presence |presence         |
-adeptus astronimica presence       |presence         |
-adeptus mechanicus presence        |presence         |
-administratum presence             |presence         |
-adeptus ministorum presence        |presence         |
-inquisition presence               |presence         |
+adeptus arbites presence           |presence         |imperial
+adeptus astra telepathica presence |presence         |imperial
+adeptus astronimica presence       |presence         |imperial
+adeptus mechanicus presence        |presence         |imperial
+administratum presence             |presence         |imperial
+adeptus ministorum presence        |presence         |imperial
+inquisition presence               |presence         |imperial
                                    
                                    
 population                         |population       |

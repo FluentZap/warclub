@@ -8,7 +8,7 @@
 #endif
 
 matrix WorldViewProjection;
-float time;
+float iTime;
 #define NUM_LAYERS 6
 
 struct VertexShaderInput
@@ -83,7 +83,7 @@ float3 StarLayer(float2 uv) {
             float3 color = sin(float3(.2, .3, .9)*frac(n*2345.2)*123.2)*.5+.5;
             color = color*float3(1,.25,1.+size)+float3(.2, .2, .1)*2.;
             
-            star *= sin(time*3.+n*6.2831)*.5+1.;
+            star *= sin(iTime*3.+n*6.2831)*.5+1.;
             col += star*size*color;
         }
     }
@@ -94,7 +94,7 @@ float4 MainPS(VertexShaderOutput input) : COLOR
 {
 	float2 uv = input.TextureUV-.5;
 
-    float t = time*.02;
+    float t = iTime*.02;
     float M = 1;
     uv += M*4.;
     
