@@ -474,13 +474,14 @@ namespace WarClub
         Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
         var (count, dice, multiplier) = getFromRange(worldDayLength);
         p.DayLength = worldDayLengthMap[t] + RNG.DiceRoll(count, dice) * multiplier;
-        p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
+        // p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
+        p.rotationSpeed = p.DayLength / 24f;
       }
 
       void addYearLength(World p)
       {
         p.YearLength += RNG.DiceRoll(10, 10) * (RNG.Integer(11, 109) / 10);
-        p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0);
+        // p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), MathHelper.ToRadians(RNG.Integer(-5, 5) / 20f), 0);
       }
 
       void addSatellites(World p)
@@ -555,7 +556,11 @@ namespace WarClub
         var p = new World()
         {
           size = RNG.Integer(10, 25) / 10f,
-          color = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          color_top = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          color_bot = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          color_mid1 = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          color_mid2 = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
+          color_mid3 = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),
         };
 
         // if (i < TraitLists["world type"].Count)

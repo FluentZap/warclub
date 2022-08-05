@@ -182,10 +182,22 @@ namespace WarClub
       // basicEffect.View = Matrix.Identity;
       // basicEffect.World = worldMatrix;
 
-      GraphicsDevice.Clear(new Color(50, 50, 50, 255));
+      GraphicsDevice.Clear(new Color(10, 10, 10, 255));
 
-      DrawPlanetShader();
-      // DrawStarfield();
+      DrawStarfield();
+
+      int x = 0;
+      int y = 0;
+      foreach (var world in simulation.cosmos.Worlds)
+      {
+        DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
+        x += 256;
+        if (x > 2048)
+        {
+          x = 0;
+          y += 256;
+        }
+      }
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -224,12 +236,38 @@ namespace WarClub
       mesh.Draw();
     }
 
-    void DrawPlanetShader()
+    void DrawPlanetShader(World world, Point location, Point size)
     {
-      planetEffect.Parameters["iTime"].SetValue(animationTime / 1000f);
+      planetEffect.Parameters["iTime"].SetValue(world.Id * 100 + animationTime / 1000f * world.rotationSpeed);
+      planetEffect.Parameters["col_top"].SetValue(world.color_top.ToVector3());
+      planetEffect.Parameters["col_bot"].SetValue(world.color_bot.ToVector3());
+      planetEffect.Parameters["col_mid1"].SetValue(world.color_mid1.ToVector3());
+      planetEffect.Parameters["col_mid2"].SetValue(world.color_mid2.ToVector3());
+      planetEffect.Parameters["col_mid3"].SetValue(world.color_mid3.ToVector3());
+
+
+      // planetEffect.Parameters["col_top"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
+      planetEffect.Parameters["col_bot"].SetValue(new Vector3(0.0f, 0.0f, 0.0f));
+      // planetEffect.Parameters["col_mid1"].SetValue(new Vector3(0.1f, 0.2f, 0.0f));
+      // planetEffect.Parameters["col_mid2"].SetValue(new Vector3(0.7f, 0.4f, 0.3f));
+      // planetEffect.Parameters["col_mid3"].SetValue(new Vector3(1.0f, 0.4f, 0.2f));
+
+      // float3 col_top = float3(1.0, 1.0, 1.0);
+      // float3 col_bot = float3(0.0, 0.0, 0.0);
+      // float3 col_mid1 = float3(0.1, 0.2, 0.0);
+      // float3 col_mid2 = float3(0.7, 0.4, 0.3);
+      // float3 col_mid3 = float3(1.0, 0.4, 0.2);
+
+      // planetEffect.Parameters["col_top"].SetValue(new Vector3(0.0f, 0.5f, 0.0f));
+      // planetEffect.Parameters["col_bot"].SetValue(new Vector3(0.0f, 1.0f, 1.0f));
+      // planetEffect.Parameters["col_mid1"].SetValue(new Vector3(0.0f, 1.0f, 0.0f));
+      // planetEffect.Parameters["col_mid2"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
+      // planetEffect.Parameters["col_mid3"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
+
       spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred);
       // spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
-      spriteBatch.Draw(screenTexture, new Rectangle(0, 0, 512, 512), Color.White);
+      // spriteBatch.Draw(screenTexture, new Rectangle(0, 0, 512, 512), Color.White);
+      spriteBatch.Draw(screenTexture, new Rectangle(location, size), Color.White);
       spriteBatch.End();
     }
 

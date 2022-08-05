@@ -19,26 +19,32 @@
 // for more advanced planet lighting/clouds/...
 
 // Looking for a blue planet? Colors:
-// vec3 col_top = vec3(0.0, 0.5, 0.0);
-// vec3 col_bot = vec3(0.0, 1.0, 1.0);
-// vec3 col_mid1 = vec3(0.0, 1.0, 0.0);
-// vec3 col_mid2 = vec3(0.0, 0.0, 1.0);
-// vec3 col_mid3 = vec3(0.0, 0.0, 1.0);
+// float3 col_top = float3(0.0, 0.5, 0.0);
+// float3 col_bot = float3(0.0, 1.0, 1.0);
+// float3 col_mid1 = float3(0.0, 1.0, 0.0);
+// float3 col_mid2 = float3(0.0, 0.0, 1.0);
+// float3 col_mid3 = float3(0.0, 0.0, 1.0);
 
 
 // number of octaves of fbm
 #define NUM_NOISE_OCTAVES 10
 // size of the planet
-#define PLANET_SIZE		0.75
+// #define PLANET_SIZE		0.75
+#define PLANET_SIZE		0.95
 // uncomment to use a simple sharpen filter
 // #define SHARPEN
 // simple and fast smoothing of outside border
 #define SMOOTH
 
-// float2 iResolution = float2(4096, 2160);
-float2 iResolution = float2(512, 512);
 
 float iTime;
+
+float3 col_top;
+float3 col_bot;
+float3 col_mid1;
+float3 col_mid2;
+float3 col_mid3;
+
 
 struct PixelShaderInput
 {
@@ -71,7 +77,8 @@ float noise(float3 x) {
 float fbm(float3 x) {
 	float v = 0.0;
 	float a = 0.5;
-	float3 shift = 100;
+	// float3 shift = 100;
+    float3 shift = 0;
 	for (int i = 0; i < NUM_NOISE_OCTAVES; ++i) {
 		v += a * noise(x);
 		x = x * 2.0 + shift;
@@ -152,11 +159,18 @@ float3 getColorForCoord(float2 fragCoord) {
     
     // convert noise value into color
     // three colors: top - mid - bottom (mid being constructed by three colors)
-    float3 col_top = float3(1.0, 1.0, 1.0);
-    float3 col_bot = float3(0.0, 0.0, 0.0);
-    float3 col_mid1 = float3(0.1, 0.2, 0.0);
-    float3 col_mid2 = float3(0.7, 0.4, 0.3);
-    float3 col_mid3 = float3(1.0, 0.4, 0.2);
+    // float3 col_top = float3(1.0, 1.0, 1.0);
+    // float3 col_bot = float3(0.0, 0.0, 0.0);
+    // float3 col_mid1 = float3(0.1, 0.2, 0.0);
+    // float3 col_mid2 = float3(0.7, 0.4, 0.3);
+    // float3 col_mid3 = float3(1.0, 0.4, 0.2);
+
+
+    // float3 col_top = float3(0.0, 0.5, 0.0);
+    // float3 col_bot = float3(0.0, 1.0, 1.0);
+    // float3 col_mid1 = float3(0.0, 1.0, 0.0);
+    // float3 col_mid2 = float3(0.0, 0.0, 1.0);
+    // float3 col_mid3 = float3(0.0, 0.0, 1.0);
 
     // mix mid color based on intermediate results
     float3 col_mid = lerp(col_mid1, col_mid2, clamp(r, 0.0, 1.0));
@@ -205,6 +219,10 @@ float4 MainPS(PixelShaderInput input) : COLOR
     fragColor.rgb = getColorForCoord(uv);
     // fragColor.rgb = getColorForCoord(float2(256, 256));
 // #endif
+    clip( fragColor.r+fragColor.g+fragColor.b < 0.0001f ? -1:1 );
+    if (fragColor.r+fragColor.g+fragColor.b < 0.01) {
+    return float4(fragColor,0.5);    
+    }
     return float4(fragColor,1.0);
 }
 

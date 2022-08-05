@@ -10,11 +10,16 @@ namespace WarClub
   {
     public Sector sector;
     // public Vector2 location;
-    public Quaternion rotationSpeed;
+    // public Quaternion rotationSpeed;
+    public float rotationSpeed;
     public Quaternion rotation = Quaternion.Identity;
     public int DayLength;
     public int YearLength;
-    public Color color;
+    public Color color_top;
+    public Color color_bot;
+    public Color color_mid1;
+    public Color color_mid2;
+    public Color color_mid3;
     public float size;
 
     public World() : base(EntityType.World) { }
