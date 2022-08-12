@@ -293,8 +293,8 @@ namespace WarClub
         [Traits["pleasure world"]] = new (int, int)[7] { (2, 10), (2, 10), (1, 5), (2, 10), (2, 10), (2, 10), (1, 5) },
         [Traits["death world"]] = new (int, int)[7] { (1, 5), (1, 5), (1, 5), (1, 5), (1, 10), (1, 10), (1, 5) },
         [Traits["frontier world"]] = new (int, int)[7] { (0, 0), (0, 5), (0, 0), (1, 5), (1, 5), (1, 5), (1, 5) },
-        [Traits["forbidden world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
-        [Traits["xenos world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
+        // [Traits["forbidden world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
+        // [Traits["xenos world"]] = new (int, int)[7] { (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0), (0, 0) },
       };
 
       var satelliteMap = new Dictionary<int, (int, int)>
@@ -419,6 +419,16 @@ namespace WarClub
         {"mercenary force lv"},
       };
 
+      var adeptaBranches = new string[] {
+        "adeptus arbites presence",
+        "adeptus astra telepathica presence",
+        "adeptus astronimica presence",
+        "adeptus mechanicus presence",
+        "administratum presence",
+        "adeptus ministorum presence",
+        "inquisition presence",
+      };
+
       var destroyedWorlds = new HashSet<Trait> { Traits["quarantined world"], Traits["war world"], Traits["dead world"] };
 
       void addPlanetType(World p, Trait typeOverride)
@@ -431,22 +441,24 @@ namespace WarClub
 
       void addTechLevel(World p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
-        var (mod, count, dice) = techLevelMap[t];
-        p.AddTrait(getFromRange(rollTables[RollTable.WorldTech], mod + RNG.DiceRoll(count, dice)));
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world type").Keys.First();
+        var (mod, count, die) = techLevelMap[t];
+        p.AddTrait(getFromRange(rollTables[RollTable.WorldTech], mod + RNG.DiceRoll(count, die)));
       }
 
       void addAdeptus(World p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
-        var rolls = adeptusList[t];
-        p.AddTrait(Traits["adeptus arbites presence"], RNG.DiceRoll(rolls[0].Item1, rolls[0].Item2));
-        p.AddTrait(Traits["adeptus astra telepathica presence"], RNG.DiceRoll(rolls[1].Item1, rolls[1].Item2));
-        p.AddTrait(Traits["adeptus astronimica presence"], RNG.DiceRoll(rolls[2].Item1, rolls[2].Item2));
-        p.AddTrait(Traits["adeptus mechanicus presence"], RNG.DiceRoll(rolls[3].Item1, rolls[3].Item2));
-        p.AddTrait(Traits["administratum presence"], RNG.DiceRoll(rolls[4].Item1, rolls[4].Item2));
-        p.AddTrait(Traits["adeptus ministorum presence"], RNG.DiceRoll(rolls[5].Item1, rolls[5].Item2));
-        p.AddTrait(Traits["inquisition presence"], RNG.DiceRoll(rolls[6].Item1, rolls[6].Item2));
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world type").Keys.First();
+        if (adeptusList.ContainsKey(t))
+        {
+          var rolls = adeptusList[t];
+          for (int i = 0; i < rolls.Count(); i++)
+          {
+            var adepta = adeptaBranches[i];
+            var (die, count) = rolls[i];
+            p.AddTrait(Traits[adepta], RNG.DiceRoll(count, die));
+          }
+        }
         // ADEPTA PRESENCE
         // 01-03 None.
         // 04-06 Token. For administrative purposes only.
@@ -464,16 +476,16 @@ namespace WarClub
         var tilt = getFromRange(rollTables[RollTable.WorldTilt]);
         p.AddTrait(tilt);
 
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world tilt").Keys.First();
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world tilt").Keys.First();
         var (min, max) = worldTiltMap[t];
         p.rotation = Quaternion.CreateFromYawPitchRoll(0, 0, MathHelper.ToRadians(RNG.Integer(min, max)));
       }
 
       void addDayLength(World p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
-        var (count, dice, multiplier) = getFromRange(worldDayLength, worldDayLengthMap[t] + RNG.Integer(100));
-        p.DayLength = RNG.DiceRoll(count, dice) * multiplier;
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world size").Keys.First();
+        var (count, die, multiplier) = getFromRange(worldDayLength, worldDayLengthMap[t] + RNG.Integer(100));
+        p.DayLength = RNG.DiceRoll(count, die) * multiplier;
         // p.rotationSpeed = Quaternion.CreateFromYawPitchRoll(MathHelper.ToRadians(180f / p.DayLength), 0, 0);
         p.rotationSpeed = p.DayLength * 0.1f;
       }
@@ -486,10 +498,10 @@ namespace WarClub
 
       void addSatellites(World p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world size").Keys.First();
         var mod = satelliteSizeMap[t];
-        var (count, dice) = getFromRange(satelliteMap, mod + RNG.Integer(100));
-        foreach (int i in Enumerable.Range(0, RNG.DiceRoll(count, dice)))
+        var (count, die) = getFromRange(satelliteMap, mod + RNG.Integer(100));
+        foreach (int i in Enumerable.Range(0, RNG.DiceRoll(count, die)))
         {
           Satellite satellite = new Satellite();
           // p.AddRelation(satellite, RelationType.Created, 255);
@@ -513,18 +525,18 @@ namespace WarClub
 
       bool addPopulation(World p)
       {
-        Trait type = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
-        Trait size = TraitUtil.getTraitsByType(p.Traits, "world size").Keys.First();
+        Trait type = TraitUtil.getTraitsByType(p.GetTraits(), "world type").Keys.First();
+        Trait size = TraitUtil.getTraitsByType(p.GetTraits(), "world size").Keys.First();
         var roll = populationTypeModMap[type] + populationSizeModMap[size] + RNG.Integer(100);
         if (roll <= 0) return false;
-        var (trait, count, dice, multiplier) = getFromRange(populationMap, roll);
-        p.AddTrait(trait, RNG.DiceRoll(count, dice) * multiplier);
+        var (trait, count, die, multiplier) = getFromRange(populationMap, roll);
+        p.AddTrait(trait, RNG.DiceRoll(count, die) * multiplier);
         return true;
       }
 
       void addDefenses(World p)
       {
-        Trait t = TraitUtil.getTraitsByType(p.Traits, "world type").Keys.First();
+        Trait t = TraitUtil.getTraitsByType(p.GetTraits(), "world type").Keys.First();
         // No standard forces on planet
         if (!defensesMap.ContainsKey(t)) return;
         var rolls = defensesMap[t];

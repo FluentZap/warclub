@@ -185,7 +185,7 @@ namespace WarClub
           unitSize.X = unitSize.Y = Int32.Parse(size);
         }
 
-        UnitList.Add(new Unit()
+        UnitList.Add(new Models()
         {
           Name = r[0].Trim(),
           Image = r[1].Trim(),
@@ -218,26 +218,32 @@ namespace WarClub
       foreach (string[] r in rows)
       {
         var id = Int32.Parse(r[0]);
+        var units = DataSheets[Int32.Parse(r[0])].Units;
         if (DataSheets.ContainsKey(id))
         {
-          var d = DataSheets[Int32.Parse(r[0])];
-          d.Movement = r[3].Trim();
-          d.WS = r[4].Trim();
-          d.BS = r[5].Trim();
-          d.S = r[6].Trim();
-          d.T = r[7].Trim();
-          d.W = r[8].Trim();
-          d.A = r[9].Trim();
-          d.Ld = r[10].Trim();
-          d.Sv = r[11].Trim();
-          d.Cost = r[12].Trim();
+          var name = r[2].Trim();
+          units.Remove(name);
+
+          var u = new UnitStats();
+          DataSheets[Int32.Parse(r[0])].Units.Add(name, u);
+
+          u.Movement = r[3].Trim();
+          u.WS = r[4].Trim();
+          u.BS = r[5].Trim();
+          u.S = r[6].Trim();
+          u.T = r[7].Trim();
+          u.W = r[8].Trim();
+          u.A = r[9].Trim();
+          u.Ld = r[10].Trim();
+          u.Sv = r[11].Trim();
+          u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
+
           // Set unit sizes higher or lower
           string[] unitSizes = r[14].Split('-');
           if (unitSizes[0].Trim() != "")
           {
-            d.MinModelsPerUnit = Int32.Parse(unitSizes[0]);
-            d.MaxModelsPerUnit = unitSizes.Length > 1 ? Int32.Parse(unitSizes[1]) : d.MinModelsPerUnit;
-
+            u.MinModelsPerUnit = Int32.Parse(unitSizes[0]);
+            u.MaxModelsPerUnit = unitSizes.Length > 1 ? Int32.Parse(unitSizes[1]) : u.MinModelsPerUnit;
           }
 
           string size = r[16].Trim();
@@ -248,12 +254,12 @@ namespace WarClub
             if (size.Contains("x"))
             {
               string[] sizeString = size.Split('x');
-              d.Size.X = Int32.Parse(sizeString[0]);
-              d.Size.Y = Int32.Parse(sizeString[1].Split('m')[0]);
+              u.Size.X = Int32.Parse(sizeString[0]);
+              u.Size.Y = Int32.Parse(sizeString[1].Split('m')[0]);
             }
             else
             {
-              d.Size.X = d.Size.Y = Int32.Parse(size.Split('m')[0]);
+              u.Size.X = u.Size.Y = Int32.Parse(size.Split('m')[0]);
             }
           }
         }

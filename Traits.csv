@@ -19,7 +19,7 @@ chaos daemons                      |faction          |chaos
 chaos space marines                |faction          |chaos
 death guard                        |faction          |imperial
 drukhari                           |faction          |xeno
-genestealer cults                  |faction          |
+genestealer cults                  |faction          |xeno
 grey knights                       |faction          |imperial
 heretic titan legions              |faction          |chaos
 inquisition                        |faction          |imperial
@@ -36,6 +36,14 @@ titan legions                      |faction          |imperial
 thousand sons                      |faction          |chaos
 tyranids                           |faction          |xeno
 unaligned                          |faction          |
+                                   
+                                   
+patrol                             |detachment       |
+battalion                          |detachment       |
+brigade                            |detachment       |
+vanguard                           |detachment       |
+spearhead                          |detachment       |
+outrider                           |detachment       |
                                    
                                    
 hive world                         |world type       |

@@ -45,7 +45,7 @@ namespace WarClub
     public List<Relation> Relations = new List<Relation>();
 
     public Psyche Psyche = new Psyche();
-    public Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
+    private Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
 
     public Entity(EntityType type)
     {
@@ -72,6 +72,8 @@ namespace WarClub
         Traits.Add(trait, count);
       }
     }
+
+
 
     public Dictionary<Trait, int> GetTraits()
     {
@@ -134,8 +136,8 @@ namespace WarClub
 
     public bool GetEventAvailable<T>(T orderEvent) where T : EventRequirements
     {
-      if (!TraitUtil.hasTrait(this.Traits, orderEvent.RequiredTraits)) return false;
-      if (!TraitUtil.hasAspect(this.Traits, orderEvent.RequiredAspects)) return false;
+      if (!TraitUtil.hasTrait(this.GetTraits(), orderEvent.RequiredTraits)) return false;
+      if (!TraitUtil.hasAspect(this.GetTraits(), orderEvent.RequiredAspects)) return false;
       return true;
     }
 
@@ -157,7 +159,7 @@ namespace WarClub
 
     public Psyche GetCalculatedPsyche()
     {
-      Dictionary<string, int> aspects = TraitUtil.getAspects(this.Traits);
+      Dictionary<string, int> aspects = TraitUtil.getAspects(this.GetTraits());
       return new Psyche()
       {
         Openness = (byte)Math.Clamp(this.Psyche.Openness + aspects.GetValueOrDefault("openness") / 10, 0, 100),
@@ -181,9 +183,9 @@ namespace WarClub
         int influence = 1;
         foreach (var (trait, count) in chaosEvent.InfluentialTraits)
         {
-          influence += TraitUtil.getTraitCount(this.Traits, trait) * count;
+          influence += TraitUtil.getTraitCount(this.GetTraits(), trait) * count;
         }
-        var aspects = TraitUtil.getAspects(this.Traits);
+        var aspects = TraitUtil.getAspects(this.GetTraits());
         foreach (var (aspect, count) in chaosEvent.InfluentialAspects)
         {
           influence += aspects.GetValueOrDefault(aspect, 0) * count;

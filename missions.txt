@@ -123,3 +123,6 @@ bolster
 What is the end goal?
 
 Escape the sector
+
+
+Factions will have detachments and they will be sent on missions

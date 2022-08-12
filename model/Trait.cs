@@ -25,6 +25,16 @@ namespace WarClub
       return traitPower;
     }
 
+    public static Dictionary<string, int> getAspects(Trait trait)
+    {
+      Dictionary<string, int> traitPower = new Dictionary<string, int>();
+      if (trait.Aspects != null)
+        foreach (KeyValuePair<string, int> m in trait.Aspects)
+          if (!traitPower.TryAdd(m.Key, m.Value))
+            traitPower[m.Key] += m.Value;
+      return traitPower;
+    }
+
     public static int getAspect(Dictionary<Trait, int> traits, string name)
     {
       Dictionary<string, int> aspects = TraitUtil.getAspects(traits);
@@ -66,7 +76,13 @@ namespace WarClub
       return traits.FirstOrDefault(x => x.Key.Name == t).Value;
     }
 
-    public static bool hasAspect(Dictionary<Trait, int> traits, string name, int count)
+    public static bool hasAspect(Trait trait, string name, int count = 1)
+    {
+      Dictionary<string, int> aspects = TraitUtil.getAspects(trait);
+      return aspects.ContainsKey(name) && aspects[name] >= count;
+    }
+
+    public static bool hasAspect(Dictionary<Trait, int> traits, string name, int count = 1)
     {
       Dictionary<string, int> aspects = TraitUtil.getAspects(traits);
       return aspects.ContainsKey(name) && aspects[name] >= count;

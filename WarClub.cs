@@ -190,17 +190,17 @@ namespace WarClub
       int y = 0;
 
       DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
-      // foreach (var world in simulation.cosmos.Worlds)
-      // {
-      //   // DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
-      //   DrawPlanetShader(world.Value, new Point(x, y), new Point(128));
-      //   x += 128;
-      //   if (x >= 1920)
-      //   {
-      //     x = 0;
-      //     y += 128;
-      //   }
-      // }
+      foreach (var world in simulation.cosmos.Worlds)
+      {
+        // DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
+        DrawPlanetShader(world.Value, new Point(x, y), new Point(128));
+        x += 128;
+        if (x >= 1920)
+        {
+          x = 0;
+          y += 128;
+        }
+      }
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -277,7 +277,7 @@ namespace WarClub
 
     void DrawStarfield()
     {
-      starfieldEffect.Parameters["iTime"].SetValue(animationTime / 100000f);
+      starfieldEffect.Parameters["iTime"].SetValue(animationTime / 10000f);
       spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
       spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
       spriteBatch.End();

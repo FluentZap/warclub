@@ -22,8 +22,8 @@ namespace WarClub
 
   partial class Simulation
   {
-    public List<Unit> UnitList = new List<Unit>();
-    public List<Unit> AvailableUnits = new List<Unit>();
+    public List<Models> UnitList = new List<Models>();
+    public List<Models> AvailableUnits = new List<Models>();
 
     public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
 
