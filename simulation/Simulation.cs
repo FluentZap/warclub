@@ -44,6 +44,7 @@ namespace WarClub
       GenerateWorlds();
       GenerateFactions();
 
+      AdvanceTime();
 
       // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
       // {

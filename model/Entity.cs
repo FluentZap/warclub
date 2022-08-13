@@ -11,7 +11,7 @@ namespace WarClub
     Sector,
     Faction,
     Agent,
-    Relation,
+    Mercenary,
   }
 
   class ID

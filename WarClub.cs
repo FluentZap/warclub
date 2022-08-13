@@ -33,6 +33,7 @@ namespace WarClub
 
     float timeAdvance;
     float animationTime = 0;
+    World selectedWorld = null;
 
     private SpriteFont basicFont;
     private SpriteFont basicFontSmall;
@@ -133,6 +134,20 @@ namespace WarClub
       // {
       //   worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(0.1f));
       // }
+      if (Keyboard.GetState().IsKeyDown(Keys.Space))
+      {
+        selectedWorld = null;
+      }
+
+      var size = new Point(480, 570);
+
+      if (Mouse.GetState().LeftButton == ButtonState.Pressed && selectedWorld == null)
+      {
+        var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
+        foreach (var world in simulation.cosmos.Worlds)
+          if (new Rectangle(world.Value.location.ToPoint() - size / new Point(2), size).Contains(pos))
+            selectedWorld = world.Value;
+      }
 
       // TODO: Add your update logic here
 
@@ -153,24 +168,10 @@ namespace WarClub
       DrawStarfield();
 
       // DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
-      foreach (var world in simulation.cosmos.Worlds)
-        // DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point((int)(128 * world.Value.size * 0.85)));
-        DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point(480, 540));
-
-
-      spriteBatch.Begin(transformMatrix: viewMatrix);
-
-      spriteBatch.DrawString(basicFont, timeAdvance.ToString(), new Vector2(0, 0), Color.White);
-      spriteBatch.DrawString(basicFont, simulation.cosmos.Day.ToString(), new Vector2(0, 32), Color.White);
-
-      foreach (var world in simulation.cosmos.Worlds)
-      {
-        DrawPlanetOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
-        if (TraitUtil.hasTrait(world.Value.GetTraits(), simulation.Traits["war zone"]))
-          spriteBatch.Draw(icons["axe"], new Rectangle(world.Value.location.ToPoint(), new Point(64, 64)), Color.OrangeRed);
-      }
-      spriteBatch.End();
-
+      if (selectedWorld == null)
+        DrawGalaxyOverview();
+      else
+        DrawPlanetOverview();
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -187,6 +188,62 @@ namespace WarClub
       // }
 
       base.Draw(gameTime);
+    }
+
+    void DrawGalaxyOverview()
+    {
+      foreach (var world in simulation.cosmos.Worlds)
+        DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point((int)(128 * world.Value.size * 0.85)));
+      // DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point(480, 540));
+
+
+      spriteBatch.Begin(transformMatrix: viewMatrix);
+
+      var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
+      spriteBatch.DrawString(basicFont, pos.X.ToString(), new Vector2(0, 128), Color.White);
+      spriteBatch.DrawString(basicFont, pos.Y.ToString(), new Vector2(0, 160), Color.White);
+
+
+      spriteBatch.DrawString(basicFont, timeAdvance.ToString(), new Vector2(0, 0), Color.White);
+      spriteBatch.DrawString(basicFont, simulation.cosmos.Day.ToString(), new Vector2(0, 32), Color.White);
+
+      foreach (var world in simulation.cosmos.Worlds)
+      {
+        DrawPlanetOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
+        if (TraitUtil.hasTrait(world.Value.GetTraits(), simulation.Traits["war zone"]))
+          spriteBatch.Draw(icons["axe"], new Rectangle(world.Value.location.ToPoint(), new Point(64, 64)), Color.White);
+
+        foreach (var mission in world.Value.GetEventList(simulation.OrderEventLists["Mercenary"]))
+          spriteBatch.DrawString(basicFont, mission.Name, world.Value.location, Color.White);
+      }
+      spriteBatch.End();
+    }
+
+
+    void DrawPlanetOverview()
+    {
+      DrawPlanetShader(selectedWorld, new Point((int)(screenSize.X / 2 - screenSize.X * 0.15), (int)screenSize.Y / 2), new Point((int)(1000 * selectedWorld.size * 0.85)));
+
+      spriteBatch.Begin(transformMatrix: viewMatrix);
+
+      var pos = Mouse.GetState().Position;
+      spriteBatch.DrawString(basicFont, pos.X.ToString(), new Vector2(0, 128), Color.White);
+      spriteBatch.DrawString(basicFont, pos.Y.ToString(), new Vector2(0, 160), Color.White);
+
+      spriteBatch.DrawString(basicFont, timeAdvance.ToString(), new Vector2(0, 0), Color.White);
+      spriteBatch.DrawString(basicFont, simulation.cosmos.Day.ToString(), new Vector2(0, 32), Color.White);
+
+      spriteBatch.DrawString(basicFont, selectedWorld.Name, new Vector2(1024, 0), Color.White);
+
+      var y = 0;
+
+      if (TraitUtil.hasTrait(selectedWorld.GetTraits(), simulation.Traits["war zone"]))
+        spriteBatch.Draw(icons["axe"], new Rectangle(new Point(1080, y += 64), new Point(64, 64)), Color.White);
+
+      foreach (var mission in selectedWorld.GetEventList(simulation.OrderEventLists["Mercenary"]))
+        spriteBatch.DrawString(basicFont, mission.Name, selectedWorld.location + new Vector2(0, y += 64), Color.White);
+
+      spriteBatch.End();
     }
 
     void DrawPlanet(World planet)
