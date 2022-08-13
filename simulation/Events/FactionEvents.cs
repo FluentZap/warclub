@@ -26,15 +26,17 @@ namespace WarClub
         return;
 
       List<(OrderEvent, int)> events = e.GetEventByPsycheDivergence(e.GetEventList(OrderEventLists["Faction"]), modifierList);
-      if (events.Count < 1) return;
-      var currentEvent = events[0].Item1;
+      if (events.Count >= 1)
+      {
+        var currentEvent = events[0].Item1;
+        // shift the psyche because of the action just taken
+        // e.Psyche.ShiftByPsyche(currentEvent.Psyche);
 
-      // shift the psyche because of the action just taken
-      e.Psyche.ShiftByPsyche(currentEvent.Psyche);
+        var methodName = String.Join("", currentEvent.Name.Split(" ").Select(x => char.ToUpper(x[0]) + x.Substring(1)));
+        InvokeEvent(EventTypes.FactionEvent, methodName, new object[] { this, e });
+      }
 
-      var methodName = String.Join("", currentEvent.Name.Split(" ").Select(x => char.ToUpper(x[0]) + x.Substring(1)));
-
-      InvokeEvent(EventTypes.FactionEvent, methodName, new object[] { this, e });
+      InvokeEvent(EventTypes.FactionEvent, "DoEvents", new object[] { this, e });
     }
 
     static void InvokeEvent(EventTypes type, string name, object[] args)

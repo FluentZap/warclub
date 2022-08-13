@@ -19,6 +19,18 @@
 /processorParam:DebugMode=Auto
 /build:effect.fx
 
+#begin icons/battered-axe.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:icons/battered-axe.png
+
 #begin IcoSphere.dae
 /importer:FbxImporter
 /processor:ModelProcessor
@@ -62,6 +74,20 @@
 /processor:EffectProcessor
 /processorParam:DebugMode=Auto
 /build:planetEffect.fx
+
+#begin romulus.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:romulus.spritefont
+
+#begin romulus_small.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:romulus_small.spritefont
 
 #begin starfield.fx
 /importer:EffectImporter

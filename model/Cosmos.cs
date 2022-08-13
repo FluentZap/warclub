@@ -21,7 +21,7 @@ namespace WarClub
 
   class Cosmos
   {
-    public float Hour;
+    // public float Hour;
     public uint Day;
     // public uint Month;
     // public ulong Year;
@@ -34,14 +34,18 @@ namespace WarClub
 
     public EventLog EventLog = new EventLog();
 
-    public void AdvanceHour()
+    // public void AdvanceHour()
+    // {
+    //   Hour++;
+    //   if (Hour >= 24)
+    //   {
+    //     Hour = 0;
+    //     Day++;
+    //   }
+    // }
+    public void AdvanceDay()
     {
-      Hour++;
-      if (Hour >= 24)
-      {
-        Hour = 0;
-        Day++;
-      }
+      Day++;
     }
   }
 }

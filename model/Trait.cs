@@ -102,7 +102,7 @@ namespace WarClub
       var combinedTraits = new Dictionary<Trait, int>();
       foreach (var traits in traitsLists)
         foreach (var (trait, strength) in traits)
-          combinedTraits.Add(trait, strength);
+          AddTrait(combinedTraits, trait, strength);
       return combinedTraits;
     }
 

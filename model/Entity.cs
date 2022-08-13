@@ -73,13 +73,21 @@ namespace WarClub
       }
     }
 
+    public void RemoveTrait(Trait trait)
+    {
+      if (Traits.ContainsKey(trait))
+        Traits.Remove(trait);
+    }
+
 
 
     public Dictionary<Trait, int> GetTraits()
     {
       var traitsList = new List<Dictionary<Trait, int>>();
       traitsList.Add(Traits);
-      traitsList.Concat(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
+      // traitsList.Concat(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
+      traitsList.AddRange(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
+      var relations = Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList();
 
       return TraitUtil.combineTraits(traitsList); ;
     }
@@ -88,7 +96,7 @@ namespace WarClub
     // ****RELATIONS***
     // ****************
 
-    public void AddRelation(Entity e, RelationType relationType, Dictionary<Trait, int> traits, int strength)
+    public void AddRelation(Entity e, RelationType relationType, Dictionary<Trait, int> traits, int strength = 100)
     {
       Relation relation = new Relation()
       {

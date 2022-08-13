@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -12,16 +13,13 @@ namespace WarClub
     private SpriteBatch spriteBatch;
     Simulation simulation;
 
-    Vector2 screenSize = new Vector2(1920, 1024);
+    // Vector2 screenSize = new Vector2(1920, 1024);
     // Vector2 screenSize = new Vector2(4096, 2160);
+    Vector2 viewportSize = new Vector2(1920, 1080);
+    // Vector2 viewportSize = new Vector2(1280, 720);
 
-    Vector3 camTarget;
-    Vector3 camPosition;
-    Matrix projectionMatrix;
+    Vector2 screenSize = new Vector2(3840, 2160);
     Matrix viewMatrix;
-    Matrix worldMatrix;
-
-    Matrix pvm;
 
     BasicEffect basicEffect;
     Effect planetEffect;
@@ -35,10 +33,10 @@ namespace WarClub
 
     float timeAdvance;
     float animationTime = 0;
-    VertexPositionColor[] triangleVertices;
-    VertexBuffer vertexBuffer;
 
-    // TerrainFace terrainFace = new TerrainFace(100, Vector3.Up);
+    private SpriteFont basicFont;
+    private SpriteFont basicFontSmall;
+    public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
 
     public WarClub()
     {
@@ -90,48 +88,16 @@ namespace WarClub
 
       base.Initialize();
 
-      graphics.PreferredBackBufferHeight = (int)screenSize.Y;
-      graphics.PreferredBackBufferWidth = (int)screenSize.X;
+      graphics.PreferredBackBufferHeight = (int)viewportSize.Y;
+      graphics.PreferredBackBufferWidth = (int)viewportSize.X;
       graphics.ApplyChanges();
 
-      camTarget = new Vector3(0f, 0f, 0f);
-      camPosition = new Vector3(0f, 0f, -50f);
-
-      // projectionMatrix = Matrix.CreatePerspectiveFieldOfView(MathHelper.ToRadians(45f), GraphicsDevice.DisplayMode.AspectRatio, 1f, 1000f);
-      // projectionMatrix = Matrix.CreateOrthographic(160, 90, 1f, 1000f);
-      // projectionMatrix = Matrix.CreateOrthographic(16, 9, 1f, 1000f);
-      // projectionMatrix = Matrix.CreateOrthographic(100 * 16, 100 * 9, 1f, 1000f);
-      // projectionMatrix = Matrix.CreateOrthographic(-1200, -1200, 1f, 1000f);
-      projectionMatrix = Matrix.CreateOrthographicOffCenter(0, 1600, 900, 0, -10f, 1000f);
-
-      // projectionMatrix = Matrix.create
-      viewMatrix = Matrix.CreateLookAt(camPosition, camTarget, Vector3.Up);
-      // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up) * Matrix.CreateRotationY(MathHelper.ToRadians(-12.0f));
-      // worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up);
-      worldMatrix = Matrix.CreateWorld(camTarget, Vector3.Forward, Vector3.Up);
-      // worldMatrix = Matrix.CreateTranslation(0.5f, 0.5f, 0);
-      // worldMatrix = Matrix.CreateTranslation(1.5f, 0.5f, 0);
-      // worldMatrix = Matrix.Identity;
-
-      // pvm = projectionMatrix * viewMatrix * worldMatrix;
-      pvm = projectionMatrix;
+      viewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
 
       basicEffect = new BasicEffect(GraphicsDevice);
       basicEffect.Alpha = 1f;
       basicEffect.VertexColorEnabled = true;
       basicEffect.LightingEnabled = false;
-
-      triangleVertices = new VertexPositionColor[3];
-      triangleVertices[0] = new VertexPositionColor(new Vector3(0, 20, 0), Color.Red);
-      triangleVertices[1] = new VertexPositionColor(new Vector3(-20, -20, 0), Color.Green);
-      triangleVertices[2] = new VertexPositionColor(new Vector3(20, -20, 0), Color.Blue);
-
-      // terrainFace.ConstructMesh();
-
-      // vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), terrainFace.vertices.Length, BufferUsage.WriteOnly);
-      // vertexBuffer.SetData<VertexPositionColor>(terrainFace.vertices);
-      vertexBuffer = new VertexBuffer(GraphicsDevice, typeof(VertexPositionColor), triangleVertices.Length, BufferUsage.WriteOnly);
-      vertexBuffer.SetData<VertexPositionColor>(triangleVertices);
 
       screenTexture = new Texture2D(GraphicsDevice, (int)screenSize.X, (int)screenSize.Y);
 
@@ -144,6 +110,10 @@ namespace WarClub
       // TODO: use this.Content to load your game content here
       simulation = new Simulation();
       simulation.Generate();
+      icons.Add("axe", Content.Load<Texture2D>("icons/battered-axe"));
+
+      basicFont = Content.Load<SpriteFont>("romulus");
+      basicFontSmall = Content.Load<SpriteFont>("romulus_small");
       model = Content.Load<Model>("IcoSphere");
       plane = Content.Load<Model>("Plane");
       planetEffect = Content.Load<Effect>("planetEffect");
@@ -178,29 +148,29 @@ namespace WarClub
 
     protected override void Draw(GameTime gameTime)
     {
-      // basicEffect.Projection = projectionMatrix;
-      // basicEffect.View = Matrix.Identity;
-      // basicEffect.World = worldMatrix;
 
       GraphicsDevice.Clear(new Color(10, 10, 10, 255));
-
       DrawStarfield();
 
-      int x = 0;
-      int y = 0;
+      // DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
+      foreach (var world in simulation.cosmos.Worlds)
+        // DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point((int)(128 * world.Value.size * 0.85)));
+        DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point(480, 540));
 
-      DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
+
+      spriteBatch.Begin(transformMatrix: viewMatrix);
+
+      spriteBatch.DrawString(basicFont, timeAdvance.ToString(), new Vector2(0, 0), Color.White);
+      spriteBatch.DrawString(basicFont, simulation.cosmos.Day.ToString(), new Vector2(0, 32), Color.White);
+
       foreach (var world in simulation.cosmos.Worlds)
       {
-        // DrawPlanetShader(world.Value, new Point(x, y), new Point((int)(128 * world.Value.size * 0.85)));
-        DrawPlanetShader(world.Value, new Point(x, y), new Point(128));
-        x += 128;
-        if (x >= 1920)
-        {
-          x = 0;
-          y += 128;
-        }
+        DrawPlanetOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
+        if (TraitUtil.hasTrait(world.Value.GetTraits(), simulation.Traits["war zone"]))
+          spriteBatch.Draw(icons["axe"], new Rectangle(world.Value.location.ToPoint(), new Point(64, 64)), Color.OrangeRed);
       }
+      spriteBatch.End();
+
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -229,7 +199,7 @@ namespace WarClub
       {
         effect.View = Matrix.Identity;
         // effect.World = worldMatrix * matrix;
-        effect.Projection = projectionMatrix;
+        effect.Projection = viewMatrix;
         effect.EnableDefaultLighting();
         // effect.PreferPerPixelLighting = true;
         effect.DiffuseColor = new Vector3(1, 1, 1);
@@ -239,15 +209,20 @@ namespace WarClub
       mesh.Draw();
     }
 
+    void DrawPlanetOverlay(World world, Point location, Point size)
+    {
+      spriteBatch.DrawString(basicFont, world.Name, location.ToVector2(), Color.White);
+    }
+
     void DrawPlanetShader(World world, Point location, Point size)
     {
       // planetEffect.Parameters["iTime"].SetValue(-(world.Id * 100 + animationTime * world.rotationSpeed * 0.0005f));
       planetEffect.Parameters["iTime"].SetValue(-(world.Id * 100 + animationTime * 0.0002f));
-      planetEffect.Parameters["col_top"].SetValue(world.color_top.ToVector3());
-      planetEffect.Parameters["col_bot"].SetValue(world.color_bot.ToVector3());
-      planetEffect.Parameters["col_mid1"].SetValue(world.color_mid1.ToVector3());
-      planetEffect.Parameters["col_mid2"].SetValue(world.color_mid2.ToVector3());
-      planetEffect.Parameters["col_mid3"].SetValue(world.color_mid3.ToVector3());
+      planetEffect.Parameters["col_top"].SetValue(world.color.top.ToVector3());
+      planetEffect.Parameters["col_bot"].SetValue(world.color.bot.ToVector3());
+      planetEffect.Parameters["col_mid1"].SetValue(world.color.mid1.ToVector3());
+      planetEffect.Parameters["col_mid2"].SetValue(world.color.mid2.ToVector3());
+      planetEffect.Parameters["col_mid3"].SetValue(world.color.mid3.ToVector3());
 
 
       // planetEffect.Parameters["col_top"].SetValue(new Vector3(1.0f, 1.0f, 1.0f));
@@ -268,17 +243,15 @@ namespace WarClub
       // planetEffect.Parameters["col_mid2"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
       // planetEffect.Parameters["col_mid3"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
 
-      spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred);
-      // spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
-      // spriteBatch.Draw(screenTexture, new Rectangle(0, 0, 512, 512), Color.White);
-      spriteBatch.Draw(screenTexture, new Rectangle(location, size), Color.White);
+      spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: viewMatrix);
+      spriteBatch.Draw(screenTexture, new Rectangle(location - size / new Point(2), size), Color.White);
       spriteBatch.End();
     }
 
     void DrawStarfield()
     {
       starfieldEffect.Parameters["iTime"].SetValue(animationTime / 10000f);
-      spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred);
+      spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: viewMatrix);
       spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
       spriteBatch.End();
     }
