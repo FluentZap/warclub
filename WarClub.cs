@@ -13,10 +13,8 @@ namespace WarClub
     private SpriteBatch spriteBatch;
     Simulation simulation;
 
-    // Vector2 screenSize = new Vector2(1920, 1024);
-    // Vector2 screenSize = new Vector2(4096, 2160);
     Vector2 viewportSize = new Vector2(1920, 1080);
-    // Vector2 viewportSize = new Vector2(1280, 720);
+    // Vector2 viewportSize = new Vector2(3840, 2160);
 
     Vector2 screenSize = new Vector2(3840, 2160);
     Matrix viewMatrix;
@@ -91,6 +89,9 @@ namespace WarClub
 
       graphics.PreferredBackBufferHeight = (int)viewportSize.Y;
       graphics.PreferredBackBufferWidth = (int)viewportSize.X;
+      // graphics.IsFullScreen = true;
+      // Window.Position = new Point(-5760, 0);
+      // Window.IsBorderless = true;
       graphics.ApplyChanges();
 
       viewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
@@ -171,7 +172,11 @@ namespace WarClub
       if (selectedWorld == null)
         DrawGalaxyOverview();
       else
-        DrawPlanetOverview();
+      {
+        DrawPlanetShader(selectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * selectedWorld.size * 0.85)));
+        DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+        DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+      }
 
       // RasterizerState rasterizerState = new RasterizerState();
       // rasterizerState.CullMode = CullMode.None;
@@ -220,11 +225,9 @@ namespace WarClub
     }
 
 
-    void DrawPlanetOverview()
+    void DrawPlanetOverview(Matrix transformMatrix)
     {
-      DrawPlanetShader(selectedWorld, new Point((int)(screenSize.X / 2 - screenSize.X * 0.15), (int)screenSize.Y / 2), new Point((int)(1000 * selectedWorld.size * 0.85)));
-
-      spriteBatch.Begin(transformMatrix: viewMatrix);
+      spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
 
       var pos = Mouse.GetState().Position;
       spriteBatch.DrawString(basicFont, pos.X.ToString(), new Vector2(0, 128), Color.White);

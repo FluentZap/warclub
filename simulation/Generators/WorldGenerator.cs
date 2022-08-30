@@ -230,11 +230,11 @@ namespace WarClub
         [Traits["miniscule size"]] = 0.2f,
         [Traits["tiny size"]] = 0.4f,
         [Traits["small size"]] = 0.6f,
-        [Traits["average size"]] = 0.8f,
-        [Traits["large size"]] = 1.0f,
-        [Traits["huge size"]] = 1.2f,
-        [Traits["enormous size"]] = 1.4f,
-        [Traits["massive size"]] = 1.6f,
+        [Traits["average size"]] = 0.75f,
+        [Traits["large size"]] = 0.8f,
+        [Traits["huge size"]] = 0.9f,
+        [Traits["enormous size"]] = 0.95f,
+        [Traits["massive size"]] = 1.0f,
       };
 
       var satelliteSizeMap = new Dictionary<Trait, int>
