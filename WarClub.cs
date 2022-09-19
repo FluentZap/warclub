@@ -38,7 +38,7 @@ public class WarClub : Game
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
 
 
-  Texture2D grassTexture;
+  Texture2D CoolgrassTexture;
 
   public WarClub()
   {
@@ -68,8 +68,8 @@ public class WarClub : Game
 
     uint[] arr = new uint[size.X * size.Y];
 
-    uint[] grassArr = new uint[grassTexture.Width * grassTexture.Height];
-    grassTexture.GetData<UInt32>(grassArr);
+    uint[] grassArr = new uint[CoolgrassTexture.Width * CoolgrassTexture.Height];
+    CoolgrassTexture.GetData<UInt32>(grassArr);
 
 
     foreach (int x in Enumerable.Range(0, size.X))
@@ -129,7 +129,7 @@ public class WarClub : Game
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
 
-    grassTexture = Content.Load<Texture2D>("planetTextures/grass");
+    CoolgrassTexture = Content.Load<Texture2D>("planetTextures/grass");
     GeneratePlanet();
   }
 
