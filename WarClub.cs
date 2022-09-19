@@ -68,7 +68,7 @@ public class WarClub : Game
 
     uint[] arr = new uint[size.X * size.Y];
 
-    uint[] grassArr = new uint[CoolgrassTexture.Width * CoolgrassTexture.Height];
+    uint[] grassArr = new uint[SuperCoolgrassTexture.Width * SuperCoolgrassTexture.Height];
     CoolgrassTexture.GetData<UInt32>(grassArr);
 
 
