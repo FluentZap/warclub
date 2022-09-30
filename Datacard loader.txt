@@ -1,0 +1,3 @@
+Datacard loader
+    Load 40k datacards and build armies to fight
+        Parse and build loadout using weapons
