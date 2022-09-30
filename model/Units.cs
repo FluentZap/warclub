@@ -48,10 +48,33 @@ namespace WarClub
     public Point Size = new Point();
   }
 
+  class Wargear
+  {
+    public int Id;
+    public string Name;
+    public string Range;
+    public string Type;
+    public int S;
+    public int AP;
+    public int D;
+    public string Abilities;
+  }
+
   class Unit
   {
     public DataSheet DataSheet;
-    public Dictionary<string, int> UnitModels = new Dictionary<string, int>();
+    public Dictionary<string, UnitLine> UnitLines = new Dictionary<string, UnitLine>();
+
+
+  }
+
+  class UnitLine
+  {
+    public UnitStats UnitStats;
+    public int Count;
+    public List<Wargear> Wargear = new List<Wargear>();
+
+
   }
 
 }

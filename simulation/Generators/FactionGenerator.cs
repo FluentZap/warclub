@@ -102,14 +102,23 @@ namespace WarClub
 
           foreach (var line in unitTemplate.Value.Units)
           {
-            newUnit.UnitModels.Add(line.Key, line.Value.MaxModelsPerUnit);
+            var unitLine = new UnitLine()
+            {
+              Count = line.Value.MaxModelsPerUnit,
+              UnitStats = line.Value,
+            };
+
+            newUnit.UnitLines.Add(line.Key, unitLine);
+            // adding new unit
             points += line.Value.Cost * line.Value.MaxModelsPerUnit;
           }
           f.Units[unitTemplate.Value.Role].Add(newUnit);
+
           if (points > pointMax) return;
         }
       }
 
+      // Generate random troops to add to the faction
       void GenerateTroops(Faction f)
       {
         var factionTrait = TraitUtil.getTraitsByType(f.GetTraits(), "faction").First().Key;

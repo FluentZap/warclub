@@ -188,10 +188,10 @@ public class WarClub : Game
       DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
     }
 
-    spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
+    // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
     // spriteBatch.Draw(planetTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
-    spriteBatch.Draw(planetTexture, new Rectangle(0, 0, 3840, 2160), Color.White);
-    spriteBatch.End();
+    // spriteBatch.Draw(planetTexture, new Rectangle(0, 0, 3840, 2160), Color.White);
+    // spriteBatch.End();
 
     // RasterizerState rasterizerState = new RasterizerState();
     // rasterizerState.CullMode = CullMode.None;
