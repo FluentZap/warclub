@@ -29,6 +29,7 @@ namespace WarClub
     // Fortifications
     public string Role;
     public Dictionary<string, UnitStats> Units = new Dictionary<string, UnitStats>();
+    public List<Wargear> Wargear = new List<Wargear>();
   }
 
   class UnitStats
@@ -45,12 +46,17 @@ namespace WarClub
     public int Cost;
     public int MinModelsPerUnit;
     public int MaxModelsPerUnit;
+    public List<Wargear> DefaultWargear = new List<Wargear>();
     public Point Size = new Point();
   }
 
   class Wargear
   {
     public int Id;
+    public string Faction;
+    // Melee/Ranged/Other
+    public string Archetype;
+    public bool Relic;
     public string Name;
     public string Range;
     public string Type;
@@ -64,8 +70,6 @@ namespace WarClub
   {
     public DataSheet DataSheet;
     public Dictionary<string, UnitLine> UnitLines = new Dictionary<string, UnitLine>();
-
-
   }
 
   class UnitLine
@@ -73,8 +77,6 @@ namespace WarClub
     public UnitStats UnitStats;
     public int Count;
     public List<Wargear> Wargear = new List<Wargear>();
-
-
   }
 
 }
