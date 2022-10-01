@@ -17,7 +17,7 @@ namespace WarClub
   {
     public int Id;
     public string Name;
-    public string Faction;
+    public string FactionId;
     // Troops
     // Elites
     // Heavy Support
@@ -53,10 +53,21 @@ namespace WarClub
   class Wargear
   {
     public int Id;
-    public string Faction;
+    public string Name;
     // Melee/Ranged/Other
     public string Archetype;
+    public string Description;
     public bool Relic;
+    public string FactionId;
+    public string Legend;
+    public int Cost;
+
+    public Dictionary<string, WargearLine> WargearLine = new Dictionary<string, WargearLine>();
+
+  }
+
+  class WargearLine
+  {
     public string Name;
     public string Range;
     public string Type;

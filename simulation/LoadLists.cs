@@ -198,6 +198,7 @@ namespace WarClub
 
     void LoadDataSheets()
     {
+      // Load Datasheet csv
       var rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets.csv"));
       rows.RemoveAt(0);
       foreach (string[] r in rows)
@@ -208,11 +209,12 @@ namespace WarClub
         {
           Id = Int32.Parse(r[0]),
           Name = r[1].Trim(),
-          Faction = r[3].Trim(),
+          FactionId = r[3].Trim(),
           Role = r[5].Trim(),
         });
       }
 
+      // Load model data and add to Datasheet
       rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_models.csv"));
       rows.RemoveAt(0);
       foreach (string[] r in rows)
@@ -264,6 +266,27 @@ namespace WarClub
           }
         }
       }
+
+      // Load weapons and add to Wargear
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        if (r[0].Contains('s'))
+          continue;
+
+        Wargear.Add(Int32.Parse(r[0]), new Wargear()
+        {
+          Id = Int32.Parse(r[0]),
+          Name = r[1].Trim(),
+          Archetype = r[2].Trim(),
+          Description = r[3].Trim(),
+          Relic = r[5].Trim() == "true",
+          FactionId = r[6].Trim(),
+          Legend = r[8].Trim(),
+        });
+      }
+
     }
   }
 }

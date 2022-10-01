@@ -126,7 +126,7 @@ namespace WarClub
         foreach (int i in Enumerable.Range(0, 9))
         {
           var role = troopTypes[i];
-          var unitsByType = allUnitsByType[role].Where(x => x.Value.Faction == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
+          var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
           var (count, die) = factionUnits[factionTrait][i];
           if (unitsByType.Count > 0)
           {
