@@ -28,8 +28,10 @@ namespace WarClub
     // Lords of War
     // Fortifications
     public string Role;
+    public string UnitComposition;
     public Dictionary<string, UnitStats> Units = new Dictionary<string, UnitStats>();
     public List<Wargear> Wargear = new List<Wargear>();
+    public List<Wargear> DefaultWargear = new List<Wargear>();
   }
 
   class UnitStats
@@ -46,7 +48,6 @@ namespace WarClub
     public int Cost;
     public int MinModelsPerUnit;
     public int MaxModelsPerUnit;
-    public List<Wargear> DefaultWargear = new List<Wargear>();
     public Point Size = new Point();
   }
 
@@ -71,9 +72,9 @@ namespace WarClub
     public string Name;
     public string Range;
     public string Type;
-    public int S;
-    public int AP;
-    public int D;
+    public string S;
+    public string AP;
+    public string D;
     public string Abilities;
   }
 

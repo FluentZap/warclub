@@ -211,6 +211,7 @@ namespace WarClub
           Name = r[1].Trim(),
           FactionId = r[3].Trim(),
           Role = r[5].Trim(),
+          UnitComposition = r[6].Trim(),
         });
       }
 
@@ -287,6 +288,47 @@ namespace WarClub
         });
       }
 
+      // Load WarGear Lines and add to wargear
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear_list.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        var wargear = Wargear[Int32.Parse(r[0])];
+        wargear.WargearLine.Add(r[2].Trim(), new WargearLine()
+        {
+          Name = r[2].Trim(),
+          Range = r[3].Trim(),
+          Type = r[4].Trim(),
+          S = r[5].Trim(),
+          AP = r[6].Trim(),
+          D = r[7].Trim(),
+          Abilities = r[8].Trim(),
+        });
+      }
+
+      // adds wargear to units
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_wargear.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        if (r[2].Contains('s'))
+          continue;
+
+        var dataSheet = DataSheets[Int32.Parse(r[0])];
+        var wargear = Wargear[Int32.Parse(r[2])];
+        dataSheet.Wargear.Add(wargear);
+      }
+
+      //build default gear with best guess
+
+      foreach (DataSheet dataSheet in DataSheets.Values)
+      {
+        var normalizedUnitComposition = dataSheet.UnitComposition.ToLower();
+        foreach (Wargear warGear in dataSheet.Wargear)
+          if (normalizedUnitComposition.Contains(warGear.Name.ToLower()))
+            dataSheet.DefaultWargear.Add(warGear);
+
+      }
     }
   }
 }
