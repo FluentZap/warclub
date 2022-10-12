@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WarClub
 {
@@ -318,15 +319,23 @@ namespace WarClub
         var wargear = Wargear[Int32.Parse(r[2])];
         dataSheet.Wargear.Add(wargear);
       }
+      string pattern = @"\(.*\)";
 
-      //build default gear with best guess
-
+      // build default gear with best guess
       foreach (DataSheet dataSheet in DataSheets.Values)
       {
         var normalizedUnitComposition = dataSheet.UnitComposition.ToLower();
-        foreach (Wargear warGear in dataSheet.Wargear)
-          if (normalizedUnitComposition.Contains(warGear.Name.ToLower()))
+        foreach (var warGear in dataSheet.Wargear)
+        {
+          var name = warGear.Name.ToLower();
+          name = Regex.Replace(name, pattern, String.Empty).Trim();
+
+          if (normalizedUnitComposition.Contains(name))
             dataSheet.DefaultWargear.Add(warGear);
+        }
+
+        if (dataSheet.DefaultWargear.Count == 0)
+          dataSheet.DefaultWargear.AddRange(dataSheet.Wargear);
 
       }
     }

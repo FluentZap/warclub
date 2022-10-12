@@ -1,0 +1,15 @@
+All wargear associated with the unit
+DataSheet.Wargear
+
+
+Load wargear lines into units
+DataSheet.Wargear.WargearLines
+
+
+Best guess of what the unit is equipped with
+UnitStats.DefaultWargear
+
+
+Have a full list of all the wargear in simulation
+Simulation.Wargear
+
