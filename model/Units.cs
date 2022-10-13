@@ -32,6 +32,10 @@ namespace WarClub
     public Dictionary<string, UnitStats> Units = new Dictionary<string, UnitStats>();
     public List<Wargear> Wargear = new List<Wargear>();
     public List<Wargear> DefaultWargear = new List<Wargear>();
+    public List<string> WargearOptions = new List<string>();
+    public List<string> FactionKeywords = new List<string>();
+    public List<string> Keywords = new List<string>();
+
   }
 
   class UnitStats
@@ -91,4 +95,13 @@ namespace WarClub
     public List<Wargear> Wargear = new List<Wargear>();
   }
 
+  class Stratagem
+  {
+    public int Id;
+    public string Name;
+    public string Type;
+    public string Cost;
+    public string Legend;
+    public string Description;
+  }
 }
