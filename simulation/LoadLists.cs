@@ -366,6 +366,16 @@ namespace WarClub
           Description = r[6].Trim(),
         });
       }
+
+      // add stratagems to datasheet
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_stratagems.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        var dataSheet = DataSheets[Int32.Parse(r[0])];
+        var stratagem = Stratagems[Int32.Parse(r[1])];
+        dataSheet.Stratagems.Add(stratagem);
+      }
     }
   }
 }

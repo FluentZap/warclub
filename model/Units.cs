@@ -35,7 +35,7 @@ namespace WarClub
     public List<string> WargearOptions = new List<string>();
     public List<string> FactionKeywords = new List<string>();
     public List<string> Keywords = new List<string>();
-
+    public List<Stratagem> Stratagems = new List<Stratagem>();
   }
 
   class UnitStats
