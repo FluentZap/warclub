@@ -13,5 +13,5 @@ DONE - Simulation.Wargear
 
 DONE - Add WARGEAR OPTIONS into data sheets
 DONE - Add Keywords to data sheets
-Half Done - Add STRATAGEMS to data sheets
+DONE - Add STRATAGEMS to data sheets
 
