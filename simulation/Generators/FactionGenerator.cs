@@ -136,6 +136,26 @@ namespace WarClub
         }
       }
 
+      void AddUnitToFaction(Faction f, DataSheet unitTemplate)
+      {
+        var newUnit = new Unit();
+        newUnit.DataSheet = unitTemplate;
+
+        foreach (var line in unitTemplate.Units)
+        {
+          var unitLine = new UnitLine()
+          {
+            Count = line.Value.MinModelsPerUnit,
+            UnitStats = line.Value,
+          };
+
+          newUnit.UnitLines.Add(line.Key, unitLine);
+          // adding new unit
+        }
+        if (!f.Units.ContainsKey(unitTemplate.Role))
+          f.Units.Add(unitTemplate.Role, new List<Unit>());
+        f.Units[unitTemplate.Role].Add(newUnit);
+      }
 
       // add one of each faction
       var factions = TraitLists["faction"];
@@ -161,6 +181,13 @@ namespace WarClub
         cosmos.Factions.AutoAdd(f);
       }
 
+      // add new faction for Player
+
+      var playerFaction = new Faction();
+      playerFaction.AddRelation(RNG.PickFrom(cosmos.Worlds).Value, RelationType.Headquarters, new Dictionary<Trait, int> { }, 100);
+      AddUnitToFaction(playerFaction, DataSheets[16]);
+      cosmos.Factions.AutoAdd(playerFaction);
+      cosmos.PlayerFaction = playerFaction;
     }
   }
 }

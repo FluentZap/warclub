@@ -33,7 +33,7 @@ namespace WarClub
     // public KeyCollection<Relation> Relations = new KeyCollection<Relation>();
 
     public EventLog EventLog = new EventLog();
-
+    public Faction PlayerFaction;
     // public void AdvanceHour()
     // {
     //   Hour++;
