@@ -26,6 +26,8 @@ namespace WarClub
     public List<Models> AvailableUnits = new List<Models>();
 
     public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
+    public Dictionary<int, Wargear> Wargear = new Dictionary<int, Wargear>();
+    public Dictionary<int, Stratagem> Stratagems = new Dictionary<int, Stratagem>();
 
     public Cosmos cosmos = new Cosmos();
     public TraitList Traits = new TraitList();

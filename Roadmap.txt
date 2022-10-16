@@ -1,0 +1,17 @@
+
+DONE - All wargear associated with the unit
+DONE - DataSheet.Wargear
+
+DONE - Load wargear lines into units
+DONE - DataSheet.Wargear.WargearLines
+
+DONE - Best guess of what the unit is equipped with
+DONE - UnitStats.DefaultWargear
+
+DONE - Have a full list of all the wargear in simulation
+DONE - Simulation.Wargear
+
+DONE - Add WARGEAR OPTIONS into data sheets
+DONE - Add Keywords to data sheets
+DONE - Add STRATAGEMS to data sheets
+

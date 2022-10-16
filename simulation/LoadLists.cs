@@ -1,8 +1,9 @@
 using Microsoft.Xna.Framework;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace WarClub
 {
@@ -198,6 +199,7 @@ namespace WarClub
 
     void LoadDataSheets()
     {
+      // Load Datasheet csv
       var rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets.csv"));
       rows.RemoveAt(0);
       foreach (string[] r in rows)
@@ -208,61 +210,171 @@ namespace WarClub
         {
           Id = Int32.Parse(r[0]),
           Name = r[1].Trim(),
-          Faction = r[3].Trim(),
+          FactionId = r[3].Trim(),
           Role = r[5].Trim(),
+          UnitComposition = r[6].Trim(),
         });
       }
 
+      // Load model data and add to Datasheet
       rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_models.csv"));
       rows.RemoveAt(0);
       foreach (string[] r in rows)
       {
         var id = Int32.Parse(r[0]);
-        var units = DataSheets[Int32.Parse(r[0])].Units;
-        if (DataSheets.ContainsKey(id))
+        var units = DataSheets[id].Units;
+
+        var name = r[2].Trim();
+        units.Remove(name);
+
+        var u = new UnitStats();
+        DataSheets[id].Units.Add(name, u);
+
+        u.Movement = r[3].Trim();
+        u.WS = r[4].Trim();
+        u.BS = r[5].Trim();
+        u.S = r[6].Trim();
+        u.T = r[7].Trim();
+        u.W = r[8].Trim();
+        u.A = r[9].Trim();
+        u.Ld = r[10].Trim();
+        u.Sv = r[11].Trim();
+        u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
+
+        // Set unit sizes higher or lower
+        string[] unitSizes = r[14].Split('-');
+        if (unitSizes[0].Trim() != "")
         {
-          var name = r[2].Trim();
-          units.Remove(name);
+          u.MinModelsPerUnit = Int32.Parse(unitSizes[0]);
+          u.MaxModelsPerUnit = unitSizes.Length > 1 ? Int32.Parse(unitSizes[1]) : u.MinModelsPerUnit;
+        }
 
-          var u = new UnitStats();
-          DataSheets[Int32.Parse(r[0])].Units.Add(name, u);
-
-          u.Movement = r[3].Trim();
-          u.WS = r[4].Trim();
-          u.BS = r[5].Trim();
-          u.S = r[6].Trim();
-          u.T = r[7].Trim();
-          u.W = r[8].Trim();
-          u.A = r[9].Trim();
-          u.Ld = r[10].Trim();
-          u.Sv = r[11].Trim();
-          u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
-
-          // Set unit sizes higher or lower
-          string[] unitSizes = r[14].Split('-');
-          if (unitSizes[0].Trim() != "")
+        string size = r[16].Trim();
+        // Is there a number in the base?
+        if (size.Any(char.IsDigit))
+        {
+          // Has rectangle base
+          if (size.Contains("x"))
           {
-            u.MinModelsPerUnit = Int32.Parse(unitSizes[0]);
-            u.MaxModelsPerUnit = unitSizes.Length > 1 ? Int32.Parse(unitSizes[1]) : u.MinModelsPerUnit;
+            string[] sizeString = size.Split('x');
+            u.Size.X = Int32.Parse(sizeString[0]);
+            u.Size.Y = Int32.Parse(sizeString[1].Split('m')[0]);
           }
-
-          string size = r[16].Trim();
-          // Is there a number in the base?
-          if (size.Any(char.IsDigit))
+          else
           {
-            // Has rectangle base
-            if (size.Contains("x"))
-            {
-              string[] sizeString = size.Split('x');
-              u.Size.X = Int32.Parse(sizeString[0]);
-              u.Size.Y = Int32.Parse(sizeString[1].Split('m')[0]);
-            }
-            else
-            {
-              u.Size.X = u.Size.Y = Int32.Parse(size.Split('m')[0]);
-            }
+            u.Size.X = u.Size.Y = Int32.Parse(size.Split('m')[0]);
           }
         }
+      }
+
+      // Load weapons and add to Wargear
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        if (r[0].Contains('s'))
+          continue;
+
+        Wargear.Add(Int32.Parse(r[0]), new Wargear()
+        {
+          Id = Int32.Parse(r[0]),
+          Name = r[1].Trim(),
+          Archetype = r[2].Trim(),
+          Description = r[3].Trim(),
+          Relic = r[5].Trim() == "true",
+          FactionId = r[6].Trim(),
+          Legend = r[8].Trim(),
+        });
+      }
+
+      // Load WarGear Lines and add to wargear
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear_list.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        var wargear = Wargear[Int32.Parse(r[0])];
+        wargear.WargearLine.Add(r[2].Trim(), new WargearLine()
+        {
+          Name = r[2].Trim(),
+          Range = r[3].Trim(),
+          Type = r[4].Trim(),
+          S = r[5].Trim(),
+          AP = r[6].Trim(),
+          D = r[7].Trim(),
+          Abilities = r[8].Trim(),
+        });
+      }
+
+      // adds wargear to units
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_wargear.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        if (r[2].Contains('s'))
+          continue;
+
+        var dataSheet = DataSheets[Int32.Parse(r[0])];
+        var wargear = Wargear[Int32.Parse(r[2])];
+        dataSheet.Wargear.Add(wargear);
+      }
+      string pattern = @"\(.*\)";
+
+      // build default gear with best guess
+      foreach (DataSheet dataSheet in DataSheets.Values)
+      {
+        var normalizedUnitComposition = dataSheet.UnitComposition.ToLower();
+        foreach (var warGear in dataSheet.Wargear)
+        {
+          var name = warGear.Name.ToLower();
+          name = Regex.Replace(name, pattern, String.Empty).Trim();
+
+          if (normalizedUnitComposition.Contains(name))
+            dataSheet.DefaultWargear.Add(warGear);
+        }
+
+        if (dataSheet.DefaultWargear.Count == 0)
+          dataSheet.DefaultWargear.AddRange(dataSheet.Wargear);
+      }
+
+      // add wargear options
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_options.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+        DataSheets[Int32.Parse(r[0])].WargearOptions.Add(r[3].Trim());
+
+      // add keywords and Faction Key words
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_keywords.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+        if (r[3] == "true")
+          DataSheets[Int32.Parse(r[0])].FactionKeywords.Add(r[1].Trim());
+        else
+          DataSheets[Int32.Parse(r[0])].Keywords.Add(r[1].Trim());
+
+      // add stratagems
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Stratagems.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        Stratagems.Add(Int32.Parse(r[7]), new Stratagem()
+        {
+          Id = Int32.Parse(r[7]),
+          Name = r[1].Trim(),
+          Type = r[2].Trim(),
+          Cost = r[3].Trim(),
+          Legend = r[4].Trim(),
+          Description = r[6].Trim(),
+        });
+      }
+
+      // add stratagems to datasheet
+      rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_stratagems.csv"));
+      rows.RemoveAt(0);
+      foreach (string[] r in rows)
+      {
+        var dataSheet = DataSheets[Int32.Parse(r[0])];
+        var stratagem = Stratagems[Int32.Parse(r[1])];
+        dataSheet.Stratagems.Add(stratagem);
       }
     }
   }
