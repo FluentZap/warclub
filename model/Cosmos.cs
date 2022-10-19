@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WarClub
 {
@@ -22,18 +23,33 @@ namespace WarClub
   class Cosmos
   {
     // public float Hour;
-    public uint Day;
+    public uint Day { get; set; }
     // public uint Month;
     // public ulong Year;
 
-    public KeyCollection<Sector> Sectors = new KeyCollection<Sector>();
-    public KeyCollection<World> Worlds = new KeyCollection<World>();
-    public KeyCollection<Faction> Factions = new KeyCollection<Faction>();
+    // [JsonIgnore]
+    public KeyCollection<Sector> Sectors { get; set; }
+    // [JsonIgnore]
+    public KeyCollection<World> Worlds { get; set; }
+    [JsonIgnore]
+    public KeyCollection<Faction> Factions { get; set; }
 
     // public KeyCollection<Relation> Relations = new KeyCollection<Relation>();
 
+
+    [JsonIgnore]
     public EventLog EventLog = new EventLog();
+    [JsonIgnore]
     public Faction PlayerFaction;
+
+    public Cosmos()
+    {
+      Sectors = new KeyCollection<Sector>();
+      Worlds = new KeyCollection<World>();
+      Factions = new KeyCollection<Faction>();
+    }
+
+
     // public void AdvanceHour()
     // {
     //   Hour++;

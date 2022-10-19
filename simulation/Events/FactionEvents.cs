@@ -20,7 +20,7 @@ namespace WarClub
       Dictionary<string, int> modifierList = new Dictionary<string, int>();
       // modifierList.Add("create creature", (int)(e.GetRelationsOut(EntityType.CreatureGroup, RelationType.Created).Count * 0.5f));
       // modifierList.Add("gain power", (int)(TraitUtil.getAspects(e.Traits).GetValueOrDefault("power") - 200));
-      Trait t = TraitUtil.getTraitsByType(e.GetTraits(), "aspiration").Keys.First();
+      Trait t = TraitUtil.getTraitsByType(e.GetTraits(), "aspiration").Keys.FirstOrDefault();
 
       if (!OrderEventLists.ContainsKey("Faction"))
         return;

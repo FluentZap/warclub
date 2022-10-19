@@ -47,7 +47,7 @@ namespace WarClub
       GenerateFactions();
 
       AdvanceTime();
-
+      // TimeWizard.Stasis(cosmos);
       // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
       // {
       //   col_bot = Color.FromArgb(227, 27, 160),
