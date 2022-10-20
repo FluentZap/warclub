@@ -30,11 +30,10 @@ Milestone Apprentice
     
     Basic mission generator with rules and custom deployment zones
 
-    Unit Roster
-            Keeps track of the units in the players army
-                Persistent Game state Save/Load
+    DONE - Unit Roster
+          DONE - Keeps track of the units in the players army
+    Persistent Game state Save/Load
 
-    BLOCKED - Unit Roster
     Upgrade System
         Can buy new units and upgrade units increase unit size ect
 
