@@ -15,7 +15,7 @@ namespace WarClub
 
     void FactionEvent(uint id)
     {
-      Entity e = this.cosmos.Factions[id];
+      Entity e = cosmos.Factions[id];
 
       Dictionary<string, int> modifierList = new Dictionary<string, int>();
       // modifierList.Add("create creature", (int)(e.GetRelationsOut(EntityType.CreatureGroup, RelationType.Created).Count * 0.5f));

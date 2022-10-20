@@ -130,7 +130,7 @@ public class WarClub : Game
     starfieldEffect = Content.Load<Effect>("starfield");
 
     grassTexture = Content.Load<Texture2D>("planetTextures/grass");
-    GeneratePlanet();
+    // GeneratePlanet();
   }
 
   protected override void Update(GameTime gameTime)

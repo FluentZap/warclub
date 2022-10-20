@@ -1,15 +1,19 @@
 Milestone Apprentice
 
-    DONE - Datacard loader
-        Load 40k datacards and build armies to fight.
-            Parse and build loadout using weapons
+    Mission world map with multiple missions to select
 
+    Basic mission generator with rules and custom deployment zones
+
+    Random map generator
+        5 Base terrains
+            Topographical map
+            Obsticles
+        Deployment Zones
+            Multiple places and configurations based on the book
 
     Army customizer
         User can input minis for both sides and it will select units to use for the mission.
             Image loader
-
-    Mission world map with multiple missions to select
 
     Map play mode
         Shows map and allows for gameplay
@@ -20,21 +24,17 @@ Milestone Apprentice
                 Escape
                 Move to point on map
                 Destroy point on map
-
-    Random map generator
-        5 Base terrains
-            Topographical map
-            Obsticles
-        Deployment Zones
-            Multiple places and configurations based on the book
     
-    Basic mission generator with rules and custom deployment zones
-
-    DONE - Unit Roster
-          DONE - Keeps track of the units in the players army
-    Persistent Game state Save/Load
-
     Upgrade System
         Can buy new units and upgrade units increase unit size ect
 
     Some system to track progression and "upgrade points ect"
+
+    Persistent Game state Save/Load
+
+    DONE - Unit Roster
+          DONE - Keeps track of the units in the players army
+
+    DONE - Datacard loader
+        Load 40k datacards and build armies to fight.
+            Parse and build loadout using weapons

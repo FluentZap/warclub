@@ -1,17 +1,19 @@
 
-    Unit Roster
-            Keeps track of the units in the players army
-               - this will be done using the faction class and handle the same way AI factions are handled
-            
-            DONE - Create player faction
-                DONE - Add Trait to player faction to prevent AI control
-                DONE - Add save player handle to cosmos
-                
+Mission world map with multiple missions to select
+    Select 1 event per aspiration, and build 1 mission per aspiration
 
-                Persistent Game state Save/Load
-                    DONE - Add default units to player faction
-                    Build simulation save state
-                    Build entity save state
-                    Build cosmos save state
-
-
+    all out war
+        War Profitaring 
+            last man standing, random chance of who they attack maybe random attack style different combat patrols, troop type.
+    assassinate heros
+        take kill contract
+            get in terminate commander(s), optional bonus objectives, get out
+    complete ritual
+        support the retualist 
+            defend the unit doing reitual, with multiple deployment zones, optional objectives
+    recruit initiates
+        disrupt recruitment operations
+            focus optional objectives higher rate, disrupt operations, gives random objectives
+    conquer strongholds
+        asault outpost
+            we go in we asault an outpost, we stop people from trying to reinforce.
