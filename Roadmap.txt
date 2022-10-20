@@ -1,17 +1,17 @@
 
-DONE - All wargear associated with the unit
-DONE - DataSheet.Wargear
+    Unit Roster
+            Keeps track of the units in the players army
+               - this will be done using the faction class and handle the same way AI factions are handled
+            
+            DONE - Create player faction
+                DONE - Add Trait to player faction to prevent AI control
+                DONE - Add save player handle to cosmos
+                
 
-DONE - Load wargear lines into units
-DONE - DataSheet.Wargear.WargearLines
+                Persistent Game state Save/Load
+                    DONE - Add default units to player faction
+                    Build simulation save state
+                    Build entity save state
+                    Build cosmos save state
 
-DONE - Best guess of what the unit is equipped with
-DONE - UnitStats.DefaultWargear
-
-DONE - Have a full list of all the wargear in simulation
-DONE - Simulation.Wargear
-
-DONE - Add WARGEAR OPTIONS into data sheets
-DONE - Add Keywords to data sheets
-DONE - Add STRATAGEMS to data sheets
 

@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework.Input;
 
 using System.Collections.Generic;
 
-namespace WarClub
+namespace WarClub;
+
+class Faction : Entity
 {
-  class Faction : Entity
-  {
-    public Dictionary<string, List<Unit>> Units = new Dictionary<string, List<Unit>>();
-    public Faction() : base(EntityType.Faction) { }
-  }
+  public Dictionary<string, List<Unit>> Units = new Dictionary<string, List<Unit>>();
+  public Faction() : base(EntityType.Faction) { }
 }
