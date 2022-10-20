@@ -9,7 +9,6 @@ static class TimeWizard
   {
     var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
     string jsonString = JsonSerializer.Serialize(c, options);
-    // System.Console.WriteLine(jsonString);
     File.WriteAllText("./ChronoStasis.json", jsonString);
 
   }
