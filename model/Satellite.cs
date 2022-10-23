@@ -4,10 +4,9 @@ using Microsoft.Xna.Framework.Input;
 
 using System.Collections.Generic;
 
-namespace WarClub
+namespace WarClub;
+
+class Satellite : Entity
 {
-  class Satellite : Entity
-  {
-    public Satellite() : base(EntityType.Satellite) { }
-  }
+  public Satellite() : base(EntityType.Satellite) { }
 }

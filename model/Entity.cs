@@ -2,220 +2,218 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace WarClub
+namespace WarClub;
+
+public enum EntityType
 {
-  public enum EntityType
+  World,
+  Satellite,
+  Sector,
+  Faction,
+  Agent,
+  Mercenary,
+}
+
+class ID
+{
+  public EntityType EntityType;
+  public uint Id;
+
+  public ID() { }
+
+  public ID(EntityType type, uint id)
   {
-    World,
-    Satellite,
-    Sector,
-    Faction,
-    Agent,
-    Mercenary,
+    this.EntityType = type;
+    this.Id = id;
+  }
+}
+
+class Entity : ID
+{
+  public string Name;
+
+  // my relations mean i am the source of the relation
+  // their relations mean i am the target of a relation
+  // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsIn = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
+  // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsOut = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
+
+  // my traits are attached to anything with the corresponding relation
+  // their traits are attached to me
+  // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsIn = new Dictionary<RelationType, Dictionary<Trait, int>>();
+  // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsOut = new Dictionary<RelationType, Dictionary<Trait, int>>();
+
+  public List<Relation> Relations = new List<Relation>();
+
+  public Psyche Psyche = new Psyche();
+  private Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
+
+  public Entity(EntityType type)
+  {
+    this.EntityType = type;
   }
 
-  class ID
+  // ****************
+  // *****TRAITS*****
+  // ****************
+
+  public void AddTrait(Trait trait, int count = 1)
   {
-    public EntityType EntityType;
-    public uint Id;
-
-    public ID() { }
-
-    public ID(EntityType type, uint id)
+    if (Traits.ContainsKey(trait))
     {
-      this.EntityType = type;
-      this.Id = id;
-    }
-  }
-
-  class Entity : ID
-  {
-    public string Name;
-
-    // my relations mean i am the source of the relation
-    // their relations mean i am the target of a relation
-    // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsIn = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
-    // public Dictionary<RelationType, Dictionary<Entity, Relation>> RelationsOut = new Dictionary<RelationType, Dictionary<Entity, Relation>>();
-
-    // my traits are attached to anything with the corresponding relation
-    // their traits are attached to me
-    // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsIn = new Dictionary<RelationType, Dictionary<Trait, int>>();
-    // public Dictionary<RelationType, Dictionary<Trait, int>> TraitsOut = new Dictionary<RelationType, Dictionary<Trait, int>>();
-
-    public List<Relation> Relations = new List<Relation>();
-
-    public Psyche Psyche = new Psyche();
-    private Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
-
-    public Entity(EntityType type)
-    {
-      this.EntityType = type;
-    }
-
-    // ****************
-    // *****TRAITS*****
-    // ****************
-
-    public void AddTrait(Trait trait, int count = 1)
-    {
-      if (Traits.ContainsKey(trait))
-      {
-        // Trait hard limit at 1 bill
-        var change = Math.Min(Traits[trait] + count, 1000000000);
-        if (change > 0)
-          Traits[trait] = change;
-        else
-          Traits.Remove(trait);
-      }
+      // Trait hard limit at 1 bill
+      var change = Math.Min(Traits[trait] + count, 1000000000);
+      if (change > 0)
+        Traits[trait] = change;
       else
-      {
-        Traits.Add(trait, count);
-      }
-    }
-
-    public void RemoveTrait(Trait trait)
-    {
-      if (Traits.ContainsKey(trait))
         Traits.Remove(trait);
     }
-
-
-
-    public Dictionary<Trait, int> GetTraits()
+    else
     {
-      var traitsList = new List<Dictionary<Trait, int>>();
-      traitsList.Add(Traits);
-      // traitsList.Concat(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
-      traitsList.AddRange(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
-      var relations = Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList();
-
-      return TraitUtil.combineTraits(traitsList); ;
+      Traits.Add(trait, count);
     }
+  }
 
-    // ****************
-    // ****RELATIONS***
-    // ****************
+  public void RemoveTrait(Trait trait)
+  {
+    if (Traits.ContainsKey(trait))
+      Traits.Remove(trait);
+  }
 
-    public void AddRelation(Entity e, RelationType relationType, Dictionary<Trait, int> traits, int strength = 100)
+
+
+  public Dictionary<Trait, int> GetTraits()
+  {
+    var traitsList = new List<Dictionary<Trait, int>>();
+    traitsList.Add(Traits);
+    // traitsList.Concat(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
+    traitsList.AddRange(Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList());
+    var relations = Relations.Where(r => r.Target == this).Select(r => r.Traits).ToList();
+
+    return TraitUtil.combineTraits(traitsList); ;
+  }
+
+  // ****************
+  // ****RELATIONS***
+  // ****************
+
+  public void AddRelation(Entity e, RelationType relationType, Dictionary<Trait, int> traits, int strength = 100)
+  {
+    Relation relation = new Relation()
     {
-      Relation relation = new Relation()
-      {
-        relationType = relationType,
-        Source = this,
-        Target = e,
-        Strength = strength,
-        Traits = traits,
-      };
-      this.Relations.Add(relation);
-      e.Relations.Add(relation);
-    }
+      relationType = relationType,
+      Source = this,
+      Target = e,
+      Strength = strength,
+      Traits = traits,
+    };
+    this.Relations.Add(relation);
+    e.Relations.Add(relation);
+  }
 
-    // public Dictionary<RelationType, Relation> GetRelations(Entity e)
-    // {
-    //   return Relations.GetValueOrDefault(e, new Dictionary<RelationType, Relation>());
-    // }
+  // public Dictionary<RelationType, Relation> GetRelations(Entity e)
+  // {
+  //   return Relations.GetValueOrDefault(e, new Dictionary<RelationType, Relation>());
+  // }
 
-    // public Dictionary<Entity, Relation> GetRelationsOut(EntityType entityType, RelationType relationType)
-    // {
-    //   Dictionary<Entity, Relation> list = new Dictionary<Entity, Relation>();
-    //   if (RelationsOut.ContainsKey(relationType))
-    //     foreach (var item in RelationsOut[relationType])
-    //       if (item.Key.EntityType == entityType)
-    //         list.Add(item.Key, item.Value);
-    //   return list;
-    // }
+  // public Dictionary<Entity, Relation> GetRelationsOut(EntityType entityType, RelationType relationType)
+  // {
+  //   Dictionary<Entity, Relation> list = new Dictionary<Entity, Relation>();
+  //   if (RelationsOut.ContainsKey(relationType))
+  //     foreach (var item in RelationsOut[relationType])
+  //       if (item.Key.EntityType == entityType)
+  //         list.Add(item.Key, item.Value);
+  //   return list;
+  // }
 
-    // ****************
-    // **ORDER_EVENTS**
-    // ****************
+  // ****************
+  // **ORDER_EVENTS**
+  // ****************
 
-    public List<T> GetEventList<T>(Dictionary<string, T> orderEvents) where T : EventRequirements
+  public List<T> GetEventList<T>(Dictionary<string, T> orderEvents) where T : EventRequirements
+  {
+    List<T> events = new List<T>();
+    foreach (var (name, orderEvent) in orderEvents)
     {
-      List<T> events = new List<T>();
-      foreach (var (name, orderEvent) in orderEvents)
+      if (this.GetEventAvailable<T>(orderEvent))
       {
-        if (this.GetEventAvailable<T>(orderEvent))
-        {
-          events.Add(orderEvent);
-        }
+        events.Add(orderEvent);
       }
-      return events;
     }
+    return events;
+  }
 
-    public bool GetEventAvailable<T>(T orderEvent) where T : EventRequirements
-    {
-      if (!TraitUtil.hasTrait(this.GetTraits(), orderEvent.RequiredTraits)) return false;
-      if (!TraitUtil.hasAspect(this.GetTraits(), orderEvent.RequiredAspects)) return false;
-      return true;
-    }
+  public bool GetEventAvailable<T>(T orderEvent) where T : EventRequirements
+  {
+    if (!TraitUtil.hasTrait(this.GetTraits(), orderEvent.RequiredTraits)) return false;
+    if (!TraitUtil.hasAspect(this.GetTraits(), orderEvent.RequiredAspects)) return false;
+    return true;
+  }
 
-    public List<(OrderEvent, int)> GetEventByPsycheDivergence(List<OrderEvent> orderEvents, Dictionary<string, int> modifiers)
+  public List<(OrderEvent, int)> GetEventByPsycheDivergence(List<OrderEvent> orderEvents, Dictionary<string, int> modifiers)
+  {
+    Psyche psyche = this.GetCalculatedPsyche();
+    List<(OrderEvent, int)> sortedEvents = orderEvents.Select(x =>
     {
-      Psyche psyche = this.GetCalculatedPsyche();
-      List<(OrderEvent, int)> sortedEvents = orderEvents.Select(x =>
+      int divergence = psyche.GetPsycheDivergence(x.Psyche);
+      if (modifiers.ContainsKey(x.Name))
       {
-        int divergence = psyche.GetPsycheDivergence(x.Psyche);
-        if (modifiers.ContainsKey(x.Name))
-        {
-          divergence += modifiers[x.Name];
-        }
-        return (x, divergence);
-      }).ToList();
-      sortedEvents.Sort((x, y) => x.Item2 - y.Item2);
-      return sortedEvents;
-    }
-
-    public Psyche GetCalculatedPsyche()
-    {
-      Dictionary<string, int> aspects = TraitUtil.getAspects(this.GetTraits());
-      return new Psyche()
-      {
-        Openness = (byte)Math.Clamp(this.Psyche.Openness + aspects.GetValueOrDefault("openness") / 10, 0, 100),
-        Conscientiousness = (byte)Math.Clamp(this.Psyche.Conscientiousness + aspects.GetValueOrDefault("conscientiousness") / 10, 0, 100),
-        Extroversion = (byte)Math.Clamp(this.Psyche.Extroversion + aspects.GetValueOrDefault("extroversion") / 10, 0, 100),
-        Agreeableness = (byte)Math.Clamp(this.Psyche.Agreeableness + aspects.GetValueOrDefault("agreeableness") / 10, 0, 100),
-        Neuroticism = (byte)Math.Clamp(this.Psyche.Neuroticism + aspects.GetValueOrDefault("neuroticism") / 10, 0, 100),
-      };
-    }
-
-    // ****************
-    // **CHAOS_EVENTS**
-    // ****************
-
-    public (List<(ChaosEvent, int)>, int) GetEventByInfluence(List<ChaosEvent> chaosEvents)
-    {
-      var events = new List<(ChaosEvent, int)>();
-      int totalInfluence = 0;
-      foreach (var chaosEvent in chaosEvents)
-      {
-        int influence = 1;
-        foreach (var (trait, count) in chaosEvent.InfluentialTraits)
-        {
-          influence += TraitUtil.getTraitCount(this.GetTraits(), trait) * count;
-        }
-        var aspects = TraitUtil.getAspects(this.GetTraits());
-        foreach (var (aspect, count) in chaosEvent.InfluentialAspects)
-        {
-          influence += aspects.GetValueOrDefault(aspect, 0) * count;
-        }
-        if (influence > 0)
-        {
-          events.Add((chaosEvent, influence));
-          totalInfluence += influence;
-        }
+        divergence += modifiers[x.Name];
       }
-      events.Sort((x, y) => y.Item2 - x.Item2);
-      return (events, totalInfluence);
-    }
+      return (x, divergence);
+    }).ToList();
+    sortedEvents.Sort((x, y) => x.Item2 - y.Item2);
+    return sortedEvents;
+  }
 
-    public List<(EventAction, int)> GetActionByPsycheDivergence(List<EventAction> eventActions)
+  public Psyche GetCalculatedPsyche()
+  {
+    Dictionary<string, int> aspects = TraitUtil.getAspects(this.GetTraits());
+    return new Psyche()
     {
-      Psyche psyche = this.GetCalculatedPsyche();
-      var sortedEvents = eventActions.Select(x => (x, psyche.GetPsycheDivergence(x.Psyche))).ToList();
-      sortedEvents.Sort((x, y) => x.Item2 - y.Item2);
-      return sortedEvents;
-    }
+      Openness = (byte)Math.Clamp(this.Psyche.Openness + aspects.GetValueOrDefault("openness") / 10, 0, 100),
+      Conscientiousness = (byte)Math.Clamp(this.Psyche.Conscientiousness + aspects.GetValueOrDefault("conscientiousness") / 10, 0, 100),
+      Extroversion = (byte)Math.Clamp(this.Psyche.Extroversion + aspects.GetValueOrDefault("extroversion") / 10, 0, 100),
+      Agreeableness = (byte)Math.Clamp(this.Psyche.Agreeableness + aspects.GetValueOrDefault("agreeableness") / 10, 0, 100),
+      Neuroticism = (byte)Math.Clamp(this.Psyche.Neuroticism + aspects.GetValueOrDefault("neuroticism") / 10, 0, 100),
+    };
+  }
 
+  // ****************
+  // **CHAOS_EVENTS**
+  // ****************
+
+  public (List<(ChaosEvent, int)>, int) GetEventByInfluence(List<ChaosEvent> chaosEvents)
+  {
+    var events = new List<(ChaosEvent, int)>();
+    int totalInfluence = 0;
+    foreach (var chaosEvent in chaosEvents)
+    {
+      int influence = 1;
+      foreach (var (trait, count) in chaosEvent.InfluentialTraits)
+      {
+        influence += TraitUtil.getTraitCount(this.GetTraits(), trait) * count;
+      }
+      var aspects = TraitUtil.getAspects(this.GetTraits());
+      foreach (var (aspect, count) in chaosEvent.InfluentialAspects)
+      {
+        influence += aspects.GetValueOrDefault(aspect, 0) * count;
+      }
+      if (influence > 0)
+      {
+        events.Add((chaosEvent, influence));
+        totalInfluence += influence;
+      }
+    }
+    events.Sort((x, y) => y.Item2 - x.Item2);
+    return (events, totalInfluence);
+  }
+
+  public List<(EventAction, int)> GetActionByPsycheDivergence(List<EventAction> eventActions)
+  {
+    Psyche psyche = this.GetCalculatedPsyche();
+    var sortedEvents = eventActions.Select(x => (x, psyche.GetPsycheDivergence(x.Psyche))).ToList();
+    sortedEvents.Sort((x, y) => x.Item2 - y.Item2);
+    return sortedEvents;
   }
 
 }

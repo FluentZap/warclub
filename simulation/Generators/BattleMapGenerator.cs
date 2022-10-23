@@ -4,15 +4,14 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WarClub
+namespace WarClub;
+
+partial class Simulation
 {
-  partial class Simulation
+
+  public void GenerateBattleMap()
   {
 
-    public void GenerateBattleMap()
-    {
 
-
-    }
   }
 }
