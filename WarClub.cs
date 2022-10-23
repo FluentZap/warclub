@@ -121,6 +121,7 @@ public class WarClub : Game
     simulation = new Simulation();
     simulation.Generate();
     icons.Add("axe", Content.Load<Texture2D>("icons/battered-axe"));
+    icons.Add("spy", Content.Load<Texture2D>("icons/dark-spy"));
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
