@@ -4,11 +4,10 @@ using Microsoft.Xna.Framework.Input;
 
 using System.Collections.Generic;
 
-namespace WarClub
+namespace WarClub;
+
+class Sector : Entity
 {
-  class Sector : Entity
-  {
-    public Vector2 location;
-    public Sector() : base(EntityType.Sector) { }
-  }
+  public Vector2 location;
+  public Sector() : base(EntityType.Sector) { }
 }

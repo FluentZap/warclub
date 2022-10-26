@@ -1,18 +1,17 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 
-namespace WarClub
+namespace WarClub;
+
+class Mission
 {
-  class Mission
-  {
 
-  }
+}
 
-  class BattleMap
-  {
-    Point Size;
-    Rectangle PlayerDeploymentZone;
-    Rectangle AIDeploymentZone;
+class BattleMap
+{
+  Point Size;
+  Rectangle PlayerDeploymentZone;
+  Rectangle AIDeploymentZone;
 
-  }
 }
