@@ -36,6 +36,7 @@ public class WarClub : Game
   private SpriteFont basicFont;
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+  Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
 
 
   Texture2D grassTexture;
@@ -120,8 +121,11 @@ public class WarClub : Game
     // TODO: use this.Content to load your game content here
     simulation = new Simulation();
     simulation.Generate();
-    icons.Add("axe", Content.Load<Texture2D>("icons/battered-axe"));
-    // icons.Add("spy", Content.Load<Texture2D>("icons/dark-spy"));
+    icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
+    icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
+    icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
+    icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
+    icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
@@ -131,7 +135,12 @@ public class WarClub : Game
     starfieldEffect = Content.Load<Effect>("starfield");
 
     grassTexture = Content.Load<Texture2D>("planetTextures/grass");
-    // GeneratePlanet();
+
+    TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
+    TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
+    TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
+    TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
+    TraitIcons.Add("barracks", simulation.Traits["training camps"]);
   }
 
   protected override void Update(GameTime gameTime)
@@ -212,6 +221,32 @@ public class WarClub : Game
   }
 
 
+  void DrawWorldTraits(Point location, Dictionary<Trait, int> traits)
+  {
+    Point offset = new Point();
+    foreach (var (icon, trait) in TraitIcons)
+      if (traits.ContainsKey(trait))
+      {
+        var iconPos = location + new Point(80) + offset * new Point(96);
+        spriteBatch.Draw(icons[icon], new Rectangle(iconPos, new Point(64, 64)), Color.White);
+        offset.X++;
+
+        if (offset.X > 3)
+        {
+          offset.Y++;
+          offset.X = 0;
+        }
+      }
+  }
+
+  // draw a list of missions
+  // can just be listed one after another in a list
+  void DrawWorldMissions(Point location, Dictionary<Trait, int> traits)
+  {
+    // foreach (var mission in world.Value.GetEventList(simulation.OrderEventLists["Mercenary"]))
+    //   spriteBatch.DrawString(basicFont, mission.Name, world.Value.location, Color.White);
+  }
+
   void DrawGalaxyOverview()
   {
     foreach (var world in simulation.cosmos.Worlds)
@@ -231,12 +266,10 @@ public class WarClub : Game
 
     foreach (var world in simulation.cosmos.Worlds)
     {
-      DrawPlanetOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
-      if (TraitUtil.hasTrait(world.Value.GetTraits(), simulation.Traits["war zone"]))
-        spriteBatch.Draw(icons["axe"], new Rectangle(world.Value.location.ToPoint(), new Point(64, 64)), Color.White);
+      DrawWorldOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
+      DrawWorldTraits(world.Value.location.ToPoint() - new Point(256), world.Value.GetTraits());
 
-      foreach (var mission in world.Value.GetEventList(simulation.OrderEventLists["Mercenary"]))
-        spriteBatch.DrawString(basicFont, mission.Name, world.Value.location, Color.White);
+      // DrawWorldMissions()
     }
     spriteBatch.End();
   }
@@ -257,7 +290,7 @@ public class WarClub : Game
     var y = 0;
 
     if (TraitUtil.hasTrait(selectedWorld.GetTraits(), simulation.Traits["war zone"]))
-      spriteBatch.Draw(icons["axe"], new Rectangle(new Point(1080, y += 64), new Point(64, 64)), Color.White);
+      spriteBatch.Draw(icons["crossed-axes"], new Rectangle(new Point(1080, y += 64), new Point(64, 64)), Color.White);
 
     foreach (var mission in selectedWorld.GetEventList(simulation.OrderEventLists["Mercenary"]))
       spriteBatch.DrawString(basicFont, mission.Name, selectedWorld.location + new Vector2(0, y += 64), Color.White);
@@ -285,7 +318,7 @@ public class WarClub : Game
     mesh.Draw();
   }
 
-  void DrawPlanetOverlay(World world, Point location, Point size)
+  void DrawWorldOverlay(World world, Point location, Point size)
   {
     spriteBatch.DrawString(basicFont, world.Name, location.ToVector2(), Color.White);
   }

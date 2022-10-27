@@ -1,60 +1,50 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Linq;
 
 namespace WarClub;
 
-partial class FactionEvent
+partial class Simulation
 {
-  public static void AllOutWar(Simulation s, Entity e)
+
+  enum EventTypes
   {
-    var (id, world) = RNG.PickFrom(s.cosmos.Worlds);
-    e.AddRelation(RNG.PickFrom(s.cosmos.Worlds).Value, RelationType.MissionTarget, new Dictionary<Trait, int>
-    {
-      [s.Traits["war zone"]] = 1
-    }, 10);
-    e.AddTrait(s.Traits["aspiration fatigue"], 10);
+    FactionEvent
   }
 
-  public static void DoEvents(Simulation s, Entity e)
+  void FactionEvent(uint id)
   {
-    ShiftPersonality(s, e);
-    CompleteMissions(s, e);
-  }
+    Entity e = cosmos.Factions[id];
 
-  public static void CompleteMissions(Simulation s, Entity e)
-  {
-    foreach (var relation in e.Relations)
+    Dictionary<string, int> modifierList = new Dictionary<string, int>();
+    // modifierList.Add("create creature", (int)(e.GetRelationsOut(EntityType.CreatureGroup, RelationType.Created).Count * 0.5f));
+    // modifierList.Add("gain power", (int)(TraitUtil.getAspects(e.Traits).GetValueOrDefault("power") - 200));
+    // Trait t = TraitUtil.getTraitsByType(e.GetTraits(), "aspiration").Keys.FirstOrDefault();
+
+    if (!OrderEventLists.ContainsKey("Faction"))
+      return;
+
+    List<(OrderEvent, int)> events = e.GetEventByPsycheDivergence(e.GetEventList(OrderEventLists["Faction"]), modifierList);
+    if (events.Count >= 1)
     {
-      relation.Strength--;
-      // missions can resolve here
-      // if (relation.Strength <= 0)
-      // {
-      // }
+      var currentEvent = events[0].Item1;
+      // shift the psyche because of the action just taken
+      // e.Psyche.ShiftByPsyche(currentEvent.Psyche);
+
+      var methodName = String.Join("", currentEvent.Name.Split(" ").Select(x => char.ToUpper(x[0]) + x.Substring(1)));
+      InvokeEvent(EventTypes.FactionEvent, methodName, new object[] { this, e });
     }
 
-    foreach (var relation in e.Relations.Where(x => x.Strength <= 0))
-      relation.Target.Relations.Remove(relation);
-    e.Relations.RemoveAll(x => x.Strength <= 0);
+    InvokeEvent(EventTypes.FactionEvent, "DoEvents", new object[] { this, e });
   }
 
-  public static void ShiftPersonality(Simulation s, Entity e)
+  static void InvokeEvent(EventTypes type, string name, object[] args)
   {
-    // if the fatigue is higher then 100, switch approach
-    if (TraitUtil.getAspect(e.GetTraits(), "aspiration fatigue") >= 100)
-    {
-      var aspirations = TraitUtil.getTraitsByType(e.GetTraits(), "aspiration");
-      var newAspirations = s.TraitLists["aspiration"];
-
-      foreach (var aspiration in aspirations)
-      {
-        e.RemoveTrait(aspiration.Key);
-        newAspirations.Remove(aspiration.Key.Name);
-      }
-
-      e.AddTrait(RNG.PickFrom(newAspirations).Value);
-      e.RemoveTrait(s.Traits["aspiration fatigue"]);
-    }
+    // TODO: make a map to load all of the functions
+    var eventFunctions = Type.GetType("WarClub." + Enum.GetName(typeof(EventTypes), type));
+    var a = eventFunctions.GetMember(name);
+    if (eventFunctions.GetMember(name).Length > 0)
+      eventFunctions.InvokeMember(name, BindingFlags.InvokeMethod | BindingFlags.Public | BindingFlags.Static, null, null, args);
   }
 }
-

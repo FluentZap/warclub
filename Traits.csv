@@ -1,12 +1,16 @@
 name                               |types            |aspects
                                    
 rampage                            |aspiration       |
-*conquer                            |aspiration       |
+conquer                            |aspiration       |
 disrupt                            |aspiration       |
 lore                               |aspiration       |
 bolster                            |aspiration       |
                                    
 war zone                           |event            |
+strongholds                        |event            |
+high value targets                 |event            |
+enlisted gods                      |event            |
+training camps                     |event            |
                                    
 aspiration fatigue                 |personality      |aspiration fatigue
                                    

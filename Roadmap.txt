@@ -17,3 +17,7 @@ Mission world map with multiple missions to select
     conquer strongholds
         asault outpost
             we go in we asault an outpost, we stop people from trying to reinforce.
+
+
+add one event per asperation 
+add traits and icons
