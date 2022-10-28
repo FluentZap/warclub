@@ -194,8 +194,8 @@ public class WarClub : Game
     else
     {
       DrawPlanetShader(selectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * selectedWorld.size * 0.85)));
-      DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
-      DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+      DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+      DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
     }
 
     // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
@@ -239,14 +239,6 @@ public class WarClub : Game
       }
   }
 
-  // draw a list of missions
-  // can just be listed one after another in a list
-  void DrawWorldMissions(Point location, Dictionary<Trait, int> traits)
-  {
-    // foreach (var mission in world.Value.GetEventList(simulation.OrderEventLists["Mercenary"]))
-    //   spriteBatch.DrawString(basicFont, mission.Name, world.Value.location, Color.White);
-  }
-
   void DrawGalaxyOverview()
   {
     foreach (var world in simulation.cosmos.Worlds)
@@ -268,13 +260,11 @@ public class WarClub : Game
     {
       DrawWorldOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
       DrawWorldTraits(world.Value.location.ToPoint() - new Point(256), world.Value.GetTraits());
-
-      // DrawWorldMissions()
     }
     spriteBatch.End();
   }
 
-  void DrawPlanetOverview(Matrix transformMatrix)
+  void DrawWorldOverview(Matrix transformMatrix)
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
 
@@ -289,11 +279,10 @@ public class WarClub : Game
 
     var y = 0;
 
-    if (TraitUtil.hasTrait(selectedWorld.GetTraits(), simulation.Traits["war zone"]))
-      spriteBatch.Draw(icons["crossed-axes"], new Rectangle(new Point(1080, y += 64), new Point(64, 64)), Color.White);
+    DrawWorldTraits(new Point(1000, 64), selectedWorld.GetTraits());
 
     foreach (var mission in selectedWorld.GetEventList(simulation.OrderEventLists["Mercenary"]))
-      spriteBatch.DrawString(basicFont, mission.Name, selectedWorld.location + new Vector2(0, y += 64), Color.White);
+      spriteBatch.DrawString(basicFont, mission.Name, new Vector2(256, y += 64), Color.White);
 
     spriteBatch.End();
   }
