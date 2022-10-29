@@ -37,7 +37,7 @@ public class WarClub : Game
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
   Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
-
+  KeyState keyState = new KeyState();
 
   Texture2D grassTexture;
 
@@ -150,7 +150,6 @@ public class WarClub : Game
 
     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
-
     // if (Keyboard.GetState().IsKeyDown(Keys.Right))
     // {
     //   worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(0.1f));
@@ -159,6 +158,8 @@ public class WarClub : Game
     {
       selectedWorld = null;
     }
+
+    keyState.SetKeys(Keyboard.GetState().GetPressedKeys());
 
     var size = new Point(480, 570);
 
