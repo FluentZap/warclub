@@ -6,6 +6,14 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WarClub;
 
+enum View
+{
+  GalaxyOverview,
+  MissionSelect,
+  MissionBriefing,
+
+}
+
 class TraitList : Dictionary<string, Trait>
 {
   public List<Trait> getFromArray(string[] keys)
@@ -36,6 +44,11 @@ partial class Simulation
 
   public Dictionary<string, ChaosEvent> ChaosEvents = new Dictionary<string, ChaosEvent>();
   public Dictionary<string, Dictionary<string, ChaosEvent>> ChaosEventLists = new Dictionary<string, Dictionary<string, ChaosEvent>>();
+
+  public KeyState KeyState = new KeyState();
+  public View SelectedView = View.GalaxyOverview;
+  public World SelectedWorld = null;
+  public OrderEvent SelectedMission = null;
 
   public void Generate()
   {

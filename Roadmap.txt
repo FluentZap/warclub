@@ -29,3 +29,10 @@ Datacard Desplay
     like you can see on the websight
 
     simulation.cosmos.Factions.First().Value.Units.First().Value.First()
+
+
+DONE - Create enum for game screen
+DONE - Create variable for game state to hold game screen
+DONE - Governor DoEvents can update game state to switch screen
+DONE - Rendering will switch depending on game state
+DONE - Selected planet updates game state
