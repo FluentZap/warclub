@@ -1,6 +1,6 @@
 Milestone Apprentice
 
-IN PROGRESS - Mission world map with multiple missions to select
+DONE - Mission world map with multiple missions to select
 
 Basic mission generator with rules and custom deployment zones
 

@@ -1,0 +1,39 @@
+war profiteering
+    Spawns will be at edges
+    With one spawn possibly in the center next to the supplies
+    Will choose a random amount of enemies
+    A push your luck mechanic for more loot
+    Interact to take loot
+    Waves of enemies come randomly when the battle starts
+
+Take kill Contract
+    Random locations for targets
+    Interact with targets to revel, could revel other special events
+    Mission has a countdown, failure will not end the game but cause complications
+    Once the primary target is reviled all other targets are removed from the map
+    Once the unit is killed the contract is complete
+
+Support the ritualist
+    Spawn in the corner, or the center, defense mission
+    We have to complete
+    Main assault of troops from one direction
+    Other random assaults from other directions
+    Intractable boosters target that help with the ritual
+    Failure on if we all die
+
+disrupt recruitment operations
+    Random locations for targets
+    Interact with targets to revel, could revel other special events
+    Once all events have been
+    Have many triggers, like is any unit within 6" from the blue square
+    If they trigger cause event to happen
+    Playground mission
+
+assault outpost
+    Classically a hard mission
+    Heavy Armor and advanced troops
+    Start in a drop-zone
+    Destructible terrain
+    Place charges at the base of a tower
+    Give defense bonus to units on the wall
+    Eliminate all the units to beat this scenario

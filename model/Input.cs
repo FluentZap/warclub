@@ -30,10 +30,10 @@ class KeyState
     }
   }
 
-  public HashSet<Keys> GetTriggeredKeys()
+  public HashSet<Keys> GetTriggeredKeys(bool persist = false)
   {
     var triggeredKeys = triggered.ToHashSet();
-    triggered.Clear();
+    if (!persist) triggered.Clear();
     return triggeredKeys;
   }
 }
