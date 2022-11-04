@@ -1,40 +1,49 @@
 Milestone Apprentice
 
-    Mission world map with multiple missions to select
+DONE - Mission world map with multiple missions to select
 
-    Basic mission generator with rules and custom deployment zones
+Basic mission generator with rules and custom deployment zones
 
-    Random map generator
-        5 Base terrains
-            Topographical map
-            Obsticles
-        Deployment Zones
-            Multiple places and configurations based on the book
+Random map generator
+    5 Base terrains
+        Topographical map
+        Obsticles
+    Deployment Zones
+        Multiple places and configurations based on the book
 
-    Army customizer
-        User can input minis for both sides and it will select units to use for the mission.
-            Image loader
+Army customizer
+    User can input minis for both sides and it will select units to use for the mission.
+        Image loader
 
-    Map play mode
-        Shows map and allows for gameplay
-        Shows datacards on the screen
-        Creates actions for the AI units to take
-            Come up with basic AI action that the units can do
-                Move to closest enemy and shoot
-                Escape
-                Move to point on map
-                Destroy point on map
-    
-    Upgrade System
-        Can buy new units and upgrade units increase unit size ect
+Map play mode
+    Shows map and allows for gameplay
+    Shows datacards on the screen
+    Creates actions for the AI units to take
+        Come up with basic AI action that the units can do
+            Move to closest enemy and shoot
+            Escape
+            Move to point on map
+            Destroy point on map
 
-    Some system to track progression and "upgrade points ect"
+Upgrade System
+    Can buy new units and upgrade units increase unit size ect
 
-    Persistent Game state Save/Load
+Some system to track progression and "upgrade points ect"
 
-    DONE - Unit Roster
-          DONE - Keeps track of the units in the players army
+Persistent Game state Save/Load
 
-    DONE - Datacard loader
-        Load 40k datacards and build armies to fight.
-            Parse and build loadout using weapons
+DONE - Unit Roster
+        DONE - Keeps track of the units in the players army
+
+DONE - Datacard loader
+    Load 40k datacards and build armies to fight.
+        Parse and build loadout using weapons
+
+
+Build a nice UI
+    Variable size
+    Clean glow with different effects
+    Custom color
+    Able to add text to justify to the container
+    Add children to a parent container, that move with the parent
+    Holo grid style display

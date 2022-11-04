@@ -13,7 +13,8 @@ public class WarClub : Game
   private SpriteBatch spriteBatch;
   Simulation simulation;
 
-  Vector2 viewportSize = new Vector2(1920, 1080);
+  // Vector2 viewportSize = new Vector2(1920, 1080);
+  Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
 
   Vector2 screenSize = new Vector2(3840, 2160);
@@ -31,12 +32,11 @@ public class WarClub : Game
 
   float timeAdvance;
   float animationTime = 0;
-  World selectedWorld = null;
 
   private SpriteFont basicFont;
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
-
+  Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
 
   Texture2D grassTexture;
 
@@ -120,8 +120,11 @@ public class WarClub : Game
     // TODO: use this.Content to load your game content here
     simulation = new Simulation();
     simulation.Generate();
-    icons.Add("axe", Content.Load<Texture2D>("icons/battered-axe"));
-    // icons.Add("spy", Content.Load<Texture2D>("icons/dark-spy"));
+    icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
+    icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
+    icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
+    icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
+    icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
@@ -131,7 +134,12 @@ public class WarClub : Game
     starfieldEffect = Content.Load<Effect>("starfield");
 
     grassTexture = Content.Load<Texture2D>("planetTextures/grass");
-    // GeneratePlanet();
+
+    TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
+    TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
+    TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
+    TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
+    TraitIcons.Add("barracks", simulation.Traits["training camps"]);
   }
 
   protected override void Update(GameTime gameTime)
@@ -139,26 +147,41 @@ public class WarClub : Game
     // worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(-0.1f));
     // Quaternion.CreateFromYawPitchRoll()
 
+    simulation.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
 
+
+    // var pressedKeys = simulation.KeyState.GetTriggeredKeys(true);
+    // if ((pressedKeys.Contains(Keys.LeftAlt) || pressedKeys.Contains(Keys.RightAlt)) && pressedKeys.Contains(Keys.Enter))
+    // {
+    //   graphics.ToggleFullScreen();
+    // }
     // if (Keyboard.GetState().IsKeyDown(Keys.Right))
     // {
     //   worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(0.1f));
     // }
-    if (Keyboard.GetState().IsKeyDown(Keys.Space))
-    {
-      selectedWorld = null;
-    }
+    // if (Keyboard.GetState().IsKeyDown(Keys.Space))
+    // {
+    //   selectedWorld = null;
+    // }
+
+    InputGovernor.DoEvents(simulation);
 
     var size = new Point(480, 570);
 
-    if (Mouse.GetState().LeftButton == ButtonState.Pressed && selectedWorld == null)
+    if (Mouse.GetState().LeftButton == ButtonState.Pressed && simulation.SelectedWorld == null)
     {
-      var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
-      foreach (var world in simulation.cosmos.Worlds)
-        if (new Rectangle(world.Value.location.ToPoint() - size / new Point(2), size).Contains(pos))
-          selectedWorld = world.Value;
+      if (simulation.SelectedView == View.GalaxyOverview)
+      {
+        var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
+        foreach (var world in simulation.cosmos.Worlds)
+          if (new Rectangle(world.Value.location.ToPoint() - size / new Point(2), size).Contains(pos))
+          {
+            simulation.SelectedView = View.MissionSelect;
+            simulation.SelectedWorld = world.Value;
+          }
+      }
     }
 
     // TODO: Add your update logic here
@@ -180,13 +203,20 @@ public class WarClub : Game
     DrawStarfield();
 
     // DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
-    if (selectedWorld == null)
-      DrawGalaxyOverview();
-    else
+    if (simulation.SelectedView == View.GalaxyOverview) DrawGalaxyOverview();
+
+    if (simulation.SelectedView == View.MissionSelect)
     {
-      DrawPlanetShader(selectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * selectedWorld.size * 0.85)));
-      DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
-      DrawPlanetOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+      DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
+      DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+      DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+    }
+
+    if (simulation.SelectedView == View.MissionBriefing)
+    {
+      // DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
+      DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+      DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
     }
 
     // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
@@ -212,6 +242,24 @@ public class WarClub : Game
   }
 
 
+  void DrawWorldTraits(Point location, Dictionary<Trait, int> traits)
+  {
+    Point offset = new Point();
+    foreach (var (icon, trait) in TraitIcons)
+      if (traits.ContainsKey(trait))
+      {
+        var iconPos = location + new Point(80) + offset * new Point(96);
+        spriteBatch.Draw(icons[icon], new Rectangle(iconPos, new Point(64, 64)), Color.White);
+        offset.X++;
+
+        if (offset.X > 3)
+        {
+          offset.Y++;
+          offset.X = 0;
+        }
+      }
+  }
+
   void DrawGalaxyOverview()
   {
     foreach (var world in simulation.cosmos.Worlds)
@@ -231,17 +279,13 @@ public class WarClub : Game
 
     foreach (var world in simulation.cosmos.Worlds)
     {
-      DrawPlanetOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
-      if (TraitUtil.hasTrait(world.Value.GetTraits(), simulation.Traits["war zone"]))
-        spriteBatch.Draw(icons["axe"], new Rectangle(world.Value.location.ToPoint(), new Point(64, 64)), Color.White);
-
-      foreach (var mission in world.Value.GetEventList(simulation.OrderEventLists["Mercenary"]))
-        spriteBatch.DrawString(basicFont, mission.Name, world.Value.location, Color.White);
+      DrawWorldOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
+      DrawWorldTraits(world.Value.location.ToPoint() - new Point(256), world.Value.GetTraits());
     }
     spriteBatch.End();
   }
 
-  void DrawPlanetOverview(Matrix transformMatrix)
+  void DrawWorldOverview(Matrix transformMatrix)
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
 
@@ -252,15 +296,25 @@ public class WarClub : Game
     spriteBatch.DrawString(basicFont, timeAdvance.ToString(), new Vector2(0, 0), Color.White);
     spriteBatch.DrawString(basicFont, simulation.cosmos.Day.ToString(), new Vector2(0, 32), Color.White);
 
-    spriteBatch.DrawString(basicFont, selectedWorld.Name, new Vector2(1024, 0), Color.White);
+    spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
 
     var y = 0;
 
-    if (TraitUtil.hasTrait(selectedWorld.GetTraits(), simulation.Traits["war zone"]))
-      spriteBatch.Draw(icons["axe"], new Rectangle(new Point(1080, y += 64), new Point(64, 64)), Color.White);
+    DrawWorldTraits(new Point(1000, 64), simulation.SelectedWorld.GetTraits());
 
-    foreach (var mission in selectedWorld.GetEventList(simulation.OrderEventLists["Mercenary"]))
-      spriteBatch.DrawString(basicFont, mission.Name, selectedWorld.location + new Vector2(0, y += 64), Color.White);
+    foreach (var mission in simulation.SelectedWorld.GetEventList(simulation.OrderEventLists["Mercenary"]))
+      spriteBatch.DrawString(basicFont, $"{++y}. {mission.Name}", new Vector2(256, y * 64), Color.White);
+
+    spriteBatch.End();
+  }
+
+  void DrawMissionBriefing(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+
+    spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
+    spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
+
 
     spriteBatch.End();
   }
@@ -285,7 +339,7 @@ public class WarClub : Game
     mesh.Draw();
   }
 
-  void DrawPlanetOverlay(World world, Point location, Point size)
+  void DrawWorldOverlay(World world, Point location, Point size)
   {
     spriteBatch.DrawString(basicFont, world.Name, location.ToVector2(), Color.White);
   }
