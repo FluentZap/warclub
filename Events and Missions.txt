@@ -27,5 +27,15 @@ Datacard Desplay
     so just like the draw sprite function for what you did witht he planets, create a new function in warclub
      called DrawDataCard this will draw the data card for a unit, it iwill take a instance of a unit class and draw all related datacard
     like you can see on the websight
+    
+    load in data card blank
+        Pull Ork boys data sheet and edit for generic sheet
+        load on monogame pipline creater
+        add in to simulation
+        add to draw function
+
+    draw data sheet info to card
+        draw first unit name in default unit to name location
+        add all other items to draw.       using for each loops to create the drawing of multiple items into section
 
     simulation.cosmos.Factions.First().Value.Units.First().Value.First()
