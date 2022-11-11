@@ -1,2 +1,18 @@
-Basic mission generator with rules and custom deployment zones
+Random map generator
+    5 Base terrains
+        Topographical map
+        Obsticles
+    Deployment Zones
+        Multiple places and configurations based on the book
 
+
+
+DONE - 1. Build class that keeps track of tile metadata
+DONE - 2. Make a function that can build maps using the tiles and metadata
+3. Build a function that can take mission types can create missions with them
+    a. Deployment zones
+    b. Intractable
+    c. Enemy spawn zones/target
+    d. Turn Events
+    e. Take planet stats and faction stats into account for the mission
+4. Build first mission

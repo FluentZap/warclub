@@ -376,4 +376,21 @@ partial class Simulation
       dataSheet.Stratagems.Add(stratagem);
     }
   }
+
+  void LoadMapTiles()
+  {
+    var rows = Loader.CSVLoadFile(Path.Combine("./", "MapTiles.csv"));
+    rows.RemoveAt(0);
+    foreach (string[] r in rows)
+    {
+
+      MapTiles.Add(new MapTile()
+      {
+        Texture = r[0].Trim(),
+        Terrain = Enum.Parse<MapTileTerrain>(r[1].Trim(), true),
+        Orientation = Enum.Parse<MapTileOrientation>(r[2].Trim(), true),
+        Type = Enum.Parse<MapTileType>(r[3].Trim(), true),
+      });
+    }
+  }
 }

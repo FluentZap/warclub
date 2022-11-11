@@ -45,16 +45,20 @@ partial class Simulation
   public Dictionary<string, ChaosEvent> ChaosEvents = new Dictionary<string, ChaosEvent>();
   public Dictionary<string, Dictionary<string, ChaosEvent>> ChaosEventLists = new Dictionary<string, Dictionary<string, ChaosEvent>>();
 
+  public List<MapTile> MapTiles = new List<MapTile>();
+
   public KeyState KeyState = new KeyState();
   public View SelectedView = View.GalaxyOverview;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
+  public (MapTile, MapTile) Tiles;
 
   public void Generate()
   {
     LoadLists();
     LoadUnits();
     LoadDataSheets();
+    LoadMapTiles();
     GenerateWorlds();
     GenerateFactions();
 

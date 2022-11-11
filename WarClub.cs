@@ -13,8 +13,8 @@ public partial class WarClub : Game
   private SpriteBatch spriteBatch;
   Simulation simulation;
 
-  // Vector2 viewportSize = new Vector2(1920, 1080);
-  Vector2 viewportSize = new Vector2(2560, 1440);
+  Vector2 viewportSize = new Vector2(1920, 1080);
+  // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
 
   Vector2 screenSize = new Vector2(3840, 2160);
@@ -36,6 +36,7 @@ public partial class WarClub : Game
   private SpriteFont basicFont;
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+  public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
   Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
 
   Texture2D grassTexture;
@@ -119,6 +120,10 @@ public partial class WarClub : Game
     // TODO: use this.Content to load your game content here
     simulation = new Simulation();
     simulation.Generate();
+    foreach (var tile in simulation.MapTiles)
+    {
+      MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));
+    }
     icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
     icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
     icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
@@ -131,8 +136,6 @@ public partial class WarClub : Game
     plane = Content.Load<Model>("Plane");
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
-
-    grassTexture = Content.Load<Texture2D>("planetTextures/grass");
 
     TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
     TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
