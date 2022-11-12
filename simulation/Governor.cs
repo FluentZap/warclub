@@ -35,7 +35,7 @@ static class InputGovernor
         {
           s.SelectedView = View.MissionBriefing;
           s.SelectedMission = missions[i];
-          s.Tiles = Generator.GenerateBattleMap(s);
+          s.ActiveMission = Generator.GenerateBattleMap(s);
         }
 
       }

@@ -51,7 +51,8 @@ partial class Simulation
   public View SelectedView = View.GalaxyOverview;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
-  public (MapTile, MapTile) Tiles;
+
+  public Mission ActiveMission;
 
   public void Generate()
   {

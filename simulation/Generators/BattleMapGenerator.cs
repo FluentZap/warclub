@@ -14,13 +14,18 @@ static class Generator
     return tiles.FindAll(x => x.Type == type && x.Terrain == terrain && (x.Orientation == orientation || x.Orientation == MapTileOrientation.Both)).ToList();
   }
 
-  static public (MapTile, MapTile) GenerateBattleMap(Simulation s)
+  static public Mission GenerateBattleMap(Simulation s)
   {
+    var screenSize = new Point(3840, 2160);
     // default to fortress forest map type
+    var mission = new Mission();
     var fortOnLeft = RNG.Boolean();
-    var leftTile = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
-    var rightTile = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
-    return (leftTile, rightTile);
+    mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
+    mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
+    mission.PlayerDeploymentZones.Add(new Rectangle(fortOnLeft ? 0 : screenSize.X - 402, 0, 402, screenSize.Y));
+    return mission;
   }
+
+
 
 }

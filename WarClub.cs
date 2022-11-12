@@ -37,6 +37,7 @@ public partial class WarClub : Game
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
   public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
+  public Texture2D BlankTexture;
   Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
 
   Texture2D grassTexture;
@@ -129,6 +130,7 @@ public partial class WarClub : Game
     icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
     icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
     icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
+    BlankTexture = Content.Load<Texture2D>("planetTextures/blank");
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");

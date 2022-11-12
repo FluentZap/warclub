@@ -127,19 +127,25 @@ public partial class WarClub : Game
 
   void DrawMissionBriefing(Matrix transformMatrix)
   {
+    var m = simulation.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
 
     spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
     spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
 
-    var (left, right) = simulation.Tiles;
+    var (left, right) = m.Tiles;
     if (left != null && right != null)
     {
       spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
       spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
     }
+    spriteBatch.End();
 
-
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix, blendState: BlendState.Additive);
+    foreach (var zone in m.PlayerDeploymentZones)
+    {
+      spriteBatch.Draw(BlankTexture, zone, new Color(119, 221, 119, 100));
+    }
     spriteBatch.End();
   }
 
