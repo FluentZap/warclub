@@ -22,7 +22,7 @@ static class Generator
     var fortOnLeft = RNG.Boolean();
     mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
     mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
-    mission.PlayerDeploymentZones.Add(new Rectangle(fortOnLeft ? 0 : screenSize.X - 402, 0, 402, screenSize.Y));
+    mission.PlayerDeploymentZones.Add(new Rectangle(fortOnLeft ? screenSize.X - 402 : 0, 0, 402, screenSize.Y));
     return mission;
   }
 
