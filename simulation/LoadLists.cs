@@ -210,7 +210,7 @@ partial class Simulation
         Id = Int32.Parse(r[0]),
         Name = r[1].Trim(),
         FactionId = r[3].Trim(),
-        Role = r[5].Trim(),
+        Role = Enum.Parse<UnitRole>(r[5].Trim().Replace(" ", ""), true),
         UnitComposition = r[6].Trim(),
       });
     }

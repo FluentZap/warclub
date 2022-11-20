@@ -3,6 +3,19 @@ using Microsoft.Xna.Framework;
 
 namespace WarClub;
 
+enum UnitRole
+{
+  Troops,
+  Elites,
+  HeavySupport,
+  HQ,
+  FastAttack,
+  DedicatedTransport,
+  Flyers,
+  LordsOfWar,
+  Fortifications,
+}
+
 class DataSheet
 {
   public int Id;
@@ -17,7 +30,7 @@ class DataSheet
   // Flyers
   // Lords of War
   // Fortifications
-  public string Role;
+  public UnitRole Role;
   public string UnitComposition;
   public Dictionary<string, UnitStats> Units = new Dictionary<string, UnitStats>();
   public List<Wargear> Wargear = new List<Wargear>();

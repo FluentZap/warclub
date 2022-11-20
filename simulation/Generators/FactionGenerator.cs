@@ -43,20 +43,20 @@ partial class Simulation
       ["unaligned"] = "UN",
     };
 
-    var troopTypes = new string[] {
-        "Troops",
-        "Elites",
-        "Heavy Support",
-        "HQ",
-        "Fast Attack",
-        "Dedicated Transport",
-        "Flyers",
-        "Lords of War",
-        "Fortifications",
-      };
+    // var troopTypes = new string[] {
+    //     "Troops",
+    //     "Elites",
+    //     "Heavy Support",
+    //     "HQ",
+    //     "Fast Attack",
+    //     "Dedicated Transport",
+    //     "Flyers",
+    //     "Lords of War",
+    //     "Fortifications",
+    //   };
 
-    var allUnitsByType = new Dictionary<string, Dictionary<int, DataSheet>>();
-    foreach (var unitType in troopTypes)
+    var allUnitsByType = new Dictionary<UnitRole, Dictionary<int, DataSheet>>();
+    foreach (var unitType in (UnitRole[])Enum.GetValues(typeof(UnitRole)))
       allUnitsByType.Add(unitType, DataSheets.Where(x => x.Value.Role == unitType).ToDictionary(x => x.Key, x => x.Value));
 
 
@@ -123,9 +123,11 @@ partial class Simulation
     {
       var factionTrait = TraitUtil.getTraitsByType(f.GetTraits(), "faction").First().Key;
 
+      var unitRoles = (UnitRole[])Enum.GetValues(typeof(UnitRole));
+      // foreach (var role in (UnitRole[])Enum.GetValues(typeof(UnitRole)))
       foreach (int i in Enumerable.Range(0, 9))
       {
-        var role = troopTypes[i];
+        var role = unitRoles[i];
         var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
         var (count, die) = factionUnits[factionTrait][i];
         if (unitsByType.Count > 0)

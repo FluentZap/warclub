@@ -8,6 +8,6 @@ namespace WarClub;
 
 class Faction : Entity
 {
-  public Dictionary<string, List<Unit>> Units = new Dictionary<string, List<Unit>>();
+  public Dictionary<UnitRole, List<Unit>> Units = new Dictionary<UnitRole, List<Unit>>();
   public Faction() : base(EntityType.Faction) { }
 }

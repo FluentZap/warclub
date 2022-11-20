@@ -126,3 +126,8 @@ Escape the sector
 
 
 Factions will have detachments and they will be sent on missions
+
+
+
+Faction ememy selection, 
+    we will pass in ratios bassed on each role 
