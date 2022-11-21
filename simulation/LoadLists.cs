@@ -227,7 +227,6 @@ partial class Simulation
       units.Remove(name);
 
       var u = new UnitStats();
-      DataSheets[id].Units.Add(name, u);
 
       u.Movement = r[3].Trim();
       u.WS = r[4].Trim();
@@ -240,6 +239,9 @@ partial class Simulation
       u.Sv = r[11].Trim();
       u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
 
+      if (u.Cost <= 0) continue;
+
+      DataSheets[id].Units.Add(name, u);
       // Set unit sizes higher or lower
       string[] unitSizes = r[14].Split('-');
       if (unitSizes[0].Trim() != "")
@@ -375,6 +377,7 @@ partial class Simulation
       var stratagem = Stratagems[Int32.Parse(r[1])];
       dataSheet.Stratagems.Add(stratagem);
     }
+    DataSheets = DataSheets.Where(x => x.Value.Units.Count != 0).ToDictionary(x => x.Key, x => x.Value);
   }
 
   void LoadMapTiles()

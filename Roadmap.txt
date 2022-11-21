@@ -13,13 +13,13 @@ DONE - 2. Make a function that can build maps using the tiles and metadata
 Build a class to hold mission information
 
 3. Build a function that can take mission types can create missions with them
-    a. Deployment zones
+    DONE - a. Deployment zones
     b. Intractable
-    c. Enemy spawn zones/target
+    DONE - c. Enemy spawn zones/target
     d. Turn Events
     e. Take planet stats and faction stats into account for the mission
     f. Selected map tiles
-    g. Enemy Units assigned to the mission
+    DONE - g. Enemy Units assigned to the mission
 4. Build first mission
 
 Types of mission Events
@@ -36,3 +36,4 @@ Types of mission Events
 
     change AI personality
     
+57x32 adjusted size

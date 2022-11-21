@@ -67,25 +67,25 @@ partial class Simulation
       [Traits["aeldari"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["astra militarum"]] = new (int, int)[9] { (30, 10), (5, 10), (20, 10), (2, 10), (5, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["adepta sororitas"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["astra cartographica"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["astra cartographica"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["chaos daemons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["chaos space marines"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["death guard"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["drukhari"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["genestealer cults"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["grey knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["heretic titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["inquisition"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["heretic titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["inquisition"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["necrons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["officio assassinorum"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["officio assassinorum"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["orks"]] = new (int, int)[9] { (50, 10), (3, 10), (10, 10), (2, 10), (20, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["imperial knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["chaos knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["imperial knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["chaos knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["renegades and heretics"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["rogue traders"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["rogue traders"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["space marines"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["t’au empire"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["thousand sons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["tyranids"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["unaligned"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
@@ -130,9 +130,9 @@ partial class Simulation
         var role = unitRoles[i];
         var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
         var (count, die) = factionUnits[factionTrait][i];
+        f.Units.Add(role, new List<Unit>());
         if (unitsByType.Count > 0)
         {
-          f.Units.Add(role, new List<Unit>());
           AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
         }
       }
