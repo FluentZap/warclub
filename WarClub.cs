@@ -9,31 +9,28 @@ namespace WarClub;
 
 public partial class WarClub : Game
 {
-  private GraphicsDeviceManager graphics;
-  private SpriteBatch spriteBatch;
   Simulation simulation;
 
+  private GraphicsDeviceManager graphics;
+  private SpriteBatch spriteBatch;
   Vector2 viewportSize = new Vector2(1920, 1080);
   // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
-
   Vector2 screenSize = new Vector2(3840, 2160);
   Matrix viewMatrix;
-
   BasicEffect basicEffect;
   Effect planetEffect;
   Effect starfieldEffect;
-
   Texture2D planetTexture;
-
+  Texture2D screenTexture;
   Model model;
   Model plane;
-  Texture2D screenTexture;
 
   float timeAdvance;
   float animationTime = 0;
 
   private SpriteFont basicFont;
+  private SpriteFont basicFontLarge;
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
   public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
@@ -134,6 +131,7 @@ public partial class WarClub : Game
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
+    basicFontLarge = Content.Load<SpriteFont>("romulus_large");
     model = Content.Load<Model>("IcoSphere");
     plane = Content.Load<Model>("Plane");
     planetEffect = Content.Load<Effect>("planetEffect");

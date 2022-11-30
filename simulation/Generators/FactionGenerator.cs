@@ -91,7 +91,7 @@ partial class Simulation
       [Traits["unaligned"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
     };
 
-    void AddUnits(Faction f, Dictionary<int, DataSheet> unitsByType, int count, int pointMax)
+    void AddUnits(Faction f, Dictionary<int, DataSheet> unitsByType, int count, int pointMax = -1)
     {
       int points = 0;
       foreach (int e in Enumerable.Range(0, count))
@@ -102,19 +102,20 @@ partial class Simulation
 
         foreach (var line in unitTemplate.Value.Units)
         {
+          var modelsPerUnit = RNG.Integer(line.Value.MinModelsPerUnit, line.Value.MaxModelsPerUnit);
           var unitLine = new UnitLine()
           {
-            Count = line.Value.MaxModelsPerUnit,
+            Count = modelsPerUnit,
             UnitStats = line.Value,
           };
 
           newUnit.UnitLines.Add(line.Key, unitLine);
           // adding new unit
-          points += line.Value.Cost * line.Value.MaxModelsPerUnit;
+          points += line.Value.Cost * modelsPerUnit;
         }
         f.Units[unitTemplate.Value.Role].Add(newUnit);
 
-        if (points > pointMax) return;
+        if (pointMax != -1 && points > pointMax) return;
       }
     }
 
@@ -133,7 +134,8 @@ partial class Simulation
         f.Units.Add(role, new List<Unit>());
         if (unitsByType.Count > 0)
         {
-          AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
+          // AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
+          AddUnits(f, unitsByType, RNG.DiceRoll(count, die), -1);
         }
       }
     }

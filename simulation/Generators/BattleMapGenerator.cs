@@ -48,7 +48,7 @@ static class Generator
     turn0.Spawns.Add(new MissionEventSpawn()
     {
       Location = BuildPoint(14, 16, !fortOnLeft),
-      Units = SelectUnits(faction.Units, 1000, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
+      Units = SelectUnits(faction.Units, 250, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
     });
     mission.MissionEvents.Add(turn0);
 

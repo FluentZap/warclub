@@ -37,3 +37,14 @@ Types of mission Events
     change AI personality
     
 57x32 adjusted size
+
+
+Todd
+    Main Screen
+    Load/Save Screen
+        Switch around planet placement
+        Add hotkeys to the planets
+
+    Mission Select Screen
+    Mission Briefing Screen
+    Add/Remove units from the roster (Choose Loadout)
