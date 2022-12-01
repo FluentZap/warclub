@@ -33,25 +33,9 @@ static class Generator
 
   static public Mission GenerateBattleMap(Simulation s)
   {
-    // default to fortress forest map type
-    var mission = new Mission();
-    var faction = s.cosmos.Factions[RNG.PickFrom(s.SelectedWorld.Relations.Where(x => x.Source.EntityType == EntityType.Faction).ToList()).Source.Id];
-
-    var fortOnLeft = RNG.Boolean();
-    mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
-    mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
-    mission.PlayerDeploymentZones.Add(BuildRect(0, 0, 6, ScreenSize.Y, fortOnLeft));
-    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 0, 3840, 128));
-    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 2160 - 128, 3840, 128));
-
-    var turn0 = new MissionEvent() { Turn = 0 };
-    turn0.Spawns.Add(new MissionEventSpawn()
-    {
-      Location = BuildPoint(14, 16, !fortOnLeft),
-      Units = SelectUnits(faction.Units, 250, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
-    });
-    mission.MissionEvents.Add(turn0);
-    return mission;
+    // if (s.SelectedMission.Name == "war profiteering") return GenerateWarProfiteering(s);
+    return GenerateWarProfiteering(s);
+    // return null;
   }
 
   static public List<Unit> SelectUnits(Dictionary<UnitRole, List<Unit>> units, int points, float Troops = 0, float Elites = 0, float HeavySupport = 0, float HQ = 0, float FastAttack = 0, float DedicatedTransport = 0, float Flyers = 0, float LordsOfWar = 0, float Fortifications = 0)
@@ -126,4 +110,30 @@ static class Generator
   {
     return units.Where(x => GetUnitPoints(x) <= max).ToList();
   }
+
+
+  static public Mission GenerateWarProfiteering(Simulation s)
+  {
+    // default to fortress forest map type
+    var mission = new Mission();
+    var faction = s.cosmos.Factions[RNG.PickFrom(s.SelectedWorld.Relations.Where(x => x.Source.EntityType == EntityType.Faction).ToList()).Source.Id];
+
+    var fortOnLeft = RNG.Boolean();
+    mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
+    mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
+    mission.PlayerDeploymentZones.Add(BuildRect(0, 0, 6, ScreenSize.Y, fortOnLeft));
+    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 0, 3840, 128));
+    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 2160 - 128, 3840, 128));
+
+    var turn0 = new MissionEvent() { Turn = 0 };
+    turn0.Spawns.Add(new MissionEventSpawn()
+    {
+      Location = BuildPoint(14, 16, !fortOnLeft),
+      Units = SelectUnits(faction.Units, 250, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
+    });
+    mission.MissionEvents.Add(turn0);
+
+    return mission;
+  }
+
 }
