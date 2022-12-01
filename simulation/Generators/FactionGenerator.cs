@@ -43,20 +43,20 @@ partial class Simulation
       ["unaligned"] = "UN",
     };
 
-    var troopTypes = new string[] {
-        "Troops",
-        "Elites",
-        "Heavy Support",
-        "HQ",
-        "Fast Attack",
-        "Dedicated Transport",
-        "Flyers",
-        "Lords of War",
-        "Fortifications",
-      };
+    // var troopTypes = new string[] {
+    //     "Troops",
+    //     "Elites",
+    //     "Heavy Support",
+    //     "HQ",
+    //     "Fast Attack",
+    //     "Dedicated Transport",
+    //     "Flyers",
+    //     "Lords of War",
+    //     "Fortifications",
+    //   };
 
-    var allUnitsByType = new Dictionary<string, Dictionary<int, DataSheet>>();
-    foreach (var unitType in troopTypes)
+    var allUnitsByType = new Dictionary<UnitRole, Dictionary<int, DataSheet>>();
+    foreach (var unitType in (UnitRole[])Enum.GetValues(typeof(UnitRole)))
       allUnitsByType.Add(unitType, DataSheets.Where(x => x.Value.Role == unitType).ToDictionary(x => x.Key, x => x.Value));
 
 
@@ -67,31 +67,31 @@ partial class Simulation
       [Traits["aeldari"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["astra militarum"]] = new (int, int)[9] { (30, 10), (5, 10), (20, 10), (2, 10), (5, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["adepta sororitas"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["astra cartographica"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["astra cartographica"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["chaos daemons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["chaos space marines"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["death guard"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["drukhari"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["genestealer cults"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["grey knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["heretic titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["inquisition"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["heretic titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["inquisition"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["necrons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["officio assassinorum"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["officio assassinorum"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["orks"]] = new (int, int)[9] { (50, 10), (3, 10), (10, 10), (2, 10), (20, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["imperial knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["chaos knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["imperial knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["chaos knights"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["renegades and heretics"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["rogue traders"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["rogue traders"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["space marines"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["t’au empire"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
-      [Traits["titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
+      // [Traits["titan legions"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["thousand sons"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["tyranids"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
       [Traits["unaligned"]] = new (int, int)[9] { (10, 10), (10, 10), (10, 10), (5, 10), (10, 10), (0, 0), (0, 0), (0, 0), (0, 0) },
     };
 
-    void AddUnits(Faction f, Dictionary<int, DataSheet> unitsByType, int count, int pointMax)
+    void AddUnits(Faction f, Dictionary<int, DataSheet> unitsByType, int count, int pointMax = -1)
     {
       int points = 0;
       foreach (int e in Enumerable.Range(0, count))
@@ -102,19 +102,20 @@ partial class Simulation
 
         foreach (var line in unitTemplate.Value.Units)
         {
+          var modelsPerUnit = RNG.Integer(line.Value.MinModelsPerUnit, line.Value.MaxModelsPerUnit);
           var unitLine = new UnitLine()
           {
-            Count = line.Value.MaxModelsPerUnit,
+            Count = modelsPerUnit,
             UnitStats = line.Value,
           };
 
           newUnit.UnitLines.Add(line.Key, unitLine);
           // adding new unit
-          points += line.Value.Cost * line.Value.MaxModelsPerUnit;
+          points += line.Value.Cost * modelsPerUnit;
         }
         f.Units[unitTemplate.Value.Role].Add(newUnit);
 
-        if (points > pointMax) return;
+        if (pointMax != -1 && points > pointMax) return;
       }
     }
 
@@ -123,15 +124,18 @@ partial class Simulation
     {
       var factionTrait = TraitUtil.getTraitsByType(f.GetTraits(), "faction").First().Key;
 
+      var unitRoles = (UnitRole[])Enum.GetValues(typeof(UnitRole));
+      // foreach (var role in (UnitRole[])Enum.GetValues(typeof(UnitRole)))
       foreach (int i in Enumerable.Range(0, 9))
       {
-        var role = troopTypes[i];
+        var role = unitRoles[i];
         var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
         var (count, die) = factionUnits[factionTrait][i];
+        f.Units.Add(role, new List<Unit>());
         if (unitsByType.Count > 0)
         {
-          f.Units.Add(role, new List<Unit>());
-          AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
+          // AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
+          AddUnits(f, unitsByType, RNG.DiceRoll(count, die), -1);
         }
       }
     }

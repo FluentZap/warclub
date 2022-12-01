@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -9,33 +10,34 @@ namespace WarClub;
 
 public partial class WarClub : Game
 {
-  private GraphicsDeviceManager graphics;
-  private SpriteBatch spriteBatch;
   Simulation simulation;
 
-  // Vector2 viewportSize = new Vector2(1920, 1080);
-  Vector2 viewportSize = new Vector2(2560, 1440);
+  private GraphicsDeviceManager graphics;
+  private SpriteBatch spriteBatch;
+  Vector2 viewportSize = new Vector2(1920, 1080);
+  // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
-
   Vector2 screenSize = new Vector2(3840, 2160);
   Matrix viewMatrix;
-
   BasicEffect basicEffect;
   Effect planetEffect;
   Effect starfieldEffect;
-
   Texture2D planetTexture;
+  Texture2D screenTexture;
+  Texture2D DataCard;
 
   Model model;
   Model plane;
-  Texture2D screenTexture;
 
   float timeAdvance;
   float animationTime = 0;
 
   private SpriteFont basicFont;
+  private SpriteFont basicFontLarge;
   private SpriteFont basicFontSmall;
   public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+  public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
+  public Texture2D BlankTexture;
   Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
 
   Texture2D grassTexture;
@@ -119,26 +121,42 @@ public partial class WarClub : Game
     // TODO: use this.Content to load your game content here
     simulation = new Simulation();
     simulation.Generate();
+    foreach (var tile in simulation.MapTiles)
+    {
+      MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));
+    }
     icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
     icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
     icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
     icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
     icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
+    BlankTexture = Content.Load<Texture2D>("planetTextures/blank");
+
+    DataCard = Content.Load<Texture2D>("BlankSquadDataslate");
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
+    basicFontLarge = Content.Load<SpriteFont>("romulus_large");
     model = Content.Load<Model>("IcoSphere");
     plane = Content.Load<Model>("Plane");
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
-
-    grassTexture = Content.Load<Texture2D>("planetTextures/grass");
 
     TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
     TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
     TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
     TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
     TraitIcons.Add("barracks", simulation.Traits["training camps"]);
+
+    foreach (var unit in simulation.UnitList)
+    {
+      if (unit.Image != "")
+      {
+        FileStream fileStream = new FileStream(Path.Combine("./UnitImages", unit.Image), FileMode.Open);
+        unit.Texture = Texture2D.FromStream(graphics.GraphicsDevice, fileStream);
+        fileStream.Dispose();
+      }
+    }
   }
 
   protected override void Update(GameTime gameTime)

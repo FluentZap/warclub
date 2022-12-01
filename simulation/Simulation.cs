@@ -8,10 +8,11 @@ namespace WarClub;
 
 enum View
 {
+  MainMenu,
   GalaxyOverview,
   MissionSelect,
   MissionBriefing,
-
+  Battlefield,
 }
 
 class TraitList : Dictionary<string, Trait>
@@ -45,21 +46,26 @@ partial class Simulation
   public Dictionary<string, ChaosEvent> ChaosEvents = new Dictionary<string, ChaosEvent>();
   public Dictionary<string, Dictionary<string, ChaosEvent>> ChaosEventLists = new Dictionary<string, Dictionary<string, ChaosEvent>>();
 
+  public List<MapTile> MapTiles = new List<MapTile>();
+
   public KeyState KeyState = new KeyState();
   public View SelectedView = View.GalaxyOverview;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
+
+  public Mission ActiveMission;
 
   public void Generate()
   {
     LoadLists();
     LoadUnits();
     LoadDataSheets();
+    LoadMapTiles();
     GenerateWorlds();
     GenerateFactions();
 
     AdvanceTime();
-    // TimeWizard.Stasis(cosmos);
+    // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
     // {
     //   col_bot = Color.FromArgb(227, 27, 160),

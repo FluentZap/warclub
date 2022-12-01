@@ -13,10 +13,22 @@ Random map generator
 
 Army customizer
     User can input minis for both sides and it will select units to use for the mission.
-        Image loader
+        need to create map play mode
+      DONE -  Image loader
+
+New game screen
+    Select starting units (6)
+
+Mission briefing screen
+    Players can add/remove models to the units
+    Player can toggle which commander is commanding unit on mission
+    Shows point values for each commander
+    Add/Delete commanders
+    Has mission start button
 
 Map play mode
     Shows map and allows for gameplay
+    Shows combat tracker on screen
     Shows datacards on the screen
     Creates actions for the AI units to take
         Come up with basic AI action that the units can do

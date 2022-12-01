@@ -7,18 +7,22 @@ namespace WarClub;
 
 public partial class WarClub : Game
 {
-
   protected override void Draw(GameTime gameTime)
   {
 
     GraphicsDevice.Clear(new Color(10, 10, 10, 255));
-    DrawStarfield();
+
 
     // DrawPlanetShader(simulation.cosmos.Worlds.First().Value, new Point(0), new Point(1080));
-    if (simulation.SelectedView == View.GalaxyOverview) DrawGalaxyOverview();
+    if (simulation.SelectedView == View.GalaxyOverview)
+    {
+      DrawStarfield();
+      DrawGalaxyOverview();
+    }
 
     if (simulation.SelectedView == View.MissionSelect)
     {
+      DrawStarfield();
       DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
       DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
       DrawWorldOverview(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
@@ -27,8 +31,23 @@ public partial class WarClub : Game
     if (simulation.SelectedView == View.MissionBriefing)
     {
       // DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
-      DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
-      DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+      DrawMissionBriefing(Matrix.Identity);
+      // DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+      // DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+    }
+
+    if (simulation.SelectedView == View.Battlefield)
+    {
+      // DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
+      DrawBattlefield(Matrix.Identity);
+      // DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
+      // DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(-90)) * Matrix.CreateTranslation(screenSize.X - 512, screenSize.Y, 0));
+    }
+
+    if (simulation.SelectedView == View.MainMenu)
+    {
+      DrawStarfield();
+      DrawMainMenu(Matrix.Identity);
     }
 
     // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
@@ -70,6 +89,13 @@ public partial class WarClub : Game
         }
       }
   }
+
+  void DrawDataCard()
+  {
+    // var datacarPos =
+    // spriteBatch.Draw(DataCard, new Rectangle(( new Point(64, 64)), Color.White));
+  }
+
 
   void DrawGalaxyOverview()
   {
@@ -121,12 +147,57 @@ public partial class WarClub : Game
 
   void DrawMissionBriefing(Matrix transformMatrix)
   {
+    var m = simulation.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
 
     spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
     spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
 
+    var (left, right) = m.Tiles;
+    if (left != null && right != null)
+    {
+      spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
+      spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
+    }
+    spriteBatch.End();
 
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix, blendState: BlendState.Additive);
+    foreach (var zone in m.PlayerDeploymentZones)
+    {
+      spriteBatch.Draw(BlankTexture, zone, new Color(119, 221, 119, 100));
+    }
+    spriteBatch.End();
+  }
+
+  void DrawBattlefield(Matrix transformMatrix)
+  {
+    var m = simulation.ActiveMission;
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+
+    spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
+    spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
+
+    var (left, right) = m.Tiles;
+    if (left != null && right != null)
+    {
+      spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
+      spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
+    }
+    spriteBatch.End();
+
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix, blendState: BlendState.Additive);
+    foreach (var zone in m.PlayerDeploymentZones)
+    {
+      spriteBatch.Draw(BlankTexture, zone, new Color(119, 221, 119, 100));
+    }
+    spriteBatch.End();
+  }
+
+  void DrawMainMenu(Matrix transformMatrix)
+  {
+    var m = simulation.ActiveMission;
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "War Club", new Vector2(screenSize.X / 2, 300), Color.White);
     spriteBatch.End();
   }
 

@@ -1,56 +1,56 @@
 name                               |types            |aspects
-                                   
+
 rampage                            |aspiration       |
 conquer                            |aspiration       |
 disrupt                            |aspiration       |
 lore                               |aspiration       |
 bolster                            |aspiration       |
-                                   
-war zone                           |event            |
-strongholds                        |event            |
+
+war zone                           |event            |entrenchment
+strongholds                        |event            |2_entrenchment
 high value targets                 |event            |
-enlisted gods                      |event            |
-training camps                     |event            |
-                                   
+enlisted gods                      |event            |entrenchment
+training camps                     |event            |entrenchment
+
 aspiration fatigue                 |personality      |aspiration fatigue
-                                   
+
 adeptus custodes                   |faction          |imperial
 adeptus mechanicus                 |faction          |imperial
 aeldari                            |faction          |imperial
 astra militarum                    |faction          |imperial
 adepta sororitas                   |faction          |imperial
-astra cartographica                |faction          |imperial
+*astra cartographica               |faction          |imperial
 chaos daemons                      |faction          |chaos
 chaos space marines                |faction          |chaos
 death guard                        |faction          |imperial
 drukhari                           |faction          |xeno
 genestealer cults                  |faction          |xeno
 grey knights                       |faction          |imperial
-heretic titan legions              |faction          |chaos
-inquisition                        |faction          |imperial
+*heretic titan legions             |faction          |chaos
+*inquisition                       |faction          |imperial
 necrons                            |faction          |xeno
-officio assassinorum               |faction          |imperial
+*officio assassinorum              |faction          |imperial
 orks                               |faction          |xeno
-imperial knights                   |faction          |imperial
-chaos knights                      |faction          |chaos
+*imperial knights                  |faction          |imperial
+*chaos knights                     |faction          |chaos
 renegades and heretics             |faction          |chaos
-rogue traders                      |faction          |
+*rogue traders                     |faction          |
 space marines                      |faction          |imperial
 t’au empire                        |faction          |xeno
-titan legions                      |faction          |imperial
+*titan legions                     |faction          |imperial
 thousand sons                      |faction          |chaos
 tyranids                           |faction          |xeno
 unaligned                          |faction          |
-                                   
-                                   
+
+
 patrol                             |detachment       |
 battalion                          |detachment       |
 brigade                            |detachment       |
 vanguard                           |detachment       |
 spearhead                          |detachment       |
 outrider                           |detachment       |
-                                   
-                                   
+
+
 hive world                         |world type       |
 agri world                         |world type       |
 forge world                        |world type       |
@@ -68,7 +68,7 @@ death world                        |world type       |
 frontier world                     |world type       |
 forbidden world                    |world type       |
 xenos world                        |world type       |
-                                   
+
 stone age                          |tech level       |
 iron age                           |tech level       |
 steel age                          |tech level       |
@@ -81,16 +81,16 @@ low imperial                       |tech level       |
 mid imperial                       |tech level       |
 high imperial                      |tech level       |
 advanced                           |tech level       |
-                                   
-                                   
+
+
 tiny star                          |star size        |
 small star                         |star size        |
 medium star                        |star size        |
 large star                         |star size        |
 huge star                          |star size        |
 giant star                         |star size        |
-                                   
-                                   
+
+
 miniscule size                     |world size       |
 tiny size                          |world size       |
 small size                         |world size       |
@@ -99,7 +99,7 @@ large size                         |world size       |
 huge size                          |world size       |
 enormous size                      |world size       |
 massive size                       |world size       |
-                                   
+
 no tilt                            |world tilt       |
 slight tilt                        |world tilt       |5_weather variance
 notable tilt                       |world tilt       |10_weather variance
@@ -107,19 +107,19 @@ moderate tilt                      |world tilt       |20_weather variance
 large tilt                         |world tilt       |40_weather variance
 severe tilt                        |world tilt       |60_weather variance
 extreme tilt                       |world tilt       |80_weather variance
-                                   
+
 very light gravity                 |world gravity    |
 light gravity                      |world gravity    |
 standard gravity                   |world gravity    |
 heavy gravity                      |world gravity    |
 very heavy gravity                 |world gravity    |
-                                   
+
 normal atmosphere                  |atmosphere       |
 bearable atmosphere                |atmosphere       |
 tainted atmosphere                 |atmosphere       |
 poisonous atmosphere               |atmosphere       |
 deadly atmosphere                  |atmosphere       |
-                                   
+
 waterless hydrosphere              |hydrosphere      |
 parched hydrosphere                |hydrosphere      |
 arid hydrosphere                   |hydrosphere      |
@@ -128,8 +128,8 @@ damp hydrosphere                   |hydrosphere      |
 moist hydrosphere                  |hydrosphere      |
 watery hydrosphere                 |hydrosphere      |
 aquatic hydrosphere                |hydrosphere      |
-                                   
-                                   
+
+
 bitter temperature                 |temperature      |
 cold temperature                   |temperature      |
 chilly temperature                 |temperature      |
@@ -140,7 +140,7 @@ tepid temperature                  |temperature      |
 hot temperature                    |temperature      |
 roasting temperature               |temperature      |
 searing temperature                |temperature      |
-                                   
+
 grassland terrain                  |world terrain    |
 savannah terrain                   |world terrain    |
 continual forest terrain           |world terrain    |
@@ -161,8 +161,8 @@ ravines terrain                    |world terrain    |
 sandy terrain                      |world terrain    |
 islands terrain                    |world terrain    |
 cliffs terrain                     |world terrain    |
-                                   
-                                   
+
+
 adeptus arbites presence           |presence         |imperial
 adeptus astra telepathica presence |presence         |imperial
 adeptus astronimica presence       |presence         |imperial
@@ -170,11 +170,11 @@ adeptus mechanicus presence        |presence         |imperial
 administratum presence             |presence         |imperial
 adeptus ministorum presence        |presence         |imperial
 inquisition presence               |presence         |imperial
-                                   
-                                   
+
+
 population                         |population       |
 million population                 |population       |
-                                   
+
 democracy                          |society type     |
 elected dictator                   |society type     |
 hereditary dictator                |society type     |
@@ -185,7 +185,7 @@ religious local                    |society type     |
 religious ministorum               |society type     |
 religious machine god              |society type     |
 oligarchy                          |society type     |
-                                   
+
 enforcers lv1                      |defenses         |
 militia lv1                        |defenses         |
 standing army lv1                  |defenses         |
@@ -198,7 +198,7 @@ planetary missile silos lv1        |defenses         |
 orbital missile silos lv1          |defenses         |
 defense lasers lv1                 |defenses         |
 mercenary force lv1                |defenses         |
-                                   
+
 enforcers lv2                      |defenses         |
 militia lv2                        |defenses         |
 standing army lv2                  |defenses         |
@@ -211,7 +211,7 @@ planetary missile silos lv2        |defenses         |
 orbital missile silos lv2          |defenses         |
 defense lasers lv2                 |defenses         |
 mercenary force lv2                |defenses         |
-                                   
+
 enforcers lv3                      |defenses         |
 militia lv3                        |defenses         |
 standing army lv3                  |defenses         |
@@ -224,7 +224,7 @@ planetary missile silos lv3        |defenses         |
 orbital missile silos lv3          |defenses         |
 defense lasers lv3                 |defenses         |
 mercenary force lv3                |defenses         |
-                                   
+
 enforcers lv4                      |defenses         |
 militia lv4                        |defenses         |
 standing army lv4                  |defenses         |
@@ -237,7 +237,7 @@ planetary missile silos lv4        |defenses         |
 orbital missile silos lv4          |defenses         |
 defense lasers lv4                 |defenses         |
 mercenary force lv4                |defenses         |
-                                   
+
 enforcers lv5                      |defenses         |
 militia lv5                        |defenses         |
 standing army lv5                  |defenses         |

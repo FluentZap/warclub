@@ -37,3 +37,29 @@ assault outpost
     Place charges at the base of a tower
     Give defense bonus to units on the wall
     Eliminate all the units to beat this scenario
+
+
+Terrain types
+    Dessert
+    Forest
+    Wasteland
+    Snow
+
+Tile types
+    Open
+    Obstacles
+    City
+    Fortress
+    Ritual
+
+Orientation
+    Left/Right/Both
+
+Open Map
+    Open or obstacles on both tiles
+City Map
+    City tiles, either both or open space then city
+Fortress
+    One fortress and one open space
+Ritual Site
+    Ritual and random other tile

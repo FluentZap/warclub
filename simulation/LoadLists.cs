@@ -168,11 +168,11 @@ partial class Simulation
     rows.RemoveAt(0);
     foreach (string[] r in rows)
     {
-      if (r.Length < 5 || r[0][0] == '*')
+      if (r.Length < 6 || r[0][0] == '*')
         continue;
 
 
-      string size = r[3];
+      string size = r[4];
       Point unitSize = new Point();
       if (size.Contains("x"))
       {
@@ -188,10 +188,11 @@ partial class Simulation
       UnitList.Add(new Models()
       {
         Name = r[0].Trim(),
-        Image = r[1].Trim(),
-        Count = Int32.Parse(r[2]),
+        DataCardIds = r[1].Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => Int32.Parse(x)).ToHashSet(),
+        Image = r[2].Trim(),
+        Count = Int32.Parse(r[3]),
         Size = unitSize,
-        Types = r[4].Split(',').Select(x => x.Trim()).ToHashSet(),
+        Types = r[5].Split(',').Select(x => x.Trim()).ToHashSet(),
       });
     }
   }
@@ -210,7 +211,7 @@ partial class Simulation
         Id = Int32.Parse(r[0]),
         Name = r[1].Trim(),
         FactionId = r[3].Trim(),
-        Role = r[5].Trim(),
+        Role = Enum.Parse<UnitRole>(r[5].Trim().Replace(" ", ""), true),
         UnitComposition = r[6].Trim(),
       });
     }
@@ -227,7 +228,6 @@ partial class Simulation
       units.Remove(name);
 
       var u = new UnitStats();
-      DataSheets[id].Units.Add(name, u);
 
       u.Movement = r[3].Trim();
       u.WS = r[4].Trim();
@@ -240,6 +240,9 @@ partial class Simulation
       u.Sv = r[11].Trim();
       u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
 
+      if (u.Cost <= 0) continue;
+
+      DataSheets[id].Units.Add(name, u);
       // Set unit sizes higher or lower
       string[] unitSizes = r[14].Split('-');
       if (unitSizes[0].Trim() != "")
@@ -374,6 +377,24 @@ partial class Simulation
       var dataSheet = DataSheets[Int32.Parse(r[0])];
       var stratagem = Stratagems[Int32.Parse(r[1])];
       dataSheet.Stratagems.Add(stratagem);
+    }
+    DataSheets = DataSheets.Where(x => x.Value.Units.Count != 0).ToDictionary(x => x.Key, x => x.Value);
+  }
+
+  void LoadMapTiles()
+  {
+    var rows = Loader.CSVLoadFile(Path.Combine("./", "MapTiles.csv"));
+    rows.RemoveAt(0);
+    foreach (string[] r in rows)
+    {
+
+      MapTiles.Add(new MapTile()
+      {
+        Texture = r[0].Trim(),
+        Terrain = Enum.Parse<MapTileTerrain>(r[1].Trim(), true),
+        Orientation = Enum.Parse<MapTileOrientation>(r[2].Trim(), true),
+        Type = Enum.Parse<MapTileType>(r[3].Trim(), true),
+      });
     }
   }
 }

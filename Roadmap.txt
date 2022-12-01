@@ -1,2 +1,13 @@
-Basic mission generator with rules and custom deployment zones
+New game screen
+    Select starting units (6)
 
+
+Todd
+    Main Screen
+    Load/Save Screen
+        Switch around planet placement
+        Add hotkeys to the planets
+
+    Mission Select Screen
+    Mission Briefing Screen
+    Add/Remove units from the roster (Choose Loadout)
