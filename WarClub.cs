@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
@@ -146,6 +147,16 @@ public partial class WarClub : Game
     TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
     TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
     TraitIcons.Add("barracks", simulation.Traits["training camps"]);
+
+    foreach (var unit in simulation.UnitList)
+    {
+      if (unit.Image != "")
+      {
+        FileStream fileStream = new FileStream(Path.Combine("./UnitImages", unit.Image), FileMode.Open);
+        unit.Texture = Texture2D.FromStream(graphics.GraphicsDevice, fileStream);
+        fileStream.Dispose();
+      }
+    }
   }
 
   protected override void Update(GameTime gameTime)

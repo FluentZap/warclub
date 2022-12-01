@@ -168,11 +168,11 @@ partial class Simulation
     rows.RemoveAt(0);
     foreach (string[] r in rows)
     {
-      if (r.Length < 5 || r[0][0] == '*')
+      if (r.Length < 6 || r[0][0] == '*')
         continue;
 
 
-      string size = r[3];
+      string size = r[4];
       Point unitSize = new Point();
       if (size.Contains("x"))
       {
@@ -188,10 +188,11 @@ partial class Simulation
       UnitList.Add(new Models()
       {
         Name = r[0].Trim(),
-        Image = r[1].Trim(),
-        Count = Int32.Parse(r[2]),
+        DataCardIds = r[1].Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => Int32.Parse(x)).ToHashSet(),
+        Image = r[2].Trim(),
+        Count = Int32.Parse(r[3]),
         Size = unitSize,
-        Types = r[4].Split(',').Select(x => x.Trim()).ToHashSet(),
+        Types = r[5].Split(',').Select(x => x.Trim()).ToHashSet(),
       });
     }
   }

@@ -33,8 +33,8 @@ static class Generator
 
   static public Mission GenerateBattleMap(Simulation s)
   {
-    // if (s.SelectedMission.Name == "war profiteering") return GenerateWarProfiteering(s);
-    return GenerateWarProfiteering(s);
+    // if (s.SelectedMission.Name == "assault outpost") return GenerateAssaultOutpost(s);
+    return GenerateAssaultOutpost(s);
     // return null;
   }
 
@@ -112,24 +112,23 @@ static class Generator
   }
 
 
-  static public Mission GenerateWarProfiteering(Simulation s)
+  static public Mission GenerateAssaultOutpost(Simulation s)
   {
     // default to fortress forest map type
     var mission = new Mission();
     var faction = s.cosmos.Factions[RNG.PickFrom(s.SelectedWorld.Relations.Where(x => x.Source.EntityType == EntityType.Faction).ToList()).Source.Id];
 
+    var pointMax = 375 + TraitUtil.getAspect(s.SelectedWorld.GetTraits(), "entrenchment") * 100;
     var fortOnLeft = RNG.Boolean();
     mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Left, fortOnLeft ? MapTileType.Fortress : MapTileType.Obstacles));
     mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, MapTileTerrain.Forest, MapTileOrientation.Right, fortOnLeft ? MapTileType.Obstacles : MapTileType.Fortress));
     mission.PlayerDeploymentZones.Add(BuildRect(0, 0, 6, ScreenSize.Y, fortOnLeft));
-    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 0, 3840, 128));
-    // mission.PlayerDeploymentZones.Add(new Rectangle(0, 2160 - 128, 3840, 128));
 
     var turn0 = new MissionEvent() { Turn = 0 };
     turn0.Spawns.Add(new MissionEventSpawn()
     {
       Location = BuildPoint(14, 16, !fortOnLeft),
-      Units = SelectUnits(faction.Units, 250, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
+      Units = SelectUnits(faction.Units, pointMax, Troops: 1, HQ: 1, FastAttack: 3, HeavySupport: 10, Elites: 5),
     });
     mission.MissionEvents.Add(turn0);
 

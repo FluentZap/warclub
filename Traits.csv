@@ -6,11 +6,11 @@ disrupt                            |aspiration       |
 lore                               |aspiration       |
 bolster                            |aspiration       |
 
-war zone                           |event            |
-strongholds                        |event            |
+war zone                           |event            |entrenchment
+strongholds                        |event            |2_entrenchment
 high value targets                 |event            |
-enlisted gods                      |event            |
-training camps                     |event            |
+enlisted gods                      |event            |entrenchment
+training camps                     |event            |entrenchment
 
 aspiration fatigue                 |personality      |aspiration fatigue
 

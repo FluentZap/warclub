@@ -1,26 +1,23 @@
-Name                                 |Image |Count |Size  |Types
-Sizes                                
-32, 40, 80, 100, 130                 
-Types                                
-Gun, Armored, Staff, Vehicle, Shield 
-                                     
-Skitarii Vanguard                    |      |   10 |32    |Gun, Armored
-Tech Priest                          |      |    1 |32    |Staff
-Ironstrider Ballistarius             |      |    1 |80    |Vehicle, Gun
-Onager Dunecrawler                   |      |    1 |130   |Vehicle, Gun
-                                     
-Orc Boyz                             |      |    7 |40    |Sword
-Orc Boyz                             |      |    2 |40    |Gun
-Orc Commander                        |      |    1 |40    |Sword, Gun
-                                     
-Infernal Master                      |      |    1 |40    |Staff, Armored
-Scarab Occult Terminators            |      |    4 |40    |Gun, Armored
-Scarab Occult Priest                 |      |    1 |40    |Staff, Armored
-Tzaangor                             |      |   20 |40    |Sword
-                                     
-Skeleton                             |      |   20 |32    |Sword, Shield
-Golem                                |      |    2 |80    |Sword, Armored
-Skeleton Worm                        |      |    2 |80    |Gun, Vehicle
-                                     
-Knight Soldiers                      |      |   40 |32    |Staff, Armored, Shield
-Knight Riders                        |      |   10 |50x32 |Vehicle, Sword, Armored, Shield
+Name                                 |DatacardIds           |Image |Count |Size  |Types
+Sizes
+32, 40, 80, 100, 130
+Types
+HQ, Heavy, Elites, Fast, Troops
+
+Skitarii Vanguard                    |000000849            |Mech_Vanguard.png|   10 |32    |Troops
+Tech Priest Enginseer                |000000840            |      |    1 |32    |HQ
+Ironstrider Ballistarius             |000000852, 000000853 |      |    1 |80    |Heavy, Fast
+Onager Dunecrawler                   |000000854            |      |    1 |130   |Heavy
+
+Orc Boyz                             |000000016            |      |   10 |40    |Troops
+
+Infernal Master                      |000002500            |      |    1 |40    |HQ
+Scarab Occult Terminators            |000001035            |      |    5 |40    |Elites
+Tzaangor                             |000001034            |      |   20 |40    |Troops
+
+Skeleton                             |                     |      |   20 |32    |Troops
+Golem                                |                     |      |    2 |80    |Elites
+Skeleton Worm                        |                     |      |    2 |80    |Elites
+
+Knight Soldiers                      |                     |      |   40 |32    |Troops
+Knight Riders                        |                     |      |   10 |50x32 |Fast
