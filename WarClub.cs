@@ -23,6 +23,8 @@ public partial class WarClub : Game
   Effect starfieldEffect;
   Texture2D planetTexture;
   Texture2D screenTexture;
+  Texture2D DataCard;
+
   Model model;
   Model plane;
 
@@ -128,6 +130,8 @@ public partial class WarClub : Game
     icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
     icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
     BlankTexture = Content.Load<Texture2D>("planetTextures/blank");
+
+    DataCard = Content.Load<Texture2D>("BlankSquadDataslate");
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");

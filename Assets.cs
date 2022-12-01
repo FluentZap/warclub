@@ -21,6 +21,8 @@ public class Assets
 {
   public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
   public Dictionary<Icon, Texture2D> Icons = new Dictionary<Icon, Texture2D>();
+  public Texture2D DataCard;
+
 
   ContentManager Content;
 
@@ -29,6 +31,7 @@ public class Assets
   {
     this.Content = Content;
     LoadIcons();
+    LoadDataCards();
   }
 
   void LoadIcons()
@@ -39,5 +42,11 @@ public class Assets
     Icons.Add(Icon.LightningTear, Content.Load<Texture2D>("icons/lightning-tear"));
     Icons.Add(Icon.Barracks, Content.Load<Texture2D>("icons/barracks"));
   }
+
+  void LoadDataCards()
+  {
+    DataCard = Content.Load<Texture2D>("BlankSquadDataslate");
+  }
+
 
 }

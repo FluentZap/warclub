@@ -51,7 +51,6 @@ static class Generator
       Units = SelectUnits(faction.Units, 250, Troops: 10, HQ: 1, FastAttack: 3, HeavySupport: 5, Elites: 3),
     });
     mission.MissionEvents.Add(turn0);
-
     return mission;
   }
 

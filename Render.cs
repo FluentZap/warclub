@@ -90,6 +90,13 @@ public partial class WarClub : Game
       }
   }
 
+  void DrawDataCard()
+  {
+    // var datacarPos =
+    // spriteBatch.Draw(DataCard, new Rectangle(( new Point(64, 64)), Color.White));
+  }
+
+
   void DrawGalaxyOverview()
   {
     foreach (var world in simulation.cosmos.Worlds)
