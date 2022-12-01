@@ -49,7 +49,7 @@ partial class Simulation
   public List<MapTile> MapTiles = new List<MapTile>();
 
   public KeyState KeyState = new KeyState();
-  public View SelectedView = View.MainMenu;
+  public View SelectedView = View.GalaxyOverview;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
 
@@ -65,7 +65,7 @@ partial class Simulation
     GenerateFactions();
 
     AdvanceTime();
-    TimeWizard.Stasis(this);
+    // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
     // {
     //   col_bot = Color.FromArgb(227, 27, 160),

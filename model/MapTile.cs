@@ -9,10 +9,10 @@ public enum MapTileOrientation
 
 public enum MapTileTerrain
 {
-  Dessert,
+  Desert,
   Forest,
   Wasteland,
-  Snow,
+  Winter,
 }
 
 public enum MapTileType
