@@ -18,6 +18,7 @@ public partial class WarClub : Game
   // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
   Vector2 screenSize = new Vector2(3840, 2160);
+  // Vector2 screenSize = new Vector2(3819, 2144);
   Matrix viewMatrix;
   BasicEffect basicEffect;
   Effect planetEffect;
