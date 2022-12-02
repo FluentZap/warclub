@@ -50,6 +50,18 @@ public partial class WarClub : Game
       DrawMainMenu(Matrix.Identity);
     }
 
+    if (simulation.SelectedView == View.NewGame)
+    {
+      DrawStarfield();
+      DrawNewGame(Matrix.Identity);
+    }
+
+    if (simulation.SelectedView == View.LoadGame)
+    {
+      DrawStarfield();
+      DrawLoadGame(Matrix.Identity);
+    }
+
     // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
     // spriteBatch.Draw(planetTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
     // spriteBatch.Draw(planetTexture, new Rectangle(0, 0, 3840, 2160), Color.White);
@@ -195,9 +207,35 @@ public partial class WarClub : Game
 
   void DrawMainMenu(Matrix transformMatrix)
   {
-    var m = simulation.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
     spriteBatch.DrawString(basicFontLarge, "War Club", new Vector2(screenSize.X / 2, 300), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "1. Start New Game", new Vector2(screenSize.X / 2, 600), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "2. Load Game", new Vector2(screenSize.X / 2, 700), Color.White);
+    spriteBatch.End();
+  }
+
+  void DrawNewGame(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "new game", new Vector2(screenSize.X / 2, 300), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Select two units per player", new Vector2(screenSize.X / 2, 600), Color.White);
+
+    int offset = 0;
+    foreach (var unit in simulation.SelectableUnits)
+    {
+      spriteBatch.DrawString(basicFontSmall, offset.ToString() + ". " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 50), Color.White);
+      offset += 1;
+    }
+
+    spriteBatch.End();
+  }
+
+  void DrawLoadGame(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "load game", new Vector2(screenSize.X / 2, 300), Color.White);
+    // spriteBatch.DrawString(basicFontLarge, "1. Start New Game", new Vector2(screenSize.X / 2, 600), Color.White);
+    // spriteBatch.DrawString(basicFontLarge, "2. Load Game", new Vector2(screenSize.X / 2, 700), Color.White);
     spriteBatch.End();
   }
 

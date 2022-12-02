@@ -9,6 +9,8 @@ namespace WarClub;
 enum View
 {
   MainMenu,
+  NewGame,
+  LoadGame,
   GalaxyOverview,
   MissionSelect,
   MissionBriefing,
@@ -49,11 +51,13 @@ partial class Simulation
   public List<MapTile> MapTiles = new List<MapTile>();
 
   public KeyState KeyState = new KeyState();
-  public View SelectedView = View.GalaxyOverview;
+  public View SelectedView = View.MainMenu;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
 
   public Mission ActiveMission;
+  public List<CalculatedUnit> SelectableUnits;
+
 
   public void Generate()
   {

@@ -97,22 +97,9 @@ partial class Simulation
       foreach (int e in Enumerable.Range(0, count))
       {
         var unitTemplate = RNG.PickFrom(unitsByType);
-        var newUnit = new Unit();
-        newUnit.DataSheet = unitTemplate.Value;
 
-        foreach (var line in unitTemplate.Value.Units)
-        {
-          var modelsPerUnit = RNG.Integer(line.Value.MinModelsPerUnit, line.Value.MaxModelsPerUnit);
-          var unitLine = new UnitLine()
-          {
-            Count = modelsPerUnit,
-            UnitStats = line.Value,
-          };
-
-          newUnit.UnitLines.Add(line.Key, unitLine);
-          // adding new unit
-          points += line.Value.Cost * modelsPerUnit;
-        }
+        var newUnit = UnitUtils.CreateUnit(unitTemplate.Value, CreateUnitSize.Random);
+        points += newUnit.Points;
         f.Units[unitTemplate.Value.Role].Add(newUnit);
 
         if (pointMax != -1 && points > pointMax) return;

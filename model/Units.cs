@@ -17,6 +17,11 @@ class Models
   public bool Reserved = false;
 }
 
+class CalculatedUnit : Unit
+{
+  public int Points;
+}
+
 class Unit
 {
   public DataSheet DataSheet;
