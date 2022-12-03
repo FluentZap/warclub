@@ -1,23 +1,30 @@
-Name                                 |DatacardIds           |Image |Count |Size  |Types
+Name                            |DatacardIds          |Image             |Count |Size  |Types
 Sizes
 32, 40, 80, 100, 130
 Types
 HQ, Heavy, Elites, Fast, Troops
 
-Skitarii Vanguard                    |000000849            |Mech_Vanguard.png|   10 |32    |Troops
-Tech Priest Enginseer                |000000840            |      |    1 |32    |HQ
-Ironstrider Ballistarius             |000000852, 000000853 |      |    1 |80    |Heavy, Fast
-Onager Dunecrawler                   |000000854            |      |    1 |130   |Heavy
+Skitarii Vanguard               |000000849            |Mech_Vanguard.png |   10 |32    |Troops
+Skitarii Rangers                |000000848            |Mech_Vanguard.png |    5 |32    |Troops
+Skitarii Rangers                |000000848            |Mech_Vanguard.png |    5 |32    |Troops
 
-Orc Boyz                             |000000016            |      |   10 |40    |Troops
+Tech Priest Enginseer           |000000840            |                  |    1 |32    |HQ
+Ironstrider Ballistarius        |000000852, 000000853 |                  |    1 |80    |Heavy, Fast
+Onager Dunecrawler              |000000854            |                  |    1 |130   |Heavy
+Onager Dunecrawler              |000000854            |                  |    1 |130   |Heavy
 
-Infernal Master                      |000002500            |      |    1 |40    |HQ
-Scarab Occult Terminators            |000001035            |      |    5 |40    |Elites
-Tzaangor                             |000001034            |      |   20 |40    |Troops
+Orc Boyz                        |000000016            |                  |   10 |40    |Troops
 
-Skeleton                             |                     |      |   20 |32    |Troops
-Golem                                |                     |      |    2 |80    |Elites
-Skeleton Worm                        |                     |      |    2 |80    |Elites
+Infernal Master                 |000002500            |                  |    1 |40    |HQ
+Scarab Occult Terminators       |000001035            |                  |    5 |40    |Elites
+Tzaangor                        |000001034            |                  |   20 |40    |Troops
 
-Knight Soldiers                      |                     |      |   40 |32    |Troops
-Knight Riders                        |                     |      |   10 |50x32 |Fast
+Hellblaster Squad               |000000117            |                  |   10 |32    |Troops
+Assault Squad                   |000000102            |                  |   10 |32    |Troops
+
+Skeleton                        |                     |                  |   20 |32    |Troops
+Golem                           |                     |                  |    2 |80    |Troops
+Skeleton Worm                   |                     |                  |    2 |80    |Elites
+
+Knight Soldiers                 |                     |                  |   40 |32    |Troops
+Knight Riders                   |                     |                  |   10 |50x32 |Fast

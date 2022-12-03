@@ -50,6 +50,8 @@ partial class Simulation
 
   public List<MapTile> MapTiles = new List<MapTile>();
 
+
+
   public KeyState KeyState = new KeyState();
   public View SelectedView = View.MainMenu;
   public World SelectedWorld = null;
@@ -57,6 +59,8 @@ partial class Simulation
 
   public Mission ActiveMission;
   public List<CalculatedUnit> SelectableUnits;
+  public List<CalculatedUnit> SelectedUnits = new List<CalculatedUnit>();
+  public int CurrentPage;
 
 
   public void Generate()

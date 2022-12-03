@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -218,12 +219,31 @@ public partial class WarClub : Game
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
     spriteBatch.DrawString(basicFontLarge, "new game", new Vector2(screenSize.X / 2, 300), Color.White);
-    spriteBatch.DrawString(basicFontLarge, "Select two units per player", new Vector2(screenSize.X / 2, 600), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Select two units per player", new Vector2(screenSize.X / 2, 400), Color.White);
+
+    var totalPoints = simulation.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points);
+    spriteBatch.DrawString(basicFontLarge, $"{simulation.SelectedUnits.Count.ToString()} Selected Units - {totalPoints} Points", new Vector2(screenSize.X / 2, 500), Color.White);
+
+    int pageCount = simulation.SelectableUnits.Count / 9;
+    var left = simulation.CurrentPage > 0 ? "< " : "  ";
+    var right = simulation.CurrentPage < pageCount ? " >" : "  ";
+    spriteBatch.DrawString(basicFontLarge, $"{left}{simulation.CurrentPage + 1}{right}", new Vector2(screenSize.X / 2, 1700), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Press enter to continue", new Vector2(screenSize.X / 2, 1800), Color.White);
 
     int offset = 0;
-    foreach (var unit in simulation.SelectableUnits)
+    var max = MathHelper.Min(simulation.SelectableUnits.Count, (simulation.CurrentPage + 1) * 9);
+    for (int i = simulation.CurrentPage * 9; i < max; i++)
     {
-      spriteBatch.DrawString(basicFontSmall, offset.ToString() + ". " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 50), Color.White);
+      var unit = simulation.SelectableUnits[i];
+      if (simulation.SelectedUnits.Contains(unit))
+      {
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
+      }
+      else
+      {
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
+
+      }
       offset += 1;
     }
 
