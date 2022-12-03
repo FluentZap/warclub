@@ -118,7 +118,6 @@ partial class Simulation
         var role = unitRoles[i];
         var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
         var (count, die) = factionUnits[factionTrait][i];
-        f.Units.Add(role, new List<Unit>());
         if (unitsByType.Count > 0)
         {
           // AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);

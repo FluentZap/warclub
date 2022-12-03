@@ -102,6 +102,12 @@ static class InputGovernor
       }
     }
 
+    if (keys.Contains(Keys.Enter) && s.SelectedUnits.Count > 0)
+    {
+      foreach (var unit in s.SelectedUnits)
+        s.cosmos.PlayerFaction.Units[unit.DataSheet.Role].Add(unit);
+      s.SelectedView = View.GalaxyOverview;
+    }
   }
 
   static void LoadGame(Simulation s)
