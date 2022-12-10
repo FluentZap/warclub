@@ -1,5 +1,9 @@
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
+using System;
+using System.Linq;
+using Microsoft.Xna.Framework;
+
 
 namespace WarClub;
 
@@ -23,10 +27,36 @@ static class InputGovernor
 
   public static void DoEvents(Simulation s)
   {
+    if (s.SelectedView == View.GalaxyOverview) GalaxyOverview(s);
+    if (s.SelectedView == View.MissionBriefing) MissionBriefing(s);
     if (s.SelectedView == View.MissionSelect) MissionSelect(s);
     if (s.SelectedView == View.MainMenu) MainMenu(s);
     if (s.SelectedView == View.NewGame) NewGame(s);
     if (s.SelectedView == View.LoadGame) LoadGame(s);
+  }
+
+  static void MissionBriefing(Simulation s)
+  {
+
+  }
+
+
+
+  static void GalaxyOverview(Simulation s)
+  {
+    var size = new Point(480, 570);
+
+    if (Mouse.GetState().LeftButton == ButtonState.Pressed)
+    {
+
+      var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(s.ViewMatrix));
+      foreach (var world in s.cosmos.Worlds)
+        if (new Rectangle(world.Value.location.ToPoint() - size / new Point(2), size).Contains(pos))
+        {
+          s.SelectedView = View.MissionSelect;
+          s.SelectedWorld = world.Value;
+        }
+    }
   }
 
   static void MissionSelect(Simulation s)

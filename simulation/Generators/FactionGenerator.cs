@@ -176,6 +176,8 @@ partial class Simulation
     var playerFaction = new Faction();
     playerFaction.AddRelation(RNG.PickFrom(cosmos.Worlds).Value, RelationType.Headquarters, new Dictionary<Trait, int> { }, 100);
     AddUnitToFaction(playerFaction, DataSheets[16]);
+    AddUnitToFaction(playerFaction, DataSheets[854]);
+    AddUnitToFaction(playerFaction, DataSheets[840]);
     cosmos.Factions.AutoAdd(playerFaction);
     cosmos.PlayerFaction = playerFaction;
   }
