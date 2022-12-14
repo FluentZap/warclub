@@ -13,6 +13,8 @@ public enum MapTileTerrain
   Forest,
   Wasteland,
   Winter,
+  Castle,
+  Town,
 }
 
 public enum MapTileType
