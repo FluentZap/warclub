@@ -183,6 +183,90 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/blank.png
 
+#begin planetTextures/blank.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/blank.png
+
+#begin planetTextures/castle/36778-City Block 0 Crossroads Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/36778-City Block 0 Crossroads Empty.jpg
+
+#begin planetTextures/castle/36874-City Block 6 Floor 2.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/36874-City Block 6 Floor 2.jpg
+
+#begin planetTextures/castle/51573-City Wall Gate E Floor 2 Unfurnished.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/51573-City Wall Gate E Floor 2 Unfurnished.jpg
+
+#begin planetTextures/castle/51574-City Wall Gate E Floor 2 Urban.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/51574-City Wall Gate E Floor 2 Urban.jpg
+
+#begin planetTextures/castle/51638-City Wall Gate W Floor 2 Urban.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/51638-City Wall Gate W Floor 2 Urban.jpg
+
+#begin planetTextures/castle/51639-City Wall Gate W Floor 2.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/castle/51639-City Wall Gate W Floor 2.jpg
+
 #begin planetTextures/desert/arid_hill_tilead13_by_madcowchef-d7haid1.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -194,6 +278,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/arid_hill_tilead13_by_madcowchef-d7haid1.jpg
+
+#begin planetTextures/desert/arid_hill_tilead13_by_madcowchef-d7haid1.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/arid_hill_tilead13_by_madcowchef-d7haid1.jpg
+
+#begin planetTextures/desert/desert_ambush_tilead3_by_madcowchef-d7h8s4y.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/desert_ambush_tilead3_by_madcowchef-d7h8s4y.jpg
 
 #begin planetTextures/desert/desert_ambush_tilead3_by_madcowchef-d7h8s4y.jpg
 /importer:TextureImporter
@@ -219,6 +327,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/desert_ford_tilead16_by_madcowchef-d7haice.jpg
 
+#begin planetTextures/desert/desert_ford_tilead16_by_madcowchef-d7haice.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/desert_ford_tilead16_by_madcowchef-d7haice.jpg
+
 #begin planetTextures/desert/desert_pillar_tilead19_by_madcowchef-d7hdl43.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -230,6 +350,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/desert_pillar_tilead19_by_madcowchef-d7hdl43.jpg
+
+#begin planetTextures/desert/desert_pillar_tilead19_by_madcowchef-d7hdl43.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/desert_pillar_tilead19_by_madcowchef-d7hdl43.jpg
+
+#begin planetTextures/desert/desert_ruins_tilead17_by_madcowchef-d7hbt3s.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/desert_ruins_tilead17_by_madcowchef-d7hbt3s.jpg
 
 #begin planetTextures/desert/desert_ruins_tilead17_by_madcowchef-d7hbt3s.jpg
 /importer:TextureImporter
@@ -255,6 +399,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/desert_tower_ruins_tilead20_by_madcowchef-d7hdm5h.jpg
 
+#begin planetTextures/desert/desert_tower_ruins_tilead20_by_madcowchef-d7hdm5h.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/desert_tower_ruins_tilead20_by_madcowchef-d7hdm5h.jpg
+
 #begin planetTextures/desert/rocky_desert_ambush_tilead5_by_madcowchef-d7h96vz.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -266,6 +422,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/rocky_desert_ambush_tilead5_by_madcowchef-d7h96vz.jpg
+
+#begin planetTextures/desert/rocky_desert_ambush_tilead5_by_madcowchef-d7h96vz.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/rocky_desert_ambush_tilead5_by_madcowchef-d7h96vz.jpg
+
+#begin planetTextures/desert/tilead1_by_madcowchef-d7gw341.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead1_by_madcowchef-d7gw341.jpg
 
 #begin planetTextures/desert/tilead1_by_madcowchef-d7gw341.jpg
 /importer:TextureImporter
@@ -291,6 +471,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/tilead10_by_madcowchef-d7h9u60.jpg
 
+#begin planetTextures/desert/tilead10_by_madcowchef-d7h9u60.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead10_by_madcowchef-d7h9u60.jpg
+
 #begin planetTextures/desert/tilead18_by_madcowchef-d7hdl3g.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -302,6 +494,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/tilead18_by_madcowchef-d7hdl3g.jpg
+
+#begin planetTextures/desert/tilead18_by_madcowchef-d7hdl3g.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead18_by_madcowchef-d7hdl3g.jpg
+
+#begin planetTextures/desert/tilead4_by_madcowchef-d7h8s3z.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead4_by_madcowchef-d7h8s3z.jpg
 
 #begin planetTextures/desert/tilead4_by_madcowchef-d7h8s3z.jpg
 /importer:TextureImporter
@@ -327,6 +543,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/tilead6_by_madcowchef-d7h96wp.jpg
 
+#begin planetTextures/desert/tilead6_by_madcowchef-d7h96wp.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead6_by_madcowchef-d7h96wp.jpg
+
 #begin planetTextures/desert/tilead7_by_madcowchef-d7h96xc.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -338,6 +566,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/tilead7_by_madcowchef-d7h96xc.jpg
+
+#begin planetTextures/desert/tilead7_by_madcowchef-d7h96xc.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead7_by_madcowchef-d7h96xc.jpg
+
+#begin planetTextures/desert/tilead8_by_madcowchef-d7h96v7.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/tilead8_by_madcowchef-d7h96v7.jpg
 
 #begin planetTextures/desert/tilead8_by_madcowchef-d7h96v7.jpg
 /importer:TextureImporter
@@ -363,6 +615,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/desert/watering_hole_tilead15_by_madcowchef-d7haiek.jpg
 
+#begin planetTextures/desert/watering_hole_tilead15_by_madcowchef-d7haiek.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/desert/watering_hole_tilead15_by_madcowchef-d7haiek.jpg
+
 #begin planetTextures/forest/breached_corner_tilefmm8_by_madcowchef-d7fz9ru.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -374,6 +638,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/breached_corner_tilefmm8_by_madcowchef-d7fz9ru.jpg
+
+#begin planetTextures/forest/breached_corner_tilefmm8_by_madcowchef-d7fz9ru.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/breached_corner_tilefmm8_by_madcowchef-d7fz9ru.jpg
+
+#begin planetTextures/forest/breached_wall_tilefmm15_by_madcowchef-d7gdyub.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/breached_wall_tilefmm15_by_madcowchef-d7gdyub.jpg
 
 #begin planetTextures/forest/breached_wall_tilefmm15_by_madcowchef-d7gdyub.jpg
 /importer:TextureImporter
@@ -399,6 +687,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/broken_corner_tower_tilefmm14_by_madcowchef-d7gd70i.jpg
 
+#begin planetTextures/forest/broken_corner_tower_tilefmm14_by_madcowchef-d7gd70i.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/broken_corner_tower_tilefmm14_by_madcowchef-d7gd70i.jpg
+
 #begin planetTextures/forest/broken_intersection_tilefmm19_by_madcowchef-d7gh5vo.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -410,6 +710,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/broken_intersection_tilefmm19_by_madcowchef-d7gh5vo.jpg
+
+#begin planetTextures/forest/broken_intersection_tilefmm19_by_madcowchef-d7gh5vo.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/broken_intersection_tilefmm19_by_madcowchef-d7gh5vo.jpg
+
+#begin planetTextures/forest/collapsed_corner_tilefmm9_by_madcowchef-d7fzkgo.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/collapsed_corner_tilefmm9_by_madcowchef-d7fzkgo.jpg
 
 #begin planetTextures/forest/collapsed_corner_tilefmm9_by_madcowchef-d7fzkgo.jpg
 /importer:TextureImporter
@@ -435,6 +759,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/corner_tower_in_ruins_tilefmm13_by_madcowchef-d7gd73g.jpg
 
+#begin planetTextures/forest/corner_tower_in_ruins_tilefmm13_by_madcowchef-d7gd73g.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/corner_tower_in_ruins_tilefmm13_by_madcowchef-d7gd73g.jpg
+
 #begin planetTextures/forest/crumbling_fort_tilefmm23_by_madcowchef-d7gihml.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -446,6 +782,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/crumbling_fort_tilefmm23_by_madcowchef-d7gihml.jpg
+
+#begin planetTextures/forest/crumbling_fort_tilefmm23_by_madcowchef-d7gihml.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/crumbling_fort_tilefmm23_by_madcowchef-d7gihml.jpg
+
+#begin planetTextures/forest/crumbling_intersection_tilefmm21_by_madcowchef-d7ghigs.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/crumbling_intersection_tilefmm21_by_madcowchef-d7ghigs.jpg
 
 #begin planetTextures/forest/crumbling_intersection_tilefmm21_by_madcowchef-d7ghigs.jpg
 /importer:TextureImporter
@@ -471,6 +831,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f11_by_madcowchef-d7axgqv.jpg
 
+#begin planetTextures/forest/dt_f11_by_madcowchef-d7axgqv.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f11_by_madcowchef-d7axgqv.jpg
+
 #begin planetTextures/forest/dt_f12_by_madcowchef-d7axgr9.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -482,6 +854,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f12_by_madcowchef-d7axgr9.jpg
+
+#begin planetTextures/forest/dt_f12_by_madcowchef-d7axgr9.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f12_by_madcowchef-d7axgr9.jpg
+
+#begin planetTextures/forest/dt_f13_by_madcowchef-d7axgrj.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f13_by_madcowchef-d7axgrj.jpg
 
 #begin planetTextures/forest/dt_f13_by_madcowchef-d7axgrj.jpg
 /importer:TextureImporter
@@ -507,6 +903,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f14_by_madcowchef-d7axgs0.jpg
 
+#begin planetTextures/forest/dt_f14_by_madcowchef-d7axgs0.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f14_by_madcowchef-d7axgs0.jpg
+
 #begin planetTextures/forest/dt_f15_by_madcowchef-d7axgs9.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -518,6 +926,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f15_by_madcowchef-d7axgs9.jpg
+
+#begin planetTextures/forest/dt_f15_by_madcowchef-d7axgs9.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f15_by_madcowchef-d7axgs9.jpg
+
+#begin planetTextures/forest/dt_f16_by_madcowchef-d7axgnj.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f16_by_madcowchef-d7axgnj.jpg
 
 #begin planetTextures/forest/dt_f16_by_madcowchef-d7axgnj.jpg
 /importer:TextureImporter
@@ -543,6 +975,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f3_by_madcowchef-d7axgoa.jpg
 
+#begin planetTextures/forest/dt_f3_by_madcowchef-d7axgoa.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f3_by_madcowchef-d7axgoa.jpg
+
 #begin planetTextures/forest/dt_f4_by_madcowchef-d7axgoj.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -554,6 +998,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f4_by_madcowchef-d7axgoj.jpg
+
+#begin planetTextures/forest/dt_f4_by_madcowchef-d7axgoj.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f4_by_madcowchef-d7axgoj.jpg
+
+#begin planetTextures/forest/dt_f5_by_madcowchef-d7axgoq.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f5_by_madcowchef-d7axgoq.jpg
 
 #begin planetTextures/forest/dt_f5_by_madcowchef-d7axgoq.jpg
 /importer:TextureImporter
@@ -579,6 +1047,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f6_by_madcowchef-d7axgp4.jpg
 
+#begin planetTextures/forest/dt_f6_by_madcowchef-d7axgp4.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f6_by_madcowchef-d7axgp4.jpg
+
 #begin planetTextures/forest/dt_f7_by_madcowchef-d7axgpj.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -590,6 +1070,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f7_by_madcowchef-d7axgpj.jpg
+
+#begin planetTextures/forest/dt_f7_by_madcowchef-d7axgpj.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f7_by_madcowchef-d7axgpj.jpg
+
+#begin planetTextures/forest/dt_f8_by_madcowchef-d7axgpy.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f8_by_madcowchef-d7axgpy.jpg
 
 #begin planetTextures/forest/dt_f8_by_madcowchef-d7axgpy.jpg
 /importer:TextureImporter
@@ -615,6 +1119,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/dt_f9_by_madcowchef-d7axgq7.jpg
 
+#begin planetTextures/forest/dt_f9_by_madcowchef-d7axgq7.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/dt_f9_by_madcowchef-d7axgq7.jpg
+
 #begin planetTextures/forest/end_tower_tilefmm17_by_madcowchef-d7gf0qp.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -626,6 +1142,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/end_tower_tilefmm17_by_madcowchef-d7gf0qp.jpg
+
+#begin planetTextures/forest/end_tower_tilefmm17_by_madcowchef-d7gf0qp.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/end_tower_tilefmm17_by_madcowchef-d7gf0qp.jpg
+
+#begin planetTextures/forest/fort_corner_tilefmm12_by_madcowchef-d7gd72y.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/fort_corner_tilefmm12_by_madcowchef-d7gd72y.jpg
 
 #begin planetTextures/forest/fort_corner_tilefmm12_by_madcowchef-d7gd72y.jpg
 /importer:TextureImporter
@@ -651,6 +1191,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/fort_mcmad_tilefmm24_by_madcowchef-d7gihn7.jpg
 
+#begin planetTextures/forest/fort_mcmad_tilefmm24_by_madcowchef-d7gihn7.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/fort_mcmad_tilefmm24_by_madcowchef-d7gihn7.jpg
+
 #begin planetTextures/forest/ruined_corner_tilefmm10_by_madcowchef-d7gd71e.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -662,6 +1214,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/ruined_corner_tilefmm10_by_madcowchef-d7gd71e.jpg
+
+#begin planetTextures/forest/ruined_corner_tilefmm10_by_madcowchef-d7gd71e.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/ruined_corner_tilefmm10_by_madcowchef-d7gd71e.jpg
+
+#begin planetTextures/forest/ruined_tower_tiledt30_by_madcowchef-d7dnsge.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/ruined_tower_tiledt30_by_madcowchef-d7dnsge.jpg
 
 #begin planetTextures/forest/ruined_tower_tiledt30_by_madcowchef-d7dnsge.jpg
 /importer:TextureImporter
@@ -687,6 +1263,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tiledt22_by_madcowchef-d7djm4v.jpg
 
+#begin planetTextures/forest/tiledt22_by_madcowchef-d7djm4v.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tiledt22_by_madcowchef-d7djm4v.jpg
+
 #begin planetTextures/forest/tiledt26_by_madcowchef-d7dl3t3.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -698,6 +1286,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tiledt26_by_madcowchef-d7dl3t3.jpg
+
+#begin planetTextures/forest/tiledt26_by_madcowchef-d7dl3t3.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tiledt26_by_madcowchef-d7dl3t3.jpg
+
+#begin planetTextures/forest/tiledt29_by_madcowchef-d7dnsh2.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tiledt29_by_madcowchef-d7dnsh2.jpg
 
 #begin planetTextures/forest/tiledt29_by_madcowchef-d7dnsh2.jpg
 /importer:TextureImporter
@@ -723,6 +1335,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tiledt31_by_madcowchef-d7dp71x.jpg
 
+#begin planetTextures/forest/tiledt31_by_madcowchef-d7dp71x.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tiledt31_by_madcowchef-d7dp71x.jpg
+
 #begin planetTextures/forest/tilefmm11_by_madcowchef-d7gd723.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -734,6 +1358,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tilefmm11_by_madcowchef-d7gd723.jpg
+
+#begin planetTextures/forest/tilefmm11_by_madcowchef-d7gd723.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilefmm11_by_madcowchef-d7gd723.jpg
+
+#begin planetTextures/forest/tilefmm16_by_madcowchef-d7gdytj.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilefmm16_by_madcowchef-d7gdytj.jpg
 
 #begin planetTextures/forest/tilefmm16_by_madcowchef-d7gdytj.jpg
 /importer:TextureImporter
@@ -759,6 +1407,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tilefmm18_by_madcowchef-d7gf0r7.jpg
 
+#begin planetTextures/forest/tilefmm18_by_madcowchef-d7gf0r7.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilefmm18_by_madcowchef-d7gf0r7.jpg
+
 #begin planetTextures/forest/tilefmm5_by_madcowchef-d7fy4ud.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -770,6 +1430,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tilefmm5_by_madcowchef-d7fy4ud.jpg
+
+#begin planetTextures/forest/tilefmm5_by_madcowchef-d7fy4ud.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilefmm5_by_madcowchef-d7fy4ud.jpg
+
+#begin planetTextures/forest/tilefmm6_by_madcowchef-d7fy4s6.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilefmm6_by_madcowchef-d7fy4s6.jpg
 
 #begin planetTextures/forest/tilefmm6_by_madcowchef-d7fy4s6.jpg
 /importer:TextureImporter
@@ -795,6 +1479,30 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tilerfcd1_by_madcowchef-d7d32zt.jpg
 
+#begin planetTextures/forest/tilerfcd1_by_madcowchef-d7d32zt.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilerfcd1_by_madcowchef-d7d32zt.jpg
+
+#begin planetTextures/forest/tilerfcd2_by_madcowchef-d7d330a.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tilerfcd2_by_madcowchef-d7d330a.jpg
+
 #begin planetTextures/forest/tilerfcd2_by_madcowchef-d7d330a.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -818,6 +1526,162 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/forest/tree_city_support_tiletc27_by_madcowchef-d7gr6gw.jpg
+
+#begin planetTextures/forest/tree_city_support_tiletc27_by_madcowchef-d7gr6gw.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/forest/tree_city_support_tiletc27_by_madcowchef-d7gr6gw.jpg
+
+#begin planetTextures/town/62000-Town Block 0 Crossroad Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62000-Town Block 0 Crossroad Empty.jpg
+
+#begin planetTextures/town/62002-Town Block 0 NE Corner Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62002-Town Block 0 NE Corner Empty.jpg
+
+#begin planetTextures/town/62004-Town Block 0 NW Corner Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62004-Town Block 0 NW Corner Empty.jpg
+
+#begin planetTextures/town/62006-Town Block 0 SE Corner Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62006-Town Block 0 SE Corner Empty.jpg
+
+#begin planetTextures/town/62008-Town Block 0 SW Corner Empty.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62008-Town Block 0 SW Corner Empty.jpg
+
+#begin planetTextures/town/62010-Town Block 1 Floor 2 Inn and Merchants.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62010-Town Block 1 Floor 2 Inn and Merchants.jpg
+
+#begin planetTextures/town/62052-Town Block 2 Laborer.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62052-Town Block 2 Laborer.jpg
+
+#begin planetTextures/town/62090-Town Block 3 Floor 2 Dirty Buisneses.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62090-Town Block 3 Floor 2 Dirty Buisneses.jpg
+
+#begin planetTextures/town/62124-Town Block 4 Floor 2 Market.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62124-Town Block 4 Floor 2 Market.jpg
+
+#begin planetTextures/town/62152-Town Block 4 Market.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62152-Town Block 4 Market.jpg
+
+#begin planetTextures/town/62222-Town Block 6 Floor 2 Stables.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/town/62222-Town Block 6 Floor 2 Stables.jpg
+
+#begin planetTextures/wasteland/demon_seal_tilehf23_by_madcowchef-d7fo47d.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/demon_seal_tilehf23_by_madcowchef-d7fo47d.jpg
 
 #begin planetTextures/wasteland/demon_seal_tilehf23_by_madcowchef-d7fo47d.jpg
 /importer:TextureImporter
@@ -843,6 +1707,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/fallen_pillar_tilehf5_by_madcowchef-d7duigu.jpg
 
+#begin planetTextures/wasteland/fallen_pillar_tilehf5_by_madcowchef-d7duigu.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/fallen_pillar_tilehf5_by_madcowchef-d7duigu.jpg
+
 #begin planetTextures/wasteland/summoning_circle_tilehf4_by_madcowchef-d7dtplq.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -854,6 +1730,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/summoning_circle_tilehf4_by_madcowchef-d7dtplq.jpg
+
+#begin planetTextures/wasteland/summoning_circle_tilehf4_by_madcowchef-d7dtplq.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/summoning_circle_tilehf4_by_madcowchef-d7dtplq.jpg
+
+#begin planetTextures/wasteland/tilehf1_by_madcowchef-d7dso2a.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf1_by_madcowchef-d7dso2a.jpg
 
 #begin planetTextures/wasteland/tilehf1_by_madcowchef-d7dso2a.jpg
 /importer:TextureImporter
@@ -879,6 +1779,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf10_by_madcowchef-d7dxm3e.jpg
 
+#begin planetTextures/wasteland/tilehf10_by_madcowchef-d7dxm3e.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf10_by_madcowchef-d7dxm3e.jpg
+
 #begin planetTextures/wasteland/tilehf15_by_madcowchef-d7dy9bl.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -890,6 +1802,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf15_by_madcowchef-d7dy9bl.jpg
+
+#begin planetTextures/wasteland/tilehf15_by_madcowchef-d7dy9bl.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf15_by_madcowchef-d7dy9bl.jpg
+
+#begin planetTextures/wasteland/tilehf18_by_madcowchef-d7fm733.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf18_by_madcowchef-d7fm733.jpg
 
 #begin planetTextures/wasteland/tilehf18_by_madcowchef-d7fm733.jpg
 /importer:TextureImporter
@@ -915,6 +1851,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf22_by_madcowchef-d7fo46t.jpg
 
+#begin planetTextures/wasteland/tilehf22_by_madcowchef-d7fo46t.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf22_by_madcowchef-d7fo46t.jpg
+
 #begin planetTextures/wasteland/tilehf3_by_madcowchef-d7dtpmm.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -926,6 +1874,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf3_by_madcowchef-d7dtpmm.jpg
+
+#begin planetTextures/wasteland/tilehf3_by_madcowchef-d7dtpmm.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf3_by_madcowchef-d7dtpmm.jpg
+
+#begin planetTextures/wasteland/tilehf6_by_madcowchef-d7dwodd.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf6_by_madcowchef-d7dwodd.jpg
 
 #begin planetTextures/wasteland/tilehf6_by_madcowchef-d7dwodd.jpg
 /importer:TextureImporter
@@ -951,6 +1923,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf7_by_madcowchef-d7dwodw.jpg
 
+#begin planetTextures/wasteland/tilehf7_by_madcowchef-d7dwodw.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf7_by_madcowchef-d7dwodw.jpg
+
 #begin planetTextures/wasteland/tilehf8_by_madcowchef-d7dwoem.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -962,6 +1946,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/wasteland/tilehf8_by_madcowchef-d7dwoem.jpg
+
+#begin planetTextures/wasteland/tilehf8_by_madcowchef-d7dwoem.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf8_by_madcowchef-d7dwoem.jpg
+
+#begin planetTextures/wasteland/tilehf9_by_madcowchef-d7dwofa.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/wasteland/tilehf9_by_madcowchef-d7dwofa.jpg
 
 #begin planetTextures/wasteland/tilehf9_by_madcowchef-d7dwofa.jpg
 /importer:TextureImporter
@@ -987,6 +1995,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/frozen_falls_tileil4_by_madcowchef-d7fpm1l.jpg
 
+#begin planetTextures/winter/frozen_falls_tileil4_by_madcowchef-d7fpm1l.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/frozen_falls_tileil4_by_madcowchef-d7fpm1l.jpg
+
 #begin planetTextures/winter/frozen_pond_tileil10_by_madcowchef-d7fr1x0.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -998,6 +2018,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/frozen_pond_tileil10_by_madcowchef-d7fr1x0.jpg
+
+#begin planetTextures/winter/frozen_pond_tileil10_by_madcowchef-d7fr1x0.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/frozen_pond_tileil10_by_madcowchef-d7fr1x0.jpg
+
+#begin planetTextures/winter/frozen_tower_ruinstileil13_by_madcowchef-d7fsq54.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/frozen_tower_ruinstileil13_by_madcowchef-d7fsq54.jpg
 
 #begin planetTextures/winter/frozen_tower_ruinstileil13_by_madcowchef-d7fsq54.jpg
 /importer:TextureImporter
@@ -1023,6 +2067,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/hill_in_winter_tileil16_by_madcowchef-d7ftc8v.jpg
 
+#begin planetTextures/winter/hill_in_winter_tileil16_by_madcowchef-d7ftc8v.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/hill_in_winter_tileil16_by_madcowchef-d7ftc8v.jpg
+
 #begin planetTextures/winter/icy_ambush_point_tileil1_by_madcowchef-d7fohbe.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1034,6 +2090,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/icy_ambush_point_tileil1_by_madcowchef-d7fohbe.jpg
+
+#begin planetTextures/winter/icy_ambush_point_tileil1_by_madcowchef-d7fohbe.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/icy_ambush_point_tileil1_by_madcowchef-d7fohbe.jpg
+
+#begin planetTextures/winter/icy_cravass_tileil15_by_madcowchef-d7ft5cl.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/icy_cravass_tileil15_by_madcowchef-d7ft5cl.jpg
 
 #begin planetTextures/winter/icy_cravass_tileil15_by_madcowchef-d7ft5cl.jpg
 /importer:TextureImporter
@@ -1059,6 +2139,18 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/thick_winter_forest_tileil14_by_madcowchef-d7ft5bz.jpg
 
+#begin planetTextures/winter/thick_winter_forest_tileil14_by_madcowchef-d7ft5bz.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/thick_winter_forest_tileil14_by_madcowchef-d7ft5bz.jpg
+
 #begin planetTextures/winter/tileil11_by_madcowchef-d7fr1wu.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1070,6 +2162,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/tileil11_by_madcowchef-d7fr1wu.jpg
+
+#begin planetTextures/winter/tileil11_by_madcowchef-d7fr1wu.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/tileil11_by_madcowchef-d7fr1wu.jpg
+
+#begin planetTextures/winter/tileil3_by_madcowchef-d7fpm16.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/tileil3_by_madcowchef-d7fpm16.jpg
 
 #begin planetTextures/winter/tileil3_by_madcowchef-d7fpm16.jpg
 /importer:TextureImporter
@@ -1095,6 +2211,30 @@
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/tileil7_by_madcowchef-d7fqfzv.jpg
 
+#begin planetTextures/winter/tileil7_by_madcowchef-d7fqfzv.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/tileil7_by_madcowchef-d7fqfzv.jpg
+
+#begin planetTextures/winter/tileil8_by_madcowchef-d7fqg0d.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/tileil8_by_madcowchef-d7fqg0d.jpg
+
 #begin planetTextures/winter/tileil8_by_madcowchef-d7fqg0d.jpg
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1118,6 +2258,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:planetTextures/winter/tileil9_by_madcowchef-d7fqfyp.jpg
+
+#begin planetTextures/winter/tileil9_by_madcowchef-d7fqfyp.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/tileil9_by_madcowchef-d7fqfyp.jpg
+
+#begin planetTextures/winter/wreck_in_wintertileil12_by_madcowchef-d7fsq4e.jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:planetTextures/winter/wreck_in_wintertileil12_by_madcowchef-d7fsq4e.jpg
 
 #begin planetTextures/winter/wreck_in_wintertileil12_by_madcowchef-d7fsq4e.jpg
 /importer:TextureImporter
