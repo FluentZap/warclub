@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -30,6 +31,7 @@ public partial class WarClub : Game
 
     if (simulation.SelectedView == View.MissionBriefing)
     {
+      DrawStarfield();
       // DrawPlanetShader(simulation.SelectedWorld, new Point((int)screenSize.X / 2, (int)screenSize.Y / 2), new Point((int)(1000 * simulation.SelectedWorld.size * 0.85)));
       DrawMissionBriefing(Matrix.Identity);
       // DrawMissionBriefing(Matrix.CreateRotationZ(MathHelper.ToRadians(90)) * Matrix.CreateTranslation(512, 0, 0));
@@ -48,6 +50,18 @@ public partial class WarClub : Game
     {
       DrawStarfield();
       DrawMainMenu(Matrix.Identity);
+    }
+
+    if (simulation.SelectedView == View.NewGame)
+    {
+      DrawStarfield();
+      DrawNewGame(Matrix.Identity);
+    }
+
+    if (simulation.SelectedView == View.LoadGame)
+    {
+      DrawStarfield();
+      DrawLoadGame(Matrix.Identity);
     }
 
     // spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.AlphaBlend);
@@ -104,9 +118,9 @@ public partial class WarClub : Game
     // DrawPlanetShader(world.Value, world.Value.location.ToPoint(), new Point(480, 540));
 
 
-    spriteBatch.Begin(transformMatrix: viewMatrix);
+    spriteBatch.Begin(transformMatrix: simulation.ViewMatrix);
 
-    var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
+    var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(simulation.ViewMatrix));
     spriteBatch.DrawString(basicFont, pos.X.ToString(), new Vector2(0, 128), Color.White);
     spriteBatch.DrawString(basicFont, pos.Y.ToString(), new Vector2(0, 160), Color.White);
 
@@ -124,7 +138,7 @@ public partial class WarClub : Game
 
   void DrawWorldOverview(Matrix transformMatrix)
   {
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
 
     var pos = Mouse.GetState().Position;
     spriteBatch.DrawString(basicFont, pos.X.ToString(), new Vector2(0, 128), Color.White);
@@ -148,31 +162,22 @@ public partial class WarClub : Game
   void DrawMissionBriefing(Matrix transformMatrix)
   {
     var m = simulation.ActiveMission;
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
-
-    spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
-    spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
-
-    var (left, right) = m.Tiles;
-    if (left != null && right != null)
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
+    var commanders = simulation.Commanders.Where(x => x.Units.Count >= 0).ToList();
+    var padding = (int)((3840 - 400) / commanders.Count);
+    for (int i = 0; i < commanders.Count; i++)
     {
-      spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
-      spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
+      var commander = commanders[i];
+      spriteBatch.DrawString(basicFontLarge, commander.Name, new Vector2(200 + i * padding, 0), commander.Color);
     }
-    spriteBatch.End();
 
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix, blendState: BlendState.Additive);
-    foreach (var zone in m.PlayerDeploymentZones)
-    {
-      spriteBatch.Draw(BlankTexture, zone, new Color(119, 221, 119, 100));
-    }
     spriteBatch.End();
   }
 
   void DrawBattlefield(Matrix transformMatrix)
   {
     var m = simulation.ActiveMission;
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
 
     spriteBatch.DrawString(basicFont, simulation.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
     spriteBatch.DrawString(basicFont, simulation.SelectedMission.Name, new Vector2(1024, 64), Color.White);
@@ -185,7 +190,7 @@ public partial class WarClub : Game
     }
     spriteBatch.End();
 
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix, blendState: BlendState.Additive);
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix, blendState: BlendState.Additive);
     foreach (var zone in m.PlayerDeploymentZones)
     {
       spriteBatch.Draw(BlankTexture, zone, new Color(119, 221, 119, 100));
@@ -195,9 +200,55 @@ public partial class WarClub : Game
 
   void DrawMainMenu(Matrix transformMatrix)
   {
-    var m = simulation.ActiveMission;
-    spriteBatch.Begin(transformMatrix: transformMatrix * viewMatrix);
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
     spriteBatch.DrawString(basicFontLarge, "War Club", new Vector2(screenSize.X / 2, 300), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "1. Start New Game", new Vector2(screenSize.X / 2, 600), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "2. Load Game", new Vector2(screenSize.X / 2, 700), Color.White);
+    spriteBatch.End();
+  }
+
+  void DrawNewGame(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "new game", new Vector2(screenSize.X / 2, 300), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Select two units per player", new Vector2(screenSize.X / 2, 400), Color.White);
+
+    var totalPoints = simulation.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points);
+
+    spriteBatch.DrawString(basicFontLarge, $"{simulation.SelectedUnits.Count.ToString()} Selected Units - {totalPoints} Points", new Vector2(screenSize.X / 2, 500), Color.White);
+
+    int pageCount = simulation.SelectableUnits.Count / 9;
+    var left = simulation.CurrentPage > 0 ? "< " : "  ";
+    var right = simulation.CurrentPage < pageCount ? " >" : "  ";
+    spriteBatch.DrawString(basicFontLarge, $"{left}{simulation.CurrentPage + 1}{right}", new Vector2(screenSize.X / 2, 1700), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Press enter to continue", new Vector2(screenSize.X / 2, 1800), Color.White);
+
+    int offset = 0;
+    var max = MathHelper.Min(simulation.SelectableUnits.Count, (simulation.CurrentPage + 1) * 9);
+    for (int i = simulation.CurrentPage * 9; i < max; i++)
+    {
+      var unit = simulation.SelectableUnits[i];
+      if (simulation.SelectedUnits.Contains(unit))
+      {
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
+      }
+      else
+      {
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
+
+      }
+      offset += 1;
+    }
+
+    spriteBatch.End();
+  }
+
+  void DrawLoadGame(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "load game", new Vector2(screenSize.X / 2, 300), Color.White);
+    // spriteBatch.DrawString(basicFontLarge, "1. Start New Game", new Vector2(screenSize.X / 2, 600), Color.White);
+    // spriteBatch.DrawString(basicFontLarge, "2. Load Game", new Vector2(screenSize.X / 2, 700), Color.White);
     spriteBatch.End();
   }
 
@@ -211,7 +262,7 @@ public partial class WarClub : Game
     {
       effect.View = Matrix.Identity;
       // effect.World = worldMatrix * matrix;
-      effect.Projection = viewMatrix;
+      effect.Projection = simulation.ViewMatrix;
       effect.EnableDefaultLighting();
       // effect.PreferPerPixelLighting = true;
       effect.DiffuseColor = new Vector3(1, 1, 1);
@@ -255,7 +306,7 @@ public partial class WarClub : Game
     // planetEffect.Parameters["col_mid2"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
     // planetEffect.Parameters["col_mid3"].SetValue(new Vector3(0.0f, 0.0f, 1.0f));
 
-    spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: viewMatrix);
+    spriteBatch.Begin(effect: planetEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: simulation.ViewMatrix);
     spriteBatch.Draw(screenTexture, new Rectangle(location - size / new Point(2), size), Color.White);
     spriteBatch.End();
   }
@@ -263,7 +314,7 @@ public partial class WarClub : Game
   void DrawStarfield()
   {
     starfieldEffect.Parameters["iTime"].SetValue(animationTime / 10000f);
-    spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: viewMatrix);
+    spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: simulation.ViewMatrix);
     spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
     spriteBatch.End();
   }

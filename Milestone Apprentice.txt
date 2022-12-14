@@ -16,8 +16,8 @@ Army customizer
         need to create map play mode
       DONE -  Image loader
 
-New game screen
-    Select starting units (6)
+DONE - New game screen
+    DONE - Select starting units (6)
 
 Mission briefing screen
     Players can add/remove models to the units

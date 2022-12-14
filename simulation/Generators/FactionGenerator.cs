@@ -97,22 +97,9 @@ partial class Simulation
       foreach (int e in Enumerable.Range(0, count))
       {
         var unitTemplate = RNG.PickFrom(unitsByType);
-        var newUnit = new Unit();
-        newUnit.DataSheet = unitTemplate.Value;
 
-        foreach (var line in unitTemplate.Value.Units)
-        {
-          var modelsPerUnit = RNG.Integer(line.Value.MinModelsPerUnit, line.Value.MaxModelsPerUnit);
-          var unitLine = new UnitLine()
-          {
-            Count = modelsPerUnit,
-            UnitStats = line.Value,
-          };
-
-          newUnit.UnitLines.Add(line.Key, unitLine);
-          // adding new unit
-          points += line.Value.Cost * modelsPerUnit;
-        }
+        var newUnit = UnitUtils.CreateUnit(unitTemplate.Value, CreateUnitSize.Random);
+        points += newUnit.Points;
         f.Units[unitTemplate.Value.Role].Add(newUnit);
 
         if (pointMax != -1 && points > pointMax) return;
@@ -131,7 +118,6 @@ partial class Simulation
         var role = unitRoles[i];
         var unitsByType = allUnitsByType[role].Where(x => x.Value.FactionId == factionAbvMap[factionTrait.Name]).ToDictionary(x => x.Key, x => x.Value);
         var (count, die) = factionUnits[factionTrait][i];
-        f.Units.Add(role, new List<Unit>());
         if (unitsByType.Count > 0)
         {
           // AddUnits(f, unitsByType, RNG.DiceRoll(count, die), 100000);
@@ -190,6 +176,8 @@ partial class Simulation
     var playerFaction = new Faction();
     playerFaction.AddRelation(RNG.PickFrom(cosmos.Worlds).Value, RelationType.Headquarters, new Dictionary<Trait, int> { }, 100);
     AddUnitToFaction(playerFaction, DataSheets[16]);
+    AddUnitToFaction(playerFaction, DataSheets[854]);
+    AddUnitToFaction(playerFaction, DataSheets[840]);
     cosmos.Factions.AutoAdd(playerFaction);
     cosmos.PlayerFaction = playerFaction;
   }

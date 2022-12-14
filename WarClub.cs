@@ -18,8 +18,6 @@ public partial class WarClub : Game
   // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
   Vector2 screenSize = new Vector2(3840, 2160);
-  // Vector2 screenSize = new Vector2(3819, 2144);
-  Matrix viewMatrix;
   BasicEffect basicEffect;
   Effect planetEffect;
   Effect starfieldEffect;
@@ -104,7 +102,7 @@ public partial class WarClub : Game
     // Window.IsBorderless = true;
     graphics.ApplyChanges();
 
-    viewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
+    simulation.ViewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
 
     basicEffect = new BasicEffect(GraphicsDevice);
     basicEffect.Alpha = 1f;
@@ -183,24 +181,9 @@ public partial class WarClub : Game
     // {
     //   selectedWorld = null;
     // }
-
     InputGovernor.DoEvents(simulation);
 
-    var size = new Point(480, 570);
 
-    if (Mouse.GetState().LeftButton == ButtonState.Pressed && simulation.SelectedWorld == null)
-    {
-      if (simulation.SelectedView == View.GalaxyOverview)
-      {
-        var pos = Vector2.Transform(Mouse.GetState().Position.ToVector2(), Matrix.Invert(viewMatrix));
-        foreach (var world in simulation.cosmos.Worlds)
-          if (new Rectangle(world.Value.location.ToPoint() - size / new Point(2), size).Contains(pos))
-          {
-            simulation.SelectedView = View.MissionSelect;
-            simulation.SelectedWorld = world.Value;
-          }
-      }
-    }
 
     // TODO: Add your update logic here
 

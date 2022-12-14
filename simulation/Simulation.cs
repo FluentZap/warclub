@@ -1,14 +1,18 @@
 using System;
-using System.Drawing;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+
 
 namespace WarClub;
 
 enum View
 {
   MainMenu,
+  NewGame,
+  LoadGame,
   GalaxyOverview,
   MissionSelect,
   MissionBriefing,
@@ -48,12 +52,37 @@ partial class Simulation
 
   public List<MapTile> MapTiles = new List<MapTile>();
 
+
+
   public KeyState KeyState = new KeyState();
-  public View SelectedView = View.GalaxyOverview;
+  public Matrix ViewMatrix;
+  public View SelectedView = View.MissionBriefing;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
 
   public Mission ActiveMission;
+  public List<CalculatedUnit> SelectableUnits;
+  public List<CalculatedUnit> SelectedUnits = new List<CalculatedUnit>();
+  public int CurrentPage;
+  public List<Commander> Commanders = new List<Commander>(){
+    new Commander(){
+      Color = Color.Red,
+      Name = "G-Spot"
+    },
+    new Commander(){
+      Color = Color.Blue,
+      Name = "Porn"
+    },
+    new Commander(){
+      Color = Color.Green,
+      Name = "69"
+    },
+    new Commander(){
+      Color = Color.Orange,
+      Name = "Get Sum"
+    },
+  };
+
 
   public void Generate()
   {
@@ -65,6 +94,21 @@ partial class Simulation
     GenerateFactions();
 
     AdvanceTime();
+
+
+    foreach (var world in cosmos.Worlds.Values)
+    {
+      var missions = world.GetEventList(OrderEventLists["Mercenary"]);
+      if (missions.Count > 0)
+      {
+        SelectedWorld = world;
+        SelectedMission = missions[0];
+        ActiveMission = Generator.GenerateBattleMap(this);
+        break;
+      }
+    }
+
+
     // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
     // {
