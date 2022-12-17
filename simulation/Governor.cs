@@ -38,6 +38,30 @@ static class InputGovernor
   static void MissionBriefing(Simulation s)
   {
 
+    var keys = s.KeyState.GetTriggeredKeys();
+    int pageCount = s.SelectableUnits.Count / 9;
+
+    if (keys.Contains(Keys.F1))
+      s.Commanders[0].Active = !s.Commanders[0].Active;
+    if (keys.Contains(Keys.F2))
+      s.Commanders[1].Active = !s.Commanders[1].Active;
+    if (keys.Contains(Keys.F3))
+      s.Commanders[2].Active = !s.Commanders[2].Active;
+    if (keys.Contains(Keys.F4))
+      s.Commanders[3].Active = !s.Commanders[3].Active;
+
+    if (keys.Contains(Keys.Right))
+    {
+      if (s.CurrentPage < pageCount) s.CurrentPage++;
+      return;
+    }
+
+    if (keys.Contains(Keys.Left))
+    {
+      if (s.CurrentPage > 0) s.CurrentPage--;
+      return;
+    }
+
   }
 
 
@@ -75,6 +99,8 @@ static class InputGovernor
     {
       if (keys.Contains(key) && missions.Count > i)
       {
+        s.SelectableUnits = s.cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
+        s.CurrentPage = 0;
         s.SelectedView = View.MissionBriefing;
         s.SelectedMission = missions[i];
         s.ActiveMission = Generator.GenerateBattleMap(s);
@@ -135,7 +161,7 @@ static class InputGovernor
     if (keys.Contains(Keys.Enter) && s.SelectedUnits.Count > 0)
     {
       foreach (var unit in s.SelectedUnits)
-        s.cosmos.PlayerFaction.Units[unit.DataSheet.Role].Add(unit);
+        s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
       s.SelectedView = View.GalaxyOverview;
     }
   }

@@ -17,9 +17,12 @@ class Models
   public bool Reserved = false;
 }
 
-class CalculatedUnit : Unit
+class ActiveUnit
 {
   public int Points;
+  public int DeployedCount;
+  public Commander Commander;
+  public Unit BaseUnit;
 }
 
 class Unit

@@ -100,7 +100,7 @@ partial class Simulation
 
         var newUnit = UnitUtils.CreateUnit(unitTemplate.Value, CreateUnitSize.Random);
         points += newUnit.Points;
-        f.Units[unitTemplate.Value.Role].Add(newUnit);
+        f.Units[unitTemplate.Value.Role].Add(newUnit.BaseUnit);
 
         if (pointMax != -1 && points > pointMax) return;
       }
@@ -178,6 +178,12 @@ partial class Simulation
     AddUnitToFaction(playerFaction, DataSheets[16]);
     AddUnitToFaction(playerFaction, DataSheets[854]);
     AddUnitToFaction(playerFaction, DataSheets[840]);
+    for (int i = 0; i < 23; i++)
+    {
+      if (DataSheets.ContainsKey(850 + i)) AddUnitToFaction(playerFaction, DataSheets[850 + i]);
+    }
+
+
     cosmos.Factions.AutoAdd(playerFaction);
     cosmos.PlayerFaction = playerFaction;
   }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WarClub;
 
@@ -11,9 +12,9 @@ enum CreateUnitSize
 
 static class UnitUtils
 {
-  public static List<CalculatedUnit> GetRoster(Simulation s, List<Models> models)
+  public static List<ActiveUnit> GetRoster(Simulation s, List<Models> models)
   {
-    var roster = new List<CalculatedUnit>();
+    var roster = new List<ActiveUnit>();
     foreach (var model in models)
       foreach (var id in model.DataCardIds)
         roster.Add(CreateUnit(s.DataSheets[id], CreateUnitSize.Min));
@@ -21,12 +22,15 @@ static class UnitUtils
     return roster;
   }
 
-  public static CalculatedUnit CreateUnit(DataSheet datasheet, CreateUnitSize unitSize)
-  {
-    var newUnit = new CalculatedUnit();
-    newUnit.DataSheet = datasheet;
 
-    foreach (var line in datasheet.Units)
+  public static ActiveUnit CreateUnit(DataSheet dataSheet, CreateUnitSize unitSize)
+  {
+    var newActiveUnit = new ActiveUnit();
+    var newUnit = new Unit();
+    newActiveUnit.BaseUnit = newUnit;
+    newUnit.DataSheet = dataSheet;
+
+    foreach (var line in dataSheet.Units)
     {
       var modelsPerUnit = unitSize == CreateUnitSize.Min ? line.Value.MinModelsPerUnit : unitSize == CreateUnitSize.Max ? line.Value.MaxModelsPerUnit : RNG.Integer(line.Value.MinModelsPerUnit, line.Value.MaxModelsPerUnit);
       var unitLine = new UnitLine()
@@ -35,8 +39,23 @@ static class UnitUtils
         UnitStats = line.Value,
       };
       newUnit.UnitLines.Add(line.Key, unitLine);
-      newUnit.Points += line.Value.Cost * modelsPerUnit;
+      newActiveUnit.Points += line.Value.Cost * modelsPerUnit;
     }
-    return newUnit;
+    return newActiveUnit;
   }
+
+
+
+  public static ActiveUnit ActivateUnit(Unit u)
+  {
+    return new ActiveUnit()
+    {
+      BaseUnit = u,
+      DeployedCount = u.UnitLines.First().Value.Count,
+      Points = Generator.GetUnitPoints(u),
+    };
+
+  }
+
+
 }

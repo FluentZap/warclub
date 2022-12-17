@@ -163,13 +163,51 @@ public partial class WarClub : Game
   {
     var m = simulation.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
-    var commanders = simulation.Commanders.Where(x => x.Units.Count >= 0).ToList();
-    var padding = (int)((3840 - 400) / commanders.Count);
+    var commanders = simulation.Commanders.Where(x => x.Active).ToList();
+    var totalPoints = 0;
     for (int i = 0; i < commanders.Count; i++)
     {
+      var padding = (int)((3840 - 400) / commanders.Count);
       var commander = commanders[i];
       spriteBatch.DrawString(basicFontLarge, commander.Name, new Vector2(200 + i * padding, 0), commander.Color);
     }
+    // will need to toggle commanders into the game. f1-4
+    // var totalPoints = simulation.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points);
+
+    // spriteBatch.DrawString(basicFontLarge, $"{simulation.SelectedUnits.Count.ToString()} Selected Units - {totalPoints} Points", new Vector2(screenSize.X / 2, 500), Color.White);
+
+
+
+    int pageCount = simulation.SelectableUnits.Count / 9;
+    var left = simulation.CurrentPage > 0 ? "< " : "  ";
+    var right = simulation.CurrentPage < pageCount ? " >" : "  ";
+    spriteBatch.DrawString(basicFontLarge, $"{left}{simulation.CurrentPage + 1}{right}", new Vector2(screenSize.X / 2, 1700), Color.White);
+
+    int offset = 0;
+    var max = MathHelper.Min(simulation.SelectableUnits.Count, (simulation.CurrentPage + 1) * 9);
+    for (int i = simulation.CurrentPage * 9; i < max; i++)
+    {
+      var unit = simulation.SelectableUnits[i];
+      var position = new Vector2(300, 650 + offset * 100);
+      var name = unit.BaseUnit.DataSheet.Name.Length > 20 ? unit.BaseUnit.DataSheet.Name.Substring(0, 20) + "..." : unit.BaseUnit.DataSheet.Name;
+      var count = unit.BaseUnit.UnitLines.Count > 1 ? (unit.DeployedCount + 1).ToString() + "*" : unit.DeployedCount.ToString();
+      spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + name, position, Color.OrangeRed);
+      spriteBatch.DrawString(basicFontLarge, count, position + new Vector2(1000, 0), Color.YellowGreen);
+      spriteBatch.DrawString(basicFontLarge, unit.Points.ToString(), position + new Vector2(1200, 0), Color.YellowGreen);
+      // if (simulation.SelectedUnits.Contains(unit))
+      // {
+      //   spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
+      // }
+      // else
+      // {
+      //   spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
+
+      // }
+      offset += 1;
+    }
+
+
+
 
     spriteBatch.End();
   }
@@ -230,11 +268,11 @@ public partial class WarClub : Game
       var unit = simulation.SelectableUnits[i];
       if (simulation.SelectedUnits.Contains(unit))
       {
-        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.BaseUnit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
       }
       else
       {
-        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
+        spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.BaseUnit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
 
       }
       offset += 1;

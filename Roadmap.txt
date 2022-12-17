@@ -1,13 +1,19 @@
-New game screen
-    Select starting units (6)
+Mission briefing screen
+    Players can add/remove models to the units
+    Player can toggle which commander is commanding unit on mission
+    Shows point values for each commander
+    Increase and decrees the unit in the unit line
+    Add roster for 
+    Has mission start button
 
 
-Todd
-    Main Screen
-    Load/Save Screen
-        Switch around planet placement
-        Add hotkeys to the planets
+List of units in the faction
 
-    Mission Select Screen
-    Mission Briefing Screen
-    Add/Remove units from the roster (Choose Loadout)
+q: Commander 1 w: Commander 2 e: Commander 3 r: Commander 4
+
+1/9
+
+List units
+Toggle on and off based on commander
+Add/Remove units from unit lines
+Add Pages

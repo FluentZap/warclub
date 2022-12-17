@@ -26,4 +26,5 @@ class Mission
   public (MapTile, MapTile) Tiles;
   public List<Rectangle> PlayerDeploymentZones = new List<Rectangle>();
   public List<MissionEvent> MissionEvents = new List<MissionEvent>();
+  public List<ActiveUnit> PlayerUnits = new List<ActiveUnit>();
 }

@@ -61,8 +61,8 @@ partial class Simulation
   public OrderEvent SelectedMission = null;
 
   public Mission ActiveMission;
-  public List<CalculatedUnit> SelectableUnits;
-  public List<CalculatedUnit> SelectedUnits = new List<CalculatedUnit>();
+  public List<ActiveUnit> SelectableUnits;
+  public List<ActiveUnit> SelectedUnits = new List<ActiveUnit>();
   public int CurrentPage;
   public List<Commander> Commanders = new List<Commander>(){
     new Commander(){
@@ -70,7 +70,7 @@ partial class Simulation
       Name = "G-Spot"
     },
     new Commander(){
-      Color = Color.Blue,
+      Color = Color.CornflowerBlue,
       Name = "Porn"
     },
     new Commander(){
@@ -108,6 +108,8 @@ partial class Simulation
       }
     }
 
+    SelectableUnits = cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
+    CurrentPage = 0;
 
     // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
