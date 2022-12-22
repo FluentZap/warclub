@@ -34,10 +34,10 @@ public partial class WarClub : Game
   private SpriteFont basicFont;
   private SpriteFont basicFontLarge;
   private SpriteFont basicFontSmall;
-  public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+  public Dictionary<Icon, Texture2D> icons = new Dictionary<Icon, Texture2D>();
   public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
   public Texture2D BlankTexture;
-  Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
+  Dictionary<Icon, Trait> TraitIcons = new Dictionary<Icon, Trait>();
 
   Texture2D grassTexture;
 
@@ -124,11 +124,11 @@ public partial class WarClub : Game
     {
       MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));
     }
-    icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
-    icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
-    icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
-    icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
-    icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
+    icons.Add(Icon.CrossedAxes, Content.Load<Texture2D>("icons/crossed-axes"));
+    icons.Add(Icon.MilitaryFort, Content.Load<Texture2D>("icons/military-fort"));
+    icons.Add(Icon.HumanTarget, Content.Load<Texture2D>("icons/human-target"));
+    icons.Add(Icon.LightningTear, Content.Load<Texture2D>("icons/lightning-tear"));
+    icons.Add(Icon.Barracks, Content.Load<Texture2D>("icons/barracks"));
     BlankTexture = Content.Load<Texture2D>("planetTextures/blank");
 
     DataCard = Content.Load<Texture2D>("BlankSquadDataslate");
@@ -141,11 +141,11 @@ public partial class WarClub : Game
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
 
-    TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
-    TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
-    TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
-    TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
-    TraitIcons.Add("barracks", simulation.Traits["training camps"]);
+    TraitIcons.Add(Icon.CrossedAxes, simulation.Traits["war zone"]);
+    TraitIcons.Add(Icon.MilitaryFort, simulation.Traits["strongholds"]);
+    TraitIcons.Add(Icon.HumanTarget, simulation.Traits["high value targets"]);
+    TraitIcons.Add(Icon.LightningTear, simulation.Traits["enlisted gods"]);
+    TraitIcons.Add(Icon.Barracks, simulation.Traits["training camps"]);
 
     foreach (var unit in simulation.UnitList)
     {

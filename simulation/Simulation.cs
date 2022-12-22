@@ -59,6 +59,7 @@ partial class Simulation
   public View SelectedView = View.MissionBriefing;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
+  public int SelectedUnit;
 
   public Mission ActiveMission;
   public List<ActiveUnit> SelectableUnits;
@@ -67,19 +68,27 @@ partial class Simulation
   public List<Commander> Commanders = new List<Commander>(){
     new Commander(){
       Color = Color.Red,
-      Name = "G-Spot"
+      Icon = Icon.CrossedAxes,
+      Name = "Red",
+
     },
     new Commander(){
       Color = Color.CornflowerBlue,
-      Name = "Porn"
+      Icon = Icon.Barracks,
+      Name = "Blue",
+
     },
     new Commander(){
       Color = Color.Green,
-      Name = "69"
+      Icon = Icon.HumanTarget,
+      Name = "Green",
+
     },
     new Commander(){
       Color = Color.Orange,
-      Name = "Get Sum"
+      Icon = Icon.MilitaryFort,
+      Name = "Orange",
+
     },
   };
 

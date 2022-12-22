@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -163,21 +164,24 @@ public partial class WarClub : Game
   {
     var m = simulation.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * simulation.ViewMatrix);
-    var commanders = simulation.Commanders.Where(x => x.Active).ToList();
+    var commanders = simulation.Commanders.Where(x => x.Units.Count > 0).ToList();
     var totalPoints = 0;
+    var commanderPC = Math.Ceiling((decimal)(simulation.ActiveMission.PointCapacity / (commanders.Count == 0 ? 1 : commanders.Count)));
+
+    // draw commanders
     for (int i = 0; i < commanders.Count; i++)
     {
       var padding = (int)((3840 - 400) / commanders.Count);
       var commander = commanders[i];
-      spriteBatch.DrawString(basicFontLarge, commander.Name, new Vector2(200 + i * padding, 0), commander.Color);
+      var points = commander.Units.Aggregate(0, (acc, x) => acc + x.Points);
+      totalPoints += points;
+      spriteBatch.Draw(icons[commander.Icon], new Rectangle(new Point(128 + i * padding, 8), new Point(64, 64)), commander.Color);
+      spriteBatch.DrawString(basicFontLarge, points.ToString() + "/" + commanderPC.ToString() + " - " + commander.Name, new Vector2(200 + i * padding, 0), commander.Color);
     }
-    // will need to toggle commanders into the game. f1-4
-    // var totalPoints = simulation.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points);
 
-    // spriteBatch.DrawString(basicFontLarge, $"{simulation.SelectedUnits.Count.ToString()} Selected Units - {totalPoints} Points", new Vector2(screenSize.X / 2, 500), Color.White);
+    spriteBatch.DrawString(basicFontLarge, totalPoints.ToString() + " / " + simulation.ActiveMission.PointCapacity, new Vector2(0, 100), Color.White);
 
-
-
+    // draw units
     int pageCount = simulation.SelectableUnits.Count / 9;
     var left = simulation.CurrentPage > 0 ? "< " : "  ";
     var right = simulation.CurrentPage < pageCount ? " >" : "  ";
@@ -191,18 +195,16 @@ public partial class WarClub : Game
       var position = new Vector2(300, 650 + offset * 100);
       var name = unit.BaseUnit.DataSheet.Name.Length > 20 ? unit.BaseUnit.DataSheet.Name.Substring(0, 20) + "..." : unit.BaseUnit.DataSheet.Name;
       var count = unit.BaseUnit.UnitLines.Count > 1 ? (unit.DeployedCount + 1).ToString() + "*" : unit.DeployedCount.ToString();
-      spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + name, position, Color.OrangeRed);
-      spriteBatch.DrawString(basicFontLarge, count, position + new Vector2(1000, 0), Color.YellowGreen);
-      spriteBatch.DrawString(basicFontLarge, unit.Points.ToString(), position + new Vector2(1200, 0), Color.YellowGreen);
-      // if (simulation.SelectedUnits.Contains(unit))
-      // {
-      //   spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3 + 50, 650 + offset * 100), Color.OrangeRed);
-      // }
-      // else
-      // {
-      //   spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + unit.Points + " - " + unit.DataSheet.Name, new Vector2(screenSize.X / 3, 650 + offset * 100), Color.White);
 
-      // }
+
+      foreach (var commander in simulation.Commanders)
+        if (commander.Units.Contains(unit))
+          spriteBatch.Draw(icons[commander.Icon], new Rectangle(new Point((int)position.X - 72, (int)position.Y + 8), new Point(64, 64)), commander.Color);
+
+      spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + name, position, i == simulation.SelectedUnit ? Color.OrangeRed : Color.White);
+      spriteBatch.DrawString(basicFontLarge, count, position + new Vector2(1000, 0), Color.OrangeRed);
+      spriteBatch.DrawString(basicFontLarge, unit.Points.ToString(), position + new Vector2(1200, 0), Color.YellowGreen);
+
       offset += 1;
     }
 

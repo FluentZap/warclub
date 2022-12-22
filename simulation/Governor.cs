@@ -22,6 +22,13 @@ static class InputGovernor
     [Keys.D9] = 8,
   };
 
+  static public Dictionary<Keys, int> CommanderKeys = new Dictionary<Keys, int>
+  {
+    [Keys.F1] = 0,
+    [Keys.F2] = 1,
+    [Keys.F3] = 2,
+    [Keys.F4] = 3,
+  };
 
 
 
@@ -40,15 +47,7 @@ static class InputGovernor
 
     var keys = s.KeyState.GetTriggeredKeys();
     int pageCount = s.SelectableUnits.Count / 9;
-
-    if (keys.Contains(Keys.F1))
-      s.Commanders[0].Active = !s.Commanders[0].Active;
-    if (keys.Contains(Keys.F2))
-      s.Commanders[1].Active = !s.Commanders[1].Active;
-    if (keys.Contains(Keys.F3))
-      s.Commanders[2].Active = !s.Commanders[2].Active;
-    if (keys.Contains(Keys.F4))
-      s.Commanders[3].Active = !s.Commanders[3].Active;
+    var Selected = s.Commanders[0];
 
     if (keys.Contains(Keys.Right))
     {
@@ -62,6 +61,32 @@ static class InputGovernor
       return;
     }
 
+
+    // var activeCommander =
+
+    foreach (var (key, i) in SelectionKeys)
+    {
+      var unitIndex = (s.CurrentPage * 9) + i;
+      if (keys.Contains(key) && unitIndex < s.SelectableUnits.Count)
+      {
+        s.SelectedUnit = unitIndex;
+      }
+    }
+
+    var unit = s.SelectableUnits[s.SelectedUnit];
+
+    foreach (var (key, i) in CommanderKeys)
+      if (keys.Contains(key))
+      {
+        if (s.Commanders[i].Units.Contains(unit))
+          s.Commanders[i].Units.Remove(unit);
+        else
+        {
+          foreach (var commander in s.Commanders)
+            commander.Units.Remove((unit));
+          s.Commanders[i].Units.Add(unit);
+        }
+      }
   }
 
 

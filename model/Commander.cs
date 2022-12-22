@@ -7,6 +7,6 @@ class Commander
 {
   public string Name;
   public Color Color;
-  public List<Unit> Units = new List<Unit>();
-  public bool Active = false;
+  public List<ActiveUnit> Units = new List<ActiveUnit>();
+  public Icon Icon;
 }
