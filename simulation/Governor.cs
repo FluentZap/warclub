@@ -49,21 +49,20 @@ static class InputGovernor
     int pageCount = s.SelectableUnits.Count / 9;
     var Selected = s.Commanders[0];
 
-    if (keys.Contains(Keys.Right))
+    if (keys.Contains(Keys.Right) && s.CurrentPage < pageCount)
     {
-      if (s.CurrentPage < pageCount) s.CurrentPage++;
-      return;
+      s.CurrentPage++;
+      s.SelectedUnit += 9;
+      if (s.SelectedUnit > s.SelectableUnits.Count) s.SelectedUnit = s.SelectableUnits.Count;
+    }
+    if (keys.Contains(Keys.Left) && s.CurrentPage > 0)
+    {
+      s.CurrentPage--;
+      s.SelectedUnit -= 9;
     }
 
-    if (keys.Contains(Keys.Left))
-    {
-      if (s.CurrentPage > 0) s.CurrentPage--;
-      return;
-    }
 
-
-    // var activeCommander =
-
+    // Select Units
     foreach (var (key, i) in SelectionKeys)
     {
       var unitIndex = (s.CurrentPage * 9) + i;
@@ -71,6 +70,18 @@ static class InputGovernor
       {
         s.SelectedUnit = unitIndex;
       }
+    }
+
+    if (keys.Contains(Keys.Up) && s.SelectedUnit > 0)
+    {
+      s.SelectedUnit--;
+      s.CurrentPage = s.SelectedUnit / 9;
+    }
+
+    if (keys.Contains(Keys.Down) && s.SelectedUnit < s.SelectableUnits.Count - 1)
+    {
+      s.SelectedUnit++;
+      s.CurrentPage = s.SelectedUnit / 9;
     }
 
     var unit = s.SelectableUnits[s.SelectedUnit];
