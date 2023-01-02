@@ -10,7 +10,7 @@ namespace WarClub;
 
 public partial class WarClub : Game
 {
-  Simulation simulation;
+  Simulation s;
 
   private GraphicsDeviceManager graphics;
   private SpriteBatch spriteBatch;
@@ -102,7 +102,7 @@ public partial class WarClub : Game
     // Window.IsBorderless = true;
     graphics.ApplyChanges();
 
-    simulation.ViewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
+    s.ViewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
 
     basicEffect = new BasicEffect(GraphicsDevice);
     basicEffect.Alpha = 1f;
@@ -118,9 +118,9 @@ public partial class WarClub : Game
     spriteBatch = new SpriteBatch(GraphicsDevice);
 
     // TODO: use this.Content to load your game content here
-    simulation = new Simulation();
-    simulation.Generate();
-    foreach (var tile in simulation.MapTiles)
+    s = new Simulation();
+    s.Generate();
+    foreach (var tile in s.MapTiles)
     {
       MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));
     }
@@ -141,13 +141,13 @@ public partial class WarClub : Game
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
 
-    TraitIcons.Add(Icon.CrossedAxes, simulation.Traits["war zone"]);
-    TraitIcons.Add(Icon.MilitaryFort, simulation.Traits["strongholds"]);
-    TraitIcons.Add(Icon.HumanTarget, simulation.Traits["high value targets"]);
-    TraitIcons.Add(Icon.LightningTear, simulation.Traits["enlisted gods"]);
-    TraitIcons.Add(Icon.Barracks, simulation.Traits["training camps"]);
+    TraitIcons.Add(Icon.CrossedAxes, s.Traits["war zone"]);
+    TraitIcons.Add(Icon.MilitaryFort, s.Traits["strongholds"]);
+    TraitIcons.Add(Icon.HumanTarget, s.Traits["high value targets"]);
+    TraitIcons.Add(Icon.LightningTear, s.Traits["enlisted gods"]);
+    TraitIcons.Add(Icon.Barracks, s.Traits["training camps"]);
 
-    foreach (var unit in simulation.UnitList)
+    foreach (var unit in s.UnitList)
     {
       if (unit.Image != "")
       {
@@ -163,7 +163,7 @@ public partial class WarClub : Game
     // worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(-0.1f));
     // Quaternion.CreateFromYawPitchRoll()
 
-    simulation.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
+    s.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
 
@@ -181,7 +181,7 @@ public partial class WarClub : Game
     // {
     //   selectedWorld = null;
     // }
-    InputGovernor.DoEvents(simulation);
+    InputGovernor.DoEvents(s);
 
 
 
@@ -190,7 +190,7 @@ public partial class WarClub : Game
     if (timeAdvance >= 5000)
     {
       timeAdvance = 0;
-      simulation.AdvanceTime();
+      s.AdvanceTime();
     }
     timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
     animationTime += gameTime.ElapsedGameTime.Milliseconds;

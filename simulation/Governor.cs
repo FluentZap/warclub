@@ -37,9 +37,19 @@ static class InputGovernor
     if (s.SelectedView == View.GalaxyOverview) GalaxyOverview(s);
     if (s.SelectedView == View.MissionBriefing) MissionBriefing(s);
     if (s.SelectedView == View.MissionSelect) MissionSelect(s);
+    if (s.SelectedView == View.Battlefield) Battlefield(s);
     if (s.SelectedView == View.MainMenu) MainMenu(s);
     if (s.SelectedView == View.NewGame) NewGame(s);
     if (s.SelectedView == View.LoadGame) LoadGame(s);
+  }
+
+  static void Battlefield(Simulation s)
+  {
+    var keys = s.KeyState.GetTriggeredKeys();
+    if (keys.Contains(Keys.Space))
+    {
+      s.Turn++;
+    }
   }
 
   static void MissionBriefing(Simulation s)
@@ -53,7 +63,7 @@ static class InputGovernor
     {
       s.CurrentPage++;
       s.SelectedUnit += 9;
-      if (s.SelectedUnit > s.SelectableUnits.Count) s.SelectedUnit = s.SelectableUnits.Count;
+      if (s.SelectedUnit >= s.SelectableUnits.Count) s.SelectedUnit = s.SelectableUnits.Count - 1;
     }
     if (keys.Contains(Keys.Left) && s.CurrentPage > 0)
     {
@@ -99,8 +109,6 @@ static class InputGovernor
         }
       }
   }
-
-
 
   static void GalaxyOverview(Simulation s)
   {

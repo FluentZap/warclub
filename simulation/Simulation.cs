@@ -60,6 +60,7 @@ partial class Simulation
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
   public int SelectedUnit;
+  public int Turn;
 
   public Mission ActiveMission;
   public List<ActiveUnit> SelectableUnits;
@@ -70,25 +71,21 @@ partial class Simulation
       Color = Color.Red,
       Icon = Icon.CrossedAxes,
       Name = "Red",
-
     },
     new Commander(){
       Color = Color.CornflowerBlue,
       Icon = Icon.Barracks,
       Name = "Blue",
-
     },
     new Commander(){
       Color = Color.Green,
       Icon = Icon.HumanTarget,
       Name = "Green",
-
     },
     new Commander(){
       Color = Color.Orange,
       Icon = Icon.MilitaryFort,
       Name = "Orange",
-
     },
   };
 
