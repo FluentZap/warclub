@@ -68,7 +68,6 @@ class Wargear
   public bool Relic;
   public string FactionId;
   public string Legend;
-  public int Cost;
 
   public Dictionary<string, WargearLine> WargearLine = new Dictionary<string, WargearLine>();
 

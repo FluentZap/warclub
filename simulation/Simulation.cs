@@ -39,6 +39,7 @@ partial class Simulation
 
   public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
   public Dictionary<int, Wargear> Wargear = new Dictionary<int, Wargear>();
+  public Dictionary<(int, int), int> WargearCost = new Dictionary<(int, int), int>();
   public Dictionary<int, Stratagem> Stratagems = new Dictionary<int, Stratagem>();
 
   public Cosmos cosmos = new Cosmos();
@@ -55,7 +56,7 @@ partial class Simulation
   public KeyState KeyState = new KeyState();
 
   public Matrix ViewMatrix;
-  public View SelectedView = View.Battlefield;
+  public View SelectedView = View.MissionBriefing;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
   public int SelectedUnit;

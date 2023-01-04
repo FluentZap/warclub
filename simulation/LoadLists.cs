@@ -282,7 +282,7 @@ partial class Simulation
         Id = Int32.Parse(r[0]),
         Name = r[1].Trim(),
         Archetype = r[2].Trim(),
-        Description = r[3].Trim(),
+        Description = r[3].Trim().Replace("’", "'"),
         Relic = r[5].Trim() == "true",
         FactionId = r[6].Trim(),
         Legend = r[8].Trim(),
@@ -303,7 +303,7 @@ partial class Simulation
         S = r[5].Trim(),
         AP = r[6].Trim(),
         D = r[7].Trim(),
-        Abilities = r[8].Trim(),
+        Abilities = r[8].Trim().Replace("’", "'"),
       });
     }
 
@@ -317,6 +317,7 @@ partial class Simulation
 
       var dataSheet = DataSheets[Int32.Parse(r[0])];
       var wargear = Wargear[Int32.Parse(r[2])];
+      WargearCost.TryAdd((dataSheet.Id, wargear.Id), Int32.Parse(r[3].Split('/')[0]));
       dataSheet.Wargear.Add(wargear);
     }
     string pattern = @"\(.*\)";
