@@ -109,4 +109,40 @@ static partial class Generator
     return units.Where(x => GetUnitPoints(x) <= max).ToList();
   }
 
+  static public MapTileTerrain GetPlanetTerrain(World w)
+  {
+    var terrain = RNG.PickFrom(TraitUtil.getTraitsByType(w.GetTraits(), "world terrain"));
+    switch (terrain.Key.Name)
+    {
+      case "grassland terrain":
+      case "savannah terrain":
+      case "continual forest terrain":
+      case "broken forest terrain":
+        return MapTileTerrain.Forest;
+      case "hills terrain":
+      case "mountains terrain":
+      case "plateaus terrain":
+        return MapTileTerrain.Desert;
+
+      case "dormant volcanoes terrain":
+      case "active volcanoes terrain":
+      case "broken rock terrain":
+        return MapTileTerrain.Town;
+      case "flat rock terrain":
+      case "columns terrain":
+      case "moor terrain":
+      case "barren terrain":
+        return MapTileTerrain.Wasteland;
+      case "swamp terrain":
+      case "caves terrain":
+      case "ravines terrain":
+        return MapTileTerrain.Castle;
+      case "sandy terrain":
+      case "islands terrain":
+      case "cliffs terrain":
+      default:
+        return MapTileTerrain.Winter;
+    }
+  }
+
 }

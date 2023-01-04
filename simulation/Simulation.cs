@@ -52,11 +52,10 @@ partial class Simulation
 
   public List<MapTile> MapTiles = new List<MapTile>();
 
-
-
   public KeyState KeyState = new KeyState();
+
   public Matrix ViewMatrix;
-  public View SelectedView = View.MissionBriefing;
+  public View SelectedView = View.Battlefield;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
   public int SelectedUnit;
@@ -66,6 +65,7 @@ partial class Simulation
   public List<ActiveUnit> SelectableUnits;
   public List<ActiveUnit> SelectedUnits = new List<ActiveUnit>();
   public int CurrentPage;
+
   public List<Commander> Commanders = new List<Commander>(){
     new Commander(){
       Color = Color.Red,
@@ -165,5 +165,4 @@ partial class Simulation
   }
 
   Dictionary<Trait, WorldColor> PlanetColors = new Dictionary<Trait, WorldColor>();
-
 }

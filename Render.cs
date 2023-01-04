@@ -87,30 +87,7 @@ public partial class WarClub : Game
     base.Draw(gameTime);
   }
 
-  void DrawWorldTraits(Point location, Dictionary<Trait, int> traits)
-  {
-    Point offset = new Point();
-    foreach (var (icon, trait) in TraitIcons)
-      if (traits.ContainsKey(trait))
-      {
-        var iconPos = location + new Point(80) + offset * new Point(96);
-        spriteBatch.Draw(icons[icon], new Rectangle(iconPos, new Point(64, 64)), Color.White);
-        offset.X++;
-
-        if (offset.X > 3)
-        {
-          offset.Y++;
-          offset.X = 0;
-        }
-      }
-  }
-
-  void DrawDataCard()
-  {
-    // var datacarPos =
-    // spriteBatch.Draw(DataCard, new Rectangle(( new Point(64, 64)), Color.White));
-  }
-
+  // Screens
 
   void DrawGalaxyOverview()
   {
@@ -220,49 +197,22 @@ public partial class WarClub : Game
   {
     var m = s.ActiveMission;
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
-
-    spriteBatch.DrawString(basicFont, s.SelectedWorld.Name, new Vector2(1024, 0), Color.White);
-    spriteBatch.DrawString(basicFont, s.SelectedMission.Name, new Vector2(1024, 64), Color.White);
-
     var (left, right) = m.Tiles;
     if (left != null && right != null)
     {
       spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
       spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
     }
+    var offset = 0;
+    foreach (var message in m.MissionEvents.Select(x => x.Turn == s.Turn ? x.Message : null))
+      if (message != null) DrawString(basicFontLarge, message, new Rectangle(0, offset++ * 100, (int)screenSize.X, 100), Alignment.Center, Color.White);
+
+    spriteBatch.DrawString(basicFontLarge, "Turn " + s.Turn.ToString(), new Vector2(0, 0), Color.White);
+
     spriteBatch.End();
 
     // Draw deployment zones
-    var time = (animationTime % 3000) / 3000f;
-    var aniTime = time < 0.5 ? time * 2 : 2 - time * 2;
-
-    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.Additive);
-    if (s.Turn == 0)
-    {
-      foreach (var zone in m.PlayerDeploymentZones)
-      {
-        spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
-      }
-    }
-    else
-    {
-      foreach (var e in s.ActiveMission.MissionEvents)
-      {
-        if (e.Turn == s.Turn)
-        {
-          foreach (var spawn in e.Spawns)
-          {
-            spriteBatch.Draw(BlankTexture, new Rectangle(spawn.Location - new Point(100), new Point(200)), Color.Lerp(new Color(255, 80, 80, 50), new Color(255, 80, 80, 150), aniTime));
-          }
-        }
-      }
-    }
-
-    spriteBatch.End();
-
-
-
-
+    DrawZone(transformMatrix, m.MissionEvents);
   }
 
   void DrawUnitLoadout(Matrix transformMatrix)
@@ -372,6 +322,65 @@ public partial class WarClub : Game
     spriteBatch.End();
   }
 
+  // Draw Items
+
+  void DrawZone(Matrix transformMatrix, List<MissionEvent> missionEvents)
+  {
+
+    var aniTime = GetAnimation(3000);
+
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.Additive);
+    foreach (var mEvent in missionEvents)
+      foreach (var spawn in mEvent.Spawns)
+        foreach (var zone in spawn.Zones)
+        {
+          if (spawn.Type == MissionSpawnType.DeploymentZone && mEvent.Turn == s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
+          if (spawn.Type == MissionSpawnType.EnemySpawn && mEvent.Turn == s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(255, 80, 80, 50), new Color(255, 80, 80, 150), aniTime));
+          if (spawn.Type == MissionSpawnType.EvacZone && mEvent.Turn <= s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
+          if (spawn.Type == MissionSpawnType.LootBox) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
+          // draw spawn icon
+          if (spawn.ZonesIcon != Icon.None && mEvent.Turn == s.Turn) spriteBatch.Draw(icons[spawn.ZonesIcon], new Rectangle(zone.Center - new Point(32), new Point(64)), Color.White);
+        }
+    spriteBatch.End();
+  }
+
+  float GetAnimation(float milliseconds)
+  {
+    var adjustedTme = (animationTime % milliseconds) / milliseconds;
+    return adjustedTme < 0.5 ? adjustedTme * 2 : 2 - adjustedTme * 2;
+  }
+
+  void DrawBattlefieldMessage(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
+    spriteBatch.DrawString(basicFontLarge, "load game", new Vector2(screenSize.X / 2, 300), Color.White);
+    spriteBatch.End();
+  }
+
+  void DrawWorldTraits(Point location, Dictionary<Trait, int> traits)
+  {
+    Point offset = new Point();
+    foreach (var (icon, trait) in TraitIcons)
+      if (traits.ContainsKey(trait))
+      {
+        var iconPos = location + new Point(80) + offset * new Point(96);
+        spriteBatch.Draw(icons[icon], new Rectangle(iconPos, new Point(64, 64)), Color.White);
+        offset.X++;
+
+        if (offset.X > 3)
+        {
+          offset.Y++;
+          offset.X = 0;
+        }
+      }
+  }
+
+  void DrawDataCard()
+  {
+    // var datacarPos =
+    // spriteBatch.Draw(DataCard, new Rectangle(( new Point(64, 64)), Color.White));
+  }
+
   void DrawPlanet(World planet)
   {
     ModelMesh mesh = model.Meshes[0];
@@ -437,6 +446,30 @@ public partial class WarClub : Game
     spriteBatch.Begin(effect: starfieldEffect, sortMode: SpriteSortMode.Deferred, transformMatrix: s.ViewMatrix);
     spriteBatch.Draw(screenTexture, new Rectangle(0, 0, (int)screenSize.X, (int)screenSize.Y), Color.White);
     spriteBatch.End();
+  }
+
+  [Flags]
+  public enum Alignment { Center = 0, Left = 1, Right = 2, Top = 4, Bottom = 8 }
+
+  void DrawString(SpriteFont font, string text, Rectangle bounds, Alignment align, Color color)
+  {
+    Vector2 size = font.MeasureString(text);
+    Point pos = bounds.Center;
+    Vector2 origin = size * 0.5f;
+
+    if (align.HasFlag(Alignment.Left))
+      origin.X += bounds.Width / 2 - size.X / 2;
+
+    if (align.HasFlag(Alignment.Right))
+      origin.X -= bounds.Width / 2 - size.X / 2;
+
+    if (align.HasFlag(Alignment.Top))
+      origin.Y += bounds.Height / 2 - size.Y / 2;
+
+    if (align.HasFlag(Alignment.Bottom))
+      origin.Y -= bounds.Height / 2 - size.Y / 2;
+
+    spriteBatch.DrawString(font, text, pos.ToVector2(), color, 0, origin, 1, SpriteEffects.None, 0);
   }
 
 }

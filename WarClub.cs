@@ -17,7 +17,7 @@ public partial class WarClub : Game
   Vector2 viewportSize = new Vector2(1920, 1080);
   // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
-  Vector2 screenSize = new Vector2(3840, 2160);
+  Vector2 screenSize = new Vector2(3819, 2144);
   BasicEffect basicEffect;
   Effect planetEffect;
   Effect starfieldEffect;
@@ -160,39 +160,28 @@ public partial class WarClub : Game
 
   protected override void Update(GameTime gameTime)
   {
-    // worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(-0.1f));
-    // Quaternion.CreateFromYawPitchRoll()
-
     s.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
-
 
     // var pressedKeys = simulation.KeyState.GetTriggeredKeys(true);
     // if ((pressedKeys.Contains(Keys.LeftAlt) || pressedKeys.Contains(Keys.RightAlt)) && pressedKeys.Contains(Keys.Enter))
     // {
     //   graphics.ToggleFullScreen();
     // }
-    // if (Keyboard.GetState().IsKeyDown(Keys.Right))
-    // {
-    //   worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(0.1f));
-    // }
-    // if (Keyboard.GetState().IsKeyDown(Keys.Space))
-    // {
-    //   selectedWorld = null;
-    // }
     InputGovernor.DoEvents(s);
 
-
-
-    // TODO: Add your update logic here
-
-    if (timeAdvance >= 5000)
+    if (s.SelectedView == View.GalaxyOverview)
     {
-      timeAdvance = 0;
-      s.AdvanceTime();
+      if (timeAdvance >= 5000)
+      {
+        timeAdvance = 0;
+        s.AdvanceTime();
+      }
+      timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
     }
-    timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
+
+
     animationTime += gameTime.ElapsedGameTime.Milliseconds;
     base.Update(gameTime);
   }
