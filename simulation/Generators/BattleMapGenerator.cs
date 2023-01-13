@@ -49,39 +49,33 @@ static partial class Generator
     mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, terrain, MapTileOrientation.Left));
     mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, terrain, MapTileOrientation.Right));
 
-    var turn = new MissionEvent() { Turn = 0, Message = "Deploy Player Units" };
-    turn.Spawns = new List<MissionEventSpawn>() { new MissionEventSpawn() {
-        Type = MissionSpawnType.DeploymentZone,
-        Zones = new List<Rectangle>() {
+    mission.MissionEvents.Add(new MissionEvent()
+    {
+      Turn = 1,
+      Type = MissionSpawnType.PCDeploymentZone,
+      Message = new MissionMessage() { Text = "Deploy Player Units" },
+      Zones = new List<Rectangle>() {
           BuildRect(0, 0, 6, ScreenSize.Y),
           BuildRect(0, 0, 6, ScreenSize.Y, flipX: true),
           BuildRect(6, 0, ScreenSize.X - 12, 3),
           BuildRect(6, 0, ScreenSize.X - 12, 3, flipY: true)
         }
-      }
+    });
+
+    // foreach (var rawUnit in SelectUnits(faction.Units, pointMax, Troops: 5, HQ: 1, FastAttack: 1, HeavySupport: 1, Elites: 2))
+    foreach (var rawUnit in SelectUnits(faction.Units, pointMax, Troops: 5, HQ: 1, FastAttack: 1, HeavySupport: 1))
+    {
+      var unit = UnitUtils.ActivateUnit(rawUnit, s.UnitList.First());
+      mission.MissionEvents.Add(new MissionEvent()
+      {
+        Turn = 2,
+        Type = MissionSpawnType.AISpawn,
+        Icon = Icon.Barracks,
+        Zones = new List<Rectangle>() { BuildRect(RNG.Integer(6, ScreenSize.X - 6), RNG.Integer(6, ScreenSize.Y - 6), 6, 6) },
+        Unit = unit,
+        Message = new MissionMessage() { Text = GetUnitSpawnLabel(unit), Color = Color.White }
+      });
     };
-    mission.MissionEvents.Add(turn);
-
-    turn = new MissionEvent() { Turn = 1, Message = "Deploy Assault Squad" };
-    turn.Spawns.Add(new MissionEventSpawn()
-    {
-      Type = MissionSpawnType.EnemySpawn,
-      ZonesIcon = Icon.Barracks,
-      Zones = new List<Rectangle>() { BuildRect(RNG.Integer(6, ScreenSize.X - 6), RNG.Integer(6, ScreenSize.Y - 6), 6, 6) },
-      Units = SelectUnits(faction.Units, pointMax, Troops: 5, HQ: 1, FastAttack: 1, HeavySupport: 1, Elites: 2),
-    });
-    mission.MissionEvents.Add(turn);
-
-
-    turn = new MissionEvent() { Turn = 1, Message = "Deploy Fortification" };
-    turn.Spawns.Add(new MissionEventSpawn()
-    {
-      Type = MissionSpawnType.EnemySpawn,
-      ZonesIcon = Icon.HumanTarget,
-      Zones = new List<Rectangle>() { BuildRect(RNG.Integer(6, ScreenSize.X - 6), RNG.Integer(6, ScreenSize.Y - 6), 6, 6) },
-      Units = SelectUnits(faction.Units, pointMax, Troops: 5, HQ: 1, FastAttack: 1, HeavySupport: 1, Elites: 2),
-    });
-    mission.MissionEvents.Add(turn);
 
     return mission;
   }

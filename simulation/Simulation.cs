@@ -56,16 +56,16 @@ partial class Simulation
   public KeyState KeyState = new KeyState();
 
   public Matrix ViewMatrix;
-  public View SelectedView = View.MissionBriefing;
+  public View SelectedView = View.MainMenu;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
   public int SelectedUnit;
-  public int Turn;
 
   public Mission ActiveMission;
   public List<ActiveUnit> SelectableUnits;
   public List<ActiveUnit> SelectedUnits = new List<ActiveUnit>();
   public int CurrentPage;
+  public MissionState MissionState;
 
   public List<Commander> Commanders = new List<Commander>(){
     new Commander(){
@@ -103,20 +103,23 @@ partial class Simulation
     AdvanceTime();
 
 
-    foreach (var world in cosmos.Worlds.Values)
-    {
-      var missions = world.GetEventList(OrderEventLists["Mercenary"]);
-      if (missions.Count > 0)
-      {
-        SelectedWorld = world;
-        SelectedMission = missions[0];
-        ActiveMission = Generator.GenerateBattleMap(this);
-        break;
-      }
-    }
+    // foreach (var world in cosmos.Worlds.Values)
+    // {
+    //   var missions = world.GetEventList(OrderEventLists["Mercenary"]);
+    //   if (missions.Count > 0)
+    //   {
+    //     SelectedWorld = world;
+    //     SelectedMission = missions[0];
+    //     ActiveMission = Generator.GenerateBattleMap(this);
+    //     break;
+    //   }
+    // }
 
-    SelectableUnits = cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
-    CurrentPage = 0;
+    // SelectableUnits = cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
+    // SelectedUnits = SelectableUnits;
+    // CurrentPage = 0;
+    // MissionState = new MissionState();
+    // MissionRunner.AdvanceState(this);
 
     // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()

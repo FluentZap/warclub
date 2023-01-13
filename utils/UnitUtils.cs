@@ -44,18 +44,15 @@ static class UnitUtils
     return newActiveUnit;
   }
 
-
-
-  public static ActiveUnit ActivateUnit(Unit u)
+  public static ActiveUnit ActivateUnit(Unit u, Models model = null)
   {
     return new ActiveUnit()
     {
       BaseUnit = u,
       DeployedCount = u.UnitLines.First().Value.Count,
       Points = Generator.GetUnitPoints(u),
+      Model = model,
     };
-
   }
-
 
 }

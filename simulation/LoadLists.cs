@@ -206,6 +206,8 @@ partial class Simulation
     {
       // if (r.Length < 5 || r[0][0] == '*')
       //   continue;
+      if (r[1].Contains("(Legendary)")) continue;
+
       DataSheets.Add(Int32.Parse(r[0]), new DataSheet()
       {
         Id = Int32.Parse(r[0]),
@@ -222,6 +224,8 @@ partial class Simulation
     foreach (string[] r in rows)
     {
       var id = Int32.Parse(r[0]);
+      if (!DataSheets.ContainsKey(id)) continue;
+
       var units = DataSheets[id].Units;
 
       var name = r[2].Trim();
@@ -238,7 +242,7 @@ partial class Simulation
       u.A = r[9].Trim();
       u.Ld = r[10].Trim();
       u.Sv = r[11].Trim();
-      u.Cost = r[12].Trim() != "" ? Int32.Parse(r[12]) : -1;
+      u.Cost = r[12].Trim() != "" && !r[12].Trim().Contains("+") ? Int32.Parse(r[12]) : -1;
 
       if (u.Cost <= 0) continue;
 
@@ -272,6 +276,7 @@ partial class Simulation
     // Load weapons and add to Wargear
     rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear.csv"));
     rows.RemoveAt(0);
+    string htmlPattern = @"<[^>]*>";
     foreach (string[] r in rows)
     {
       if (r[0].Contains('s'))
@@ -282,7 +287,7 @@ partial class Simulation
         Id = Int32.Parse(r[0]),
         Name = r[1].Trim(),
         Archetype = r[2].Trim(),
-        Description = r[3].Trim().Replace("’", "'"),
+        Description = Regex.Replace(r[3].Trim().Replace("’", "'"), htmlPattern, String.Empty),
         Relic = r[5].Trim() == "true",
         FactionId = r[6].Trim(),
         Legend = r[8].Trim(),
@@ -290,10 +295,12 @@ partial class Simulation
     }
 
     // Load WarGear Lines and add to wargear
+
     rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Wargear_list.csv"));
     rows.RemoveAt(0);
     foreach (string[] r in rows)
     {
+
       var wargear = Wargear[Int32.Parse(r[0])];
       wargear.WargearLine.Add(r[2].Trim(), new WargearLine()
       {
@@ -303,7 +310,7 @@ partial class Simulation
         S = r[5].Trim(),
         AP = r[6].Trim(),
         D = r[7].Trim(),
-        Abilities = r[8].Trim().Replace("’", "'"),
+        Abilities = Regex.Replace(r[8].Trim().Replace("’", "'"), htmlPattern, String.Empty),
       });
     }
 
@@ -312,7 +319,7 @@ partial class Simulation
     rows.RemoveAt(0);
     foreach (string[] r in rows)
     {
-      if (r[2].Contains('s'))
+      if (r[2].Contains('s') || !DataSheets.ContainsKey(Int32.Parse(r[0])))
         continue;
 
       var dataSheet = DataSheets[Int32.Parse(r[0])];
@@ -343,16 +350,22 @@ partial class Simulation
     rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_options.csv"));
     rows.RemoveAt(0);
     foreach (string[] r in rows)
+    {
+      if (!DataSheets.ContainsKey(Int32.Parse(r[0]))) continue;
       DataSheets[Int32.Parse(r[0])].WargearOptions.Add(r[3].Trim());
+    }
 
     // add keywords and Faction Key words
     rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Datasheets_keywords.csv"));
     rows.RemoveAt(0);
     foreach (string[] r in rows)
+    {
+      if (!DataSheets.ContainsKey(Int32.Parse(r[0]))) continue;
       if (r[3] == "true")
         DataSheets[Int32.Parse(r[0])].FactionKeywords.Add(r[1].Trim());
       else
         DataSheets[Int32.Parse(r[0])].Keywords.Add(r[1].Trim());
+    }
 
     // add stratagems
     rows = Loader.CSVLoadFile(Path.Combine("./WarhammerData", "Stratagems.csv"));
@@ -375,6 +388,7 @@ partial class Simulation
     rows.RemoveAt(0);
     foreach (string[] r in rows)
     {
+      if (!DataSheets.ContainsKey(Int32.Parse(r[0]))) continue;
       var dataSheet = DataSheets[Int32.Parse(r[0])];
       var stratagem = Stratagems[Int32.Parse(r[1])];
       dataSheet.Stratagems.Add(stratagem);

@@ -20,6 +20,7 @@ class Models
 class ActiveUnit
 {
   public int Points;
+  public Models Model;
   public int DeployedCount;
   public Commander Commander;
   public Unit BaseUnit;

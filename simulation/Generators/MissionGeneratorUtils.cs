@@ -145,4 +145,12 @@ static partial class Generator
     }
   }
 
+  static public string GetUnitSpawnLabel(ActiveUnit unit)
+  {
+    var name = unit.BaseUnit.DataSheet.Name;
+    var hasLeader = unit.BaseUnit.DataSheet.Units.Count > 1;
+    var totalCount = hasLeader ? unit.DeployedCount + 1 : unit.DeployedCount;
+    return $"{totalCount} {name}" + (hasLeader ? " w/leader" : "");
+  }
+
 }

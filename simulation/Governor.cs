@@ -47,9 +47,7 @@ static class InputGovernor
   {
     var keys = s.KeyState.GetTriggeredKeys();
     if (keys.Contains(Keys.Space))
-    {
-      s.Turn++;
-    }
+      MissionRunner.AdvanceState(s);
   }
 
   static void MissionBriefing(Simulation s)
@@ -108,6 +106,16 @@ static class InputGovernor
           s.Commanders[i].Units.Add(unit);
         }
       }
+
+    if (keys.Contains(Keys.Enter))
+    {
+      s.SelectedUnits.Clear();
+      foreach (var commander in s.Commanders)
+        s.SelectedUnits.AddRange(commander.Units);
+      s.SelectedView = View.Battlefield;
+      s.MissionState = new MissionState();
+      MissionRunner.AdvanceState(s);
+    }
   }
 
   static void GalaxyOverview(Simulation s)

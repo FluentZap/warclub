@@ -189,85 +189,89 @@ public partial class WarClub : Game
 
     spriteBatch.End();
 
-    DrawUnitLoadout(Matrix.CreateTranslation(screenSize.X / 2, 600, 0));
+    DrawUnitLoadout(Matrix.CreateTranslation(screenSize.X / 2, 100, 0));
   }
 
   void DrawUnitLoadout(Matrix transformMatrix)
   {
     var unit = s.SelectableUnits[s.SelectedUnit];
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.NonPremultiplied);
-    spriteBatch.Draw(BlankTexture, new Rectangle(-50, -50, 1600, 1600), new Color(255, 255, 255, 20));
+    spriteBatch.Draw(BlankTexture, new Rectangle(-50, -50, 1600, 1600), new Color(0, 0, 0, 150));
     Vector2 offset = new Vector2(0);
     foreach (var (name, line) in unit.BaseUnit.UnitLines)
     {
       var stats = line.UnitStats;
       if (stats.MaxModelsPerUnit == 1)
       {
-        spriteBatch.DrawString(basicFont, "1", offset, Color.Black);
+        spriteBatch.DrawString(basicFont, "1", offset, Color.White);
         offset.X += 200;
       }
       else
       {
-        spriteBatch.DrawString(basicFont, $"{unit.DeployedCount}/{line.Count}", offset, Color.Black);
+        spriteBatch.DrawString(basicFont, $"{unit.DeployedCount}/{line.Count}", offset, Color.White);
         offset.X += 100;
-        spriteBatch.DrawString(basicFont, $"{stats.MinModelsPerUnit}/{stats.MaxModelsPerUnit}", offset, Color.Black);
+        spriteBatch.DrawString(basicFont, $"{stats.MinModelsPerUnit}/{stats.MaxModelsPerUnit}", offset, Color.White);
         offset.X += 100;
       }
 
-      spriteBatch.DrawString(basicFont, TrimString(name), offset, Color.Black);
+      spriteBatch.DrawString(basicFont, TrimString(name), offset, Color.White);
       offset.X += 300;
 
       // draw stats
-      spriteBatch.DrawString(basicFont, stats.Cost.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.Movement.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.WS.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.BS.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.S.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.T.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.W.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.A.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.Ld.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.Sv.ToString(), offset, Color.Red); offset.X += 100;
-      spriteBatch.DrawString(basicFont, stats.Size.X.ToString(), offset, Color.Red); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.Cost.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.Movement.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.WS.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.BS.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.S.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.T.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.W.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.A.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.Ld.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.Sv.ToString(), offset, Color.White); offset.X += 100;
+      spriteBatch.DrawString(basicFont, stats.Size.X.ToString(), offset, Color.White); offset.X += 100;
 
 
       offset.Y += 50;
       offset.X = 0;
 
     }
+    DrawString(basicFont, "Wargear", new Rectangle((int)offset.X, (int)offset.Y, 1000, 50), Alignment.Center, Color.White);
+    offset.Y += 50;
 
     // weapons and stats
     foreach (var wargear in unit.BaseUnit.DataSheet.Wargear)
     {
-      spriteBatch.DrawString(basicFont, TrimString(wargear.Name), offset, Color.Red); offset.X += 250;
-      spriteBatch.DrawString(basicFont, s.WargearCost[(unit.BaseUnit.DataSheet.Id, wargear.Id)].ToString(), offset, Color.Red); offset.X += 100;
+      spriteBatch.DrawString(basicFont, TrimString(wargear.Name), offset, Color.White); offset.X += 250;
+      var cost = s.WargearCost[(unit.BaseUnit.DataSheet.Id, wargear.Id)];
+      if (cost != 0) spriteBatch.DrawString(basicFont, cost.ToString(), offset, Color.White); offset.X += 100;
       if (wargear.WargearLine.Count == 1 && wargear.Description.Length == 0)
       {
-        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.Range, offset, Color.Red); offset.X += 100;
-        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.Type, offset, Color.Red); offset.X += 150;
-        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.S, offset, Color.Red); offset.X += 100;
-        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.AP, offset, Color.Red); offset.X += 100;
-        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.D, offset, Color.Red); offset.X += 100;
-        spriteBatch.DrawString(basicFont, TrimString(wargear.WargearLine.First().Value.Abilities, 100), offset, Color.Red);
+        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.Range, offset, Color.White); offset.X += 100;
+        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.Type, offset, Color.White); offset.X += 200;
+        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.S, offset, Color.White); offset.X += 100;
+        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.AP, offset, Color.White); offset.X += 100;
+        spriteBatch.DrawString(basicFont, wargear.WargearLine.First().Value.D, offset, Color.White); offset.X += 100;
 
-        offset.Y += 35;
+        offset.Y = DrawStringWithWrap(wargear.WargearLine.First().Value.Abilities, new Rectangle((int)offset.X, (int)offset.Y, 300, 50), Alignment.Left, 40, Color.White).Y;
+        // spriteBatch.DrawString(basicFont, TrimString(wargear.WargearLine.First().Value.Abilities, 100), offset, Color.White);
+
+        // offset.Y += 35;
       }
       else
       {
-
-        spriteBatch.DrawString(basicFont, TrimString(wargear.Description, 100), offset, Color.Red); offset.X += 100;
+        offset.Y = DrawStringWithWrap(wargear.Description, new Rectangle((int)offset.X, (int)offset.Y, 1000, 35), Alignment.Left, 80, Color.White).Y;
 
         offset.X = 50;
-        offset.Y += 35;
-        foreach (var gearline in wargear.WargearLine)
+        // offset.Y += 35;
+        foreach (var gearLine in wargear.WargearLine)
         {
-          spriteBatch.DrawString(basicFont, TrimString(gearline.Value.Name), offset, Color.Red); offset.X += 300;
-          spriteBatch.DrawString(basicFont, gearline.Value.Range, offset, Color.Red); offset.X += 100;
-          spriteBatch.DrawString(basicFont, gearline.Value.Type, offset, Color.Red); offset.X += 150;
-          spriteBatch.DrawString(basicFont, gearline.Value.S, offset, Color.Red); offset.X += 100;
-          spriteBatch.DrawString(basicFont, gearline.Value.AP, offset, Color.Red); offset.X += 100;
-          spriteBatch.DrawString(basicFont, gearline.Value.D, offset, Color.Red); offset.X += 100;
-          spriteBatch.DrawString(basicFont, TrimString(gearline.Value.Abilities, 100), offset, Color.Red);
+          spriteBatch.DrawString(basicFont, TrimString(gearLine.Value.Name), offset, Color.White); offset.X += 300;
+          spriteBatch.DrawString(basicFont, gearLine.Value.Range, offset, Color.White); offset.X += 100;
+          spriteBatch.DrawString(basicFont, gearLine.Value.Type, offset, Color.White); offset.X += 200;
+          spriteBatch.DrawString(basicFont, gearLine.Value.S, offset, Color.White); offset.X += 100;
+          spriteBatch.DrawString(basicFont, gearLine.Value.AP, offset, Color.White); offset.X += 100;
+          spriteBatch.DrawString(basicFont, gearLine.Value.D, offset, Color.White); offset.X += 100;
+          spriteBatch.DrawString(basicFont, TrimString(gearLine.Value.Abilities, 100), offset, Color.White);
           offset.Y += 35;
           offset.X = 50;
         }
@@ -281,7 +285,6 @@ public partial class WarClub : Game
     spriteBatch.End();
   }
 
-
   void DrawBattlefield(Matrix transformMatrix)
   {
     var m = s.ActiveMission;
@@ -292,18 +295,59 @@ public partial class WarClub : Game
       spriteBatch.Draw(MapTextures[left.Texture], new Rectangle(new Point(), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
       spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
     }
-    var offset = 0;
-    foreach (var message in m.MissionEvents.Select(x => x.Turn == s.Turn ? x.Message : null))
-      if (message != null) DrawString(basicFontLarge, message, new Rectangle(0, offset++ * 100, (int)screenSize.X, 100), Alignment.Center, Color.White);
-
-    spriteBatch.DrawString(basicFontLarge, "Turn " + s.Turn.ToString(), new Vector2(0, 0), Color.White);
-
     spriteBatch.End();
 
-    // Draw deployment zones
-    DrawZone(transformMatrix, m.MissionEvents);
-  }
+    DrawMissionMessages(Matrix.CreateScale(0.5f) * Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(screenSize.X, 300, 0));
+    DrawMissionMessages(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, screenSize.Y - 300, 0));
+    // DrawMissionMessages(Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(0, screenSize.Y - 200, 0));
 
+    // Draw deployment zones
+    DrawZone(transformMatrix, s.MissionState);
+
+
+    // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateRotationZ((float)(Math.PI)) * Matrix.CreateTranslation(screenSize.X / 2 + 250, 200, 0), s.ActiveMission.PlayerUnits.First());
+
+    // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y - 200, 0), s.ActiveMission.PlayerUnits.First());
+
+    // DrawDataCard(Matrix.CreateScale(0.5f, -0.5f, 0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y, 0) * Matrix.CreateRotationZ(3.14f), s.ActiveMission.PlayerUnits.First());
+
+    var offset = 0;
+    if (s.MissionState.PlayerTurn)
+    {
+      foreach (var unit in s.MissionState.AIUnits)
+      {
+        DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
+        DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
+        offset += 200;
+      }
+      offset = 0;
+      foreach (var unit in s.MissionState.PCUnits)
+      {
+        DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(offset, screenSize.Y - 200, 0), unit);
+        // DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
+        offset += 820;
+      }
+    }
+
+    offset = 0;
+    if (!s.MissionState.PlayerTurn)
+    {
+      if (s.MissionState.ActiveUnit != null)
+      {
+        DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) - 400, 0, 0), s.MissionState.ActiveUnit);
+        DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) + 400, screenSize.Y, 0), s.MissionState.ActiveUnit);
+      }
+      foreach (var unit in s.MissionState.PCUnits)
+      {
+        DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
+        DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
+        offset += 200;
+      }
+    }
+
+    // DrawDataCard(Matrix.CreateTranslation(screenSize.X - 1600, screenSize.Y - 400, 0), UnitUtils.ActivateUnit(s.cosmos.PlayerFaction.Units[UnitRole.Troops].First()));
+    // DrawDataCard(Matrix.CreateTranslation(screenSize.X, 100, 0), UnitUtils.ActivateUnit(s.cosmos.PlayerFaction.Units[UnitRole.Troops].First()));
+  }
 
   void DrawMainMenu(Matrix transformMatrix)
   {
@@ -361,23 +405,45 @@ public partial class WarClub : Game
 
   // Draw Items
 
-  void DrawZone(Matrix transformMatrix, List<MissionEvent> missionEvents)
+  void DrawMissionMessages(Matrix transformMatrix)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
+    var offset = 0;
+    DrawString(basicFontLarge, $"T: {s.MissionState.Turn} - R: {s.MissionState.Round} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, Color.White);
+    foreach (var message in s.MissionState.Messages)
+    {
+      DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, message.Color);
+      if (message.Model != null) DrawModelIcon(message.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
+    }
+    spriteBatch.End();
+  }
+
+  void DrawZone(Matrix transformMatrix, MissionState state)
   {
 
     var aniTime = GetAnimation(3000);
 
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.Additive);
-    foreach (var mEvent in missionEvents)
-      foreach (var spawn in mEvent.Spawns)
-        foreach (var zone in spawn.Zones)
-        {
-          if (spawn.Type == MissionSpawnType.DeploymentZone && mEvent.Turn == s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
-          if (spawn.Type == MissionSpawnType.EnemySpawn && mEvent.Turn == s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(255, 80, 80, 50), new Color(255, 80, 80, 150), aniTime));
-          if (spawn.Type == MissionSpawnType.EvacZone && mEvent.Turn <= s.Turn) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
-          if (spawn.Type == MissionSpawnType.LootBox) spriteBatch.Draw(BlankTexture, zone, Color.Lerp(new Color(119, 221, 119, 50), new Color(119, 221, 119, 150), aniTime));
-          // draw spawn icon
-          if (spawn.ZonesIcon != Icon.None && mEvent.Turn == s.Turn) spriteBatch.Draw(icons[spawn.ZonesIcon], new Rectangle(zone.Center - new Point(32), new Point(64)), Color.White);
-        }
+    foreach (var missionZone in state.PermZones.Concat(state.TempZones))
+      foreach (var zone in missionZone.Zones)
+      {
+        var startColor = missionZone.Color;
+        var endColor = missionZone.Color;
+        startColor.A = 50;
+        endColor.A = 150;
+        spriteBatch.Draw(BlankTexture, zone, Color.Lerp(startColor, endColor, aniTime));
+      }
+    spriteBatch.End();
+
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
+    foreach (var missionZone in state.PermZones.Concat(state.TempZones))
+      foreach (var zone in missionZone.Zones)
+      {
+        // draw spawn icon
+        if (missionZone.Icon != Icon.None) spriteBatch.Draw(icons[missionZone.Icon], new Rectangle(zone.Center - new Point(32), new Point(64)), Color.White);
+        if (missionZone.Model != null) DrawModelIcon(missionZone.Model, zone);
+        if (missionZone.Message != null) DrawString(basicFont, missionZone.Message.Text, new Rectangle(zone.Center.X - 100, zone.Top - 32, 200, 32), Alignment.Center, missionZone.Message.Color);
+      }
     spriteBatch.End();
   }
 
@@ -410,12 +476,6 @@ public partial class WarClub : Game
           offset.X = 0;
         }
       }
-  }
-
-  void DrawDataCard()
-  {
-    // var datacarPos =
-    // spriteBatch.Draw(DataCard, new Rectangle(( new Point(64, 64)), Color.White));
   }
 
   void DrawPlanet(World planet)
@@ -514,4 +574,151 @@ public partial class WarClub : Game
     return raw.Length > limit ? raw.Substring(0, limit) + "..." : raw;
   }
 
+  Rectangle DrawStringWithWrap(string text, Rectangle rect, Alignment align, int wrap, Color color)
+  {
+    var sentence = "";
+    foreach (var line in text.Split(" "))
+    {
+      sentence += line + " ";
+      if (sentence.Length > wrap)
+      {
+        DrawString(basicFont, sentence, rect, align, color); rect.Y += 35;
+        sentence = "";
+      }
+    }
+    DrawString(basicFont, sentence, rect, align, color); rect.Y += 35;
+    return rect;
+  }
+
+  void DrawEnemyDataCard(Matrix transformMatrix, ActiveUnit unit)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.NonPremultiplied);
+    spriteBatch.Draw(DataCard, new Rectangle(0, 0, 500, 400), new Color(50, 50, 200, 255));
+    var offset = 0;
+
+    offset = DrawStringWithWrap(unit.BaseUnit.DataSheet.Name, new Rectangle(0, 50, 500, 35), Alignment.Center, 200, Color.White).Y;
+
+    // draw stats
+    DrawLine(new string[] { "M", "WS", "BS", "S", "T", "W", "A", "Ld", "Sv" }, Color.HotPink, 35, offset, xStep: new int[] { 50 }); offset += 35;
+    foreach (var (name, line) in unit.BaseUnit.UnitLines)
+    {
+      var stats = line.UnitStats;
+      // DrawLine(new string[] { TrimString(name) }, Color.White, 0, offset);
+      DrawLine(new string[] { stats.Movement, stats.WS, stats.BS, stats.S, stats.T, stats.W, stats.A, stats.Ld, stats.Sv }, Color.White, 35, offset, xStep: new int[] { 50 });
+      offset += 25;
+    }
+    offset += 25;
+
+    // weapons and stats
+    DrawLine(new string[] { "Range", "Type", "S", "AP", "D" }, Color.Magenta, 35, offset, xStep: new int[] { 100, 150, 100, 50 }); offset += 35;
+
+    foreach (var wargear in unit.BaseUnit.DataSheet.DefaultWargear)
+    {
+      if (wargear.WargearLine.Count == 1 && wargear.Description.Length == 0)
+      {
+        // single line wargear
+        var line = wargear.WargearLine.First().Value;
+        DrawLine(new string[] { line.Range, line.Type, line.S, line.AP, line.D }, Color.White, 35, offset, xStep: new int[] { 100, 150, 100, 50 });
+        offset += 25;
+      }
+      else
+      {
+        // multi line wargear
+        offset += 25;
+        foreach (var gearLine in wargear.WargearLine.Values)
+        {
+          DrawLine(new string[] { TrimString(gearLine.Name), gearLine.Range, gearLine.Type, gearLine.S, gearLine.AP, gearLine.D }, Color.White, 35, offset, xStep: new int[] { 300, 100, 200, 100, 100, 100 });
+          offset += 25;
+        }
+      }
+    }
+
+    spriteBatch.End();
+  }
+
+  void DrawDataCard(Matrix transformMatrix, ActiveUnit unit)
+  {
+    spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.NonPremultiplied);
+    spriteBatch.Draw(BlankTexture, new Rectangle(0, 0, 1600, 400), new Color(50, 50, 50, 255));
+    int offset = 0;
+
+    // draw stats
+    DrawLine(new string[] { "M", "WS", "BS", "S", "T", "W", "A", "Ld", "Sv" }, Color.HotPink, 300, xStep: new int[] { 50 }); offset += 35;
+    foreach (var (name, line) in unit.BaseUnit.UnitLines)
+    {
+      var stats = line.UnitStats;
+      DrawLine(new string[] { TrimString(name) }, Color.White, 0, offset);
+      DrawLine(new string[] { stats.Movement, stats.WS, stats.BS, stats.S, stats.T, stats.W, stats.A, stats.Ld, stats.Sv }, Color.White, 300, offset, xStep: new int[] { 50 });
+      offset += 25;
+    }
+    offset += 35;
+
+    // weapons and stats
+    DrawLine(new string[] { "Range", "Type", "S", "AP", "D" }, Color.Magenta, 300, offset, xStep: new int[] { 100, 200, 100, 100, 100 }); offset += 35;
+
+    foreach (var wargear in unit.BaseUnit.DataSheet.DefaultWargear)
+    {
+      DrawLine(new string[] { TrimString(wargear.Name) }, Color.Orange, 50, offset);
+      if (wargear.WargearLine.Count == 1 && wargear.Description.Length == 0)
+      {
+        // single line wargear
+        var line = wargear.WargearLine.First().Value;
+        DrawLine(new string[] { line.Range, line.Type, line.S, line.AP, line.D }, Color.White, 300, offset, xStep: new int[] { 100, 200, 100, 100, 100 });
+        offset = DrawStringWithWrap(wargear.WargearLine.First().Value.Abilities, new Rectangle(850, offset, 300, 50), Alignment.Left, 40, Color.White).Y;
+      }
+      else
+      {
+        // multi line wargear
+        offset = DrawStringWithWrap(wargear.Description, new Rectangle(850, offset, 1000, 35), Alignment.Left, 80, Color.White).Y;
+        foreach (var gearLine in wargear.WargearLine.Values)
+        {
+          DrawLine(new string[] { TrimString(gearLine.Name), gearLine.Range, gearLine.Type, gearLine.S, gearLine.AP, gearLine.D, TrimString(gearLine.Abilities, 100) }, Color.White, 50, offset, xStep: new int[] { 300, 100, 200, 100, 100, 100 });
+          offset += 35;
+        }
+      }
+    }
+
+    spriteBatch.End();
+  }
+
+  void DrawLine(string[] items, Color color, int x = 0, int y = 0, int[] xStep = null, int[] yStep = null)
+  {
+    var offset = new Vector2(x, y);
+    for (int i = 0; i < items.Count(); i++)
+    {
+      spriteBatch.DrawString(basicFont, items[i], offset, color);
+      offset.X += xStep != null ? xStep[i % xStep.Length] : 0;
+      offset.Y += yStep != null ? yStep[i % yStep.Length] : 0;
+    }
+  }
+
+  Color ChangeColorBrightness(Color color, float correctionFactor)
+  {
+    float red = (float)color.R;
+    float green = (float)color.G;
+    float blue = (float)color.B;
+
+    if (correctionFactor < 0)
+    {
+      correctionFactor = 1 + correctionFactor;
+      red *= correctionFactor;
+      green *= correctionFactor;
+      blue *= correctionFactor;
+    }
+    else
+    {
+      red = (255 - red) * correctionFactor + red;
+      green = (255 - green) * correctionFactor + green;
+      blue = (255 - blue) * correctionFactor + blue;
+    }
+
+    return new Color(color.A, (int)red, (int)green, (int)blue);
+  }
+
+  void DrawModelIcon(Models model, Rectangle zone)
+  {
+    float ratio = model.Texture.Height / (float)model.Texture.Width;
+    int size = 128;
+    spriteBatch.Draw(model.Texture, new Rectangle(zone.Center - new Point((int)(size / 2), (int)((size / 2) * ratio)), new Point(size, (int)(size * ratio))), Color.White);
+  }
 }

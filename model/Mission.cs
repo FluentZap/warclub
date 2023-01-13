@@ -6,11 +6,11 @@ namespace WarClub;
 enum MissionSpawnType
 {
   // Show on the map until the next turn
-  DeploymentZone,
+  PCDeploymentZone,
   // Show on the map until the next turn
-  EnemySpawn,
+  AISpawn,
   // Shows on map until end of game
-  EvacZone,
+  PCEvacZone,
   // Shows on map until it's interacted with
   LootBox,
 }
@@ -18,18 +18,12 @@ enum MissionSpawnType
 class MissionEvent
 {
   public int Turn;
-  public string Message;
-  public List<MissionEventSpawn> Spawns = new List<MissionEventSpawn>();
-}
-
-class MissionEventSpawn
-{
   public MissionSpawnType Type;
-  public Icon ZonesIcon;
+  public MissionMessage Message;
+  public Icon Icon;
   public List<Rectangle> Zones = new List<Rectangle>();
-  public List<Unit> Units = new List<Unit>();
+  public ActiveUnit Unit;
   public int LootCredits;
-  public List<int> LootWargear = new List<int>();
   public List<int> LootUnit = new List<int>();
 }
 
@@ -37,6 +31,13 @@ class Mission
 {
   public (MapTile, MapTile) Tiles;
   public List<MissionEvent> MissionEvents = new List<MissionEvent>();
-  public List<ActiveUnit> PlayerUnits = new List<ActiveUnit>();
   public int PointCapacity;
+}
+
+class MissionMessage
+{
+  public string Text;
+  public Color Color;
+  // public Icon Icon;
+  public Models Model;
 }
