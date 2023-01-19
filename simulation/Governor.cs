@@ -48,6 +48,17 @@ static class InputGovernor
     var keys = s.KeyState.GetTriggeredKeys();
     if (keys.Contains(Keys.Space))
       MissionRunner.AdvanceState(s);
+
+    if (keys.Contains(Keys.PageUp))
+    {
+      s.SelectedView = View.MissionSelect;
+      s.cosmos.PlayerFaction.AddTrait(s.Traits["gelt"], (int)Math.Ceiling(s.ActiveMission.PointCapacity / 3f));
+    }
+
+    if (keys.Contains(Keys.PageDown))
+    {
+      s.SelectedView = View.MissionSelect;
+    }
   }
 
   static void MissionBriefing(Simulation s)

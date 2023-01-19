@@ -111,6 +111,7 @@ public partial class WarClub : Game
       DrawWorldOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
       DrawWorldTraits(world.Value.location.ToPoint() - new Point(256), world.Value.GetTraits());
     }
+    DrawString(basicFontLarge, TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["gelt"]).ToString(), new Rectangle(0, 0, (int)screenSize.X, 32), Alignment.Center, Color.Gold);
     spriteBatch.End();
   }
 
@@ -412,7 +413,7 @@ public partial class WarClub : Game
     foreach (var message in s.MissionState.Messages)
     {
       DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, message.Color);
-      if (message.Model != null) DrawModelIcon(message.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
+      if (message.Model != null && message.Model.Texture != null) DrawModelIcon(message.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
     }
     spriteBatch.End();
   }
