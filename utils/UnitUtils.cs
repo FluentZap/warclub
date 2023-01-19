@@ -33,13 +33,13 @@ static class UnitUtils
 
     if (unitSize == CreateUnitSize.One && dataSheet.Units.Count != 1)
     {
-      var (key, value) = dataSheet.Units.ToArray()[1];
-      newUnit.UnitLines.Add(key, new UnitLine()
+      var alpha = dataSheet.Units.ToArray()[1];
+      newUnit.UnitLines.Add(alpha.Name, new UnitLine()
       {
         Count = 1,
-        UnitStats = value,
+        UnitStats = alpha,
       });
-      newActiveUnit.Points += value.Cost;
+      newActiveUnit.Points += alpha.Cost;
       return newActiveUnit;
     }
 
@@ -53,13 +53,13 @@ static class UnitUtils
 
     foreach (var line in dataSheet.Units)
     {
-      var modelsPerUnit = getUnitCount(line.Value);
-      newUnit.UnitLines.Add(line.Key, new UnitLine()
+      var modelsPerUnit = getUnitCount(line);
+      newUnit.UnitLines.Add(line.Name, new UnitLine()
       {
         Count = modelsPerUnit,
-        UnitStats = line.Value,
+        UnitStats = line,
       });
-      newActiveUnit.Points += line.Value.Cost * modelsPerUnit;
+      newActiveUnit.Points += line.Cost * modelsPerUnit;
     }
     return newActiveUnit;
 

@@ -31,7 +31,7 @@ class EtherealWorld : EtherealEntity
 
 class EtherealFaction : EtherealEntity
 {
-  public Dictionary<UnitRole, List<Unit>> Units;
+  public Dictionary<UnitRole, List<EtherealUnit>> Units;
 }
 
 class EtherealEntity
@@ -54,4 +54,14 @@ class EtherealRelation
   public Dictionary<string, int> Traits;
 }
 
+class EtherealUnit
+{
+  public int DataSheet;
+  public List<EtherealUnitLine> UnitLines;
+}
 
+class EtherealUnitLine
+{
+  public int Count;
+  public List<int> Wargear;
+}

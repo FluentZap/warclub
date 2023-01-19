@@ -1,8 +1,6 @@
-using System;
 using System.Linq;
 using System.IO;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Collections.Generic;
 
 namespace WarClub;
@@ -11,14 +9,10 @@ static class TimeWizard
 {
   public static void Stasis(Simulation s)
   {
-    var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
-
+    var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
     string jsonString = JsonSerializer.Serialize(SonicScrewDrive(s.cosmos), options);
     File.WriteAllText("./ChronoStasis.json", jsonString);
-
   }
-
-
 
   public static EtherealCosmos SonicScrewDrive(Cosmos c)
   {
@@ -64,6 +58,7 @@ static class TimeWizard
       Traits = EncodeTraits(x.Traits),
       Name = x.Name,
       Relations = Ghost(x.Relations),
+      Units = GhostUnit(x.Units),
     }).ToDictionary(x => x.Id);
 
     return ec;
@@ -85,6 +80,32 @@ static class TimeWizard
   public static Dictionary<string, int> EncodeTraits(Dictionary<Trait, int> t)
   {
     return t.ToDictionary(x => x.Key.Name, x => x.Value);
+  }
+
+
+  public static Dictionary<UnitRole, List<EtherealUnit>> GhostUnit(Dictionary<UnitRole, List<Unit>> u)
+  {
+    var newUnits = new Dictionary<UnitRole, List<EtherealUnit>>();
+    foreach (var (role, units) in u)
+    {
+      if (units.Count == 0) continue;
+      if (!newUnits.ContainsKey(role)) newUnits.Add(role, new List<EtherealUnit>());
+      newUnits[role] = units.Select(x => new EtherealUnit()
+      {
+        DataSheet = x.DataSheet.Id,
+        UnitLines = x.UnitLines.Select(x =>
+        {
+          var newLine = new EtherealUnitLine() { Count = x.Value.Count };
+          var warGear = x.Value.Wargear.Select(x => x.Id).ToList();
+          if (warGear.Count > 0)
+          {
+            newLine.Wargear = warGear;
+          }
+          return newLine;
+        }).ToList()
+      }).ToList();
+    }
+    return newUnits;
   }
 
 }

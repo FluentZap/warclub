@@ -135,11 +135,11 @@ partial class Simulation
       {
         var unitLine = new UnitLine()
         {
-          Count = line.Value.MinModelsPerUnit,
-          UnitStats = line.Value,
+          Count = line.MinModelsPerUnit,
+          UnitStats = line,
         };
 
-        newUnit.UnitLines.Add(line.Key, unitLine);
+        newUnit.UnitLines.Add(line.Name, unitLine);
         // adding new unit
       }
       if (!f.Units.ContainsKey(unitTemplate.Role))

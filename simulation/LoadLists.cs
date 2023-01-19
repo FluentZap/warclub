@@ -229,10 +229,11 @@ partial class Simulation
       var units = DataSheets[id].Units;
 
       var name = r[2].Trim();
-      units.Remove(name);
+      units.Remove(units.Find(x => x.Name == name));
 
       var u = new UnitStats();
 
+      u.Name = name;
       u.Movement = r[3].Trim();
       u.WS = r[4].Trim();
       u.BS = r[5].Trim();
@@ -246,7 +247,7 @@ partial class Simulation
 
       if (u.Cost <= 0) continue;
 
-      DataSheets[id].Units.Add(name, u);
+      DataSheets[id].Units.Add(u);
       // Set unit sizes higher or lower
       string[] unitSizes = r[14].Split('-');
       if (unitSizes[0].Trim() != "")
