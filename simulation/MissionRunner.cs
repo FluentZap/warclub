@@ -12,13 +12,13 @@ static class MissionRunner
   {
     var state = s.MissionState;
     var m = s.ActiveMission;
-    if (state.Turn >= 3)
+    if (!state.DeploymentPhase)
     {
       state.Round++;
       state.Messages.Clear();
       if (state.PlayerTurn)
       {
-        state.PCUnitsReady.RemoveAt(0);
+        if (state.PCUnitsReady.Count > 0) state.PCUnitsReady.RemoveAt(0);
         if (state.AIUnitsReady.Count > 0)
         {
           state.ActiveUnit = RNG.PickFrom(state.AIUnitsReady);
@@ -50,7 +50,6 @@ static class MissionRunner
       if (state.AIUnitsReady.Count > 0 || state.PCUnitsReady.Count > 0) return;
     }
 
-
     state.Turn++;
     state.Round = 1;
     state.TempZones.Clear();
@@ -58,16 +57,20 @@ static class MissionRunner
     var events = m.MissionEvents.Where(x => x.Turn == state.Turn).ToList();
     SpawnZones(state, events);
     // Spawn Units
+    bool spawnedUnitRound = false;
     foreach (var e in events)
     {
       if (e.Type == MissionSpawnType.AISpawn)
         state.AIUnits.Add(e.Unit);
       if (e.Type == MissionSpawnType.PCDeploymentZone)
         state.PCUnits.AddRange(s.SelectedUnits);
+      if (e.Type == MissionSpawnType.AISpawn || e.Type == MissionSpawnType.PCDeploymentZone) spawnedUnitRound = true;
     }
 
+    state.DeploymentPhase = spawnedUnitRound;
+
     // reset for new turn
-    if (state.Turn >= 3)
+    if (!state.DeploymentPhase)
     {
       state.PlayerTurn = true;
       state.Messages.Add(new MissionMessage() { Text = "Ally Activation", Color = Color.GreenYellow });

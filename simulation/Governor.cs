@@ -57,7 +57,7 @@ static class InputGovernor
     int pageCount = s.SelectableUnits.Count / 9;
     var Selected = s.Commanders[0];
 
-    if (keys.Contains(Keys.Right) && s.CurrentPage < pageCount)
+    if (keys.Contains(Keys.Right) && s.CurrentPage < pageCount - 1)
     {
       s.CurrentPage++;
       s.SelectedUnit += 9;
@@ -67,6 +67,7 @@ static class InputGovernor
     {
       s.CurrentPage--;
       s.SelectedUnit -= 9;
+      if (s.SelectedUnit < 0) s.SelectedUnit = 0;
     }
 
 
@@ -213,7 +214,12 @@ static class InputGovernor
     if (keys.Contains(Keys.Enter) && s.SelectedUnits.Count > 0)
     {
       foreach (var unit in s.SelectedUnits)
+      {
         s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
+      }
+      foreach (var model in s.UnitList)
+        s.AvailableUnits.Add(model);
+
       s.SelectedView = View.GalaxyOverview;
     }
   }

@@ -150,7 +150,7 @@ static partial class Generator
     var name = unit.BaseUnit.DataSheet.Name;
     var hasLeader = unit.BaseUnit.DataSheet.Units.Count > 1;
     var totalCount = hasLeader ? unit.DeployedCount + 1 : unit.DeployedCount;
-    return $"{totalCount} {name}" + (hasLeader ? " w/leader" : "");
+    return $"{totalCount} {name} - {unit.BaseUnit.UnitLines.First().Value.UnitStats.Size.X}mm -" + (hasLeader ? " w/leader" : "");
   }
 
 }

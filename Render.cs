@@ -390,7 +390,6 @@ public partial class WarClub : Game
       }
       offset += 1;
     }
-
     spriteBatch.End();
   }
 
@@ -441,7 +440,7 @@ public partial class WarClub : Game
       {
         // draw spawn icon
         if (missionZone.Icon != Icon.None) spriteBatch.Draw(icons[missionZone.Icon], new Rectangle(zone.Center - new Point(32), new Point(64)), Color.White);
-        if (missionZone.Model != null) DrawModelIcon(missionZone.Model, zone);
+        if (missionZone.Model != null && missionZone.Model.Texture != null) DrawModelIcon(missionZone.Model, zone);
         if (missionZone.Message != null) DrawString(basicFont, missionZone.Message.Text, new Rectangle(zone.Center.X - 100, zone.Top - 32, 200, 32), Alignment.Center, missionZone.Message.Color);
       }
     spriteBatch.End();
@@ -718,7 +717,9 @@ public partial class WarClub : Game
   void DrawModelIcon(Models model, Rectangle zone)
   {
     float ratio = model.Texture.Height / (float)model.Texture.Width;
-    int size = 128;
+    // int size = 300;
+    // spriteBatch.Draw(BlankTexture, new Rectangle(zone.Center - new Point((int)(size / 2), (int)((size / 2) * ratio)), new Point(size, (int)(size * ratio))), new Color(100, 100, 100, 200));
+    int size = 256;
     spriteBatch.Draw(model.Texture, new Rectangle(zone.Center - new Point((int)(size / 2), (int)((size / 2) * ratio)), new Point(size, (int)(size * ratio))), Color.White);
   }
 }

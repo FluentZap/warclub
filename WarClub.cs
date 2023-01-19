@@ -14,9 +14,9 @@ public partial class WarClub : Game
 
   private GraphicsDeviceManager graphics;
   private SpriteBatch spriteBatch;
-  // Vector2 viewportSize = new Vector2(1920, 1080);
+  Vector2 viewportSize = new Vector2(1920, 1080);
   // Vector2 viewportSize = new Vector2(2560, 1440);
-  Vector2 viewportSize = new Vector2(3840, 2160);
+  // Vector2 viewportSize = new Vector2(3840, 2160);
   Vector2 screenSize = new Vector2(3819, 2144);
   BasicEffect basicEffect;
   Effect planetEffect;
@@ -98,7 +98,7 @@ public partial class WarClub : Game
     graphics.PreferredBackBufferHeight = (int)viewportSize.Y;
     graphics.PreferredBackBufferWidth = (int)viewportSize.X;
     // graphics.IsFullScreen = true;
-    Window.Position = new Point(-5760, 0);
+    // Window.Position = new Point(-5760, 0);
     Window.IsBorderless = true;
     graphics.ApplyChanges();
 

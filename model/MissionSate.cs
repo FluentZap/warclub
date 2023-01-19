@@ -7,7 +7,7 @@ class MissionState
 {
   public int Turn;
   public int Round;
-  public bool ActivationPhase;
+  // public bool ActivationPhase;
   public bool DeploymentPhase = true;
   public bool PlayerTurn;
   public ActiveUnit ActiveUnit;
