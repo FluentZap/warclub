@@ -133,7 +133,7 @@ static class InputGovernor
   static void GalaxyOverview(Simulation s)
   {
     var size = new Point(480, 570);
-
+    var keys = s.KeyState.GetTriggeredKeys();
     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
     {
 
@@ -145,6 +145,9 @@ static class InputGovernor
           s.SelectedWorld = world.Value;
         }
     }
+
+    if (keys.Contains(Keys.Delete))
+      TimeWizard.Stasis(s);
   }
 
   static void MissionSelect(Simulation s)

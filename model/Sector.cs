@@ -8,6 +8,6 @@ namespace WarClub;
 
 class Sector : Entity
 {
-  public Vector2 location;
+  public Vector2 Location;
   public Sector() : base(EntityType.Sector) { }
 }

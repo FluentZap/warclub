@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -8,79 +9,82 @@ namespace WarClub;
 
 static class TimeWizard
 {
-  static Simulation simulation;
-
   public static void Stasis(Simulation s)
   {
     var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true };
 
-    string jsonString = JsonSerializer.Serialize(s.cosmos, options);
+    string jsonString = JsonSerializer.Serialize(SonicScrewDrive(s.cosmos), options);
     File.WriteAllText("./ChronoStasis.json", jsonString);
 
   }
-}
 
-class EntityJsonConverter : JsonConverter<Entity>
-{
-  public override Entity Read(
-      ref Utf8JsonReader reader,
-      Type typeToConvert,
-      JsonSerializerOptions options) => new Entity(EntityType.World);
 
-  public override void Write(
-      Utf8JsonWriter writer,
-      Entity entity,
-      JsonSerializerOptions options) =>
-          writer.WriteNumberValue(entity.Id);
-}
 
-class TraitsJsonConverter : JsonConverter<Dictionary<Trait, int>>
-{
-  public override Dictionary<Trait, int> Read(
-      ref Utf8JsonReader reader,
-      Type typeToConvert,
-      JsonSerializerOptions options) => new Dictionary<Trait, int>();
-
-  public override void Write(
-      Utf8JsonWriter writer,
-      Dictionary<Trait, int> traits,
-      JsonSerializerOptions options)
+  public static EtherealCosmos SonicScrewDrive(Cosmos c)
   {
-    writer.WriteStartObject();
-    foreach ((Trait key, int value) in traits)
+    var ec = new EtherealCosmos()
     {
-      writer.WritePropertyName(options.PropertyNamingPolicy?.ConvertName(key.Name) ?? key.Name);
-      writer.WriteNumberValue(value);
-    }
+      Day = c.Day,
+    };
 
-    writer.WriteEndObject();
+    ec.Sectors = c.Sectors.Values.Select(x => new EtherealSector()
+    {
+      Location = x.Location,
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = EncodeTraits(x.Traits),
+      Name = x.Name,
+      Relations = Ghost(x.Relations),
+    }).ToDictionary(x => x.Id);
+
+    ec.Worlds = c.Worlds.Values.Select(x => new EtherealWorld()
+    {
+      sector = x.sector.Id,
+      location = x.location,
+      rotationSpeed = x.rotationSpeed,
+      rotation = x.rotation,
+      DayLength = x.DayLength,
+      YearLength = x.YearLength,
+      color = x.color,
+      size = x.size,
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = EncodeTraits(x.Traits),
+      Name = x.Name,
+      Relations = Ghost(x.Relations),
+    }).ToDictionary(x => x.Id);
+
+    ec.Factions = c.Factions.Values.Select(x => new EtherealFaction()
+    {
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = EncodeTraits(x.Traits),
+      Name = x.Name,
+      Relations = Ghost(x.Relations),
+    }).ToDictionary(x => x.Id);
+
+    return ec;
   }
-}
 
-class DataSheetJsonConverter : JsonConverter<DataSheet>
-{
-  public override DataSheet Read(
-      ref Utf8JsonReader reader,
-      Type typeToConvert,
-      JsonSerializerOptions options) => new DataSheet();
 
-  public override void Write(
-      Utf8JsonWriter writer,
-      DataSheet dataSheet,
-      JsonSerializerOptions options) =>
-          writer.WriteNumberValue(dataSheet.Id);
-}
+  public static List<EtherealRelation> Ghost(List<Relation> r)
+  {
+    return r.Select(x => new EtherealRelation()
+    {
+      Strength = x.Strength,
+      relationType = x.relationType,
+      Source = x.Source.Id,
+      Target = x.Target.Id,
+      Traits = EncodeTraits(x.Traits),
+    }).ToList();
+  }
 
-class SectorJsonConverter : JsonConverter<Sector>
-{
-  public override Sector Read(
-      ref Utf8JsonReader reader,
-      Type typeToConvert,
-      JsonSerializerOptions options) => new Sector();
+  public static Dictionary<string, int> EncodeTraits(Dictionary<Trait, int> t)
+  {
+    return t.ToDictionary(x => x.Key.Name, x => x.Value);
+  }
 
-  public override void Write(
-      Utf8JsonWriter writer,
-      Sector sector,
-      JsonSerializerOptions options) =>
-          writer.WriteNumberValue(sector.Id);
 }

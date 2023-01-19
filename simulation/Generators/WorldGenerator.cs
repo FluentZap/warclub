@@ -557,7 +557,7 @@ partial class Simulation
     {
       var s = new Sector()
       {
-        location = new Vector2(0),
+        Location = new Vector2(0),
       };
       cosmos.Sectors.AutoAdd(s);
     }
