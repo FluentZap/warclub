@@ -16,10 +16,9 @@ static class TimeWizard
 
   public static EtherealCosmos SonicScrewDrive(Cosmos c)
   {
-    var ec = new EtherealCosmos()
-    {
-      Day = c.Day,
-    };
+    var ec = new EtherealCosmos();
+
+    ec.Day = c.Day;
 
     ec.Sectors = c.Sectors.Values.Select(x => new EtherealSector()
     {
@@ -27,9 +26,9 @@ static class TimeWizard
       EntityType = x.EntityType,
       Id = x.Id,
       Psyche = x.Psyche,
-      Traits = EncodeTraits(x.Traits),
+      Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = Ghost(x.Relations),
+      Relations = GhostRelations(x.Relations),
     }).ToDictionary(x => x.Id);
 
     ec.Worlds = c.Worlds.Values.Select(x => new EtherealWorld()
@@ -45,9 +44,9 @@ static class TimeWizard
       EntityType = x.EntityType,
       Id = x.Id,
       Psyche = x.Psyche,
-      Traits = EncodeTraits(x.Traits),
+      Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = Ghost(x.Relations),
+      Relations = GhostRelations(x.Relations),
     }).ToDictionary(x => x.Id);
 
     ec.Factions = c.Factions.Values.Select(x => new EtherealFaction()
@@ -55,17 +54,17 @@ static class TimeWizard
       EntityType = x.EntityType,
       Id = x.Id,
       Psyche = x.Psyche,
-      Traits = EncodeTraits(x.Traits),
+      Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = Ghost(x.Relations),
-      Units = GhostUnit(x.Units),
+      Relations = GhostRelations(x.Relations),
+      Units = GhostUnits(x.Units),
     }).ToDictionary(x => x.Id);
 
     return ec;
   }
 
-
-  public static List<EtherealRelation> Ghost(List<Relation> r)
+  // Ghost Utils
+  public static List<EtherealRelation> GhostRelations(List<Relation> r)
   {
     return r.Select(x => new EtherealRelation()
     {
@@ -73,17 +72,16 @@ static class TimeWizard
       relationType = x.relationType,
       Source = x.Source.Id,
       Target = x.Target.Id,
-      Traits = EncodeTraits(x.Traits),
+      Traits = GhostTraits(x.Traits),
     }).ToList();
   }
 
-  public static Dictionary<string, int> EncodeTraits(Dictionary<Trait, int> t)
+  public static Dictionary<string, int> GhostTraits(Dictionary<Trait, int> t)
   {
     return t.ToDictionary(x => x.Key.Name, x => x.Value);
   }
 
-
-  public static Dictionary<UnitRole, List<EtherealUnit>> GhostUnit(Dictionary<UnitRole, List<Unit>> u)
+  public static Dictionary<UnitRole, List<EtherealUnit>> GhostUnits(Dictionary<UnitRole, List<Unit>> u)
   {
     var newUnits = new Dictionary<UnitRole, List<EtherealUnit>>();
     foreach (var (role, units) in u)
