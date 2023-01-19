@@ -93,12 +93,9 @@ static class TimeWizard
         DataSheet = x.DataSheet.Id,
         UnitLines = x.UnitLines.Select(x =>
         {
-          var newLine = new EtherealUnitLine() { Count = x.Value.Count };
+          var newLine = new EtherealUnitLine() { Count = x.Value.Count, LineId = x.Value.UnitStats.LineId };
           var warGear = x.Value.Wargear.Select(x => x.Id).ToList();
-          if (warGear.Count > 0)
-          {
-            newLine.Wargear = warGear;
-          }
+          if (warGear.Count > 0) newLine.Wargear = warGear;
           return newLine;
         }).ToList()
       }).ToList();

@@ -233,6 +233,7 @@ partial class Simulation
 
       var u = new UnitStats();
 
+      u.LineId = Int32.Parse(r[1]);
       u.Name = name;
       u.Movement = r[3].Trim();
       u.WS = r[4].Trim();

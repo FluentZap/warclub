@@ -63,5 +63,6 @@ class EtherealUnit
 class EtherealUnitLine
 {
   public int Count;
+  public int LineId;
   public List<int> Wargear;
 }

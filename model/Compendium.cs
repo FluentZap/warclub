@@ -53,6 +53,7 @@ class UnitStats
   public string A;
   public string Ld;
   public string Sv;
+  public int LineId;
   public int Cost;
   public int MinModelsPerUnit;
   public int MaxModelsPerUnit;
