@@ -9,7 +9,7 @@ class EtherealCosmos
   public Dictionary<uint, EtherealSector> Sectors;
   public Dictionary<uint, EtherealWorld> Worlds;
   public Dictionary<uint, EtherealFaction> Factions;
-  public EtherealFaction PlayerFaction;
+  public uint PlayerFaction;
 }
 
 class EtherealSector : EtherealEntity
@@ -49,8 +49,8 @@ class EtherealRelation
 {
   public int Strength;
   public RelationType relationType;
-  public uint Source;
-  public uint Target;
+  public string Source;
+  public string Target;
   public Dictionary<string, int> Traits;
 }
 

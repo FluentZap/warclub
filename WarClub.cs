@@ -119,7 +119,7 @@ public partial class WarClub : Game
 
     // TODO: use this.Content to load your game content here
     s = new Simulation();
-    s.Generate();
+    s.LoadData();
     foreach (var tile in s.MapTiles)
     {
       MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));

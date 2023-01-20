@@ -2,6 +2,7 @@ using System.Linq;
 using System.IO;
 using System.Text.Json;
 using System.Collections.Generic;
+using System;
 
 namespace WarClub;
 
@@ -10,15 +11,24 @@ static class TimeWizard
   public static void Stasis(Simulation s)
   {
     var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
-    string jsonString = JsonSerializer.Serialize(SonicScrewDrive(s.cosmos), options);
+    string jsonString = JsonSerializer.Serialize(Banish(s.cosmos), options);
     File.WriteAllText("./ChronoStasis.json", jsonString);
   }
 
-  public static EtherealCosmos SonicScrewDrive(Cosmos c)
+  public static void Awaken(Simulation s)
+  {
+    var options = new JsonSerializerOptions { WriteIndented = true, IncludeFields = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
+    string jsonString = File.ReadAllText("./ChronoStasis.json");
+    var ec = JsonSerializer.Deserialize<EtherealCosmos>(jsonString, options);
+    Summon(s, ec);
+  }
+
+  public static EtherealCosmos Banish(Cosmos c)
   {
     var ec = new EtherealCosmos();
 
     ec.Day = c.Day;
+    ec.PlayerFaction = c.PlayerFaction.Id;
 
     ec.Sectors = c.Sectors.Values.Select(x => new EtherealSector()
     {
@@ -63,6 +73,56 @@ static class TimeWizard
     return ec;
   }
 
+  public static void Summon(Simulation s, EtherealCosmos ec)
+  {
+    var c = s.cosmos = new Cosmos();
+
+    c.Day = ec.Day;
+
+    c.Sectors = new KeyCollection<Sector>(ec.Sectors.Values.Select(x => new Sector()
+    {
+      Location = x.Location,
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = ReviveTraits(s, x.Traits),
+      Name = x.Name,
+    }));
+
+    c.Worlds = new KeyCollection<World>(ec.Worlds.Values.Select(x => new World()
+    {
+      sector = c.Sectors[x.sector],
+      location = x.location,
+      rotationSpeed = x.rotationSpeed,
+      rotation = x.rotation,
+      DayLength = x.DayLength,
+      YearLength = x.YearLength,
+      color = x.color,
+      size = x.size,
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = ReviveTraits(s, x.Traits),
+      Name = x.Name,
+    }));
+
+    c.Factions = new KeyCollection<Faction>(ec.Factions.Values.Select(x => new Faction()
+    {
+      EntityType = x.EntityType,
+      Id = x.Id,
+      Psyche = x.Psyche,
+      Traits = ReviveTraits(s, x.Traits),
+      Name = x.Name,
+      // Units = GhostUnits(x.Units),
+    }));
+
+    foreach (var entity in c.Sectors) entity.Value.Relations = ReviveRelations(s, ec.Sectors[entity.Key].Relations);
+    foreach (var entity in c.Worlds) entity.Value.Relations = ReviveRelations(s, ec.Worlds[entity.Key].Relations);
+    foreach (var entity in c.Factions) entity.Value.Relations = ReviveRelations(s, ec.Factions[entity.Key].Relations);
+
+    c.PlayerFaction = c.Factions[ec.PlayerFaction];
+  }
+
   // Ghost Utils
   public static List<EtherealRelation> GhostRelations(List<Relation> r)
   {
@@ -70,11 +130,12 @@ static class TimeWizard
     {
       Strength = x.Strength,
       relationType = x.relationType,
-      Source = x.Source.Id,
-      Target = x.Target.Id,
+      Source = $"{x.Source.EntityType.ToString()}_{x.Source.Id}",
+      Target = $"{x.Target.EntityType.ToString()}_{x.Target.Id}",
       Traits = GhostTraits(x.Traits),
     }).ToList();
   }
+
 
   public static Dictionary<string, int> GhostTraits(Dictionary<Trait, int> t)
   {
@@ -101,6 +162,41 @@ static class TimeWizard
       }).ToList();
     }
     return newUnits;
+  }
+
+  // revives
+
+  public static Dictionary<Trait, int> ReviveTraits(Simulation s, Dictionary<string, int> t)
+  {
+    return t.ToDictionary(x => s.Traits[x.Key], x => x.Value);
+  }
+
+
+
+  public static List<Relation> ReviveRelations(Simulation s, List<EtherealRelation> r)
+  {
+    Entity GetRelation(string relationKey)
+    {
+      var keyArray = relationKey.Split("_");
+      var type = keyArray[0];
+      var id = UInt32.Parse(keyArray[1]);
+      switch (type)
+      {
+        default:
+        case "Sector": return s.cosmos.Sectors[id];
+        case "World": return s.cosmos.Worlds[id];
+        case "Faction": return s.cosmos.Factions[id];
+      }
+    }
+
+    return r.Select(x => new Relation()
+    {
+      Strength = x.Strength,
+      relationType = x.relationType,
+      Source = GetRelation(x.Source),
+      Target = GetRelation(x.Target),
+      Traits = ReviveTraits(s, x.Traits),
+    }).ToList();
   }
 
 }

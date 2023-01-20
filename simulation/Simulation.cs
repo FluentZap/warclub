@@ -90,18 +90,19 @@ partial class Simulation
     },
   };
 
-
   public void Generate()
+  {
+    GenerateWorlds();
+    GenerateFactions();
+    AdvanceTime();
+  }
+
+  public void LoadData()
   {
     LoadLists();
     LoadUnits();
     LoadDataSheets();
     LoadMapTiles();
-    GenerateWorlds();
-    GenerateFactions();
-
-    AdvanceTime();
-
 
     // foreach (var world in cosmos.Worlds.Values)
     // {

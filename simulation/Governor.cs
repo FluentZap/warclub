@@ -187,7 +187,8 @@ static class InputGovernor
     }
     if (keys.Contains(Keys.D2))
     {
-      s.SelectedView = View.LoadGame;
+      TimeWizard.Awaken(s);
+      s.SelectedView = View.GalaxyOverview;
       return;
     }
   }
@@ -227,6 +228,8 @@ static class InputGovernor
 
     if (keys.Contains(Keys.Enter) && s.SelectedUnits.Count > 0)
     {
+      s.Generate();
+
       foreach (var unit in s.SelectedUnits)
       {
         s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
