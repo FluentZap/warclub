@@ -131,15 +131,9 @@ partial class Simulation
       var newUnit = new Unit();
       newUnit.DataSheet = unitTemplate;
 
-      foreach (var line in unitTemplate.Units)
+      foreach (var (lineId, line) in unitTemplate.Units)
       {
-        var unitLine = new UnitLine()
-        {
-          Count = line.MinModelsPerUnit,
-          UnitStats = line,
-        };
-
-        newUnit.UnitLines.Add(line.Name, unitLine);
+        newUnit.UnitLines.Add(lineId, line.MinModelsPerUnit);
         // adding new unit
       }
       if (!f.Units.ContainsKey(unitTemplate.Role))

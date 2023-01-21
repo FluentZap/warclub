@@ -228,13 +228,14 @@ partial class Simulation
 
       var units = DataSheets[id].Units;
 
-      var name = r[2].Trim();
-      units.Remove(units.Find(x => x.Name == name));
+      var lineId = Int32.Parse(r[1]);
+      var duplicates = units.Values.Where(x => x.LineId == lineId).ToList();
+      if (duplicates.Count > 0) units.Remove(duplicates.First().LineId);
 
       var u = new UnitStats();
 
-      u.LineId = Int32.Parse(r[1]);
-      u.Name = name;
+      u.LineId = lineId;
+      u.Name = r[2].Trim();
       u.Movement = r[3].Trim();
       u.WS = r[4].Trim();
       u.BS = r[5].Trim();
@@ -248,7 +249,7 @@ partial class Simulation
 
       if (u.Cost <= 0) continue;
 
-      DataSheets[id].Units.Add(u);
+      DataSheets[id].Units.Add(u.LineId, u);
       // Set unit sizes higher or lower
       string[] unitSizes = r[14].Split('-');
       if (unitSizes[0].Trim() != "")

@@ -97,9 +97,9 @@ static partial class Generator
   static public int GetUnitPoints(Unit unit)
   {
     int total = 0;
-    foreach (var line in unit.UnitLines.Values)
+    foreach (var (lineId, count) in unit.UnitLines)
     {
-      total += line.Count * line.UnitStats.Cost;
+      total += count * unit.DataSheet.Units[lineId].Cost;
     }
     return total;
   }
@@ -150,7 +150,8 @@ static partial class Generator
     var name = unit.BaseUnit.DataSheet.Name;
     var hasLeader = unit.BaseUnit.DataSheet.Units.Count > 1;
     var totalCount = hasLeader ? unit.DeployedCount + 1 : unit.DeployedCount;
-    return $"{totalCount} {name} - {unit.BaseUnit.UnitLines.First().Value.UnitStats.Size.X}mm -" + (hasLeader ? " w/leader" : "");
+    var size = unit.BaseUnit.DataSheet.Units[unit.BaseUnit.UnitLines.First().Key].Size.X;
+    return $"{totalCount} {name} - {size}mm -" + (hasLeader ? " w/leader" : "");
   }
 
 }

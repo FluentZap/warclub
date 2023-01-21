@@ -29,12 +29,6 @@ class ActiveUnit
 class Unit
 {
   public DataSheet DataSheet;
-  public Dictionary<string, UnitLine> UnitLines = new Dictionary<string, UnitLine>();
+  public Dictionary<int, int> UnitLines = new Dictionary<int, int>();
   public List<Wargear> Wargear = new List<Wargear>();
-}
-
-class UnitLine
-{
-  public UnitStats UnitStats;
-  public int Count;
 }

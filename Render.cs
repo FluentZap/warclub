@@ -199,9 +199,9 @@ public partial class WarClub : Game
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.NonPremultiplied);
     spriteBatch.Draw(BlankTexture, new Rectangle(-50, -50, 1600, 1600), new Color(0, 0, 0, 150));
     Vector2 offset = new Vector2(0);
-    foreach (var (name, line) in unit.BaseUnit.UnitLines)
+    foreach (var (lineId, count) in unit.BaseUnit.UnitLines)
     {
-      var stats = line.UnitStats;
+      var stats = unit.BaseUnit.DataSheet.Units[lineId];
       if (stats.MaxModelsPerUnit == 1)
       {
         spriteBatch.DrawString(basicFont, "1", offset, Color.White);
@@ -209,13 +209,13 @@ public partial class WarClub : Game
       }
       else
       {
-        spriteBatch.DrawString(basicFont, $"{unit.DeployedCount}/{line.Count}", offset, Color.White);
+        spriteBatch.DrawString(basicFont, $"{unit.DeployedCount}/{count}", offset, Color.White);
         offset.X += 100;
         spriteBatch.DrawString(basicFont, $"{stats.MinModelsPerUnit}/{stats.MaxModelsPerUnit}", offset, Color.White);
         offset.X += 100;
       }
 
-      spriteBatch.DrawString(basicFont, TrimString(name), offset, Color.White);
+      spriteBatch.DrawString(basicFont, TrimString(stats.Name), offset, Color.White);
       offset.X += 300;
 
       // draw stats
@@ -600,9 +600,9 @@ public partial class WarClub : Game
 
     // draw stats
     DrawLine(new string[] { "M", "WS", "BS", "S", "T", "W", "A", "Ld", "Sv" }, Color.HotPink, 35, offset, xStep: new int[] { 50 }); offset += 35;
-    foreach (var (name, line) in unit.BaseUnit.UnitLines)
+    foreach (var (lineId, count) in unit.BaseUnit.UnitLines)
     {
-      var stats = line.UnitStats;
+      var stats = unit.BaseUnit.DataSheet.Units[lineId];
       // DrawLine(new string[] { TrimString(name) }, Color.White, 0, offset);
       DrawLine(new string[] { stats.Movement, stats.WS, stats.BS, stats.S, stats.T, stats.W, stats.A, stats.Ld, stats.Sv }, Color.White, 35, offset, xStep: new int[] { 50 });
       offset += 25;
@@ -644,10 +644,10 @@ public partial class WarClub : Game
 
     // draw stats
     DrawLine(new string[] { "M", "WS", "BS", "S", "T", "W", "A", "Ld", "Sv" }, Color.HotPink, 300, xStep: new int[] { 50 }); offset += 35;
-    foreach (var (name, line) in unit.BaseUnit.UnitLines)
+    foreach (var (lineId, count) in unit.BaseUnit.UnitLines)
     {
-      var stats = line.UnitStats;
-      DrawLine(new string[] { TrimString(name) }, Color.White, 0, offset);
+      var stats = unit.BaseUnit.DataSheet.Units[lineId];
+      DrawLine(new string[] { TrimString(stats.Name) }, Color.White, 0, offset);
       DrawLine(new string[] { stats.Movement, stats.WS, stats.BS, stats.S, stats.T, stats.W, stats.A, stats.Ld, stats.Sv }, Color.White, 300, offset, xStep: new int[] { 50 });
       offset += 25;
     }

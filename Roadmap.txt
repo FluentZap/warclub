@@ -17,3 +17,21 @@ List units
 Toggle on and off based on commander
 Add/Remove units from unit lines
 Add Pages
+
+
+
+
+AI Base
+need to have it be smart enough to know if it is melee, ranged or both.
+personality types of AI
+Targeting 
+aggressive, complacent, passive,
+
+personality
+Personal Objective
+    Event trigger
+    location on map
+    defending another unit
+    snipe from far
+    Tank hits
+action

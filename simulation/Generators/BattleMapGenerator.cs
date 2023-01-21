@@ -67,7 +67,7 @@ static partial class Generator
     var wave1SpawnPoint = new Point(RNG.Integer(30, ScreenSize.X), RNG.Integer(8, ScreenSize.Y));
     foreach (var rawUnit in SelectUnits(faction.Units, pointMax / 2, Troops: 5, HQ: 1, FastAttack: 1))
     {
-      var models = s.AvailableUnits.Where(x => x.Count >= rawUnit.UnitLines.First().Value.Count && x.Size.X >= rawUnit.UnitLines.First().Value.UnitStats.Size.X).ToList();
+      var models = s.AvailableUnits.Where(x => x.Count >= rawUnit.UnitLines.First().Value && x.Size.X >= rawUnit.DataSheet.Units[rawUnit.UnitLines.First().Key].Size.X).ToList();
       var model = models.Count > 0 ? RNG.PickFrom(models) : null;
       var unit = UnitUtils.ActivateUnit(rawUnit, model);
       s.AvailableUnits.Remove(model);
@@ -90,7 +90,7 @@ static partial class Generator
 
     foreach (var rawUnit in SelectUnits(faction.Units, pointMax / 2, Troops: 1, HeavySupport: 5))
     {
-      var models = s.AvailableUnits.Where(x => x.Count >= rawUnit.UnitLines.First().Value.Count && x.Size.X >= rawUnit.UnitLines.First().Value.UnitStats.Size.X).ToList();
+      var models = s.AvailableUnits.Where(x => x.Count >= rawUnit.UnitLines.First().Value && x.Size.X >= rawUnit.DataSheet.Units[rawUnit.UnitLines.First().Key].Size.X).ToList();
       var model = models.Count > 0 ? RNG.PickFrom(models) : null;
       var unit = UnitUtils.ActivateUnit(rawUnit, model);
       s.AvailableUnits.Remove(model);

@@ -34,12 +34,8 @@ static class UnitUtils
     if (unitSize == CreateUnitSize.One && dataSheet.Units.Count != 1)
     {
       var alpha = dataSheet.Units.ToArray()[1];
-      newUnit.UnitLines.Add(alpha.Name, new UnitLine()
-      {
-        Count = 1,
-        UnitStats = alpha,
-      });
-      newActiveUnit.Points += alpha.Cost;
+      newUnit.UnitLines.Add(alpha.Key, 1);
+      newActiveUnit.Points += alpha.Value.Cost;
       return newActiveUnit;
     }
 
@@ -51,14 +47,10 @@ static class UnitUtils
       return RNG.Integer(line.MinModelsPerUnit, line.MaxModelsPerUnit);
     }
 
-    foreach (var line in dataSheet.Units)
+    foreach (var line in dataSheet.Units.Values)
     {
       var modelsPerUnit = getUnitCount(line);
-      newUnit.UnitLines.Add(line.Name, new UnitLine()
-      {
-        Count = modelsPerUnit,
-        UnitStats = line,
-      });
+      newUnit.UnitLines.Add(line.LineId, modelsPerUnit);
       newActiveUnit.Points += line.Cost * modelsPerUnit;
     }
     return newActiveUnit;
@@ -70,7 +62,7 @@ static class UnitUtils
     return new ActiveUnit()
     {
       BaseUnit = u,
-      DeployedCount = u.UnitLines.First().Value.Count,
+      DeployedCount = u.UnitLines.First().Value,
       Points = Generator.GetUnitPoints(u),
       Model = model,
     };

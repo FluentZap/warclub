@@ -32,7 +32,7 @@ class DataSheet
   // Fortifications
   public UnitRole Role;
   public string UnitComposition;
-  public List<UnitStats> Units = new List<UnitStats>();
+  public Dictionary<int, UnitStats> Units = new Dictionary<int, UnitStats>();
   public List<Wargear> Wargear = new List<Wargear>();
   public List<Wargear> DefaultWargear = new List<Wargear>();
   public List<string> WargearOptions = new List<string>();

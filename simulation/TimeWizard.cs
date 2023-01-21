@@ -113,7 +113,7 @@ static class TimeWizard
       Psyche = x.Psyche,
       Traits = ReviveTraits(s, x.Traits),
       Name = x.Name,
-      Units = GhostUnits(x.Units),
+      Units = ReviveUnits(s, x.Units),
     }));
 
     // rebuild relations
@@ -153,13 +153,8 @@ static class TimeWizard
       newUnits[role] = units.Select(x => new EtherealUnit()
       {
         DataSheet = x.DataSheet.Id,
-        UnitLines = x.UnitLines.Select(x =>
-        {
-          var newLine = new EtherealUnitLine() { Count = x.Value.Count, LineId = x.Value.UnitStats.LineId };
-          var warGear = x.Value.Wargear.Select(x => x.Id).ToList();
-          if (warGear.Count > 0) newLine.Wargear = warGear;
-          return newLine;
-        }).ToList()
+        Wargear = x.Wargear.Count > 0 ? x.Wargear.Select(x => x.Id).ToList() : null,
+        UnitLines = x.UnitLines,
       }).ToList();
     }
     return newUnits;
@@ -204,6 +199,8 @@ static class TimeWizard
     }
   }
 
+
+
   public static Dictionary<UnitRole, List<Unit>> ReviveUnits(Simulation s, Dictionary<UnitRole, List<EtherealUnit>> u)
   {
     var newUnits = new Dictionary<UnitRole, List<Unit>>();
@@ -213,13 +210,8 @@ static class TimeWizard
       newUnits[role] = units.Select(x => new Unit()
       {
         DataSheet = s.DataSheets[x.DataSheet],
-        UnitLines = x.UnitLines.Select(line =>
-        {
-          var newLine = new UnitLine() { Count = line.Count, UnitStats = s.DataSheets[x.DataSheet].Units[line.LineId - 1] };
-          var warGear = line.Value.Wargear.Select(x => x.Id).ToList();
-          if (warGear.Count > 0) newLine.Wargear = warGear;
-          return newLine;
-        }).ToList()
+        Wargear = x.Wargear == null ? new List<Wargear>() : x.Wargear.Select(x => s.Wargear[x]).ToList(),
+        UnitLines = x.UnitLines,
       }).ToList();
     }
     return newUnits;

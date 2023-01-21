@@ -57,12 +57,6 @@ class EtherealRelation
 class EtherealUnit
 {
   public int DataSheet;
-  public List<EtherealUnitLine> UnitLines;
-}
-
-class EtherealUnitLine
-{
-  public int Count;
-  public int LineId;
+  public Dictionary<int, int> UnitLines;
   public List<int> Wargear;
 }
