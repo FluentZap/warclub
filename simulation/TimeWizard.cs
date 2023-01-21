@@ -38,7 +38,7 @@ static class TimeWizard
       Psyche = x.Psyche,
       Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = GhostRelations(x.Relations),
+      Relations = GhostRelations(x),
     }).ToDictionary(x => x.Id);
 
     ec.Worlds = c.Worlds.Values.Select(x => new EtherealWorld()
@@ -56,7 +56,7 @@ static class TimeWizard
       Psyche = x.Psyche,
       Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = GhostRelations(x.Relations),
+      Relations = GhostRelations(x),
     }).ToDictionary(x => x.Id);
 
     ec.Factions = c.Factions.Values.Select(x => new EtherealFaction()
@@ -66,7 +66,7 @@ static class TimeWizard
       Psyche = x.Psyche,
       Traits = GhostTraits(x.Traits),
       Name = x.Name,
-      Relations = GhostRelations(x.Relations),
+      Relations = GhostRelations(x),
       Units = GhostUnits(x.Units),
     }).ToDictionary(x => x.Id);
 
@@ -113,20 +113,21 @@ static class TimeWizard
       Psyche = x.Psyche,
       Traits = ReviveTraits(s, x.Traits),
       Name = x.Name,
-      // Units = GhostUnits(x.Units),
+      Units = GhostUnits(x.Units),
     }));
 
-    foreach (var entity in c.Sectors) entity.Value.Relations = ReviveRelations(s, ec.Sectors[entity.Key].Relations);
-    foreach (var entity in c.Worlds) entity.Value.Relations = ReviveRelations(s, ec.Worlds[entity.Key].Relations);
-    foreach (var entity in c.Factions) entity.Value.Relations = ReviveRelations(s, ec.Factions[entity.Key].Relations);
+    // rebuild relations
+    foreach (var entity in c.Sectors) entity.Value.Relations.AddRange(ReviveRelations(s, ec.Sectors[entity.Key].Relations));
+    foreach (var entity in c.Worlds) entity.Value.Relations.AddRange(ReviveRelations(s, ec.Worlds[entity.Key].Relations));
+    foreach (var entity in c.Factions) entity.Value.Relations.AddRange(ReviveRelations(s, ec.Factions[entity.Key].Relations));
 
     c.PlayerFaction = c.Factions[ec.PlayerFaction];
   }
 
   // Ghost Utils
-  public static List<EtherealRelation> GhostRelations(List<Relation> r)
+  public static List<EtherealRelation> GhostRelations(Entity e)
   {
-    return r.Select(x => new EtherealRelation()
+    return e.Relations.Where(x => x.Source == e).Select(x => new EtherealRelation()
     {
       Strength = x.Strength,
       relationType = x.relationType,
@@ -164,39 +165,64 @@ static class TimeWizard
     return newUnits;
   }
 
-  // revives
 
+  // Revive Utils
   public static Dictionary<Trait, int> ReviveTraits(Simulation s, Dictionary<string, int> t)
   {
     return t.ToDictionary(x => s.Traits[x.Key], x => x.Value);
   }
 
-
-
-  public static List<Relation> ReviveRelations(Simulation s, List<EtherealRelation> r)
+  public static List<Relation> ReviveRelations(Simulation s, List<EtherealRelation> er)
   {
-    Entity GetRelation(string relationKey)
-    {
-      var keyArray = relationKey.Split("_");
-      var type = keyArray[0];
-      var id = UInt32.Parse(keyArray[1]);
-      switch (type)
-      {
-        default:
-        case "Sector": return s.cosmos.Sectors[id];
-        case "World": return s.cosmos.Worlds[id];
-        case "Faction": return s.cosmos.Factions[id];
-      }
-    }
-
-    return r.Select(x => new Relation()
+    var relations = er.Select(x => new Relation()
     {
       Strength = x.Strength,
       relationType = x.relationType,
-      Source = GetRelation(x.Source),
-      Target = GetRelation(x.Target),
+      Source = GetRelation(s, x.Source),
+      Target = GetRelation(s, x.Target),
       Traits = ReviveTraits(s, x.Traits),
     }).ToList();
+
+    // add all relations to targets
+    foreach (var relation in relations) relation.Target.Relations.Add(relation);
+
+    return relations;
+  }
+
+  static Entity GetRelation(Simulation s, string relationKey)
+  {
+    var keyArray = relationKey.Split("_");
+    var type = keyArray[0];
+    var id = UInt32.Parse(keyArray[1]);
+
+    switch (type)
+    {
+      default:
+      case "Sector": return s.cosmos.Sectors[id];
+      case "World": return s.cosmos.Worlds[id];
+      case "Faction": return s.cosmos.Factions[id];
+    }
+  }
+
+  public static Dictionary<UnitRole, List<Unit>> ReviveUnits(Simulation s, Dictionary<UnitRole, List<EtherealUnit>> u)
+  {
+    var newUnits = new Dictionary<UnitRole, List<Unit>>();
+    foreach (var (role, units) in u)
+    {
+      if (!newUnits.ContainsKey(role)) newUnits.Add(role, new List<Unit>());
+      newUnits[role] = units.Select(x => new Unit()
+      {
+        DataSheet = s.DataSheets[x.DataSheet],
+        UnitLines = x.UnitLines.Select(line =>
+        {
+          var newLine = new UnitLine() { Count = line.Count, UnitStats = s.DataSheets[x.DataSheet].Units[line.LineId - 1] };
+          var warGear = line.Value.Wargear.Select(x => x.Id).ToList();
+          if (warGear.Count > 0) newLine.Wargear = warGear;
+          return newLine;
+        }).ToList()
+      }).ToList();
+    }
+    return newUnits;
   }
 
 }

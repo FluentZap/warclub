@@ -171,15 +171,15 @@ public partial class WarClub : Game
     // }
     InputGovernor.DoEvents(s);
 
-    if (s.SelectedView == View.GalaxyOverview)
-    {
-      if (timeAdvance >= 5000)
-      {
-        timeAdvance = 0;
-        s.AdvanceTime();
-      }
-      timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
-    }
+    // if (s.SelectedView == View.GalaxyOverview)
+    // {
+    //   if (timeAdvance >= 5000)
+    //   {
+    //     timeAdvance = 0;
+    //     s.AdvanceTime();
+    //   }
+    //   timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
+    // }
 
 
     animationTime += gameTime.ElapsedGameTime.Milliseconds;
