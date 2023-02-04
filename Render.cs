@@ -298,8 +298,8 @@ public partial class WarClub : Game
     }
     spriteBatch.End();
 
-    DrawMissionMessages(Matrix.CreateScale(0.5f) * Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(screenSize.X, 300, 0));
-    DrawMissionMessages(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, screenSize.Y - 300, 0));
+    DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(screenSize.X, 300, 0));
+    DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(0, screenSize.Y - 300, 0));
     // DrawMissionMessages(Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(0, screenSize.Y - 200, 0));
 
     // Draw deployment zones
@@ -409,10 +409,10 @@ public partial class WarClub : Game
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
     var offset = 0;
-    DrawString(basicFontLarge, $"T: {s.MissionState.Turn} - R: {s.MissionState.Phase} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, Color.White);
+    DrawString(basicFontLarge, $"Turn: {s.MissionState.Turn} - Phase: {s.MissionState.Phase} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Center, Color.White);
     foreach (var message in s.MissionState.Messages)
     {
-      DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, message.Color);
+      DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Center, message.Color);
       if (message.Model != null && message.Model.Texture != null) DrawModelIcon(message.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
     }
     spriteBatch.End();

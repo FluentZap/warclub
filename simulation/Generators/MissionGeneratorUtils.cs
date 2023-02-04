@@ -36,63 +36,30 @@ static partial class Generator
     return tiles.FindAll(x => x.Terrain == terrain && (x.Orientation == orientation || x.Orientation == MapTileOrientation.Both)).ToList();
   }
 
-  // Unit add utils
-  static public List<Unit> SelectUnits(Dictionary<UnitRole, List<Unit>> units, int points, float Troops = 0, float Elites = 0, float HeavySupport = 0, float HQ = 0, float FastAttack = 0, float DedicatedTransport = 0, float Flyers = 0, float LordsOfWar = 0, float Fortifications = 0)
-  {
-    float ratio = points / (Troops + Elites + HeavySupport + HQ + FastAttack + DedicatedTransport + Flyers + LordsOfWar + Fortifications);
-    int HQP = (int)(HQ * ratio);
-    int EP = (int)(Elites * ratio);
-    int HSP = (int)(HeavySupport * ratio);
-    int FAP = (int)(FastAttack * ratio);
-    int TP = (int)(Troops * ratio);
 
-    var ranks = new List<Unit>();
-    List<Unit> temp;
-    int rollOver = 0;
-
-    (temp, rollOver) = FillRanks(units[UnitRole.HQ], HQP + rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(units[UnitRole.Elites], EP + rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(units[UnitRole.HeavySupport], HSP + rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(units[UnitRole.FastAttack], FAP + rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(units[UnitRole.Troops], TP + rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(FilterSelected(units[UnitRole.FastAttack], ranks), rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(FilterSelected(units[UnitRole.HeavySupport], ranks), rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(FilterSelected(units[UnitRole.Elites], ranks), rollOver);
-    ranks.AddRange(temp);
-    (temp, rollOver) = FillRanks(FilterSelected(units[UnitRole.HQ], ranks), rollOver);
-    ranks.AddRange(temp);
-
-    return ranks;
-  }
 
   static public List<Unit> FilterSelected(List<Unit> units, List<Unit> excluded)
   {
     return units.Where(x => !excluded.Contains(x)).ToList();
   }
 
-  static public (List<Unit>, int) FillRanks(List<Unit> units, int points)
+  static public int FillRanks(List<Unit> rawUnits, List<Unit> ignore, List<Unit> chosen, int points)
   {
     int unused = points;
-    var rank = new List<Unit>();
+    var units = FilterSelected(rawUnits, ignore);
     List<Unit> filteredUnits;
     do
     {
-      filteredUnits = FilterByPoints(FilterSelected(units, rank), unused);
+      filteredUnits = FilterByPoints(FilterSelected(units, chosen), unused);
       if (filteredUnits.Count > 0)
       {
         var selectedUnit = RNG.PickFrom(filteredUnits);
         unused -= GetUnitPoints(selectedUnit);
-        rank.Add(selectedUnit);
+        chosen.Add(selectedUnit);
+        ignore.Add(selectedUnit);
       }
     } while (filteredUnits.Count > 0);
-    return (rank, unused);
+    return unused;
   }
 
   static public int GetUnitPoints(Unit unit)
@@ -157,4 +124,43 @@ static partial class Generator
     return $"{totalCount} {name} - {size}mm -" + (hasLeader ? " w/leader" : "");
   }
 
+}
+
+class SelectUnitSystem
+{
+
+  Dictionary<UnitRole, List<Unit>> Units;
+  List<Unit> Ignore = new List<Unit>();
+
+  public SelectUnitSystem(Dictionary<UnitRole, List<Unit>> units)
+  {
+
+    Units = units;
+
+  }
+
+  public List<Unit> SelectUnits(int points, float Troops = 0, float Elites = 0, float HeavySupport = 0, float HQ = 0, float FastAttack = 0, float DedicatedTransport = 0, float Flyers = 0, float LordsOfWar = 0, float Fortifications = 0)
+  {
+    float ratio = points / (Troops + Elites + HeavySupport + HQ + FastAttack + DedicatedTransport + Flyers + LordsOfWar + Fortifications);
+    int HQP = (int)(HQ * ratio);
+    int EP = (int)(Elites * ratio);
+    int HSP = (int)(HeavySupport * ratio);
+    int FAP = (int)(FastAttack * ratio);
+    int TP = (int)(Troops * ratio);
+
+    var ranks = new List<Unit>();
+    int rollOver = 0;
+
+    rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, HQP + rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, EP + rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, HSP + rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, FAP + rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.Troops], Ignore, ranks, TP + rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, rollOver);
+    rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, rollOver);
+
+    return ranks;
+  }
 }

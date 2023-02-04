@@ -45,6 +45,7 @@ static partial class Generator
     var mission = new Mission();
     var terrain = GetPlanetTerrain(s.SelectedWorld);
     var faction = s.cosmos.Factions[RNG.PickFrom(s.SelectedWorld.Relations.Where(x => x.Source.EntityType == EntityType.Faction).ToList()).Source.Id];
+    var sus = new SelectUnitSystem(faction.Units);
     mission.Tiles.Item1 = RNG.PickFrom(GetTileList(s.MapTiles, terrain, MapTileOrientation.Left));
     mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, terrain, MapTileOrientation.Right));
     var pointMax = mission.PointCapacity = 150 + TraitUtil.getAspect(s.SelectedWorld.GetTraits(), "entrenchment") * 25;
@@ -66,7 +67,7 @@ static partial class Generator
         Turn = 0,
         Type = MissionEventType.LootBox,
         Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
-        TriggeredEvents = UnitUtils.ActivateUnits(SelectUnits(faction.Units, pointMax / 2, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
+        TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax / 2, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
         {
           Type = MissionEventType.AISpawn,
           Unit = x,
@@ -80,7 +81,7 @@ static partial class Generator
       Turn = 0,
       Type = MissionEventType.LootBox,
       Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
-      TriggeredEvents = UnitUtils.ActivateUnits(SelectUnits(faction.Units, pointMax, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
+      TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
       {
         Type = MissionEventType.AISpawn,
         Unit = x,
