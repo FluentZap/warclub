@@ -14,7 +14,7 @@ static partial class Generator
 
 
   //build a static rectangle builder for adjusted screen size
-  static Rectangle BuildRect(int x, int y, int width, int height, bool flipX = false, bool flipY = false)
+  public static Rectangle BuildRect(int x, int y, int width, int height, bool flipX = false, bool flipY = false)
   {
     return new Rectangle(flipX ? (ScreenSize.X - x - width) * Ratio : x * Ratio, flipY ? (ScreenSize.Y - y - height) * Ratio : y * Ratio, width * Ratio, height * Ratio);
   }
@@ -36,6 +36,7 @@ static partial class Generator
     return tiles.FindAll(x => x.Terrain == terrain && (x.Orientation == orientation || x.Orientation == MapTileOrientation.Both)).ToList();
   }
 
+  // Unit add utils
   static public List<Unit> SelectUnits(Dictionary<UnitRole, List<Unit>> units, int points, float Troops = 0, float Elites = 0, float HeavySupport = 0, float HQ = 0, float FastAttack = 0, float DedicatedTransport = 0, float Flyers = 0, float LordsOfWar = 0, float Fortifications = 0)
   {
     float ratio = points / (Troops + Elites + HeavySupport + HQ + FastAttack + DedicatedTransport + Flyers + LordsOfWar + Fortifications);
@@ -136,10 +137,12 @@ static partial class Generator
       case "swamp terrain":
       case "caves terrain":
       case "ravines terrain":
-        return MapTileTerrain.Castle;
+
+
       case "sandy terrain":
       case "islands terrain":
       case "cliffs terrain":
+        return MapTileTerrain.Castle;
       default:
         return MapTileTerrain.Winter;
     }

@@ -1,24 +1,8 @@
 Mission briefing screen
     Players can add/remove models to the units
-    Player can toggle which commander is commanding unit on mission
-    Shows point values for each commander
+    DONE - Player can toggle which commander is commanding unit on mission
+    DONE - Shows point values for each commander
     Increase and decrees the unit in the unit line
-    Add roster for 
-    Has mission start button
-
-
-List of units in the faction
-
-q: Commander 1 w: Commander 2 e: Commander 3 r: Commander 4
-
-1/9
-
-List units
-Toggle on and off based on commander
-Add/Remove units from unit lines
-Add Pages
-
-
 
 
 AI Base
@@ -35,3 +19,26 @@ Personal Objective
     snipe from far
     Tank hits
 action
+
+
+Big things
+    Load and save
+    toggle units below min requirements.
+    AI basic I
+    Add couple more missions
+    add interactables (end mission, add events)
+    turn cycle change to phases
+        refractor the desplay of unit stats (simplify even more depending on phase)
+
+
+
+    we are going to build, sight, our select unit system, 
+    step one    select unit system will be a class that can be instatuated
+                 it will take in it's constructor a list of the factions units.
+                it will save this list as a local variable in its class. and all cicial calls for units will pull from this list. 
+                keep track of all units that have been selected and exlclude them from further selections.
+                ask a bunch of questions.
+                right nwo we have a system that lets us select units. and that function is static we pass in a list of units and we tell it a point value and we tell it ratioous
+                now the problem is betwnbee calls tot hat select there is nothing that holds onto that list of units that we selected and we are trying to fix that 
+                one of the things we could do is we are trying to do a cheeky
+

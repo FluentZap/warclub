@@ -3,13 +3,26 @@ using Microsoft.Xna.Framework;
 
 namespace WarClub;
 
+enum Phases
+{
+  Command,
+  Movement,
+  Psychic,
+  Shooting,
+  Charge,
+  Fight,
+  Morale,
+}
+
 class MissionState
 {
   public int Turn;
-  public int Round;
+  public Phases Phase;
+  public Queue<MissionEvent> EventQueue = new Queue<MissionEvent>();
   // public bool ActivationPhase;
   public bool DeploymentPhase = true;
   public bool PlayerTurn;
+  public bool CanInteract;
   public ActiveUnit ActiveUnit;
   public List<MissionMessage> Messages = new List<MissionMessage>();
   public List<MissionZone> TempZones = new List<MissionZone>();
@@ -32,8 +45,6 @@ class MissionZone
 
 class MissionInteractable
 {
-  public int Credits;
-  public List<int> Units = new List<int>();
-  public List<Unit> AIUnits = new List<Unit>();
   public MissionZone Zone;
+  public List<MissionEvent> TriggeredEvents;
 }

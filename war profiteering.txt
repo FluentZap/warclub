@@ -8,6 +8,8 @@ war profiteering
 
 Take kill Contract
     Random locations for targets
+    Add recon patrols, that check for detection
+    Can be removed to prevent raised alarm
     Interact with targets to revel, could revel other special events
     Mission has a countdown, failure will not end the game but cause complications
     Once the primary target is reviled all other targets are removed from the map

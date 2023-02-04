@@ -30,11 +30,11 @@ recruit initiates              |Faction             |bolster                    
 *raid weapon caches            |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
 *create factions               |Faction             |bolster                                        |                 |      50 |               50 |          50 |           50 |         50
                                
-war profiteering               |Mercenary           |war zone                                       |                 |      50 |               50 |          50 |           50 |         50
+*war profiteering               |Mercenary           |war zone                                       |                 |      50 |               50 |          50 |           50 |         50
 take kill contract             |Mercenary           |high value targets                             |                 |      50 |               50 |          50 |           50 |         50
-support the ritualist          |Mercenary           |enlisted gods                                  |                 |      50 |               50 |          50 |           50 |         50
-disrupt recruitment operations |Mercenary           |training camps                                 |                 |      50 |               50 |          50 |           50 |         50
-assault outpost                |Mercenary           |strongholds                                    |                 |      50 |               50 |          50 |           50 |         50
+*support the ritualist          |Mercenary           |enlisted gods                                  |                 |      50 |               50 |          50 |           50 |         50
+*disrupt recruitment operations |Mercenary           |training camps                                 |                 |      50 |               50 |          50 |           50 |         50
+*assault outpost                |Mercenary           |strongholds                                    |                 |      50 |               50 |          50 |           50 |         50
                                
                                
 *form settlement               |CreatureGroup       |500_corporeal, 100_wood, 50_stone              |mobile           |      80 |               70 |          80 |           50 |         20

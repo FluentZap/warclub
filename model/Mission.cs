@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework;
 
 namespace WarClub;
 
-enum MissionSpawnType
+enum MissionEventType
 {
   // Show on the map until the next turn
   PCDeploymentZone,
@@ -18,13 +18,17 @@ enum MissionSpawnType
 class MissionEvent
 {
   public int Turn;
-  public MissionSpawnType Type;
+  public int Frequency;
+  public bool InteractionEvent;
+  public Phases Phase;
+  public MissionEventType Type;
   public MissionMessage Message;
   public Icon Icon;
   public List<Rectangle> Zones = new List<Rectangle>();
   public ActiveUnit Unit;
   public int LootCredits;
   public List<int> LootUnit = new List<int>();
+  public List<MissionEvent> TriggeredEvents = new List<MissionEvent>();
 }
 
 class Mission

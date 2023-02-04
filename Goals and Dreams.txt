@@ -1,0 +1,17 @@
+
+
+Goals.
+
+understand the vission of a system. starting with a small system and then increasing complexity.
+
+List  
+    Basic Function flow
+    Higher Order Functions
+    Data Architecture
+    Data flow
+
+Small Goals
+    Thursday Nathan explains the thing i am going to work on. 
+    Friday i work on it and explain everything i am doing to nathan, with stops at times for me to ask questions like twice in the night.
+    
+

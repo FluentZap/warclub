@@ -409,7 +409,7 @@ public partial class WarClub : Game
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
     var offset = 0;
-    DrawString(basicFontLarge, $"T: {s.MissionState.Turn} - R: {s.MissionState.Round} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, Color.White);
+    DrawString(basicFontLarge, $"T: {s.MissionState.Turn} - R: {s.MissionState.Phase} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, Color.White);
     foreach (var message in s.MissionState.Messages)
     {
       DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Left, message.Color);
@@ -424,7 +424,9 @@ public partial class WarClub : Game
     var aniTime = GetAnimation(3000);
 
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix, blendState: BlendState.Additive);
-    foreach (var missionZone in state.PermZones.Concat(state.TempZones))
+
+    var allZones = state.PermZones.Concat(state.TempZones).Concat(state.Interactables.Select(x => x.Zone));
+    foreach (var missionZone in allZones)
       foreach (var zone in missionZone.Zones)
       {
         var startColor = missionZone.Color;
@@ -436,7 +438,7 @@ public partial class WarClub : Game
     spriteBatch.End();
 
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
-    foreach (var missionZone in state.PermZones.Concat(state.TempZones))
+    foreach (var missionZone in allZones)
       foreach (var zone in missionZone.Zones)
       {
         // draw spawn icon

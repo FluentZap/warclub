@@ -31,7 +31,6 @@ static class InputGovernor
   };
 
 
-
   public static void DoEvents(Simulation s)
   {
     if (s.SelectedView == View.GalaxyOverview) GalaxyOverview(s);
@@ -48,6 +47,14 @@ static class InputGovernor
     var keys = s.KeyState.GetTriggeredKeys();
     if (keys.Contains(Keys.Space))
       MissionRunner.AdvanceState(s);
+
+    foreach (var (key, i) in SelectionKeys)
+    {
+      if (keys.Contains(key) && s.MissionState.CanInteract)
+      {
+        MissionRunner.Interact(s, i);
+      }
+    }
 
     if (keys.Contains(Keys.PageUp))
     {
@@ -234,8 +241,6 @@ static class InputGovernor
       {
         s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
       }
-      foreach (var model in s.UnitList)
-        s.AvailableUnits.Add(model);
 
       s.SelectedView = View.GalaxyOverview;
     }

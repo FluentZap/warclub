@@ -34,8 +34,8 @@ class TraitList : Dictionary<string, Trait>
 
 partial class Simulation
 {
+  // full list from units.csv
   public List<Models> UnitList = new List<Models>();
-  public List<Models> AvailableUnits = new List<Models>();
 
   public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
   public Dictionary<int, Wargear> Wargear = new Dictionary<int, Wargear>();

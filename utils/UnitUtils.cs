@@ -68,4 +68,9 @@ static class UnitUtils
     };
   }
 
+  public static List<ActiveUnit> ActivateUnits(List<Unit> units)
+  {
+    return units.Select(x => ActivateUnit(x)).ToList();
+  }
+
 }
