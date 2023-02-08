@@ -73,4 +73,22 @@ static class UnitUtils
     return units.Select(x => ActivateUnit(x)).ToList();
   }
 
+
+  public static void ClassifyUnit(Unit unit)
+  {
+    var stats = GenerateUnitArchetypeStats(unit);
+    GenerateArchetypeFromStats(stats);
+    // return 
+  }
+
+  public static UnitArchetypeStats GenerateUnitArchetypeStats(Unit unit)
+  {
+
+  }
+
+  public static void GenerateArchetypeFromStats(UnitArchetypeStats stats)
+  {
+
+  }
+
 }
