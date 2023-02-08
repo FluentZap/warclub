@@ -32,3 +32,14 @@ class Unit
   public Dictionary<int, int> UnitLines = new Dictionary<int, int>();
   public List<Wargear> Wargear = new List<Wargear>();
 }
+
+class UnitArchetypeStats
+{
+  public bool Cheap;
+  public bool Expensive;
+  public bool HighDamage;
+  public bool LongRange;
+  public bool Melee;
+  public bool Quick;
+  public bool Tough;
+}
