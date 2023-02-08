@@ -32,7 +32,7 @@ class DataSheet
   // Fortifications
   public UnitRole Role;
   public string UnitComposition;
-  public Dictionary<string, UnitStats> Units = new Dictionary<string, UnitStats>();
+  public Dictionary<int, UnitStats> Units = new Dictionary<int, UnitStats>();
   public List<Wargear> Wargear = new List<Wargear>();
   public List<Wargear> DefaultWargear = new List<Wargear>();
   public List<string> WargearOptions = new List<string>();
@@ -43,6 +43,7 @@ class DataSheet
 
 class UnitStats
 {
+  public string Name;
   public string Movement;
   public string WS;
   public string BS;
@@ -52,6 +53,7 @@ class UnitStats
   public string A;
   public string Ld;
   public string Sv;
+  public int LineId;
   public int Cost;
   public int MinModelsPerUnit;
   public int MaxModelsPerUnit;
@@ -68,7 +70,6 @@ class Wargear
   public bool Relic;
   public string FactionId;
   public string Legend;
-  public int Cost;
 
   public Dictionary<string, WargearLine> WargearLine = new Dictionary<string, WargearLine>();
 

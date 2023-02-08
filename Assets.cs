@@ -10,6 +10,7 @@ namespace WarClub;
 
 public enum Icon
 {
+  None,
   CrossedAxes,
   MilitaryFort,
   HumanTarget,

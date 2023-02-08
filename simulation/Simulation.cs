@@ -34,11 +34,12 @@ class TraitList : Dictionary<string, Trait>
 
 partial class Simulation
 {
+  // full list from units.csv
   public List<Models> UnitList = new List<Models>();
-  public List<Models> AvailableUnits = new List<Models>();
 
   public Dictionary<int, DataSheet> DataSheets = new Dictionary<int, DataSheet>();
   public Dictionary<int, Wargear> Wargear = new Dictionary<int, Wargear>();
+  public Dictionary<(int, int), int> WargearCost = new Dictionary<(int, int), int>();
   public Dictionary<int, Stratagem> Stratagems = new Dictionary<int, Stratagem>();
 
   public Cosmos cosmos = new Cosmos();
@@ -52,64 +53,74 @@ partial class Simulation
 
   public List<MapTile> MapTiles = new List<MapTile>();
 
-
-
   public KeyState KeyState = new KeyState();
+
   public Matrix ViewMatrix;
-  public View SelectedView = View.MissionBriefing;
+  public View SelectedView = View.MainMenu;
   public World SelectedWorld = null;
   public OrderEvent SelectedMission = null;
+  public int SelectedUnit;
 
   public Mission ActiveMission;
   public List<ActiveUnit> SelectableUnits;
   public List<ActiveUnit> SelectedUnits = new List<ActiveUnit>();
   public int CurrentPage;
+  public MissionState MissionState;
+
   public List<Commander> Commanders = new List<Commander>(){
     new Commander(){
       Color = Color.Red,
-      Name = "G-Spot"
+      Icon = Icon.CrossedAxes,
+      Name = "Red",
     },
     new Commander(){
       Color = Color.CornflowerBlue,
-      Name = "Porn"
+      Icon = Icon.Barracks,
+      Name = "Blue",
     },
     new Commander(){
       Color = Color.Green,
-      Name = "69"
+      Icon = Icon.HumanTarget,
+      Name = "Green",
     },
     new Commander(){
       Color = Color.Orange,
-      Name = "Get Sum"
+      Icon = Icon.MilitaryFort,
+      Name = "Orange",
     },
   };
 
-
   public void Generate()
+  {
+    GenerateWorlds();
+    GenerateFactions();
+    AdvanceTime();
+  }
+
+  public void LoadData()
   {
     LoadLists();
     LoadUnits();
     LoadDataSheets();
     LoadMapTiles();
-    GenerateWorlds();
-    GenerateFactions();
 
-    AdvanceTime();
+    // foreach (var world in cosmos.Worlds.Values)
+    // {
+    //   var missions = world.GetEventList(OrderEventLists["Mercenary"]);
+    //   if (missions.Count > 0)
+    //   {
+    //     SelectedWorld = world;
+    //     SelectedMission = missions[0];
+    //     ActiveMission = Generator.GenerateBattleMap(this);
+    //     break;
+    //   }
+    // }
 
-
-    foreach (var world in cosmos.Worlds.Values)
-    {
-      var missions = world.GetEventList(OrderEventLists["Mercenary"]);
-      if (missions.Count > 0)
-      {
-        SelectedWorld = world;
-        SelectedMission = missions[0];
-        ActiveMission = Generator.GenerateBattleMap(this);
-        break;
-      }
-    }
-
-    SelectableUnits = cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
-    CurrentPage = 0;
+    // SelectableUnits = cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
+    // SelectedUnits = SelectableUnits;
+    // CurrentPage = 0;
+    // MissionState = new MissionState();
+    // MissionRunner.AdvanceState(this);
 
     // TimeWizard.Stasis(this);
     // PlanetColors.Add(Traits["cemetery world"], new WorldColor()
@@ -159,5 +170,4 @@ partial class Simulation
   }
 
   Dictionary<Trait, WorldColor> PlanetColors = new Dictionary<Trait, WorldColor>();
-
 }

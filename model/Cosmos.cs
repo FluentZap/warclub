@@ -1,10 +1,18 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WarClub;
 
 class KeyCollection<T> : Dictionary<uint, T> where T : ID
 {
   uint id = 0;
+
+  public KeyCollection(IEnumerable<T> collection) : base(collection.ToDictionary(x => x.Id))
+  {
+    id = this.Aggregate((x, y) => x.Key > y.Key ? x : y).Key;
+  }
+
+  public KeyCollection() { }
 
   public uint AutoAdd(T item)
   {

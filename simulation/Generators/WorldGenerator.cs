@@ -557,7 +557,7 @@ partial class Simulation
     {
       var s = new Sector()
       {
-        location = new Vector2(0),
+        Location = new Vector2(0),
       };
       cosmos.Sectors.AutoAdd(s);
     }
@@ -568,9 +568,9 @@ partial class Simulation
       var p = new World()
       {
         Name = NameGenerator.Generate(NameGenerator.DRAGONS_PERN),
-        size = RNG.Integer(10, 25) / 10f,
-        // location = new Vector2(240 + i % 8 * 480 + RNG.Integer(-150, 150), 270 + i / 8 * 540 + RNG.Integer(-150, 150)),
-        location = new Vector2(240 + i % 8 * 480, 270 + i / 8 * 540),
+        size = RNG.Integer(10, 25) / 30f,
+        location = new Vector2(240 + i % 8 * 480 + RNG.Integer(-150, 150), 270 + i / 8 * 540 + RNG.Integer(-150, 150)),
+        // location = new Vector2(240 + i % 8 * 480, 270 + i / 8 * 540),
         color = new WorldColor()
         {
           top = new Color(RNG.Integer(0, 255), RNG.Integer(0, 255), RNG.Integer(0, 255)),

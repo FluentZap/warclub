@@ -45,7 +45,7 @@ class Entity : ID
   public List<Relation> Relations = new List<Relation>();
 
   public Psyche Psyche = new Psyche();
-  private Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
+  public Dictionary<Trait, int> Traits = new Dictionary<Trait, int>();
 
   public Entity(EntityType type)
   {

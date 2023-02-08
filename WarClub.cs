@@ -10,14 +10,14 @@ namespace WarClub;
 
 public partial class WarClub : Game
 {
-  Simulation simulation;
+  Simulation s;
 
   private GraphicsDeviceManager graphics;
   private SpriteBatch spriteBatch;
   Vector2 viewportSize = new Vector2(1920, 1080);
   // Vector2 viewportSize = new Vector2(2560, 1440);
   // Vector2 viewportSize = new Vector2(3840, 2160);
-  Vector2 screenSize = new Vector2(3840, 2160);
+  Vector2 screenSize = new Vector2(3819, 2144);
   BasicEffect basicEffect;
   Effect planetEffect;
   Effect starfieldEffect;
@@ -34,10 +34,10 @@ public partial class WarClub : Game
   private SpriteFont basicFont;
   private SpriteFont basicFontLarge;
   private SpriteFont basicFontSmall;
-  public Dictionary<string, Texture2D> icons = new Dictionary<string, Texture2D>();
+  public Dictionary<Icon, Texture2D> icons = new Dictionary<Icon, Texture2D>();
   public Dictionary<string, Texture2D> MapTextures = new Dictionary<string, Texture2D>();
   public Texture2D BlankTexture;
-  Dictionary<string, Trait> TraitIcons = new Dictionary<string, Trait>();
+  Dictionary<Icon, Trait> TraitIcons = new Dictionary<Icon, Trait>();
 
   Texture2D grassTexture;
 
@@ -99,10 +99,10 @@ public partial class WarClub : Game
     graphics.PreferredBackBufferWidth = (int)viewportSize.X;
     // graphics.IsFullScreen = true;
     // Window.Position = new Point(-5760, 0);
-    // Window.IsBorderless = true;
+    Window.IsBorderless = true;
     graphics.ApplyChanges();
 
-    simulation.ViewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
+    s.ViewMatrix = Matrix.CreateScale(viewportSize.X / screenSize.X, viewportSize.Y / screenSize.Y, 1);
 
     basicEffect = new BasicEffect(GraphicsDevice);
     basicEffect.Alpha = 1f;
@@ -118,20 +118,20 @@ public partial class WarClub : Game
     spriteBatch = new SpriteBatch(GraphicsDevice);
 
     // TODO: use this.Content to load your game content here
-    simulation = new Simulation();
-    simulation.Generate();
-    foreach (var tile in simulation.MapTiles)
+    s = new Simulation();
+    s.LoadData();
+    foreach (var tile in s.MapTiles)
     {
       MapTextures.Add(tile.Texture, Content.Load<Texture2D>($"planetTextures/{tile.Terrain}/{tile.Texture}"));
     }
-    icons.Add("crossed-axes", Content.Load<Texture2D>("icons/crossed-axes"));
-    icons.Add("military-fort", Content.Load<Texture2D>("icons/military-fort"));
-    icons.Add("human-target", Content.Load<Texture2D>("icons/human-target"));
-    icons.Add("lightning-tear", Content.Load<Texture2D>("icons/lightning-tear"));
-    icons.Add("barracks", Content.Load<Texture2D>("icons/barracks"));
+    icons.Add(Icon.CrossedAxes, Content.Load<Texture2D>("icons/crossed-axes"));
+    icons.Add(Icon.MilitaryFort, Content.Load<Texture2D>("icons/military-fort"));
+    icons.Add(Icon.HumanTarget, Content.Load<Texture2D>("icons/human-target"));
+    icons.Add(Icon.LightningTear, Content.Load<Texture2D>("icons/lightning-tear"));
+    icons.Add(Icon.Barracks, Content.Load<Texture2D>("icons/barracks"));
     BlankTexture = Content.Load<Texture2D>("planetTextures/blank");
 
-    DataCard = Content.Load<Texture2D>("BlankSquadDataslate");
+    DataCard = Content.Load<Texture2D>("panel");
 
     basicFont = Content.Load<SpriteFont>("romulus");
     basicFontSmall = Content.Load<SpriteFont>("romulus_small");
@@ -141,13 +141,13 @@ public partial class WarClub : Game
     planetEffect = Content.Load<Effect>("planetEffect");
     starfieldEffect = Content.Load<Effect>("starfield");
 
-    TraitIcons.Add("crossed-axes", simulation.Traits["war zone"]);
-    TraitIcons.Add("military-fort", simulation.Traits["strongholds"]);
-    TraitIcons.Add("human-target", simulation.Traits["high value targets"]);
-    TraitIcons.Add("lightning-tear", simulation.Traits["enlisted gods"]);
-    TraitIcons.Add("barracks", simulation.Traits["training camps"]);
+    TraitIcons.Add(Icon.CrossedAxes, s.Traits["war zone"]);
+    TraitIcons.Add(Icon.MilitaryFort, s.Traits["strongholds"]);
+    TraitIcons.Add(Icon.HumanTarget, s.Traits["high value targets"]);
+    TraitIcons.Add(Icon.LightningTear, s.Traits["enlisted gods"]);
+    TraitIcons.Add(Icon.Barracks, s.Traits["training camps"]);
 
-    foreach (var unit in simulation.UnitList)
+    foreach (var unit in s.UnitList)
     {
       if (unit.Image != "")
       {
@@ -160,39 +160,28 @@ public partial class WarClub : Game
 
   protected override void Update(GameTime gameTime)
   {
-    // worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(-0.1f));
-    // Quaternion.CreateFromYawPitchRoll()
-
-    simulation.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
+    s.KeyState.SetKeys(Keyboard.GetState().GetPressedKeys());
     if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
       Exit();
-
 
     // var pressedKeys = simulation.KeyState.GetTriggeredKeys(true);
     // if ((pressedKeys.Contains(Keys.LeftAlt) || pressedKeys.Contains(Keys.RightAlt)) && pressedKeys.Contains(Keys.Enter))
     // {
     //   graphics.ToggleFullScreen();
     // }
-    // if (Keyboard.GetState().IsKeyDown(Keys.Right))
+    InputGovernor.DoEvents(s);
+
+    // if (s.SelectedView == View.GalaxyOverview)
     // {
-    //   worldMatrix *= Matrix.CreateRotationY(MathHelper.ToRadians(0.1f));
+    //   if (timeAdvance >= 5000)
+    //   {
+    //     timeAdvance = 0;
+    //     s.AdvanceTime();
+    //   }
+    //   timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
     // }
-    // if (Keyboard.GetState().IsKeyDown(Keys.Space))
-    // {
-    //   selectedWorld = null;
-    // }
-    InputGovernor.DoEvents(simulation);
 
 
-
-    // TODO: Add your update logic here
-
-    if (timeAdvance >= 5000)
-    {
-      timeAdvance = 0;
-      simulation.AdvanceTime();
-    }
-    timeAdvance += gameTime.ElapsedGameTime.Milliseconds;
     animationTime += gameTime.ElapsedGameTime.Milliseconds;
     base.Update(gameTime);
   }

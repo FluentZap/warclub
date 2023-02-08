@@ -66,7 +66,8 @@ partial class FactionEvent
   {
     foreach (var relation in e.Relations)
     {
-      relation.Strength -= 5;
+      if (relation.relationType == RelationType.MissionTarget)
+        relation.Strength -= 5;
       // missions can resolve here
       // if (relation.Strength <= 0)
       // {

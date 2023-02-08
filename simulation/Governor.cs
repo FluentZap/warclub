@@ -22,7 +22,13 @@ static class InputGovernor
     [Keys.D9] = 8,
   };
 
-
+  static public Dictionary<Keys, int> CommanderKeys = new Dictionary<Keys, int>
+  {
+    [Keys.F1] = 0,
+    [Keys.F2] = 1,
+    [Keys.F3] = 2,
+    [Keys.F4] = 3,
+  };
 
 
   public static void DoEvents(Simulation s)
@@ -30,9 +36,36 @@ static class InputGovernor
     if (s.SelectedView == View.GalaxyOverview) GalaxyOverview(s);
     if (s.SelectedView == View.MissionBriefing) MissionBriefing(s);
     if (s.SelectedView == View.MissionSelect) MissionSelect(s);
+    if (s.SelectedView == View.Battlefield) Battlefield(s);
     if (s.SelectedView == View.MainMenu) MainMenu(s);
     if (s.SelectedView == View.NewGame) NewGame(s);
     if (s.SelectedView == View.LoadGame) LoadGame(s);
+  }
+
+  static void Battlefield(Simulation s)
+  {
+    var keys = s.KeyState.GetTriggeredKeys();
+    if (keys.Contains(Keys.Space))
+      MissionRunner.AdvanceState(s);
+
+    foreach (var (key, i) in SelectionKeys)
+    {
+      if (keys.Contains(key) && s.MissionState.CanInteract)
+      {
+        MissionRunner.Interact(s, i);
+      }
+    }
+
+    if (keys.Contains(Keys.PageUp))
+    {
+      s.SelectedView = View.MissionSelect;
+      s.cosmos.PlayerFaction.AddTrait(s.Traits["gelt"], (int)Math.Ceiling(s.ActiveMission.PointCapacity / 3f));
+    }
+
+    if (keys.Contains(Keys.PageDown))
+    {
+      s.SelectedView = View.MissionSelect;
+    }
   }
 
   static void MissionBriefing(Simulation s)
@@ -40,36 +73,74 @@ static class InputGovernor
 
     var keys = s.KeyState.GetTriggeredKeys();
     int pageCount = s.SelectableUnits.Count / 9;
+    var Selected = s.Commanders[0];
 
-    if (keys.Contains(Keys.F1))
-      s.Commanders[0].Active = !s.Commanders[0].Active;
-    if (keys.Contains(Keys.F2))
-      s.Commanders[1].Active = !s.Commanders[1].Active;
-    if (keys.Contains(Keys.F3))
-      s.Commanders[2].Active = !s.Commanders[2].Active;
-    if (keys.Contains(Keys.F4))
-      s.Commanders[3].Active = !s.Commanders[3].Active;
-
-    if (keys.Contains(Keys.Right))
+    if (keys.Contains(Keys.Right) && s.CurrentPage < pageCount - 1)
     {
-      if (s.CurrentPage < pageCount) s.CurrentPage++;
-      return;
+      s.CurrentPage++;
+      s.SelectedUnit += 9;
+      if (s.SelectedUnit >= s.SelectableUnits.Count) s.SelectedUnit = s.SelectableUnits.Count - 1;
+    }
+    if (keys.Contains(Keys.Left) && s.CurrentPage > 0)
+    {
+      s.CurrentPage--;
+      s.SelectedUnit -= 9;
+      if (s.SelectedUnit < 0) s.SelectedUnit = 0;
     }
 
-    if (keys.Contains(Keys.Left))
+
+    // Select Units
+    foreach (var (key, i) in SelectionKeys)
     {
-      if (s.CurrentPage > 0) s.CurrentPage--;
-      return;
+      var unitIndex = (s.CurrentPage * 9) + i;
+      if (keys.Contains(key) && unitIndex < s.SelectableUnits.Count)
+      {
+        s.SelectedUnit = unitIndex;
+      }
     }
 
+    if (keys.Contains(Keys.Up) && s.SelectedUnit > 0)
+    {
+      s.SelectedUnit--;
+      s.CurrentPage = s.SelectedUnit / 9;
+    }
+
+    if (keys.Contains(Keys.Down) && s.SelectedUnit < s.SelectableUnits.Count - 1)
+    {
+      s.SelectedUnit++;
+      s.CurrentPage = s.SelectedUnit / 9;
+    }
+
+    var unit = s.SelectableUnits[s.SelectedUnit];
+
+    foreach (var (key, i) in CommanderKeys)
+      if (keys.Contains(key))
+      {
+        if (s.Commanders[i].Units.Contains(unit))
+          s.Commanders[i].Units.Remove(unit);
+        else
+        {
+          foreach (var commander in s.Commanders)
+            commander.Units.Remove((unit));
+          s.Commanders[i].Units.Add(unit);
+        }
+      }
+
+    if (keys.Contains(Keys.Enter))
+    {
+      s.SelectedUnits.Clear();
+      foreach (var commander in s.Commanders)
+        s.SelectedUnits.AddRange(commander.Units);
+      s.SelectedView = View.Battlefield;
+      s.MissionState = new MissionState();
+      MissionRunner.AdvanceState(s);
+    }
   }
-
-
 
   static void GalaxyOverview(Simulation s)
   {
     var size = new Point(480, 570);
-
+    var keys = s.KeyState.GetTriggeredKeys();
     if (Mouse.GetState().LeftButton == ButtonState.Pressed)
     {
 
@@ -81,6 +152,9 @@ static class InputGovernor
           s.SelectedWorld = world.Value;
         }
     }
+
+    if (keys.Contains(Keys.Delete))
+      TimeWizard.Stasis(s);
   }
 
   static void MissionSelect(Simulation s)
@@ -120,7 +194,8 @@ static class InputGovernor
     }
     if (keys.Contains(Keys.D2))
     {
-      s.SelectedView = View.LoadGame;
+      TimeWizard.Awaken(s);
+      s.SelectedView = View.GalaxyOverview;
       return;
     }
   }
@@ -160,8 +235,13 @@ static class InputGovernor
 
     if (keys.Contains(Keys.Enter) && s.SelectedUnits.Count > 0)
     {
+      s.Generate();
+
       foreach (var unit in s.SelectedUnits)
+      {
         s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
+      }
+
       s.SelectedView = View.GalaxyOverview;
     }
   }

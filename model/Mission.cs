@@ -3,28 +3,45 @@ using Microsoft.Xna.Framework;
 
 namespace WarClub;
 
-
-
+enum MissionEventType
+{
+  // Show on the map until the next turn
+  PCDeploymentZone,
+  // Show on the map until the next turn
+  AISpawn,
+  // Shows on map until end of game
+  PCEvacZone,
+  // Shows on map until it's interacted with
+  LootBox,
+}
 
 class MissionEvent
 {
   public int Turn;
-  public List<Point> EvacZones = new List<Point>();
-  public List<MissionEventSpawn> Intractables = new List<MissionEventSpawn>();
-  public List<MissionEventSpawn> Spawns = new List<MissionEventSpawn>();
-}
-
-class MissionEventSpawn
-{
-  public Point Location;
-  public List<Unit> Units = new List<Unit>();
-  public List<int> Loot = new List<int>();
+  public int Frequency;
+  public bool InteractionEvent;
+  public Phases Phase;
+  public MissionEventType Type;
+  public MissionMessage Message;
+  public Icon Icon;
+  public List<Rectangle> Zones = new List<Rectangle>();
+  public ActiveUnit Unit;
+  public int LootCredits;
+  public List<int> LootUnit = new List<int>();
+  public List<MissionEvent> TriggeredEvents = new List<MissionEvent>();
 }
 
 class Mission
 {
   public (MapTile, MapTile) Tiles;
-  public List<Rectangle> PlayerDeploymentZones = new List<Rectangle>();
   public List<MissionEvent> MissionEvents = new List<MissionEvent>();
-  public List<ActiveUnit> PlayerUnits = new List<ActiveUnit>();
+  public int PointCapacity;
+}
+
+class MissionMessage
+{
+  public string Text;
+  public Color Color;
+  // public Icon Icon;
+  public Models Model;
 }

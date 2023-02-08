@@ -20,6 +20,7 @@ class Models
 class ActiveUnit
 {
   public int Points;
+  public Models Model;
   public int DeployedCount;
   public Commander Commander;
   public Unit BaseUnit;
@@ -28,12 +29,6 @@ class ActiveUnit
 class Unit
 {
   public DataSheet DataSheet;
-  public Dictionary<string, UnitLine> UnitLines = new Dictionary<string, UnitLine>();
-}
-
-class UnitLine
-{
-  public UnitStats UnitStats;
-  public int Count;
+  public Dictionary<int, int> UnitLines = new Dictionary<int, int>();
   public List<Wargear> Wargear = new List<Wargear>();
 }
