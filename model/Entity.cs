@@ -69,7 +69,7 @@ class Entity : ID
     }
     else
     {
-      Traits.Add(trait, count);
+      if (count > 0) Traits.Add(trait, count);
     }
   }
 

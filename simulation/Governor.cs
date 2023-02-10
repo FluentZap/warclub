@@ -166,6 +166,28 @@ static class InputGovernor
         }
       }
 
+    if (keys.Contains(Keys.Add))
+      if (unit.DeployedCount < (unit.BaseUnit.UnitLines.ContainsKey(1) ? unit.BaseUnit.UnitLines[1] : 0))
+      {
+        unit.DeployedCount++;
+      }
+      else
+      {
+        if (!unit.BaseUnit.UnitLines.ContainsKey(1)) unit.BaseUnit.UnitLines.Add(1, 0);
+        if (unit.BaseUnit.UnitLines[1] < unit.BaseUnit.DataSheet.Units[1].MaxModelsPerUnit)
+        {
+          unit.BaseUnit.UnitLines[1]++;
+          unit.DeployedCount++;
+          s.cosmos.PlayerFaction.AddTrait(s.Traits["debt"], unit.BaseUnit.DataSheet.Units[1].Cost);
+        }
+      }
+
+    if (keys.Contains(Keys.Subtract))
+      if (unit.DeployedCount > 0)
+      {
+        unit.DeployedCount--;
+      }
+
     if (keys.Contains(Keys.Enter))
     {
       s.SelectedUnits.Clear();
@@ -216,6 +238,7 @@ static class InputGovernor
         s.SelectableUnits = s.cosmos.PlayerFaction.Units.SelectMany(x => x.Value).Select(x => UnitUtils.ActivateUnit(x)).ToList();
         s.CurrentPage = 0;
         s.SelectedView = View.MissionBriefing;
+        foreach (var commander in s.Commanders) commander.Units.Clear();
         s.SelectedMission = missions[i];
         s.ActiveMission = Generator.GenerateBattleMap(s);
       }
@@ -281,6 +304,7 @@ static class InputGovernor
       {
         s.cosmos.PlayerFaction.Units[unit.BaseUnit.DataSheet.Role].Add(unit.BaseUnit);
       }
+      s.cosmos.PlayerFaction.AddTrait(s.Traits["gelt"], 150 - s.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points));
 
       s.SelectedView = View.GalaxyOverview;
     }

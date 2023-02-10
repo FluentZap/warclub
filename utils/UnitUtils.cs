@@ -65,7 +65,7 @@ static class UnitUtils
     return new ActiveUnit()
     {
       BaseUnit = u,
-      DeployedCount = u.UnitLines.First().Value,
+      DeployedCount = u.UnitLines.ContainsKey(1) ? u.UnitLines[1] : 0,
       Points = Generator.GetUnitPoints(u),
       Model = model,
       Job = ClassifyUnit(u),
@@ -77,10 +77,12 @@ static class UnitUtils
     Models PickUnit(Unit unit)
     {
       var unitSize = unit.DataSheet.Units[1].Size.X;
-      var extraUnit = unit.UnitLines.Count > 1 ? 1 : 0;
-      var quantityModels = models.Where(x => x.Count >= unit.UnitLines[1] + extraUnit).ToList();
-      var sizeModels = quantityModels.Where(x => x.Size.X * 1.25 > unitSize && x.Size.X * 0.75 < unitSize).ToList();
+      var extraUnit = unit.DataSheet.Units.Count > 1 ? 1 : 0;
 
+      var quantityModels = models.Where(x => x.Count >= (unit.UnitLines.ContainsKey(1) ? unit.UnitLines[1] : 0) + extraUnit).ToList();
+
+      var sizeModels = quantityModels.Where(x => x.Size.X * 1.25 > unitSize && x.Size.X * 0.75 < unitSize).ToList();
+      if (sizeModels.Count == 0 && quantityModels.Count == 0) return null;
       var model = RNG.PickFrom(sizeModels.Count > 0 ? sizeModels : quantityModels);
       models.Remove(model);
       return model;

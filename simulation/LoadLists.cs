@@ -307,7 +307,7 @@ partial class Simulation
       var wargear = Wargear[Int32.Parse(r[0])];
       wargear.WargearLine.Add(r[2].Trim(), new WargearLine()
       {
-        Name = r[2].Trim(),
+        Name = r[2].Trim().Replace("’", "'"),
         Range = r[3].Trim(),
         Type = r[4].Trim(),
         S = r[5].Trim(),

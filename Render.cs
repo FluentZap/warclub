@@ -111,7 +111,9 @@ public partial class WarClub : Game
       DrawWorldOverlay(world.Value, world.Value.location.ToPoint() - new Point(240, 270), new Point((int)(128 * world.Value.size * 0.85)));
       DrawWorldTraits(world.Value.location.ToPoint() - new Point(256), world.Value.GetTraits());
     }
-    DrawString(basicFontLarge, TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["gelt"]).ToString(), new Rectangle(0, 0, (int)screenSize.X, 32), Alignment.Center, Color.Gold);
+
+    var money = TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["gelt"]) - TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["debt"]);
+    DrawString(basicFontLarge, money.ToString(), new Rectangle(0, 0, (int)screenSize.X, 32), Alignment.Center, Color.Gold);
     spriteBatch.End();
   }
 
@@ -151,7 +153,7 @@ public partial class WarClub : Game
     {
       var padding = (int)((3840 - 400) / commanders.Count);
       var commander = commanders[i];
-      var points = commander.Units.Aggregate(0, (acc, x) => acc + x.Points);
+      var points = commander.Units.Aggregate(0, (acc, x) => acc + (x.BaseUnit.DataSheet.Units.Count > 1 ? 1 : 0 + x.DeployedCount) * x.BaseUnit.DataSheet.Units.First().Value.Cost);
       totalPoints += points;
       spriteBatch.Draw(icons[commander.Icon], new Rectangle(new Point(128 + i * padding, 8), new Point(64, 64)), commander.Color);
       spriteBatch.DrawString(basicFontLarge, points.ToString() + "/" + commanderPC.ToString() + " - " + commander.Name, new Vector2(200 + i * padding, 0), commander.Color);
@@ -171,22 +173,23 @@ public partial class WarClub : Game
     {
       var unit = s.SelectableUnits[i];
       var position = new Vector2(300, 650 + offset * 100);
-      var count = unit.BaseUnit.UnitLines.Count > 1 ? (unit.DeployedCount + 1).ToString() + "*" : unit.DeployedCount.ToString();
-
+      var count = unit.BaseUnit.DataSheet.Units.Count > 1 ? (unit.DeployedCount + 1) : unit.DeployedCount;
+      var points = unit.BaseUnit.DataSheet.Units[1].Cost * count;
 
       foreach (var commander in s.Commanders)
         if (commander.Units.Contains(unit))
           spriteBatch.Draw(icons[commander.Icon], new Rectangle(new Point((int)position.X - 72, (int)position.Y + 8), new Point(64, 64)), commander.Color);
 
       spriteBatch.DrawString(basicFontLarge, (offset + 1).ToString() + ". " + TrimString(unit.BaseUnit.DataSheet.Name), position, i == s.SelectedUnit ? Color.OrangeRed : Color.White);
-      spriteBatch.DrawString(basicFontLarge, count, position + new Vector2(1000, 0), Color.OrangeRed);
-      spriteBatch.DrawString(basicFontLarge, unit.Points.ToString(), position + new Vector2(1200, 0), Color.YellowGreen);
+      spriteBatch.DrawString(basicFontLarge, count.ToString(), position + new Vector2(1000, 0), Color.OrangeRed);
+      spriteBatch.DrawString(basicFontLarge, points.ToString(), position + new Vector2(1200, 0), Color.YellowGreen);
 
       offset += 1;
     }
 
 
-
+    var money = TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["gelt"]) - TraitUtil.getTraitCount(s.cosmos.PlayerFaction.GetTraits(), s.Traits["debt"]);
+    DrawString(basicFontLarge, money.ToString(), new Rectangle(0, 0, (int)screenSize.X, 32), Alignment.Center, Color.Gold);
 
     spriteBatch.End();
 
@@ -387,7 +390,7 @@ public partial class WarClub : Game
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
     spriteBatch.DrawString(basicFontLarge, "new game", new Vector2(screenSize.X / 2, 300), Color.White);
-    spriteBatch.DrawString(basicFontLarge, "Select two units per player", new Vector2(screenSize.X / 2, 400), Color.White);
+    spriteBatch.DrawString(basicFontLarge, "Select one units per player", new Vector2(screenSize.X / 2, 400), Color.White);
 
     var totalPoints = s.SelectedUnits.Aggregate(0, (acc, x) => acc + x.Points);
 

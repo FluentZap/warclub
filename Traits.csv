@@ -1,6 +1,7 @@
 name                               |types            |aspects
 
 gelt                               |resource         |wealth
+debt                               |resource         |wealth
 rampage                            |aspiration       |
 conquer                            |aspiration       |
 disrupt                            |aspiration       |
