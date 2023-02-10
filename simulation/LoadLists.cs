@@ -185,7 +185,7 @@ partial class Simulation
         unitSize.X = unitSize.Y = Int32.Parse(size);
       }
 
-      UnitList.Add(new Models()
+      ModelList.Add(new Models()
       {
         Name = r[0].Trim(),
         DataCardIds = r[1].Split(',').Where(x => !string.IsNullOrWhiteSpace(x)).Select(x => Int32.Parse(x)).ToHashSet(),

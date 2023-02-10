@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -50,43 +51,56 @@ static partial class Generator
     mission.Tiles.Item2 = RNG.PickFrom(GetTileList(s.MapTiles, terrain, MapTileOrientation.Right));
     var pointMax = mission.PointCapacity = 150 + TraitUtil.getAspect(s.SelectedWorld.GetTraits(), "entrenchment") * 25;
 
+    var used = s.cosmos.PlayerFaction.Units.SelectMany(x => x.Value.Select(x => x.DataSheet.Id)).ToHashSet();
+    var models = s.ModelList.Where(x => !x.DataCardIds.Overlaps(used)).ToList();
+
     for (int i = 0; i < 3; i++)
       mission.MissionEvents.Add(new MissionEvent()
       {
         Turn = 0,
         Type = MissionEventType.PCDeploymentZone,
-        Message = new MissionMessage() { Text = "Deploy Player Units 1/3 of units", Color = Color.White },
+        Message = new MissionMessage() { Text = $"{i + 1}: Deploy 1/3 of player units", Color = Color.White },
         Zones = new List<Rectangle>() { BuildRect(RNG.Integer(6, ScreenSize.X - 6), RNG.Integer(6, ScreenSize.Y - 6), 6, 6) }
       });
 
     var tempEvents = new List<MissionEvent>();
-
+    Point spawnPoint;
     for (int i = 0; i < RNG.DiceRoll(2, 4); i++)
+    {
+      spawnPoint = new Point(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2));
       tempEvents.Add(new MissionEvent()
       {
         Turn = 0,
         Type = MissionEventType.LootBox,
-        Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
-        TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax / 2, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
+        Zones = new List<Rectangle>() { BuildRect(spawnPoint.X, spawnPoint.Y, 2, 2) },
+        TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax / 2, Troops: 1, HQ: 1, FastAttack: 1), models).Select(x => new MissionEvent()
         {
           Type = MissionEventType.AISpawn,
           Unit = x,
           Message = new MissionMessage() { Text = GetUnitSpawnLabel(x), Color = Color.White },
-          Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
+          Zones = new List<Rectangle>() { BuildRect(
+            Math.Clamp(RNG.Integer(spawnPoint.X - 10, spawnPoint.X + 10), 8, ScreenSize.X - 8),
+            Math.Clamp(RNG.Integer(spawnPoint.Y - 10, spawnPoint.Y + 10), 8, ScreenSize.Y - 8),
+            8, 8) },
         }).ToList(),
       });
+    }
 
+    spawnPoint = new Point(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2));
     tempEvents.Add(new MissionEvent()
     {
       Turn = 0,
       Type = MissionEventType.LootBox,
-      Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
-      TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax, Troops: 1, HQ: 1, FastAttack: 1)).Select(x => new MissionEvent()
+      Zones = new List<Rectangle>() { BuildRect(spawnPoint.X, spawnPoint.Y, 2, 2) },
+      TriggeredEvents = UnitUtils.ActivateUnits(sus.SelectUnits(pointMax, Troops: 1, HQ: 1, FastAttack: 1), models).Select(x => new MissionEvent()
       {
         Type = MissionEventType.AISpawn,
         Unit = x,
         Message = new MissionMessage() { Text = GetUnitSpawnLabel(x), Color = Color.White },
-        Zones = new List<Rectangle>() { BuildRect(RNG.Integer(2, ScreenSize.X - 2), RNG.Integer(2, ScreenSize.Y - 2), 8, 8) },
+        Zones = new List<Rectangle>() { BuildRect(
+            Math.Clamp(RNG.Integer(spawnPoint.X - 10, spawnPoint.X + 10), 8, ScreenSize.X - 8),
+            Math.Clamp(RNG.Integer(spawnPoint.Y - 10, spawnPoint.Y + 10), 8, ScreenSize.Y - 8),
+            8, 8) },
       }).ToList(),
     });
 

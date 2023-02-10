@@ -27,18 +27,88 @@ Big things
     AI basic I
     Add couple more missions
     add interactables (end mission, add events)
-    turn cycle change to phases
-        refractor the desplay of unit stats (simplify even more depending on phase)
+    Turn cycle change to phases
+        refractor the display of unit stats (simplify even more depending on phase)
 
 
 
-    we are going to build, sight, our select unit system, 
-    step one    select unit system will be a class that can be instatuated
-                 it will take in it's constructor a list of the factions units.
-                it will save this list as a local variable in its class. and all cicial calls for units will pull from this list. 
-                keep track of all units that have been selected and exlclude them from further selections.
-                ask a bunch of questions.
-                right nwo we have a system that lets us select units. and that function is static we pass in a list of units and we tell it a point value and we tell it ratioous
-                now the problem is betwnbee calls tot hat select there is nothing that holds onto that list of units that we selected and we are trying to fix that 
-                one of the things we could do is we are trying to do a cheeky
+List of unit architypes
 
+Melee/No Melee
+
+Short
+Long
+
+Toughness and Wounds
+
+Slow
+Quick
+
+Low Damage
+High Damage - Attack/Damage/AP
+
+Cheap/Expensive
+
+
+Melee
+LongRange
+Tough
+Quick
+High Damage
+Cheap
+Expensive
+
+
+Restrictions
+
+Brawler - Melee/Expensive
+Tar Pits - Melee/Tough
+
+Position Holders
+Long range - Elimination
+
+
+Mobs - Bunch of cheap units
+Heavy - Heavy armor or wounds
+Hitters - Groups of heavy hitters
+Supports - HQ, Auras
+Ranger - Long range
+Scouts - High move speed, short/mid range
+Snipers - Long range, high damage
+
+
+
+
+
+
+Function takes a unit
+
+Generate UnitArchetypeStats based on the unit - Thomas
+
+Generate Personality based on the UnitArchetypeStats - Todd
+
+
+Brawlers 
+    get in close and tie up units
+
+Position Holders
+    Take objectives, all purpose unit, not too expensive
+
+Elimination
+    Likes to kill, has high damage
+
+Attrition
+    Reliable damage over time and are very durable
+
+Objective Utility
+    Takes objectives and supports other units normally HQ units
+
+Force Multiplier
+    Provides powerful buffs usually an HQ unit
+
+
+
+
+
+    we are going to only build basic personality of the above six
+    build out achatype stats easy to hard

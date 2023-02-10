@@ -6,6 +6,12 @@ namespace WarClub;
 
 class KeyState
 {
+  HashSet<Keys> persist = new HashSet<Keys>()
+  {
+    Keys.LeftShift,
+    Keys.RightShift,
+  };
+
   HashSet<Keys> exhausted = new HashSet<Keys>();
   HashSet<Keys> triggered = new HashSet<Keys>();
 
@@ -34,6 +40,7 @@ class KeyState
   {
     var triggeredKeys = triggered.ToHashSet();
     if (!persist) triggered.Clear();
+
     return triggeredKeys;
   }
 }

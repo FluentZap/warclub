@@ -18,11 +18,13 @@ class MissionState
 {
   public int Turn;
   public Phases Phase;
+  public bool EventActive;
   public Queue<MissionEvent> EventQueue = new Queue<MissionEvent>();
   // public bool ActivationPhase;
   public bool DeploymentPhase = true;
-  public bool PlayerTurn;
+  public bool PlayerTurn = true;
   public bool CanInteract;
+  public bool UnitToggleScreen;
   public ActiveUnit ActiveUnit;
   public List<MissionMessage> Messages = new List<MissionMessage>();
   public List<MissionZone> TempZones = new List<MissionZone>();

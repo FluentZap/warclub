@@ -150,16 +150,15 @@ class SelectUnitSystem
 
     var ranks = new List<Unit>();
     int rollOver = 0;
-
-    rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, HQP + rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, EP + rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, HSP + rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, FAP + rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.Troops], Ignore, ranks, TP + rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, rollOver);
-    rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, rollOver);
+    if (Units.ContainsKey(UnitRole.HQ)) rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, HQP + rollOver);
+    if (Units.ContainsKey(UnitRole.Elites)) rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, EP + rollOver);
+    if (Units.ContainsKey(UnitRole.HeavySupport)) rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, HSP + rollOver);
+    if (Units.ContainsKey(UnitRole.FastAttack)) rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, FAP + rollOver);
+    if (Units.ContainsKey(UnitRole.Troops)) rollOver = Generator.FillRanks(Units[UnitRole.Troops], Ignore, ranks, TP + rollOver);
+    if (Units.ContainsKey(UnitRole.FastAttack)) rollOver = Generator.FillRanks(Units[UnitRole.FastAttack], Ignore, ranks, rollOver);
+    if (Units.ContainsKey(UnitRole.HeavySupport)) rollOver = Generator.FillRanks(Units[UnitRole.HeavySupport], Ignore, ranks, rollOver);
+    if (Units.ContainsKey(UnitRole.Elites)) rollOver = Generator.FillRanks(Units[UnitRole.Elites], Ignore, ranks, rollOver);
+    if (Units.ContainsKey(UnitRole.HQ)) rollOver = Generator.FillRanks(Units[UnitRole.HQ], Ignore, ranks, rollOver);
 
     return ranks;
   }

@@ -30,6 +30,22 @@ static class InputGovernor
     [Keys.F4] = 3,
   };
 
+  static public Dictionary<Keys, int> FunctionKeys = new Dictionary<Keys, int>
+  {
+    [Keys.F1] = 0,
+    [Keys.F2] = 1,
+    [Keys.F3] = 2,
+    [Keys.F4] = 3,
+    [Keys.F5] = 4,
+    [Keys.F6] = 5,
+    [Keys.F7] = 6,
+    [Keys.F8] = 7,
+    [Keys.F9] = 8,
+    [Keys.F10] = 9,
+    [Keys.F11] = 10,
+    [Keys.F12] = 11,
+  };
+
 
   public static void DoEvents(Simulation s)
   {
@@ -45,26 +61,44 @@ static class InputGovernor
   static void Battlefield(Simulation s)
   {
     var keys = s.KeyState.GetTriggeredKeys();
-    if (keys.Contains(Keys.Space))
-      MissionRunner.AdvanceState(s);
-
-    foreach (var (key, i) in SelectionKeys)
+    if (s.MissionState.UnitToggleScreen)
     {
-      if (keys.Contains(key) && s.MissionState.CanInteract)
+      if (keys.Contains(Keys.Tab)) s.MissionState.UnitToggleScreen = false;
+      foreach (var (key, i) in SelectionKeys)
+        if (keys.Contains(key))
+          if (s.MissionState.PCUnits.Count > i)
+            s.MissionState.PCUnits.RemoveAt(i);
+
+      foreach (var (key, i) in FunctionKeys)
+        if (keys.Contains(key))
+          if (s.MissionState.AIUnits.Count > i)
+            s.MissionState.AIUnits.RemoveAt(i);
+    }
+    else
+    {
+      if (keys.Contains(Keys.Tab)) s.MissionState.UnitToggleScreen = true;
+
+      if (keys.Contains(Keys.Space))
+        MissionRunner.AdvanceState(s);
+
+      foreach (var (key, i) in SelectionKeys)
       {
-        MissionRunner.Interact(s, i);
+        if (keys.Contains(key) && s.MissionState.CanInteract)
+        {
+          MissionRunner.Interact(s, i);
+        }
       }
-    }
 
-    if (keys.Contains(Keys.PageUp))
-    {
-      s.SelectedView = View.MissionSelect;
-      s.cosmos.PlayerFaction.AddTrait(s.Traits["gelt"], (int)Math.Ceiling(s.ActiveMission.PointCapacity / 3f));
-    }
+      if (keys.Contains(Keys.PageUp))
+      {
+        s.SelectedView = View.MissionSelect;
+        s.cosmos.PlayerFaction.AddTrait(s.Traits["gelt"], (int)Math.Ceiling(s.ActiveMission.PointCapacity / 3f));
+      }
 
-    if (keys.Contains(Keys.PageDown))
-    {
-      s.SelectedView = View.MissionSelect;
+      if (keys.Contains(Keys.PageDown))
+      {
+        s.SelectedView = View.MissionSelect;
+      }
     }
   }
 
@@ -74,6 +108,12 @@ static class InputGovernor
     var keys = s.KeyState.GetTriggeredKeys();
     int pageCount = s.SelectableUnits.Count / 9;
     var Selected = s.Commanders[0];
+
+    if (keys.Contains(Keys.Space))
+    {
+      s.SelectedView = View.MissionSelect;
+      return;
+    }
 
     if (keys.Contains(Keys.Right) && s.CurrentPage < pageCount - 1)
     {
@@ -189,7 +229,7 @@ static class InputGovernor
     if (keys.Contains(Keys.D1))
     {
       s.SelectedView = View.NewGame;
-      s.SelectableUnits = UnitUtils.GetRoster(s, s.UnitList);
+      s.SelectableUnits = UnitUtils.GetRoster(s, s.ModelList);
       return;
     }
     if (keys.Contains(Keys.D2))

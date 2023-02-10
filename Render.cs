@@ -297,53 +297,77 @@ public partial class WarClub : Game
       spriteBatch.Draw(MapTextures[right.Texture], new Rectangle(new Point((int)(screenSize.X / 2), 0), new Point((int)(screenSize.X / 2), (int)screenSize.Y)), Color.White);
     }
     spriteBatch.End();
-
-    DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(screenSize.X, 300, 0));
-    DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(0, screenSize.Y - 300, 0));
-    // DrawMissionMessages(Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(0, screenSize.Y - 200, 0));
-
-    // Draw deployment zones
-    DrawZone(transformMatrix, s.MissionState);
-
-
-    // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateRotationZ((float)(Math.PI)) * Matrix.CreateTranslation(screenSize.X / 2 + 250, 200, 0), s.ActiveMission.PlayerUnits.First());
-
-    // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y - 200, 0), s.ActiveMission.PlayerUnits.First());
-
-    // DrawDataCard(Matrix.CreateScale(0.5f, -0.5f, 0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y, 0) * Matrix.CreateRotationZ(3.14f), s.ActiveMission.PlayerUnits.First());
-
-    var offset = 0;
-    if (s.MissionState.PlayerTurn)
+    if (!s.MissionState.UnitToggleScreen)
     {
-      foreach (var unit in s.MissionState.AIUnits)
+      DrawZone(transformMatrix, s.MissionState);
+
+      DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(screenSize.X, 300, 0));
+      DrawMissionMessages(Matrix.CreateScale(1.0f) * Matrix.CreateTranslation(0, screenSize.Y - 300, 0));
+
+
+      // DrawMissionMessages(Matrix.CreateRotationZ(3.14f) * Matrix.CreateTranslation(0, screenSize.Y - 200, 0));
+
+      // Draw deployment zones
+
+
+      // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateRotationZ((float)(Math.PI)) * Matrix.CreateTranslation(screenSize.X / 2 + 250, 200, 0), s.ActiveMission.PlayerUnits.First());
+
+      // DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y - 200, 0), s.ActiveMission.PlayerUnits.First());
+
+      // DrawDataCard(Matrix.CreateScale(0.5f, -0.5f, 0.5f) * Matrix.CreateTranslation(screenSize.X / 2 - 250, screenSize.Y, 0) * Matrix.CreateRotationZ(3.14f), s.ActiveMission.PlayerUnits.First());
+
+      var offset = 0;
+      if (s.MissionState.PlayerTurn && !s.MissionState.EventActive)
       {
-        DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
-        DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
-        offset += 200;
+        foreach (var unit in s.MissionState.AIUnits)
+        {
+          DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
+          DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
+          offset += 200;
+        }
+        offset = 0;
+        foreach (var unit in s.MissionState.PCUnits)
+        {
+          DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(offset, screenSize.Y - 600, 0), unit);
+          DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X - offset, 600, 0), unit);
+          offset += 820;
+        }
       }
+
       offset = 0;
-      foreach (var unit in s.MissionState.PCUnits)
+      if (!s.MissionState.PlayerTurn)
       {
-        DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(offset, screenSize.Y - 200, 0), unit);
-        // DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
-        offset += 820;
+        if (s.MissionState.ActiveUnit != null)
+        {
+          DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) - 400, screenSize.Y - 600, 0), s.MissionState.ActiveUnit);
+          DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) + 400, 600, 0), s.MissionState.ActiveUnit);
+        }
+        foreach (var unit in s.MissionState.PCUnits)
+        {
+          DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
+          DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
+          offset += 200;
+        }
       }
     }
-
-    offset = 0;
-    if (!s.MissionState.PlayerTurn)
+    else
     {
-      if (s.MissionState.ActiveUnit != null)
+      spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
+      for (int i = 0; i < s.MissionState.AIUnits.Count; i++)
       {
-        DrawDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) - 400, 0, 0), s.MissionState.ActiveUnit);
-        DrawDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation((screenSize.X / 2) + 400, screenSize.Y, 0), s.MissionState.ActiveUnit);
+        var unit = s.MissionState.AIUnits[i];
+        Point pos = new Point(i - ((i / 8) * 8), i / 8);
+        DrawModelIcon(unit.Model, new Rectangle(50 + pos.X * 500, 50 + pos.Y * 500, 300, 300));
+        DrawString(basicFont, $"F{i + 1}: {unit.BaseUnit.DataSheet.Name}", new Rectangle(50 + pos.X * 500, 30 + pos.Y * 500, 200, 20), Alignment.Center, Color.OrangeRed);
       }
-      foreach (var unit in s.MissionState.PCUnits)
+      for (int i = 0; i < s.MissionState.PCUnits.Count; i++)
       {
-        DrawEnemyDataCard(Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(0, offset, 0), unit);
-        DrawEnemyDataCard(Matrix.CreateRotationZ(3.14f) * Matrix.CreateScale(0.5f) * Matrix.CreateTranslation(screenSize.X, screenSize.Y - offset, 0), unit);
-        offset += 200;
+        var unit = s.MissionState.PCUnits[i];
+        Point pos = new Point(i - ((i / 8) * 8), i / 8);
+        DrawModelIcon(unit.Model, new Rectangle(50 + pos.X * 500, 1280 + pos.Y * 500, 300, 300));
+        DrawString(basicFont, $"{i + 1}: {unit.BaseUnit.DataSheet.Name}", new Rectangle(50 + pos.X * 500, 1250 + pos.Y * 500, 200, 20), Alignment.Center, Color.GreenYellow);
       }
+      spriteBatch.End();
     }
 
     // DrawDataCard(Matrix.CreateTranslation(screenSize.X - 1600, screenSize.Y - 400, 0), UnitUtils.ActivateUnit(s.cosmos.PlayerFaction.Units[UnitRole.Troops].First()));
@@ -409,11 +433,12 @@ public partial class WarClub : Game
   {
     spriteBatch.Begin(transformMatrix: transformMatrix * s.ViewMatrix);
     var offset = 0;
-    DrawString(basicFontLarge, $"Turn: {s.MissionState.Turn} - Phase: {s.MissionState.Phase} - Ally: {s.MissionState.PCUnitsReady.Count}/{s.MissionState.PCUnits.Count} - Enemy: {s.MissionState.AIUnitsReady.Count}/{s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Center, Color.White);
+    var player = s.MissionState.PlayerTurn ? "Ally" : "Enemy";
+    DrawString(basicFontLarge, $"Turn: {s.MissionState.Turn} - {player} {s.MissionState.Phase} - Enemies Left: {s.MissionState.AIUnits.Count}", new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Center, s.MissionState.PlayerTurn ? Color.GreenYellow : Color.OrangeRed);
     foreach (var message in s.MissionState.Messages)
     {
       DrawString(basicFontLarge, message.Text, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100), Alignment.Center, message.Color);
-      if (message.Model != null && message.Model.Texture != null) DrawModelIcon(message.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
+      if (message.Unit?.Model != null && message.Unit.Model.Texture != null) DrawModelIcon(message.Unit.Model, new Rectangle(0, offset++ * 75, (int)screenSize.X, 100));
     }
     spriteBatch.End();
   }
@@ -719,6 +744,7 @@ public partial class WarClub : Game
 
   void DrawModelIcon(Models model, Rectangle zone)
   {
+    if (model == null) return;
     float ratio = model.Texture.Height / (float)model.Texture.Width;
     // int size = 300;
     // spriteBatch.Draw(BlankTexture, new Rectangle(zone.Center - new Point((int)(size / 2), (int)((size / 2) * ratio)), new Point(size, (int)(size * ratio))), new Color(100, 100, 100, 200));

@@ -9,77 +9,6 @@ namespace WarClub;
 
 static class MissionRunner
 {
-  // public static void AdvanceState(Simulation s)
-  // {
-  //   var state = s.MissionState;
-  //   var m = s.ActiveMission;
-  //   if (!state.DeploymentPhase)
-  //   {
-  //     state.Round++;
-  //     state.Messages.Clear();
-  //     if (state.PlayerTurn)
-  //     {
-  //       if (state.PCUnitsReady.Count > 0) state.PCUnitsReady.RemoveAt(0);
-  //       if (state.AIUnitsReady.Count > 0)
-  //       {
-  //         state.ActiveUnit = RNG.PickFrom(state.AIUnitsReady);
-  //         state.PlayerTurn = false;
-  //         state.Messages.Add(new MissionMessage() { Text = $"Activate {state.ActiveUnit.BaseUnit.DataSheet.Name}", Color = Color.OrangeRed, Model = state.ActiveUnit.Model });
-  //       }
-  //       else
-  //       {
-  //         state.Messages.Add(new MissionMessage() { Text = "Ally Activation", Color = Color.GreenYellow });
-  //       }
-  //     }
-  //     else
-  //     {
-  //       state.AIUnitsReady.Remove(state.ActiveUnit);
-  //       if (state.PCUnitsReady.Count > 0)
-  //       {
-  //         state.PlayerTurn = true;
-  //         state.Messages.Add(new MissionMessage() { Text = "Ally Activation", Color = Color.GreenYellow });
-  //       }
-  //       else
-  //       {
-  //         if (state.AIUnitsReady.Count > 0)
-  //         {
-  //           state.ActiveUnit = RNG.PickFrom(state.AIUnitsReady);
-  //           state.Messages.Add(new MissionMessage() { Text = $"Activate {state.ActiveUnit.BaseUnit.DataSheet.Name}", Color = Color.OrangeRed, Model = state.ActiveUnit.Model });
-  //         }
-  //       }
-  //     }
-  //     if (state.AIUnitsReady.Count > 0 || state.PCUnitsReady.Count > 0) return;
-  //   }
-
-  //   state.Turn++;
-  //   state.Round = 1;
-  //   state.TempZones.Clear();
-  //   state.Messages.Clear();
-  //   var events = m.MissionEvents.Where(x => x.Turn == state.Turn).ToList();
-  //   SpawnZones(state, events);
-  //   // Spawn Units
-  //   bool spawnedUnitRound = false;
-  //   foreach (var e in events)
-  //   {
-  //     if (e.Type == MissionSpawnType.AISpawn)
-  //       state.AIUnits.Add(e.Unit);
-  //     if (e.Type == MissionSpawnType.PCDeploymentZone)
-  //       state.PCUnits.AddRange(s.SelectedUnits);
-  //     if (e.Type == MissionSpawnType.AISpawn || e.Type == MissionSpawnType.PCDeploymentZone) spawnedUnitRound = true;
-  //   }
-
-  //   state.DeploymentPhase = spawnedUnitRound;
-
-  //   // reset for new turn
-  //   if (!state.DeploymentPhase)
-  //   {
-  //     state.PlayerTurn = true;
-  //     state.Messages.Add(new MissionMessage() { Text = "Ally Activation", Color = Color.GreenYellow });
-  //     state.AIUnitsReady.AddRange(state.AIUnits);
-  //     state.PCUnitsReady.AddRange(state.PCUnits);
-  //   }
-  // }
-
   public static void AdvanceState(Simulation s)
   {
     s.MissionState.TempZones.Clear();
@@ -140,7 +69,10 @@ static class MissionRunner
       state.Phase = Phases.Command;
       if (state.PlayerTurn)
       {
-        state.PlayerTurn = false;
+        if (state.AIUnits.Count > 0)
+          state.PlayerTurn = false;
+        else
+          state.Turn++;
       }
       else
       {
@@ -156,12 +88,28 @@ static class MissionRunner
     }).ToList();
     foreach (var e in events)
       state.EventQueue.Enqueue(e);
+
+
+    if (!state.PlayerTurn && state.Phase == Phases.Movement)
+      foreach (var unit in state.AIUnits)
+        state.EventQueue.Enqueue(new MissionEvent() { Type = MissionEventType.AIAction, Unit = unit, Message = new MissionMessage() { Unit = unit, Color = Color.White, Text = Villain.GetMovement(s, unit) } });
+
+    if (!state.PlayerTurn && state.Phase == Phases.Shooting)
+      foreach (var unit in state.AIUnits)
+        state.EventQueue.Enqueue(new MissionEvent() { Type = MissionEventType.AIAction, Unit = unit, Message = new MissionMessage() { Unit = unit, Color = Color.White, Text = Villain.GetShooting(s, unit) } });
+
+    if (!state.PlayerTurn && state.Phase == Phases.Charge)
+      foreach (var unit in state.AIUnits)
+        state.EventQueue.Enqueue(new MissionEvent() { Type = MissionEventType.AIAction, Unit = unit, Message = new MissionMessage() { Unit = unit, Color = Color.White, Text = Villain.GetCharge(s, unit) } });
+
   }
 
   public static void ProcessMissionEvent(Simulation s)
   {
     var state = s.MissionState;
     state.Messages.Clear();
+    state.ActiveUnit = null;
+    state.EventActive = true;
     var e = s.MissionState.EventQueue.Dequeue();
 
     state.CanInteract = e.InteractionEvent;
@@ -185,6 +133,8 @@ static class MissionRunner
         TriggeredEvents = e.TriggeredEvents,
       });
 
+    if (e.Type == MissionEventType.AIAction)
+      state.ActiveUnit = e.Unit;
 
     state.Messages.Add(e.Message);
   }
@@ -193,7 +143,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Command Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Command Phase", Color = Color.GreenYellow });
 
   }
 
@@ -201,7 +153,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Movement Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Movement Phase", Color = Color.GreenYellow });
 
   }
 
@@ -209,7 +163,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Psychic Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Psychic Phase", Color = Color.GreenYellow });
 
   }
 
@@ -217,7 +173,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Shooting Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Shooting Phase", Color = Color.GreenYellow });
 
   }
 
@@ -225,7 +183,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Charge Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Charge Phase", Color = Color.GreenYellow });
 
   }
 
@@ -233,7 +193,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Fight Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Fight Phase", Color = Color.GreenYellow });
 
   }
 
@@ -241,7 +203,9 @@ static class MissionRunner
   {
     var state = s.MissionState;
     state.Messages.Clear();
-    state.Messages.Add(new MissionMessage() { Text = "Morale Phase", Color = Color.GreenYellow });
+    state.ActiveUnit = null;
+    state.EventActive = false;
+    // state.Messages.Add(new MissionMessage() { Text = "Morale Phase", Color = Color.GreenYellow });
 
   }
 

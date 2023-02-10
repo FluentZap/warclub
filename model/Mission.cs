@@ -9,6 +9,8 @@ enum MissionEventType
   PCDeploymentZone,
   // Show on the map until the next turn
   AISpawn,
+  // Unit action
+  AIAction,
   // Shows on map until end of game
   PCEvacZone,
   // Shows on map until it's interacted with
@@ -43,5 +45,6 @@ class MissionMessage
   public string Text;
   public Color Color;
   // public Icon Icon;
-  public Models Model;
+  // public Models Model;
+  public ActiveUnit Unit;
 }

@@ -24,6 +24,7 @@ class ActiveUnit
   public int DeployedCount;
   public Commander Commander;
   public Unit BaseUnit;
+  public UnitArchetypeJob Job;
 }
 
 class Unit
@@ -42,4 +43,27 @@ class UnitArchetypeStats
   public bool Melee;
   public bool Quick;
   public bool Tough;
+}
+
+class UnitArchetype
+{
+  public UnitArchetypeRole Role;
+  public UnitArchetypeJob Job;
+}
+
+enum UnitArchetypeRole
+{
+  Quick,
+  Powerful,
+  Armored
+}
+
+enum UnitArchetypeJob
+{
+  Brawler,
+  Objective,
+  Eliminator,
+  Attrition,
+  ForceMultiplier,
+  Fill,
 }

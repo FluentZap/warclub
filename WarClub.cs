@@ -147,7 +147,7 @@ public partial class WarClub : Game
     TraitIcons.Add(Icon.LightningTear, s.Traits["enlisted gods"]);
     TraitIcons.Add(Icon.Barracks, s.Traits["training camps"]);
 
-    foreach (var unit in s.UnitList)
+    foreach (var unit in s.ModelList)
     {
       if (unit.Image != "")
       {
